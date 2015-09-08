@@ -146,6 +146,7 @@ No. At this time I am unaware of a watermarking plugin for these file types.
 = 1.1, 2015.9.8 =
 * Fixes for WoocCommerce 2.4
 * Support added for more page/paper sizes
+* Date i18n and by WP date setting format
 
 == Upgrade Notice ==
 

@@ -353,9 +353,12 @@ if ( ! class_exists( 'WWPDF_Download_Handler_24' ) ) :
 				WHERE post_id = %s
 				AND meta_key = %s
 				;", $order_id, $order_paid_date) );
-			$order_paid_date = $watermark_order_paid_date->meta_value;
+			$order_paid_date_SQL = $watermark_order_paid_date->meta_value;
 			// change time from SQL format: 2015-01-10 13:31:12
-			$order_paid_date = date( "j M Y", strtotime( $order_paid_date ) );
+			$date_format = get_option( 'date_format' );
+			$order_paid_date = date_i18n( $date_format, strtotime( $order_paid_date_SQL ) );
+
+
 
 			/* 
 			// Include FPDF & FPDI
