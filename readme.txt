@@ -13,6 +13,8 @@ Protect your intellectual property! WaterWoo PDF allows WooCommerce site adminis
 == Description ==
 WaterWoo PDF is a plugin that adds a watermark to every page of your sold PDF file(s). The watermark is customizable with font face, font color, font size, placement, and text. Not only that, but since the watermark is added when the download button is clicked (either on the customer's order confirmation page or email), the watermark can include customer-specific data such as the customer's first name, last name, and email. Your watermark is highly customizable and manipulatable, practically magic!
 
+**Please note** you must have WooCommerce plugin installed and activated for this plugin to work. This plugin watermarks WooCommerce PDF products.
+
 **Features:**
 
 * Watermark only designated PDF downloads (as specified by you), or *all* PDF downloads from your site
