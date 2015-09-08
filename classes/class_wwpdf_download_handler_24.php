@@ -2,9 +2,9 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-if ( ! class_exists( 'WWPDF_Download_Handler' ) ) :
+if ( ! class_exists( 'WWPDF_Download_Handler_24' ) ) :
 
-	class WWPDF_Download_Handler {
+	class WWPDF_Download_Handler_24 {
 
 	/**
 	 * Hook in methods
@@ -17,11 +17,6 @@ if ( ! class_exists( 'WWPDF_Download_Handler' ) ) :
 		remove_action( 'woocommerce_download_file_redirect', array( 'WC_Download_Handler', 'download_file_redirect' ) );
 		add_action( 'woocommerce_download_file_redirect', array( __CLASS__, 'download_file_redirect' ), 10, 2 );
 
-		remove_action( 'woocommerce_download_file_xsendfile', array( 'WC_Download_Handler', 'download_file_xsendfile' ), 10, 2 );
-		add_action( 'woocommerce_download_file_xsendfile', array( __CLASS__, 'download_file_xsendfile' ), 10, 2 );
-
-		remove_action( 'woocommerce_download_file_force', array( 'WC_Download_Handler', 'download_file_force' ), 10, 2 );
-		add_action( 'woocommerce_download_file_force', array( __CLASS__, 'download_file_force' ), 10, 2 );
 	}
 		/**
 		 * Check if we need to download a file and check validity
@@ -43,7 +38,7 @@ if ( ! class_exists( 'WWPDF_Download_Handler' ) ) :
 
 				do_action( 'woocommerce_download_product', $download_data->user_email, $download_data->order_key, $download_data->product_id, $download_data->user_id, $download_data->download_id, $download_data->order_id );
 
-				self::count_download( $download_data );
+				WC_Download_Handler::count_download( $download_data );
 
 				// Is the WaterWoo plugin enabled?
 
@@ -62,17 +57,17 @@ if ( ! class_exists( 'WWPDF_Download_Handler' ) ) :
 					if ( in_array( $file_req, $wwpdf_file_list ) || $wwpdf_files == '' ) { 
 			
 						$wwpdf_file_path = self::wwpdf_watermark_setup( $download_data->user_email, $download_data->order_key, $download_data->product_id, $download_data->user_id, $download_data->download_id, $download_data->order_id, $_product->get_file_download_path( $download_data->download_id ), $file_extension );
-						self::download( $wwpdf_file_path, $download_data->product_id );
+						WC_Download_Handler::download( $wwpdf_file_path, $download_data->product_id );
 					
 					} else {
 					
-						self::download( $_product->get_file_download_path( $download_data->download_id ), $download_data->product_id );
+						WC_Download_Handler::download( $_product->get_file_download_path( $download_data->download_id ), $download_data->product_id );
 					
 					}
 					
 				} else {
 				
-					self::download( $_product->get_file_download_path( $download_data->download_id ), $download_data->product_id );
+					WC_Download_Handler::download( $_product->get_file_download_path( $download_data->download_id ), $download_data->product_id );
 
 				}
 				
@@ -157,7 +152,7 @@ if ( ! class_exists( 'WWPDF_Download_Handler' ) ) :
 			if ( $download_data->user_id && 'yes' === get_option( 'woocommerce_downloads_require_login' ) ) {
 				if ( ! is_user_logged_in() ) {
 					if ( wc_get_page_id( 'myaccount' ) ) {
-						wp_safe_redirect( add_query_arg( 'wc_error', urlencode( __( 'You must be logged in to download files.', 'woocommerce' ) ), wc_get_page_permalink( 'myaccount' ) ) );
+							wp_safe_redirect( add_query_arg( 'wc_error', urlencode( __( 'You must be logged in to download files.', 'woocommerce' ) ), wc_get_page_permalink( 'myaccount' ) ) );
 						exit;
 					} else {
 						self::download_error( __( 'You must be logged in to download files.', 'woocommerce' ) . ' <a href="' . esc_url( wp_login_url( wc_get_page_permalink( 'myaccount' ) ) ) . '" class="wc-forward">' . __( 'Login', 'woocommerce' ) . '</a>', __( 'Log in to Download Files', 'woocommerce' ), 403 );
@@ -167,29 +162,7 @@ if ( ! class_exists( 'WWPDF_Download_Handler' ) ) :
 				}
 			}
 		}
-
-		/**
-		 * Log the download + increase counts
-		 * @param  object $download_data
-		 * @access private
-		 */
-		private static function count_download( $download_data ) {
-			global $wpdb;
-
-			$wpdb->update(
-				$wpdb->prefix . "woocommerce_downloadable_product_permissions",
-				array(
-					'download_count'      => $download_data->download_count + 1,
-					'downloads_remaining' => $download_data->downloads_remaining > 0 ? $download_data->downloads_remaining - 1 : $download_data->downloads_remaining,
-				),
-				array(
-					'permission_id' => absint( $download_data->permission_id ),
-				),
-				array( '%d', '%s' ),
-				array( '%d' )
-			);
-		}
-		
+	
 		/**
 		 * Download a file - hook into init function.
 		 * @param string $file_path URL to file
@@ -246,56 +219,6 @@ if ( ! class_exists( 'WWPDF_Download_Handler' ) ) :
 			}
 
 		}
- 
-	/**
-	 * Download a file using X-Sendfile, X-Lighttpd-Sendfile, or X-Accel-Redirect if available
-	 * @param  string $file_path
-	 * @param  string $filename
-	 */
-	public static function download_file_xsendfile( $file_path, $filename ) {
-		$parsed_file_path = WC_Download_Handler::parse_file_path( $file_path );
-
-		extract( $parsed_file_path );
-
-		if ( function_exists( 'apache_get_modules' ) && in_array( 'mod_xsendfile', apache_get_modules() ) ) {
-			self::download_headers( $parsed_file_path['file_path'], $filename );
-		    header( "X-Sendfile: " . $parsed_file_path['file_path'] );
-			exit;
-		} elseif ( stristr( getenv( 'SERVER_SOFTWARE' ), 'lighttpd' ) ) {
-			self::download_headers( $parsed_file_path['file_path'], $filename );
-		    header( "X-Lighttpd-Sendfile: " . $parsed_file_path['file_path'] );
-			exit;
-		} elseif ( stristr( getenv( 'SERVER_SOFTWARE' ), 'nginx' ) || stristr( getenv( 'SERVER_SOFTWARE' ), 'cherokee' ) ) {
-			self::download_headers( $parsed_file_path['file_path'], $filename );
-			$xsendfile_path = trim( preg_replace( '`^' . str_replace( '\\', '/', getcwd() ) . '`', '', $parsed_file_path['file_path'] ), '/' );
-			header( "X-Accel-Redirect: /$xsendfile_path" );
-			exit;
-		}
-
-		// Fallback
-		self::download_file_force( $file_path, $filename );
-	}
-
-	/**
-	 * Force download - this is the default method
-	 * @param  string $file_path
-	 * @param  string $filename
-	 */
-	public static function download_file_force( $file_path, $filename ) {
-		$parsed_file_path = WC_Download_Handler::parse_file_path( $file_path );
-
-		self::download_headers( $parsed_file_path['file_path'], $filename );
-
-		if ( ! WC_Download_Handler::readfile_chunked( $parsed_file_path['file_path'] ) ) {
-			if ( $parsed_file_path['remote_file'] ) {
-				self::download_file_redirect( $file_path );
-			} else {
-				self::download_error( __( 'File not found', 'woocommerce' ) );
-			}
-		}
-
-		exit;
-	}
 
 	/**
 	 * Get content type of a download
@@ -396,34 +319,6 @@ if ( ! class_exists( 'WWPDF_Download_Handler' ) ) :
 		public static function wwpdf_watermark_setup( $user_email, $order_key, $product_id, $user_id, $download_id, $order_id, $file_path, $file_extension ) {
 			global $wpdb;
 
-			$wp_uploads     = wp_upload_dir();
-			$wp_uploads_dir = $wp_uploads['basedir'];
-			$wp_uploads_url = $wp_uploads['baseurl'];
-
-			// Replace uploads dir, site url etc with absolute counterparts if we can
-			$replacements = array(
-				$wp_uploads_url                  => $wp_uploads_dir,
-				network_site_url( '/', 'https' ) => ABSPATH,
-				network_site_url( '/', 'http' )  => ABSPATH,
-				site_url( '/', 'https' )         => ABSPATH,
-				site_url( '/', 'http' )          => ABSPATH
-			);
-
-			$file_path        = str_replace( array_keys( $replacements ), array_values( $replacements ), $file_path );
-			$parsed_file_path = parse_url( $file_path );
-			$remote_file      = true;
-
-			// See if path needs an abspath prepended to work
-			if ( file_exists( ABSPATH . $file_path ) ) {
-				$remote_file = false;
-				$file_path   = ABSPATH . $file_path;
-
-			// Check if we have an absolute path
-			} elseif ( ( ! isset( $parsed_file_path['scheme'] ) || ! in_array( $parsed_file_path['scheme'], array( 'http', 'https', 'ftp' ) ) ) && isset( $parsed_file_path['path'] ) && file_exists( $parsed_file_path['path'] ) ) {
-				$remote_file = false;
-				$file_path   = $parsed_file_path['path'];
-			}
-
 			$first_name = "_billing_first_name";      
 			$watermark_first_name = $wpdb->get_row( $wpdb->prepare("
 				SELECT meta_value
@@ -460,24 +355,24 @@ if ( ! class_exists( 'WWPDF_Download_Handler' ) ) :
 				;", $order_id, $order_paid_date) );
 			$order_paid_date = $watermark_order_paid_date->meta_value;
 			// change time from SQL format: 2015-01-10 13:31:12
-			$order_paid_date = date("j M Y", strtotime($order_paid_date) );
+			$order_paid_date = date( "j M Y", strtotime( $order_paid_date ) );
 
 			/* 
 			// Include FPDF & FPDI
 			*/
-
 			// FPDF Copyright 2011-2015 Olivier PLATHEY
 			require_once WWPDF_PATH . 'inc/fpdf/fpdf.php';
 			// FPDI Copyright 2004-2015 Setasign - Jan Slabon
 			require_once WWPDF_PATH . 'inc/fpdi/fpdi.php';
 			
-			$wwpdf_file_path = str_replace( '.pdf', '', $file_path ) . '_' . time() . '_' . $order_key . '.' . $file_extension;
+			$parsed_file_path = WC_Download_Handler::parse_file_path( $file_path );
+			$wwpdf_file_path = str_replace( '.pdf', '', $parsed_file_path['file_path'] ) . '_' . time() . '_' . $order_key . '.' . $file_extension;
 
 			$footer_input = get_option( 'wwpdf_footer_input' );
 			$footer_input = preg_replace( array( '/\[FIRSTNAME\]/','/\[LASTNAME\]/','/\[EMAIL\]/','/\[PHONE\]/','/\[DATE\]/' ), array( $first_name, $last_name, $user_email, $phone, $order_paid_date ), $footer_input );
-			$footer_input = iconv('UTF-8', 'windows-1252', html_entity_decode($footer_input) );
+			$footer_input = iconv( 'UTF-8', 'windows-1252', html_entity_decode( $footer_input ) );
 
-			return WWPDFWatermark::apply_and_spit($file_path, $wwpdf_file_path, $footer_input );
+			return WWPDFWatermark::apply_and_spit( $parsed_file_path['file_path'], $wwpdf_file_path, $footer_input );
 		
 		}
 	}

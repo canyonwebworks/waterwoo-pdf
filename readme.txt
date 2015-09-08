@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: book, copyright, digital, ebook, ecommerce, e-commerce, file, marca de agua, pdf, plugin, property, protection, publishing, security, signature, watermark, watermarking, woocommerce
 Requires at least: 3.7
 Tested up to: 4.3
-Stable tag: 1.0.14
+Stable tag: 1.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -141,6 +141,10 @@ No. At this time I am unaware of a watermarking plugin for these file types.
 * minor error fixes
 * Fixes for Wordpress 4.3
 
+= 1.1, 2015.9.8 =
+* Fixes for WoocCommerce 2.4
+* Support added for more page/paper sizes
+
 == Upgrade Notice ==
 
 = 1.0.2 =
@@ -160,3 +164,6 @@ No. At this time I am unaware of a watermarking plugin for these file types.
 
 = 1.0.10 = 
 * added order paid date shortcode: [DATE]
+
+= 1.1 = 
+* Update required to function with WooCommerce 2.4 and Wordpress 4.3!
