@@ -43,8 +43,8 @@ if ( ! class_exists( 'WWPDFWatermark' ) ) :
 				$tplidx = $this->pdf->importPage($i);
 				$specs = $this->pdf->getTemplateSize($tplidx);
 				$this->pdf->addPage($specs['h'] > $specs['w'] ? 'P' : 'L');
-				$this->pdf->Text( ($specs['w'] / 2) - ($this->pdf->GetStringWidth($this->footer) / 2), $footer_y, $this->footer);
 				$this->pdf->useTemplate($tplidx, null, null, $specs['w'], $specs['h'], true);
+				$this->pdf->Text( ($specs['w'] / 2) - ($this->pdf->GetStringWidth($this->footer) / 2), $footer_y, $this->footer);
 				
 			}
 
