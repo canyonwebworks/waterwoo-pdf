@@ -3,7 +3,7 @@ Contributors: littlepackage
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=PB2CFX8H4V49L
 Tags: book, copyright, digital, ebook, ecommerce, e-commerce, file, marca de agua, pdf, plugin, property, protection, publishing, security, signature, watermark, watermarking, woocommerce
 Requires at least: 3.7
-Tested up to: 4.3.1
+Tested up to: 4.4
 Stable tag: 1.2
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -27,12 +27,15 @@ WaterWoo PDF is a plugin that adds a watermark to every page of your sold PDF fi
 
 **Premium version:**
 
-[WaterWoo Premium](http://www.little-package.com/shop/waterwoo-pdf-premium "WaterWoo PDF Premium Version") offers these helpful extra features:
+[WaterWoo Premium](http://www.little-package.com/shop/pdf-watermark-plugin-waterwoo "WaterWoo PDF Premium Version") offers these helpful extra features:
 
 * Watermark all PDF files with same settings OR set individual watermarks per product or even per product variation!
 * Supports all versions of Adobe PDF (through 1.7)
-* Rotatable transparent page overlay watermark, apart from footer watermark (two watermark locations on the page)
+* Additional, rotatable watermark location - two watermark locations on one page!
 * Additional text formatting options, such as font color and style (bold, italics)
+* Use of some HTML tags to style your output, including text-align (right, center, left is default) and links (<a></a>)
+* Support for maintaining internal and external embedded PDF links despite watermarking
+* Line-wrapping, forced breaks with <p> and <br /> tags
 * Additional font (Deja Vu) adding more international character support
 * Additional dynamic customer data input (business name, order paid date)
 * Begin watermark on selected page of PDF document (to avoid watermarking a cover page, for example)
@@ -65,24 +68,23 @@ First make sure you have checked the box at the top of your settings page (Wooco
 = How do I test my watermark? =
 I recommend creating a coupon in your Woocommerce shop to allow 100% free purchases. Don't share this coupon code with anyone! Test your watermark by purchasing PDFs from your shop using the coupon. It's a bit more tedious. If you want an easier go of it (on-the-fly testing), purchase the Premium version of this plugin.
 
-= Why does the watermark go off the page, create new pages? =
-Your watermark text string is too big or long for the page! Try decreasing font size or using the Y fine tuners to move the watermark back onto the page. The built-in adjustments on the settings page ultimately allow for watermarking on all document sizes. You may need to edit your watermark if it is too verbose.
+= Why does the watermark go off the page, create blank pages? =
+Your watermark text string is too big or long for the page! Try decreasing font size or using the Y fine tuners to move the watermark back onto the page. Try lowering your "y-axis" value. This number corresponds to how many *millimeters* you want the watermark moved down the page. The built-in adjustments on the settings page ultimately allow for watermarking on all document sizes. You may need to edit your watermark if it is too verbose.
 
 = Where do the watermarked files go? =
 They are generated with a unique name and stored in the same folder as your original Wordpress/Woo product media upload (usually wp-content/uploads/year/month/file). The unique name includes the order number and a time stamp. If your end user complains of not being able to access their custom PDF for some reason (most often after their max number of downloads is exceeded), you can find it in that folder, right alongside your original.
 
 = Will WaterWoo PDF watermark images? =
-WaterWoo PDF is intended to watermark PDF (.pdf) files. If you are specifically looking to watermark image files (.jpg, .jpeg, .gif, .png, .etc), you may want to look into a plugin such as [Image Watermark](http://wordpress.org/plugins/image-watermark/ "Image Watermark Plugin"). WaterWoo PDF will create an watermark on a PDF page but the watermark will NOT sit over image files embedded in the PDF. If you want to watermark with images, consider upgrading to the Premium version of this plugin.
+WaterWoo PDF is intended to watermark PDF (.pdf) files. If you are specifically looking to watermark image files (.jpg, .jpeg, .gif, .png, .etc), you may want to look into a plugin such as [Image Watermark](http://wordpress.org/plugins/image-watermark/ "Image Watermark Plugin").
 
 = I get an FPDF error =
 If you get the "FPDF error: This document (../../yourfile.pdf) probably uses a compression technique which is not supported by the free parser shipped with FPDI" it is because the PDF you are trying to watermark uses a compression technique not supported by the bundled PDF generator, FPDI. FPDI parses PDFs through version 1.4, and occasionally has troubles with 1.5, 1.6 and 1.7. 
 
 1. Try this [solution using Acrobat](http://stackoverflow.com/a/7155711 "Stack Overflow"), if possible. Alternatively, you can go to Edit->Preflight->Standards and Save As PDF/A.
-2. If that doesn't work, test and perhaps purchase the [add-on from SetaSign](http://www.setasign.com/products/fpdi/demos/fpdi-pdf-parser/ "PDF Parser Add-On") and add it into this plugin. That will take some programming chops. Or consider buying the Premium version of this plugin, as it will solve this problem.
+2. If that doesn't work, test and perhaps purchase the [add-on from SetaSign](http://www.setasign.com/products/fpdi/demos/fpdi-pdf-parser/ "PDF Parser Add-On") and add it into this plugin. That will take some programming chops. Or consider buying the [Premium version](http://www.little-package.com/shop/pdf-watermark-plugin-waterwoo "WaterWoo PDF Premium Version") of this plugin, as it will solve this problem.
 
 = Does this work for ePub/Mobi files =
-No. At this time I am unaware of a watermarking plugin for these file types.
-
+No, sorry. This plugin is just for PDF files.
 
 == Screenshots ==
 
@@ -147,6 +149,13 @@ No. At this time I am unaware of a watermarking plugin for these file types.
 * Fixes for WoocCommerce 2.4
 * Support added for more page/paper sizes
 * Date i18n and by WP date setting format
+
+= 1.2, 2015.10.25 =
+* Watermarking over PDF images/embedded vectors
+
+= 1.2.1, 2015.12.11 =
+* Checks for Wordpress 4.4 
+* Small language updates
 
 == Upgrade Notice ==
 

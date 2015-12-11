@@ -3,9 +3,9 @@
  * Plugin Name: WaterWoo PDF
  * Plugin URI: https://wordpress.org/plugins/waterwoo-pdf/
  * Description: Custom watermark your PDFs upon WooCommerce sale. 
- * Version: 1.2
+ * Version: 1.2.1
  * Author: Caroline Paquette 
- * Author URI: http://www.little-package.com/waterwoo-pdf
+ * Author URI: http://www.little-package.com/woocommerce-pdf-watermark-waterwoo
  * Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=PB2CFX8H4V49L
  * License: GPLv3 or later
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -13,7 +13,7 @@
  * Text Domain: waterwoo-pdf
  * Domain path: /lang
  *
- * Copyright 2013-2015 Caroline Paquette 
+ * Copyright 2013-2016 Caroline Paquette 
  *		
  *     This file is part of WaterWoo PDF, a plugin for WordPress. If
  * 	   it benefits you, please donate to my coffee & pizza fund and/or
@@ -49,7 +49,7 @@ if ( ! class_exists( 'WaterWooPDF' ) ) :
 		/**
 		 * @var string
 		 */
-		public $version = '1.2';
+		public $version = '1.2.1';
 
 		/**
 		 * Init
@@ -313,7 +313,7 @@ if ( ! class_exists( 'WaterWooPDF' ) ) :
 
 			if ( function_exists( 'is_plugin_active' ) && ! is_plugin_active( 'waterwoo-pdf-premium/waterwoo-pdf-premium.php' ) ) {
 
-				$links[] = '<a href="http://www.little-package.com/shop/waterwoo-pdf-premium" target="_blank">' . __( 'Upgrade to Premium', 'waterwoo-pdf' ) . '</a>';
+				$links[] = '<a href="http://www.little-package.com/shop/pdf-watermark-plugin-waterwoo" target="_blank">' . __( 'Upgrade to Premium', 'waterwoo-pdf' ) . '</a>';
 
 			}
 		
@@ -360,11 +360,11 @@ if ( ! class_exists( 'WaterWooPDF' ) ) :
 			global $current_user, $pagenow;
 			$user_id = $current_user->ID;
 			/* Check that the user hasn't already clicked to ignore the message */
-			if ( ! get_user_meta($user_id, 'wwpdf_ignore_notice5') ) {
+			if ( ! get_user_meta($user_id, 'wwpdf_ignore_notice6') ) {
 				$currentscreen = get_current_screen();
 				if ( $pagenow == 'admin.php' && $currentscreen->id == 'woocommerce_page_wc-settings' ) {
 					echo '<div class="updated"><p>'; 
-					printf(__('<strong>Yay!</strong> WaterWoo is now WooCommerce 2.4-ready!<br />WaterWoo has now downloaded well over 1700 times, but it has only <a href="https://wordpress.org/support/view/plugin-reviews/waterwoo-pdf?filter=5">six (5-star) ratings</a>, and <em>not a single donation</em>.<br />My friends, if you like WaterWoo, <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=PB2CFX8H4V49L">please make a small donation</a> or a submit review to help keep me at the keyboard.<br /><strong>Thank you</strong> for using WaterWoo!<br /><br /><a href="%1$s">Hide This Notice</a>'), '?page=wc-settings&tab=waterwoo-pdf&nag_ignore=0');
+					printf(__('<strong>Yay!</strong> WaterWoo is now ready for Wordpress 4.4!<p>WaterWoo is being used by over 200 websites, but it has only <a href="https://wordpress.org/support/view/plugin-reviews/waterwoo-pdf?filter=5">eleven (5-star) ratings</a>.</p><p>If you like WaterWoo, please <a href="https://wordpress.org/support/view/plugin-reviews/waterwoo-pdf?filter=5" target="_blank">submit a nice review</a> or <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=PB2CFX8H4V49L" target="_blank">please make a small donation</a>. It encourages me to keep maintaining this for you. :)</p><p><strong>Thank you</strong> for using WaterWoo!</p><p><a href="%1$s">Hide This Notice</a></p>'), '?page=wc-settings&tab=waterwoo-pdf&nag_ignore=0');
 					echo "</p></div>";
 				}
 
@@ -384,7 +384,8 @@ if ( ! class_exists( 'WaterWooPDF' ) ) :
 				delete_user_meta($user_id, 'wwpdf_ignore_notice2', 'true', true);
 				delete_user_meta($user_id, 'wwpdf_ignore_notice3', 'true', true);
 				delete_user_meta($user_id, 'wwpdf_ignore_notice4', 'true', true);
-				add_user_meta($user_id, 'wwpdf_ignore_notice5', 'true', true);
+				delete_user_meta($user_id, 'wwpdf_ignore_notice5', 'true', true);
+				add_user_meta($user_id, 'wwpdf_ignore_notice6', 'true', true);
 			}
 		}
 
@@ -498,7 +499,7 @@ if ( ! class_exists( 'WaterWooPDF' ) ) :
 					'type' 		=> 'number',
 					'css' 		=> 'width:50px;',
 					'title' 	=> __( 'Y Fine Tuning', 'waterwoo-pdf' ),
-					'desc' 	=> __( 'Move the footer watermark up and down on the page by adjusting this number. Default is 270 (bottom of page).', 'waterwoo-pdf' ),
+					'desc' 	=> __( 'Move the footer watermark up and down on the page by adjusting this number. Default is 270 millimeters (bottom of letter-sized page).', 'waterwoo-pdf' ),
 					'default' 	=> $wwpdf_footer_y_default,
 					'custom_attributes' => array(
 									'min' 	=> 0,
