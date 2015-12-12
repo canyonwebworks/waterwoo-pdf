@@ -329,7 +329,7 @@ if ( ! class_exists( 'WaterWooPDF' ) ) :
 
 			if ( function_exists( 'is_plugin_active' ) && ! is_plugin_active( 'waterwoo-pdf-premium/waterwoo-pdf-premium.php' ) ) {
 
-				$link = 'http://www.little-package.com/shop/waterwoo-pdf-premium';
+				$link = 'http://www.little-package.com/shop/pdf-watermark-plugin-waterwoo';
 
 				$getPremium = "<div style='display: none;' id='wwpdf-screen-options-link-wrap'><div id='contextual-help-link-wrap'><a target='_blank' class='show-settings' href='{$link}'>" .
 
@@ -454,7 +454,7 @@ if ( ! class_exists( 'WaterWooPDF' ) ) :
 				array(	
 					'id' 		=> 'wwpdf_font',
 					'type' 		=> 'select',
-					'title' 	=> __( 'Font face', 'waterwoo_pdf' ),
+					'title' 	=> __( 'Font face', 'waterwoo-pdf' ),
 					'desc' 	=> __( 'Select a font for watermarks.', 'waterwoo-pdf' ),
 					'css' 		=> 'min-width:300px;',
 					'class'		=> 'chosen_select',

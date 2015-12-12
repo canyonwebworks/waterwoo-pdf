@@ -153,9 +153,9 @@ No, sorry. This plugin is just for PDF files.
 = 1.2, 2015.10.25 =
 * Watermarking over PDF images/embedded vectors
 
-= 1.2.1, 2015.12.11 =
+= 1.2.1, 2015.12.12 =
 * Checks for Wordpress 4.4 
-* Small language updates
+* Small language updates - French (FR/CA), Spanish (ES/MX) and German(DE)
 
 == Upgrade Notice ==
 

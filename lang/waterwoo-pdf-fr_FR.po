@@ -1,0 +1,317 @@
+msgid ""
+msgstr ""
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Project-Id-Version: WaterWoo PDF\n"
+"POT-Creation-Date: 2015-12-12 15:18-0800\n"
+"PO-Revision-Date: 2015-12-12 15:24-0800\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.6\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-WPHeader: waterwoo-pdf.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"Last-Translator: \n"
+"Language: fr_FR\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: classes/class_wwpdf_download_handler_22.php:34
+msgid "Invalid email address."
+msgstr "Adresse courriel non valide."
+
+#: classes/class_wwpdf_download_handler_22.php:34
+#: classes/class_wwpdf_download_handler_22.php:59
+#: classes/class_wwpdf_download_handler_22.php:80
+#: classes/class_wwpdf_download_handler_22.php:87
+#: classes/class_wwpdf_download_handler_22.php:92
+#: classes/class_wwpdf_download_handler_22.php:96
+#: classes/class_wwpdf_download_handler_22.php:140
+#: classes/class_wwpdf_download_handler_22.php:404
+#: classes/class_wwpdf_download_handler_23.php:388
+#: classes/class_wwpdf_download_handler_24.php:311
+msgid "Go to homepage"
+msgstr "Aller à la page d’accueil"
+
+#: classes/class_wwpdf_download_handler_22.php:59
+msgid "Invalid download."
+msgstr "Lien de téléchargement invalide."
+
+#: classes/class_wwpdf_download_handler_22.php:72
+#: classes/class_wwpdf_download_handler_23.php:160
+#: classes/class_wwpdf_download_handler_23.php:163
+#: classes/class_wwpdf_download_handler_24.php:155
+#: classes/class_wwpdf_download_handler_24.php:158
+msgid "You must be logged in to download files."
+msgstr "Vous devez être connecté pour télécharger des fichiers."
+
+#: classes/class_wwpdf_download_handler_22.php:72
+#: classes/class_wwpdf_download_handler_23.php:163
+#: classes/class_wwpdf_download_handler_24.php:158
+msgid "Login"
+msgstr "Connexion"
+
+#: classes/class_wwpdf_download_handler_22.php:72
+#: classes/class_wwpdf_download_handler_23.php:163
+#: classes/class_wwpdf_download_handler_24.php:158
+msgid "Log in to Download Files"
+msgstr "Se connecter pour télécharger des fichiers"
+
+#: classes/class_wwpdf_download_handler_22.php:74
+#: classes/class_wwpdf_download_handler_23.php:166
+#: classes/class_wwpdf_download_handler_24.php:161
+msgid "This is not your download link."
+msgstr "Ce n’est pas votre lien de téléchargement."
+
+#: classes/class_wwpdf_download_handler_22.php:80
+msgid "Product no longer exists."
+msgstr "Produit n'existe plus."
+
+#: classes/class_wwpdf_download_handler_22.php:87
+#: classes/class_wwpdf_download_handler_23.php:125
+#: classes/class_wwpdf_download_handler_24.php:120
+msgid "Invalid order."
+msgstr "Commande invalide."
+
+#: classes/class_wwpdf_download_handler_22.php:92
+#: classes/class_wwpdf_download_handler_23.php:136
+#: classes/class_wwpdf_download_handler_24.php:131
+msgid "Sorry, you have reached your download limit for this file"
+msgstr "Désolé, vous avez atteint votre limite de téléchargement de ce fichier"
+
+#: classes/class_wwpdf_download_handler_22.php:96
+#: classes/class_wwpdf_download_handler_23.php:147
+#: classes/class_wwpdf_download_handler_24.php:142
+msgid "Sorry, this download has expired"
+msgstr "Désolé, ce téléchargement a expiré"
+
+#: classes/class_wwpdf_download_handler_22.php:140
+#: classes/class_wwpdf_download_handler_23.php:200
+#: classes/class_wwpdf_download_handler_24.php:173
+msgid "No file defined"
+msgstr "Aucun fichier défini"
+
+#: classes/class_wwpdf_download_handler_22.php:404
+#: classes/class_wwpdf_download_handler_23.php:293
+msgid "File not found"
+msgstr "Fichier non trouvé"
+
+#: classes/class_wwpdf_download_handler_23.php:80
+#: classes/class_wwpdf_download_handler_24.php:75
+msgid "Invalid download link."
+msgstr "Lien de téléchargement invalide."
+
+#: waterwoo-pdf.php:212
+msgid "FAQ"
+msgstr "FAQ"
+
+#: waterwoo-pdf.php:213
+msgid "Support"
+msgstr "Assistance"
+
+#: waterwoo-pdf.php:225
+msgid "Go to the settings page"
+msgstr "Aller à la page des paramètres"
+
+#: waterwoo-pdf.php:225
+msgid "Settings"
+msgstr "Paramètres"
+
+#: waterwoo-pdf.php:288
+msgid "About the Plugin"
+msgstr "Sur le Plugin"
+
+#: waterwoo-pdf.php:290
+msgid "About WaterWoo PDF"
+msgstr "Sujet de WaterWoo PDF"
+
+#: waterwoo-pdf.php:291
+msgid ""
+"Protect your intellectual property! WaterWoo PDF allows WooCommerce site "
+"administrators to apply custom watermarks to PDFs upon sale."
+msgstr ""
+"Protéger votre propriété intellectuelle ! WaterWoo PDF permet aux "
+"administrateurs de sites WooCommerce d'appliquer des filigranes "
+"personnalisés au format PDF à la vente."
+
+#: waterwoo-pdf.php:292
+msgid ""
+"WaterWoo PDF is a plugin that adds a watermark to every page of your PDF "
+"file(s). The watermark is customizable with font face, font color, font "
+"size, placement, and text. Not only that, but since the watermark is added "
+"when the download button is clicked (either on the customer's order "
+"confirmation page or email), the watermark can include customer-specifc data "
+"such as the customer's first name, last name, and email. Your watermark is "
+"highly customizable and manipulatable."
+msgstr ""
+"WaterWoo PDF est un plugin qui ajoute un filigrane à chaque page de vos "
+"fichiers PDF. Le filigrane est personnalisable avec le type de police, "
+"couleur de police, la taille de police, placement et texte. Non seulement "
+"cela, mais étant donné que le filigrane est ajouté lorsque vous cliquez sur "
+"le bouton Télécharger (que ce soit sur la page de confirmation de commande "
+"du client ou par courriel), le filigrane peut inclure des données de client-"
+"particulières telles que prénom, nom et e-mail du client. Votre filigrane "
+"est hautement personnalisable et balayages."
+
+#: waterwoo-pdf.php:293
+msgid ""
+"<a href=\"http://www.little-package.com/shop/pdf-watermark-plugin-waterwoo\" "
+"target=\"_blank\">Consider upgrading to the Premium version</a> if you need "
+"more functionality. The premium version adds the ability to start "
+"watermarking on a specified page, password protect and copy/print/modify "
+"protect your document, a watermark overlay, HTML input, and UTF-8 and "
+"extended Unicode support for many more foreign language characters. Thanks "
+"again, and enjoy!"
+msgstr ""
+"<a href=\"http://www.little-package.com/shop/pdf-watermark-plugin-waterwoo\" "
+"target=\"_blank\">Envisager la mise à niveau vers la version Premium</a> si "
+"vous avez besoin de davantage de fonctionnalités. La version premium ajoute "
+"la possibilité de commencer le tatouage sur une page spécifiée, mot de passe "
+"protéger et modifier copie/impression/protéger le document, une "
+"superposition de filigrane, input HTML et UTF-8 et étendu support de "
+"l'Unicode pour les caractères de langue étrangère plus nombreux. Merci "
+"encore et bonne chance !"
+
+#: waterwoo-pdf.php:299
+msgid "For more information:"
+msgstr "Renseignements :"
+
+#: waterwoo-pdf.php:300
+msgid "Frequently Asked Questions"
+msgstr "Foire aux questions"
+
+#: waterwoo-pdf.php:301
+msgid "Project on WordPress.org"
+msgstr "Projet sur WordPress.org"
+
+#: waterwoo-pdf.php:302 waterwoo-pdf.php:316
+msgid "Upgrade to Premium"
+msgstr "Passage au Prémium"
+
+#: waterwoo-pdf.php:336
+msgid "Upgrade to WaterWoo PDF Premium"
+msgstr "Passage au WaterWoo PDF Prémium"
+
+#: waterwoo-pdf.php:351
+msgid "Watermark"
+msgstr "Filigrane"
+
+#: waterwoo-pdf.php:367
+#, php-format
+msgid ""
+"<strong>Yay!</strong> WaterWoo is now ready for Wordpress 4.4!<p>WaterWoo is "
+"being used by over 200 websites, but it has only <a href=\"https://wordpress."
+"org/support/view/plugin-reviews/waterwoo-pdf?filter=5\">eleven (5-star) "
+"ratings</a>.</p><p>If you like WaterWoo, please <a href=\"https://wordpress."
+"org/support/view/plugin-reviews/waterwoo-pdf?filter=5\" target=\"_blank"
+"\">submit a nice review</a> or <a href=\"https://www.paypal.com/cgi-bin/"
+"webscr?cmd=_s-xclick&hosted_button_id=PB2CFX8H4V49L\" target=\"_blank"
+"\">please make a small donation</a>. It encourages me to keep maintaining "
+"this for you. :)</p><p><strong>Thank you</strong> for using WaterWoo!</"
+"p><p><a href=\"%1$s\">Hide This Notice</a></p>"
+msgstr ""
+
+#: waterwoo-pdf.php:424
+msgid "WaterWoo General Options"
+msgstr "Options générales de WaterWoo"
+
+#: waterwoo-pdf.php:431
+msgid "Enable Watermarking"
+msgstr "Activez le tatouage"
+
+#: waterwoo-pdf.php:432
+msgid "Check to enable PDF watermarking"
+msgstr "Cocher pour activer le filigranage PDF"
+
+#: waterwoo-pdf.php:439
+msgid "File(s) to watermark"
+msgstr "Fichier (s) à filigrane"
+
+#: waterwoo-pdf.php:440
+msgid ""
+"List file name(s) of PDF(s) to watermark, one per line, e.g., <code>upload."
+"pdf</code> or <code>my_pdf.pdf</code> .<br />If left blank, WaterWoo PDF "
+"will watermark all PDFs sold through WooCommerce."
+msgstr ""
+"Liste des noms des fichiers de PDF(s) de filigrane, un par ligne, par "
+"exemple, <code>upload.pdf</code> ou <code>my_pdf.pdf</code> .<br>Si laissé "
+"vide, WaterWoo PDF sera filigrane tous les PDFs vendus par l'intermédiaire "
+"de WooCommerce."
+
+#: waterwoo-pdf.php:448
+msgid "Custom text for footer watermark"
+msgstr "Texte personnalisé pour le filigrane de pied de page"
+
+#: waterwoo-pdf.php:449
+msgid ""
+"Shortcodes available, all caps, in brackets: <code>[FIRSTNAME]</code> "
+"<code>[LASTNAME]</code> <code>[EMAIL]</code> <code>[PHONE]</code> "
+"<code>[DATE]</code>"
+msgstr ""
+"Shortcodes disponibles, tout en majuscules, entre parenthèses : "
+"<code>[FIRSTNAME]</code> <code>[LASTNAME]</code> <code>[EMAIL]</code> "
+"<code>[PHONE]</code><code>[DATE]</code>"
+
+#: waterwoo-pdf.php:457
+msgid "Font face"
+msgstr "Corps de la police"
+
+#: waterwoo-pdf.php:458
+msgid "Select a font for watermarks."
+msgstr "Sélectionnez une police aux filigranes."
+
+#: waterwoo-pdf.php:474
+msgid "Font size"
+msgstr "Taille de police"
+
+#: waterwoo-pdf.php:476
+msgid "Provide a number (suggested 10-20) for the footer watermark font size"
+msgstr ""
+"Fournir un certain nombre (suggérée 10-20) pour la taille de police de "
+"filigrane de pied de page"
+
+#: waterwoo-pdf.php:489
+msgid "Watermark color"
+msgstr "Filigrane couleur"
+
+#: waterwoo-pdf.php:490
+msgid "Color of the footer watermark. Default is black: <code>#000000</code>."
+msgstr ""
+"Couleur du tatouage pied de page. Valeur par défaut est noir : "
+"<code>#000000</code> ."
+
+#: waterwoo-pdf.php:501
+msgid "Y Fine Tuning"
+msgstr "accord précis"
+
+#: waterwoo-pdf.php:502
+msgid ""
+"Move the footer watermark up and down on the page by adjusting this number. "
+"Default is 270 millimeters (bottom of letter-sized page)."
+msgstr ""
+"Le filigrane de pied de page monter et descendre sur la page en ajustant ce "
+"nombre. Valeur par défaut est 270 millimètres (bas de page format lettre)."
+
+#. Plugin Name of the plugin/theme
+msgid "WaterWoo PDF"
+msgstr "WaterWoo PDF"
+
+#. Plugin URI of the plugin/theme
+msgid "https://wordpress.org/plugins/waterwoo-pdf/"
+msgstr "https://wordpress.org/plugins/waterwoo-pdf/"
+
+#. Description of the plugin/theme
+msgid "Custom watermark your PDFs upon WooCommerce sale."
+msgstr "Custom filigrane à vos documents PDF sur WooCommerce vente."
+
+#. Author of the plugin/theme
+msgid "Caroline Paquette"
+msgstr "Caroline Paquette"
+
+#. Author URI of the plugin/theme
+msgid "http://www.little-package.com/woocommerce-pdf-watermark-waterwoo"
+msgstr "http://www.little-package.com/woocommerce-pdf-watermark-waterwoo"
