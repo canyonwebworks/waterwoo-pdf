@@ -35,7 +35,7 @@ WaterWoo PDF is a plugin that adds a watermark to every page of your sold PDF fi
 * Additional text formatting options, such as font color and style (bold, italics)
 * Use of some HTML tags to style your output, including text-align (right, center, left is default) and links (<a></a>)
 * Support for maintaining internal and external embedded PDF links despite watermarking
-* Line-wrapping, forced breaks with <p> and <br /> tags
+* Line-wrapping, forced breaks with &lt;p&gt; and &lt;br /&gt; tags
 * Additional font (Deja Vu) adding more international character support
 * Additional dynamic customer data input (business name, order paid date)
 * Begin watermark on selected page of PDF document (to avoid watermarking a cover page, for example)
