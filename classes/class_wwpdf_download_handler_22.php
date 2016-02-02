@@ -4,7 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 if ( ! class_exists( 'WWPDF_Download_Handler_22' ) ) :
 
-	class WWPDF_Download_Handler22 {
+	class WWPDF_Download_Handler_22 {
 
 		/**
 		 * Constructor
