@@ -3,8 +3,8 @@ Contributors: littlepackage
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=PB2CFX8H4V49L
 Tags: book, copyright, digital, ebook, ecommerce, e-commerce, file, marca de agua, pdf, plugin, property, protection, publishing, security, signature, watermark, watermarking, woocommerce
 Requires at least: 4.0
-Tested up to: 4.4.1
-Stable tag: 1.2.2
+Tested up to: 4.5.2
+Stable tag: 1.2.3
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -67,7 +67,7 @@ WaterWoo PDF is a plugin that adds a watermark to every page of your sold PDF fi
 You can find the WaterWoo settings page by clicking on the "settings" link under the WaterWoo PDF plugin title on your Wordpress plugins panel, or by navigating to the WooCommerce->Settings->Watermark tab.
 
 = It doesn't seem to work =
-First make sure you have checked the box at the top of your settings page (Woocommerce -> Settings -> Watermark) so that watermarking is enabled! Secondly, make sure you have entered your PDF file names correctly in the second field if you've entered any at all. Lastly, WaterWoo may not be able to watermark PDF files version 1.5 and newer. Consider the Premium version of the plugin, which includes the PDF parser necessary for newer files (1.5+).
+First make sure you have checked the box at the top of your settings page (Woocommerce -> Settings -> Watermark) so that watermarking is enabled! Secondly, make sure you have entered your PDF file names correctly in the second field if you've entered any at all. Lastly, WaterWoo may not be able to watermark PDF files version 1.5 and newer. Consider the Premium version of the plugin, which includes the PDF parser necessary for newer files (1.5+). Please do get in touch with your issues via email ( hello @ waterwoo . me ) before leaving negative feedback about this free plugin.
 
 = How do I test my watermark? =
 I recommend creating a coupon in your Woocommerce shop to allow 100% free purchases. Don't share this coupon code with anyone! Test your watermark by purchasing PDFs from your shop using the coupon. It's a bit more tedious. If you want an easier go of it (on-the-fly testing), purchase the Premium version of this plugin.
@@ -164,6 +164,10 @@ No, sorry. This plugin is just for PDF files.
 = 1.2.2, 2016.2.2 =
 * Checks for Wordpress 4.4.1
 * Fix for legacy version of WooCommerce < 2.3
+
+= 1.2.3, 2016.6.6 =
+* Checks for Wordpress 4.5.2
+* Remove file path from error message
 
 == Upgrade Notice ==
 

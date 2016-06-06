@@ -99,6 +99,8 @@ if ( ! class_exists( 'WWPDF_Download_Handler_23' ) ) :
 			if ( $args['download_id'] ) {
 				$query .= "AND download_id = %s ";
 			}
+			
+			$query .= "ORDER BY downloads_remaining DESC";
 
 			return $wpdb->get_row( $wpdb->prepare( $query, array( $args['email'], $args['order_key'], $args['product_id'], $args['download_id'] ) ) );
 		}
@@ -385,7 +387,7 @@ if ( ! class_exists( 'WWPDF_Download_Handler_23' ) ) :
 		private static function download_error( $message, $title = '', $status = 404 ) {
 
 			if ( ! strstr( $message, '<a ' ) ) {
-				$message .= ' <a href="' . esc_url( home_url() ) . '" class="wc-forward">' . __( 'Go to homepage', 'woocommerce' ) . '</a>';
+    			$message .= ' <a href="' . esc_url( wc_get_page_permalink( 'shop' ) ) . '" class="wc-forward">' . __( 'Go to shop', 'woocommerce' ) . '</a>';
 			}
 			wp_die( $message, $title, array( 'response' => $status ) );
 		}

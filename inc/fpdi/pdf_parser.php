@@ -327,11 +327,7 @@ class pdf_parser
 
             if (is_array($xrefStreamObjDec) && isset($xrefStreamObjDec[0]) && $xrefStreamObjDec[0] == self::TYPE_OBJDEC) {
                 throw new Exception(
-                    sprintf(
-                        'This document (%s) probably uses a compression technique which is not supported by the ' .
-                        'free parser shipped with FPDI. (See https://www.setasign.com/fpdi-pdf-parser for more details)',
-                        $this->filename
-                    )
+                   'This document probably uses a compression technique which is not supported by the free parser shipped with FPDI & included in the free version of WaterWoo PDF. The Premium version of WaterWoo PDF includes this parser. (See https://www.setasign.com/fpdi-pdf-parser for more details)'
                 );
             } else {
                 throw new Exception('Unable to find xref table.');
