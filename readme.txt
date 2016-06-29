@@ -3,8 +3,8 @@ Contributors: littlepackage
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=PB2CFX8H4V49L
 Tags: book, copyright, digital, ebook, ecommerce, e-commerce, file, marca de agua, pdf, plugin, property, protection, publishing, security, signature, watermark, watermarking, woocommerce
 Requires at least: 4.0
-Tested up to: 4.5.2
-Stable tag: 1.2.3
+Tested up to: 4.5.3
+Stable tag: 1.2.4
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -35,7 +35,7 @@ WaterWoo PDF is a plugin that adds a watermark to every page of your sold PDF fi
 * Additional text formatting options, such as font color and style (bold, italics) 
 * Semi-opaque (transparent) watermarks
 * Use of some HTML tags to style your output, including text-align CSS styling (right, center, left is default), links (&lt;a&gt;), bold (&lt;strong&gt;), italic (&lt;em&gt;)...
-* Support for maintaining internal and external embedded PDF links despite watermarking
+* Some support for maintaining internal and external embedded PDF links despite watermarking
 * Line-wrapping, forced breaks with &lt;p&gt; and &lt;br /&gt; tags
 * Additional font (Deja Vu) adding more international character support
 * Additional dynamic customer data input (business name, order paid date)
@@ -168,6 +168,10 @@ No, sorry. This plugin is just for PDF files.
 = 1.2.3, 2016.6.6 =
 * Checks for Wordpress 4.5.2
 * Remove file path from error message
+
+= 1.2.4, 2016.6.29 =
+* Compatibility with WC v.2.6.1
+* Updated internal links to premium version of plugin
 
 == Upgrade Notice ==
 
