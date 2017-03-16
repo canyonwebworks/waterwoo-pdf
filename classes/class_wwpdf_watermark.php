@@ -17,12 +17,17 @@ if ( ! class_exists( 'WWPDFWatermark' ) ) :
 
 		public static function apply_and_spit($origfile, $newfile, $footer) {
 
+			// FPDF Copyright 2011-2015 Olivier PLATHEY
+			require_once WWPDF_PATH . 'inc/fpdf/fpdf.php';
+			// FPDI Copyright 2004-2015 Setasign - Jan Slabon
+			require_once WWPDF_PATH . 'inc/fpdi/fpdi.php';
+
 			$wm = new WWPDFWatermark($origfile, $newfile, $footer);
-			if($wm->is_watermarked()) {
-				return $wm->spit_watermarked();
+			if( file_exists( $wm->newfile ) ) {
+				return $wm->newfile;
 			} else {
 				$wm->do_watermark();
-				return $wm->spit_watermarked();
+				return $wm->newfile;
 			}
 		
 		}
@@ -51,14 +56,6 @@ if ( ! class_exists( 'WWPDFWatermark' ) ) :
 			$this->pdf->Output($this->newfile, 'F');
 
 		} // end function do_watermark
-
-		public function is_watermarked() {
-			return (file_exists($this->newfile));
-		}
-
-		public function spit_watermarked() {
-			return $this->newfile;
-		}
 
 		protected function hex2rgb($hex) {
 			$hex = str_replace("#", "", $hex);

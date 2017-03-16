@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: book, copyright, digital, ebook, ecommerce, e-commerce, file, marca de agua, pdf, plugin, property, protection, publishing, security, signature, watermark, watermarking, woocommerce
 Requires at least: 4.0
 Tested up to: 4.5.3
-Stable tag: 1.2.4
+Stable tag: 1.2.5
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -27,25 +27,29 @@ WaterWoo PDF is a plugin that adds a watermark to every page of your sold PDF fi
 
 **Premium version:**
 
-[WaterWoo Premium](http://waterwoo.me "WaterWoo PDF Premium Version") offers these helpful extra features:
+[WaterWoo Premium](https://waterwoo.me "WaterWoo PDF Premium Version") offers these helpful extra features:
 
 * Watermark all PDF files with same settings OR set individual watermarks per product or even per product variation!
 * Supports all versions of Adobe PDF (through 1.7)
 * Additional, rotatable watermark location - two watermark locations on one page!
 * Additional text formatting options, such as font color and style (bold, italics) 
 * Semi-opaque (transparent) watermarks
+* RTL (right to left) watermarking
 * Use of some HTML tags to style your output, including text-align CSS styling (right, center, left is default), links (&lt;a&gt;), bold (&lt;strong&gt;), italic (&lt;em&gt;)...
-* Some support for maintaining internal and external embedded PDF links despite watermarking
+* Preserves external embedded PDF links despite watermarking; internal links are not preserved (in development)
 * Line-wrapping, forced breaks with &lt;p&gt; and &lt;br /&gt; tags
 * Additional font (Deja Vu) adding more international character support
+* Additional fonts Furat (supports Arabic) and M Sung (supports Chinese)
+* Hook to add your own fonts
 * Additional dynamic customer data input (business name, order paid date)
+* Hook to add 1D and 2D barcodes (including QR codes)
 * Begin watermark on selected page of PDF document (to avoid watermarking a cover page, for example)
 * Watermark every page, odd pages, or even pages
 * Optionally password protect and/or encrypt PDF files
 * Optionally prevent copying, annotating, or modifying of your PDF files
 * Test watermark and/or manually watermark a file on the fly, from the admin panel
 
-[Check out the full-featured version of this plugin](http://waterwoo.me "WaterWoo PDF Premium Version")!
+[Check out the full-featured version of this plugin](https://waterwoo.me "WaterWoo PDF Premium Version")!
 
 == Installation ==
 
@@ -61,19 +65,28 @@ WaterWoo PDF is a plugin that adds a watermark to every page of your sold PDF fi
 1. Deactivate plugin through the 'Plugins' menu in WordPress
 2. Delete plugin through the 'Plugins' menu in WordPress
 
-
 == Frequently Asked Questions ==
-= Where do I change watermark settings? =
-You can find the WaterWoo settings page by clicking on the "settings" link under the WaterWoo PDF plugin title on your Wordpress plugins panel, or by navigating to the WooCommerce->Settings->Watermark tab.
 
 = It doesn't seem to work =
-First make sure you have checked the box at the top of your settings page (Woocommerce -> Settings -> Watermark) so that watermarking is enabled! Secondly, make sure you have entered your PDF file names correctly in the second field if you've entered any at all. Lastly, WaterWoo may not be able to watermark PDF files version 1.5 and newer. Consider the Premium version of the plugin, which includes the PDF parser necessary for newer files (1.5+). Please do get in touch with your issues via email ( hello @ waterwoo . me ) before leaving negative feedback about this free plugin.
+1. Have you checked the box at the top of your settings page (Woocommerce -> Settings -> Watermark) so that watermarking is enabled?
+2. Have you entered your PDF file names correctly in the second field if you've entered any at all?
+3. WaterWoo may not be able to watermark PDF files version 1.5 and newer. Consider the Premium version of the plugin, which includes the PDF parser necessary for newer files (1.5+). 
+4. Is your Y fine-tuning adjustment off the page? Read more below under "Why does the watermark go off the page, create blank pages?".
+
+Please do get in touch with your issues via the Wordpress.org support forum or email ( hello @ waterwoo .me ) before leaving negative feedback about this free plugin.
+
+If requesting help using the Wordpress.org support forum, please state which versions Wordpress/WooCommerce/WaterWoo you are using, what version your PDF is (it should be 1.4 or older), and what error messages if any you are seeing. Screenshots and clear descriptions of the steps it takes to reproduce your problem are also very helpful. Please also make your support request TITLE descriptive. This is a product offered for free and I sorry but I don't have time to guess or read minds.
+
+**Do not use the Wordpress.org support forum for help with the Premium (paid) version** of WaterWoo - that is against Wordpress.org rules.
+
+= Where do I change watermark settings? =
+You can find the WaterWoo settings page by clicking on the "settings" link under the WaterWoo PDF plugin title on your Wordpress plugins panel, or by navigating to the WooCommerce->Settings->Watermark tab.
 
 = How do I test my watermark? =
 I recommend creating a coupon in your Woocommerce shop to allow 100% free purchases. Don't share this coupon code with anyone! Test your watermark by purchasing PDFs from your shop using the coupon. It's a bit more tedious. If you want an easier go of it (on-the-fly testing), purchase the Premium version of this plugin.
 
 = Why does the watermark go off the page, create blank pages? =
-Your watermark text string is too big or long for the page! Try decreasing font size or using the Y fine tuners to move the watermark back onto the page. Try lowering your "y-axis" value. This number corresponds to how many *millimeters* you want the watermark moved down the page. The built-in adjustments on the settings page ultimately allow for watermarking on all document sizes. You may need to edit your watermark if it is too verbose.
+Your watermark text string is too big or long for the page! Try decreasing font size or using the Y fine tuners to move the watermark back onto the page. Try lowering your "y-axis" value. This number corresponds to how many *millimeters* you want the watermark moved down the page. For example, if your PDF page is 11 inches tall, your Y-axis setting should be a deal less than 279.4mm in order for a watermark to show. The built-in adjustments on the settings page ultimately allow for watermarking on all document sizes. You may need to edit your watermark if it is too verbose.
 
 = Where do the watermarked files go? =
 They are generated with a unique name and stored in the same folder as your original Wordpress/Woo product media upload (usually wp-content/uploads/year/month/file). The unique name includes the order number and a time stamp. If your end user complains of not being able to access their custom PDF for some reason (most often after their max number of downloads is exceeded), you can find it in that folder, right alongside your original.
@@ -172,6 +185,12 @@ No, sorry. This plugin is just for PDF files.
 = 1.2.4, 2016.6.29 =
 * Compatibility with WC v.2.6.1
 * Updated internal links to premium version of plugin
+
+= 1.2.5, 2017.3.16 =
+* WC 2.7 ready
+* Hook into 'woocommerce_product_file_download_path' for download manipulation - for WC 2.4+ users
+* Updates to readme.txt to reflect changes in Premium version, FAQ, copyright
+* Remove SQL caching from watermarking queries
 
 == Upgrade Notice ==
 

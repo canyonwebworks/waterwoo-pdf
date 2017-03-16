@@ -3,21 +3,21 @@
  * Plugin Name: WaterWoo PDF
  * Plugin URI: https://wordpress.org/plugins/waterwoo-pdf/
  * Description: Custom watermark your PDFs upon WooCommerce sale. 
- * Version: 1.2.4
+ * Version: 1.2.5
  * Author: Caroline Paquette 
  * Author URI: http://waterwoo.me
- * Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=PB2CFX8H4V49L
+ * Donate link: https://www.paypal.me/littlepackage
  * License: GPLv3 or later
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  * 
  * Text Domain: waterwoo-pdf
  * Domain path: /lang
  *
- * Copyright 2013-2016 Caroline Paquette 
+ * Copyright 2013-2017 Caroline Paquette 
  *		
  *     This file is part of WaterWoo PDF, a plugin for WordPress. If
  * 	   it benefits you, please "buy me a coffee" 
- * 	   https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=PB2CFX8H4V49L
+ * 	   https://www.paypal.me/littlepackage
  * 	   and/or
  * 	   leave a nice review at:
  * 	   https://wordpress.org/support/view/plugin-reviews/waterwoo-pdf?filter=5
@@ -51,7 +51,7 @@ if ( ! class_exists( 'WaterWooPDF' ) ) :
 		/**
 		 * @var string
 		 */
-		public $version = '1.2.4';
+		public $version = '1.2.5';
 
 		/**
 		 * Init
@@ -85,7 +85,7 @@ if ( ! class_exists( 'WaterWooPDF' ) ) :
 				'wwpdfwatermark'				=> WWPDF_PATH . 'classes/class_wwpdf_watermark.php',
 				'wwpdf_download_handler_22'		=> WWPDF_PATH . 'classes/class_wwpdf_download_handler_22.php',
 				'wwpdf_download_handler_23'		=> WWPDF_PATH . 'classes/class_wwpdf_download_handler_23.php',
-				'wwpdf_download_handler_24'		=> WWPDF_PATH . 'classes/class_wwpdf_download_handler_24.php'
+				'wwpdf_file_handler'		    => WWPDF_PATH . 'classes/class_wwpdf_file_handler.php',
 			);
 
 		}
@@ -143,17 +143,17 @@ if ( ! class_exists( 'WaterWooPDF' ) ) :
 			if ( class_exists( 'WC_Download_Handler' ) ) {
 
 				if ( isset( $_GET['download_file'] ) && isset( $_GET['order'] ) && isset( $_GET['email'] ) ) {
-
-					remove_action( 'init', array( 'WC_Download_Handler', 'download_product') );
 					
 					if ( version_compare( get_woocommerce_version(), '2.4', '>=') ) {
 						/* 2.4 and newer */
-						WWPDF_Download_Handler_24::init();
+						new WWPDF_File_Handler();
 					} else if ( version_compare( get_woocommerce_version(), '2.3', '>=') ) {
 						/* 2.3 and newer */
+                        remove_action( 'init', array( 'WC_Download_Handler', 'download_product') );
 						WWPDF_Download_Handler_23::init();
 					} else if ( version_compare( get_woocommerce_version(), '2.3', '<') ) {
 						/* 2.2.11 and older */
+    					remove_action( 'init', array( 'WC_Download_Handler', 'download_product') );
 						new WWPDF_Download_Handler_22();
 					}
 					
@@ -362,11 +362,11 @@ if ( ! class_exists( 'WaterWooPDF' ) ) :
 			global $current_user, $pagenow;
 			$user_id = $current_user->ID;
 			/* Check that the user hasn't already clicked to ignore the message */
-			if ( ! get_user_meta($user_id, 'wwpdf_ignore_notice6') ) {
+			if ( ! get_user_meta($user_id, 'wwpdf_ignore_notice7') ) {
 				$currentscreen = get_current_screen();
 				if ( $pagenow == 'admin.php' && $currentscreen->id == 'woocommerce_page_wc-settings' ) {
 					echo '<div class="updated"><p>'; 
-					printf(__('<strong>Yay!</strong> WaterWoo is now ready for Wordpress 4.4!<p>WaterWoo is being used by over 200 websites, but it has only <a href="https://wordpress.org/support/view/plugin-reviews/waterwoo-pdf?filter=5">eleven (5-star) ratings</a>.</p><p>If you like WaterWoo, please <a href="https://wordpress.org/support/view/plugin-reviews/waterwoo-pdf?filter=5" target="_blank">submit a nice review</a> or <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=PB2CFX8H4V49L" target="_blank">please make a small donation</a>. It encourages me to keep maintaining this for you. :)</p><p><strong>Thank you</strong> for using WaterWoo!</p><p><a href="%1$s">Hide This Notice</a></p>'), '?page=wc-settings&tab=waterwoo-pdf&nag_ignore=0');
+					printf(__('<p>Encourage Wordpress plugin authors to keep making & supporting free plugins! :) If you like WaterWoo, please <a href="https://wordpress.org/support/view/plugin-reviews/waterwoo-pdf?filter=5" target="_blank">submit a kind review</a> or <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=PB2CFX8H4V49L" target="_blank">make a small donation</a>. <strong>Thank you</strong> for using WaterWoo!</p><p><a href="%1$s">Hide This Notice</a></p>'), '?page=wc-settings&tab=waterwoo-pdf&nag_ignore=0');
 					echo "</p></div>";
 				}
 
@@ -387,7 +387,8 @@ if ( ! class_exists( 'WaterWooPDF' ) ) :
 				delete_user_meta($user_id, 'wwpdf_ignore_notice3', 'true', true);
 				delete_user_meta($user_id, 'wwpdf_ignore_notice4', 'true', true);
 				delete_user_meta($user_id, 'wwpdf_ignore_notice5', 'true', true);
-				add_user_meta($user_id, 'wwpdf_ignore_notice6', 'true', true);
+				delete_user_meta($user_id, 'wwpdf_ignore_notice6', 'true', true);
+				add_user_meta($user_id, 'wwpdf_ignore_notice7', 'true', true);
 			}
 		}
 
