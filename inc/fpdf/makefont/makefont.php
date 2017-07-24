@@ -309,11 +309,12 @@ function MakeDefinitionFile($file, $type, $enc, $embed, $map, $info)
 	SaveToFile($file, $s, 't');
 }
 
-function MakeFont($fontfile, $enc='cp1252', $embed=true)
-{
+function MakeFont($fontfile, $enc='cp1252', $embed=true) {
 	// Generate a font definition file
-	if(get_magic_quotes_runtime())
+	// check if get_magic_quotes_runtime() first, deprecated since PHP 5.3
+    if ( function_exists( 'get_magic_quotes_runtime' ) && get_magic_quotes_runtime() && version_compare( phpversion(), '5.4', '<' ) ) {
 		@set_magic_quotes_runtime(0);
+	}
 	ini_set('auto_detect_line_endings', '1');
 
 	if(!file_exists($fontfile))

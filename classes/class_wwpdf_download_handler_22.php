@@ -308,10 +308,8 @@ if ( ! class_exists( 'WWPDF_Download_Handler_22' ) ) :
 			}
 
 			// Start setting headers
-			if ( ! ini_get('safe_mode') ) {
-				@set_time_limit(0);
-			}
-			if ( function_exists( 'get_magic_quotes_runtime' ) && get_magic_quotes_runtime() ) {
+
+		    if ( function_exists( 'get_magic_quotes_runtime' ) && get_magic_quotes_runtime() && version_compare( phpversion(), '5.4', '<' ) ) {
 				@set_magic_quotes_runtime(0);
 			}
 

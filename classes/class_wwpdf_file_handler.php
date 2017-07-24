@@ -19,8 +19,9 @@ if ( ! class_exists( 'WWPDF_File_Handler' ) ) {
         public function pdf_file_download_path( $file_path, $product, $download_id ) {
 
             // PDF - watermarking - start by checking if it's even a PDF
-            $file_extension = strtolower( substr( strrchr( $file_path, "." ), 1 ) );
-            if ( $file_extension == 'pdf' ) {
+            $file_extension = preg_replace( '/\?.*/', '', substr( strrchr( $file_path, '.' ), 1 ) );
+
+            if ( strtolower( $file_extension ) == 'pdf' ) {
 
 				// Is the WaterWoo plugin enabled?
                 $wwpdf_enabled = get_option( 'wwpdf_enable' );

@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: book, copyright, digital, ebook, ecommerce, e-commerce, file, marca de agua, pdf, plugin, property, protection, publishing, security, signature, watermark, watermarking, woocommerce
 Requires at least: 4.0
 Tested up to: 4.5.3
-Stable tag: 1.2.5
+Stable tag: 1.2.6
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -53,6 +53,12 @@ WaterWoo PDF is a plugin that adds a watermark to every page of your sold PDF fi
 
 == Installation ==
 
+= Prerequisites =
+1. WordPress 4.0 or newer
+2. WooCommerce plugin and PDF products
+3. PHP version 5.4 or newer
+4. If you are selling large files or have high sales traffic, you may need to upgrade your hosting account. Do at least set your PHP memory limit high.
+
 = To install plugin =
 1. Upload the entire "waterwoo-pdf" folder to the "/wp-content/plugins/" directory.
 2. Activate the plugin through the "Plugins" menu in WordPress.
@@ -75,7 +81,7 @@ WaterWoo PDF is a plugin that adds a watermark to every page of your sold PDF fi
 
 Please do get in touch with your issues via the Wordpress.org support forum or email ( hello @ waterwoo .me ) before leaving negative feedback about this free plugin.
 
-If requesting help using the Wordpress.org support forum, please state which versions Wordpress/WooCommerce/WaterWoo you are using, what version your PDF is (it should be 1.4 or older), and what error messages if any you are seeing. Screenshots and clear descriptions of the steps it takes to reproduce your problem are also very helpful. Please also make your support request TITLE descriptive. This is a product offered for free and I sorry but I don't have time to guess or read minds.
+If requesting help using the Wordpress.org support forum, please state which versions Wordpress/WooCommerce/WaterWoo you are using, what version your PDF is (it should be 1.4 or older), and what error messages if any you are seeing. Screenshots and clear descriptions of the steps it takes to reproduce your problem are also very helpful. Please also make your support request TITLE descriptive. I offer and support this plugin unpaid, and I'm sorry but I don't have time to guess or read minds.
 
 **Do not use the Wordpress.org support forum for help with the Premium (paid) version** of WaterWoo - that is against Wordpress.org rules.
 
@@ -191,6 +197,11 @@ No, sorry. This plugin is just for PDF files.
 * Hook into 'woocommerce_product_file_download_path' for download manipulation - for WC 2.4+ users
 * Updates to readme.txt to reflect changes in Premium version, FAQ, copyright
 * Remove SQL caching from watermarking queries
+
+= 1.2.6, 2017.7.24 =
+* Remove INI directive 'safe_mode' (removed with PHP version 5.4)
+* More checks before use of set_magic_quotes_runtime() (removed with PHP version 5.4)
+* Replaced nag message - lots of people using WaterWoo, little love ;)
 
 == Upgrade Notice ==
 
