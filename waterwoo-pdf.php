@@ -3,17 +3,20 @@
  * Plugin Name: WaterWoo PDF
  * Plugin URI: https://wordpress.org/plugins/waterwoo-pdf/
  * Description: Custom watermark your PDFs upon WooCommerce sale. 
- * Version: 1.2.6
- * Author: Caroline Paquette
+ * Version: 1.2.7
+ * Author: Caroline Paquette 
  * Author URI: http://waterwoo.me
  * Donate link: https://www.paypal.me/littlepackage
+ * WC requires at least: 2.2.11
+ * WC tested up to: 3.2.6
+ * 
  * License: GPLv3 or later
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  * 
  * Text Domain: waterwoo-pdf
  * Domain path: /lang
  *
- * Copyright 2013-2017 Caroline Paquette
+ * Copyright 2013-2017 Caroline Paquette 
  *		
  *     This file is part of WaterWoo PDF, a plugin for WordPress. If
  * 	   it benefits you, please "buy me a coffee" 
@@ -51,7 +54,7 @@ if ( ! class_exists( 'WaterWooPDF' ) ) :
 		/**
 		 * @var string
 		 */
-		public $version = '1.2.6';
+		public $version = '1.2.7';
 
 		/**
 		 * Init
@@ -366,7 +369,7 @@ if ( ! class_exists( 'WaterWooPDF' ) ) :
 				$currentscreen = get_current_screen();
 				if ( $pagenow == 'admin.php' && $currentscreen->id == 'woocommerce_page_wc-settings' ) {
 					echo '<div class="updated"><p>'; 
-					printf(__('<p>Encourage Wordpress plugin authors to keep making & supporting FREE plugins! :) If you benefit from WaterWoo, please <a href="https://wordpress.org/support/view/plugin-reviews/waterwoo-pdf?filter=5" target="_blank">submit a kind review</a> or <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=PB2CFX8H4V49L" target="_blank">make a small donation</a>. <strong>Thank you</strong> for using WaterWoo!</p><p><a href="%1$s">Hide This Notice</a></p>'), '?page=wc-settings&tab=waterwoo-pdf&nag_ignore=0');
+					printf(__('<p>Encourage Wordpress plugin authors to keep making & supporting free plugins! :) If you like WaterWoo, please <a href="https://wordpress.org/support/view/plugin-reviews/waterwoo-pdf?filter=5" target="_blank">submit a kind review</a> or <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=PB2CFX8H4V49L" target="_blank">make a small donation</a>. <strong>Thank you</strong> for using WaterWoo!</p><p><a href="%1$s">Hide This Notice</a></p>'), '?page=wc-settings&tab=waterwoo-pdf&nag_ignore=0');
 					echo "</p></div>";
 				}
 

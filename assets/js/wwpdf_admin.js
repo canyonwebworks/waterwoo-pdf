@@ -1,5 +1,1 @@
-jQuery(document).ready(function($) {
-
-	jQuery('#wwpdf-screen-options-link-wrap').appendTo('#screen-meta-links').show();
-
-});
+jQuery(document).ready(function($){jQuery('#wwpdf-screen-options-link-wrap').appendTo('#screen-meta-links').show();});

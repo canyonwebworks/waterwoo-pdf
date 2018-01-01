@@ -3,7 +3,7 @@ Contributors: littlepackage
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=PB2CFX8H4V49L
 Tags: book, copyright, digital, ebook, ecommerce, e-commerce, file, marca de agua, pdf, plugin, property, protection, publishing, security, signature, watermark, watermarking, woocommerce
 Requires at least: 4.0
-Tested up to: 4.5.3
+Tested up to: 4.9.1
 Stable tag: 1.2.6
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -201,7 +201,9 @@ No, sorry. This plugin is just for PDF files.
 = 1.2.6, 2017.7.24 =
 * Remove INI directive 'safe_mode' (removed with PHP version 5.4)
 * More checks before use of set_magic_quotes_runtime() (removed with PHP version 5.4)
-* Replaced nag message - lots of people using WaterWoo, little love ;)
+
+= 1.2.7, 2017.12.31 =
+* Woocommerce version check support
 
 == Upgrade Notice ==
 
