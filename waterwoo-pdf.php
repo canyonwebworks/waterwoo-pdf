@@ -16,7 +16,7 @@
  * Text Domain: waterwoo-pdf
  * Domain path: /lang
  *
- * Copyright 2013-2017 Caroline Paquette 
+ * Copyright 2013-2018 Caroline Paquette 
  *		
  *     This file is part of WaterWoo PDF, a plugin for WordPress. If
  * 	   it benefits you, please "buy me a coffee" 
