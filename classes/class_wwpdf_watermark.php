@@ -8,7 +8,7 @@ if ( ! class_exists( 'WWPDFWatermark' ) ) :
 
 		public function __construct($origfile, $newfile, $footer) {
 
-			$this->pdf = new FPDI();
+			$this->pdf = new Woo_FPDI();
 			$this->file = $origfile;
 			$this->newfile = $newfile;
 			$this->footer = $footer; 

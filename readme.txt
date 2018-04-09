@@ -205,6 +205,10 @@ No, sorry. This plugin is just for PDF files.
 = 1.2.7, 2017.12.31 =
 * Woocommerce version check support
 
+= 1.2.8, 2018.04.09 =
+* Give unique FPDF class a unique name and check for existence before using
+* Woocommerce version check support
+
 == Upgrade Notice ==
 
 = 1.0.2 =

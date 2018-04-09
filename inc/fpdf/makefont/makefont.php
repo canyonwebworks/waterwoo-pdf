@@ -9,8 +9,7 @@
 
 require('ttfparser.php');
 
-function Message($txt, $severity='')
-{
+function Message($txt, $severity='') {
 	if(PHP_SAPI=='cli')
 	{
 		if($severity)
@@ -25,24 +24,20 @@ function Message($txt, $severity='')
 	}
 }
 
-function Notice($txt)
-{
+function Notice($txt) {
 	Message($txt, 'Notice');
 }
 
-function Warning($txt)
-{
+function Warning($txt) {
 	Message($txt, 'Warning');
 }
 
-function Error($txt)
-{
+function Error($txt) {
 	Message($txt, 'Error');
 	exit;
 }
 
-function LoadMap($enc)
-{
+function LoadMap($enc) {
 	$file = dirname(__FILE__).'/'.strtolower($enc).'.map';
 	$a = file($file);
 	if(empty($a))
@@ -59,8 +54,7 @@ function LoadMap($enc)
 	return $map;
 }
 
-function GetInfoFromTrueType($file, $embed, $map)
-{
+function GetInfoFromTrueType($file, $embed, $map) {
 	// Return informations from a TrueType font
 	$ttf = new TTFParser();
 	$ttf->Parse($file);
@@ -102,8 +96,7 @@ function GetInfoFromTrueType($file, $embed, $map)
 	return $info;
 }
 
-function GetInfoFromType1($file, $embed, $map)
-{
+function GetInfoFromType1($file, $embed, $map) {
 	// Return informations from a Type1 font
 	if($embed)
 	{
@@ -193,8 +186,7 @@ function GetInfoFromType1($file, $embed, $map)
 	return $info;
 }
 
-function MakeFontDescriptor($info)
-{
+function MakeFontDescriptor($info) {
 	// Ascent
 	$fd = "array('Ascent'=>".$info['Ascender'];
 	// Descent
@@ -230,8 +222,7 @@ function MakeFontDescriptor($info)
 	return $fd;
 }
 
-function MakeWidthArray($widths)
-{
+function MakeWidthArray($widths) {
 	$s = "array(\n\t";
 	for($c=0;$c<=255;$c++)
 	{
@@ -253,8 +244,7 @@ function MakeWidthArray($widths)
 	return $s;
 }
 
-function MakeFontEncoding($map)
-{
+function MakeFontEncoding($map) {
 	// Build differences from reference encoding
 	$ref = LoadMap('cp1252');
 	$s = '';
@@ -272,8 +262,7 @@ function MakeFontEncoding($map)
 	return rtrim($s);
 }
 
-function SaveToFile($file, $s, $mode)
-{
+function SaveToFile($file, $s, $mode) {
 	$f = fopen($file, 'w'.$mode);
 	if(!$f)
 		Error('Can\'t write to file '.$file);
@@ -281,8 +270,7 @@ function SaveToFile($file, $s, $mode)
 	fclose($f);
 }
 
-function MakeDefinitionFile($file, $type, $enc, $embed, $map, $info)
-{
+function MakeDefinitionFile($file, $type, $enc, $embed, $map, $info) {
 	$s = "<?php\n";
 	$s .= '$type = \''.$type."';\n";
 	$s .= '$name = \''.$info['FontName']."';\n";
@@ -355,8 +343,7 @@ function MakeFont($fontfile, $enc='cp1252', $embed=true) {
 	Message('Font definition file generated: '.$basename.'.php');
 }
 
-if(PHP_SAPI=='cli')
-{
+if(PHP_SAPI=='cli') {
 	// Command-line interface
 	if($argc==1)
 		die("Usage: php makefont.php fontfile [enc] [embed]\n");

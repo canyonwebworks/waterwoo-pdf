@@ -22,8 +22,7 @@ require_once('fpdi_bridge.php');
 /**
  * Class FPDF_TPL
  */
-class FPDF_TPL extends fpdi_bridge
-{
+class Woo_FPDF_TPL extends woo_fpdi_bridge {
     /**
      * Array of template data
      *
