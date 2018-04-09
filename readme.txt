@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: book, copyright, digital, ebook, ecommerce, e-commerce, file, marca de agua, pdf, plugin, property, protection, publishing, security, signature, watermark, watermarking, woocommerce
 Requires at least: 4.0
 Tested up to: 4.9.1
-Stable tag: 1.2.7
+Stable tag: 1.2.8
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -206,7 +206,7 @@ No, sorry. This plugin is just for PDF files.
 * Woocommerce version check support
 
 = 1.2.8, 2018.04.09 =
-* Give unique FPDF class a unique name and check for existence before using
+* Give unique FPDF, etc. classes a unique name and check for existence before using
 * Woocommerce version check support
 
 == Upgrade Notice ==
