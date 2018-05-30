@@ -3,12 +3,12 @@
  * Plugin Name: WaterWoo PDF
  * Plugin URI: https://wordpress.org/plugins/waterwoo-pdf/
  * Description: Custom watermark your PDFs upon WooCommerce sale. 
- * Version: 1.2.8
+ * Version: 2.0
  * Author: Little Package 
  * Author URI: https://waterwoo.me
  * Donate link: https://www.paypal.me/littlepackage
- * WC requires at least: 2.2.11
- * WC tested up to: 3.3.4
+ * WC requires at least: 2.4
+ * WC tested up to: 3.4.1
  * 
  * License: GPLv3 or later
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -42,19 +42,17 @@
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
-
 if ( ! function_exists( 'is_woocommerce_active' ) || ! function_exists( 'get_woocommerce_version' ) ) require_once( 'woo-includes/woo-functions.php' );
-
 if ( ! is_woocommerce_active() ) return;
 
-if ( ! class_exists( 'WaterWooPDF' ) ) :
+if ( ! class_exists( 'WaterWooPDF' ) ) {
 
 	class WaterWooPDF {
 
 		/**
 		 * @var string
 		 */
-		public $version = '1.2.8';
+		public $version = '2.0';
 
 		/**
 		 * Init
@@ -86,8 +84,6 @@ if ( ! class_exists( 'WaterWooPDF' ) ) :
 
 			return array(
 				'wwpdfwatermark'				=> WWPDF_PATH . 'classes/class_wwpdf_watermark.php',
-				'wwpdf_download_handler_22'		=> WWPDF_PATH . 'classes/class_wwpdf_download_handler_22.php',
-				'wwpdf_download_handler_23'		=> WWPDF_PATH . 'classes/class_wwpdf_download_handler_23.php',
 				'wwpdf_file_handler'		    => WWPDF_PATH . 'classes/class_wwpdf_file_handler.php',
 			);
 
@@ -100,13 +96,9 @@ if ( ! class_exists( 'WaterWooPDF' ) ) :
 		public function autoload( $class ) {
 
 			$classes = $this->plugin_classes();
-
 			$class_name = strtolower( $class );
-
 			if ( isset( $classes[$class_name] ) && is_readable( $classes[$class_name] ) ) {
-
 				require_once( $classes[$class_name] );
-
 			}
 
 		}
@@ -144,20 +136,16 @@ if ( ! class_exists( 'WaterWooPDF' ) ) :
 			add_action( 'admin_init', array( $this, 'nag_ignore' ) );
 
 			if ( class_exists( 'WC_Download_Handler' ) ) {
-
-				if ( isset( $_GET['download_file'] ) && isset( $_GET['order'] ) && isset( $_GET['email'] ) ) {
-					
+                if ( 	
+						( isset( $_GET['download_file'] ) && isset( $_GET['order'] ) && isset( $_GET['email'] ) ) ||
+						( isset( $_GET['download_file'], $_GET['order'] ) && ( isset( $_GET['email'] ) || isset( $_GET['uid'] ) ) )
+					) {					
 					if ( version_compare( get_woocommerce_version(), '2.4', '>=') ) {
 						/* 2.4 and newer */
 						new WWPDF_File_Handler();
-					} else if ( version_compare( get_woocommerce_version(), '2.3', '>=') ) {
-						/* 2.3 and newer */
-                        remove_action( 'init', array( 'WC_Download_Handler', 'download_product') );
-						WWPDF_Download_Handler_23::init();
-					} else if ( version_compare( get_woocommerce_version(), '2.3', '<') ) {
-						/* 2.2.11 and older */
-    					remove_action( 'init', array( 'WC_Download_Handler', 'download_product') );
-						new WWPDF_Download_Handler_22();
+					} else if ( version_compare( get_woocommerce_version(), '2.4', '<') ) {
+						/* 2.4 and older */
+                        e_( 'For security reasons, you must update your WooCommerce plugin to use WaterWoo PDF.' );
 					}
 					
 				}
@@ -208,16 +196,12 @@ if ( ! class_exists( 'WaterWooPDF' ) ) :
 		public function add_support_links( $links, $file ) {
 
 			if ( ! current_user_can( 'install_plugins' ) ) {
-
 				return $links;
-
 			}
-		
 			if ( $file == WWPDF_BASE_FILE ) {
 				$links[] = '<a href="http://wordpress.org/extend/plugins/waterwoo-pdf/faq/" target="_blank" title="' . __( 'FAQ', 'waterwoo-pdf' ) . '">' . __( 'FAQ', 'waterwoo-pdf' ) . '</a>';
 				$links[] = '<a href="http://wordpress.org/support/plugin/waterwoo-pdf" target="_blank" title="' . __( 'Support', 'waterwoo-pdf' ) . '">' . __( 'Support', 'waterwoo-pdf' ) . '</a>';
 			}
-
 			return $links;
 
 		}
@@ -238,14 +222,10 @@ if ( ! class_exists( 'WaterWooPDF' ) ) :
 		*/
 		public function is_settings_page() {
 
-			if( isset( $_GET['page'] ) && isset( $_GET['tab'] ) && $_GET['tab'] == WWPDF_TAB ) {
-
+			if ( isset( $_GET['page'] ) && isset( $_GET['tab'] ) && $_GET['tab'] == WWPDF_TAB ) {
 				return true;
-
 			} else {
-
 				return false;
-
 			}
 
 		}
@@ -256,8 +236,7 @@ if ( ! class_exists( 'WaterWooPDF' ) ) :
 		public function load_screen_hooks() {
 
 			$screen = get_current_screen();
-
-			if( $this->is_settings_page() ) {
+			if ( $this->is_settings_page() ) {
 
 				add_action( 'admin_print_scripts', array( $this, 'add_scripts' ) );
 				add_action( 'load-' . $screen->id, array( $this, 'add_help_tabs' ) );
@@ -305,7 +284,6 @@ if ( ! class_exists( 'WaterWooPDF' ) ) :
 				'<p><a href="http://wordpress.org/extend/plugins/waterwoo-pdf/faq/" target="_blank">' . __( 'Frequently Asked Questions', 'waterwoo-pdf' ) . '</a></p>' .
 				'<p><a href="http://wordpress.org/extend/plugins/waterwoo-pdf/" target="_blank">' . __( 'Project on WordPress.org', 'waterwoo-pdf' ) . '</a></p>' .
 				'<p><a href="https://waterwoo.me/buy/waterwoo-premium/" target="_blank">' . __( 'Upgrade to Premium', 'waterwoo-pdf' ) . '</a></p>'
-
 			);
 
 		}
@@ -317,11 +295,8 @@ if ( ! class_exists( 'WaterWooPDF' ) ) :
 		public function upgrade_to_premium_link( $links ) {
 
 			if ( function_exists( 'is_plugin_active' ) && ! is_plugin_active( 'waterwoo-pdf-premium/waterwoo-pdf-premium.php' ) ) {
-
 				$links[] = '<a href="https://waterwoo.me/buy/waterwoo-premium/" target="_blank">' . __( 'Upgrade to Premium', 'waterwoo-pdf' ) . '</a>';
-
 			}
-		
 			return $links;
 
 		}
@@ -335,13 +310,9 @@ if ( ! class_exists( 'WaterWooPDF' ) ) :
 			if ( function_exists( 'is_plugin_active' ) && ! is_plugin_active( 'waterwoo-pdf-premium/waterwoo-pdf-premium.php' ) ) {
 
 				$link = 'https://waterwoo.me/buy/waterwoo-premium/';
-
 				$getPremium = "<div style='display: none;' id='wwpdf-screen-options-link-wrap'><div id='contextual-help-link-wrap'><a target='_blank' class='show-settings' href='{$link}'>" .
-
 					__( 'Upgrade to WaterWoo PDF Premium', 'waterwoo-pdf' ) .
-
 					"</a></div></div>";
-
 				echo $getPremium;
 
 			}
@@ -365,7 +336,7 @@ if ( ! class_exists( 'WaterWooPDF' ) ) :
 			global $current_user, $pagenow;
 			$user_id = $current_user->ID;
 			/* Check that the user hasn't already clicked to ignore the message */
-			if ( ! get_user_meta($user_id, 'wwpdf_ignore_notice9') ) {
+			if ( ! get_user_meta($user_id, 'wwpdf_ignore_notice10') ) {
 				$currentscreen = get_current_screen();
 				if ( $pagenow == 'admin.php' && $currentscreen->id == 'woocommerce_page_wc-settings' ) {
 					echo '<div class="updated"><p>'; 
@@ -385,31 +356,17 @@ if ( ! class_exists( 'WaterWooPDF' ) ) :
 			$user_id = $current_user->ID;
 			/* If user clicks to ignore the notice, add that to their user meta */
 			if ( isset($_GET['nag_ignore']) && '0' == $_GET['nag_ignore'] ) {
-				delete_user_meta($user_id, 'wwpdf_ignore_notice', 'true', true);
-				delete_user_meta($user_id, 'wwpdf_ignore_notice2', 'true', true);
-				delete_user_meta($user_id, 'wwpdf_ignore_notice3', 'true', true);
-				delete_user_meta($user_id, 'wwpdf_ignore_notice4', 'true', true);
-				delete_user_meta($user_id, 'wwpdf_ignore_notice5', 'true', true);
-				delete_user_meta($user_id, 'wwpdf_ignore_notice6', 'true', true);
-				delete_user_meta($user_id, 'wwpdf_ignore_notice7', 'true', true);
-				delete_user_meta($user_id, 'wwpdf_ignore_notice8', 'true', true);
-				add_user_meta($user_id, 'wwpdf_ignore_notice9', 'true', true);
+				delete_user_meta( $user_id, 'wwpdf_ignore_notice', 'true', true );
+				delete_user_meta( $user_id, 'wwpdf_ignore_notice2', 'true', true );
+				delete_user_meta( $user_id, 'wwpdf_ignore_notice3', 'true', true );
+				delete_user_meta( $user_id, 'wwpdf_ignore_notice4', 'true', true );
+				delete_user_meta( $user_id, 'wwpdf_ignore_notice5', 'true', true );
+				delete_user_meta( $user_id, 'wwpdf_ignore_notice6', 'true', true );
+				delete_user_meta( $user_id, 'wwpdf_ignore_notice7', 'true', true );
+				delete_user_meta( $user_id, 'wwpdf_ignore_notice8', 'true', true );
+				delete_user_meta( $user_id, 'wwpdf_ignore_notice9', 'true', true );
+				add_user_meta( $user_id, 'wwpdf_ignore_notice10', 'true', true );
 			}
-		}
-
-		/**
-		 * Clean old pre-1.0.5 settings from options table
-		 */
-		private function clean_options_table() {
-
-			delete_site_option( 'enable_wwpdf' );
-			delete_site_option( 'pdf_files' );
-			delete_site_option( 'footer_input' );
-			delete_site_option( 'footer_size' );
-			delete_site_option( 'footer_color' );
-			delete_site_option( 'footer_finetune_Y' );
-			delete_site_option( 'wwpdf_settings' );
-
 		}
 
 		/**
@@ -501,7 +458,6 @@ if ( ! class_exists( 'WaterWooPDF' ) ) :
 					'desc_tip' 	=> true,
 				),
 
-	
 				array(		
 					'id' 		=> 'wwpdf_footer_y',
 					'type' 		=> 'number',
@@ -529,7 +485,6 @@ if ( ! class_exists( 'WaterWooPDF' ) ) :
 		public function create_settings_page() {
 
 			$this->get_premium_cta();
-
 			$waterwoopdf_settings = $this->settings_array();
 			woocommerce_admin_fields( $waterwoopdf_settings );		
 
@@ -541,29 +496,17 @@ if ( ! class_exists( 'WaterWooPDF' ) ) :
 		public function save_settings_page() {
 
 			$waterwoopdf_settings = $this->settings_array();		
-
 			if ( is_admin() ) {
-
 				if ( isset( $waterwoopdf_settings ) ) {
 					woocommerce_update_options( $waterwoopdf_settings );
 				}
-
-				if ( version_compare( WWPDF_VERSION, '1.0.5', '>=') ) {
-					// Test if a old value is in database
-					$wwpdf_check = get_site_option( 'enable_wwpdf', '', false );
-
-					if ( $wwpdf_check != false ) {
-						$this->clean_options_table();
-					}
-				}
-
 			}
 
 		}
 
 	}
 
-endif;
+}
 
 add_action( 'plugins_loaded', array( 'WaterWooPDF', 'init' ), 10 );
 

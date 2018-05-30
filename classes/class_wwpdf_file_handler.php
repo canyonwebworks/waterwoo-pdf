@@ -28,8 +28,18 @@ if ( ! class_exists( 'WWPDF_File_Handler' ) ) {
 				
                 if ( $wwpdf_enabled == "yes" ) {
                 
+                	if ( isset( $_GET['email'] ) ) { // WPCS: input var ok, CSRF ok.
+						$email_address = wp_unslash( $_GET['email'] ); // WPCS: input var ok, CSRF ok, sanitization ok.
+						$email_address = sanitize_email( str_replace( ' ', '+', $email_address ) );
+					} else {
+						// Get email address from order to verify hash.
+						$order_id      = wc_get_order_id_by_order_key( wc_clean( wp_unslash( $_GET['order'] ) ) ); // WPCS: input var ok, CSRF ok.
+						$order         = wc_get_order( $order_id );
+						$email_address = is_a( $order, 'WC_Order' ) ? $order->get_billing_email() : null;
+
+					}
                     // returns an array( $user_email, $order_key, $product_id, $download_id )
-                    $download_data  = self::get_download_data( absint( $_GET['download_file'] ), sanitize_email( str_replace( ' ', '+', $_GET['email'] ) ), wc_clean( $_GET['order'] ), wc_clean( isset( $_GET['key'] ) ? preg_replace( '/\s+/', ' ', $_GET['key'] ) : '' ) );
+                    $download_data  = self::get_download_data( absint( $_GET['download_file'] ), $email_address, wc_clean( $_GET['order'] ), wc_clean( isset( $_GET['key'] ) ? preg_replace( '/\s+/', ' ', $_GET['key'] ) : '' ) );
         
  					$file_req = basename( $file_path );
 					$wwpdf_files = get_option( 'wwpdf_files', '' );

@@ -3,8 +3,8 @@ Contributors: littlepackage
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=PB2CFX8H4V49L
 Tags: book, copyright, digital, ebook, ecommerce, e-commerce, file, marca de agua, pdf, plugin, property, protection, publishing, security, signature, watermark, watermarking, woocommerce
 Requires at least: 4.0
-Tested up to: 4.9.1
-Stable tag: 1.2.8
+Tested up to: 4.9.6
+Stable tag: 2.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -27,7 +27,7 @@ WaterWoo PDF is a plugin that adds a watermark to every page of your sold PDF fi
 
 **Premium version:**
 
-[WaterWoo Premium](https://waterwoo.me "WaterWoo PDF Premium Version") offers these helpful extra features:
+[WaterWoo Premium](https://www.waterwoo.me/buy/waterwoo-premium/ "WaterWoo PDF Premium Version") offers these helpful extra features:
 
 * Watermark all PDF files with same settings OR set individual watermarks per product or even per product variation!
 * Supports all versions of Adobe PDF (through 1.7)
@@ -55,7 +55,7 @@ WaterWoo PDF is a plugin that adds a watermark to every page of your sold PDF fi
 
 = Prerequisites =
 1. WordPress 4.0 or newer
-2. WooCommerce plugin and PDF products
+2. WooCommerce plugin version 2.3 and newer, and PDF products
 3. PHP version 5.4 or newer
 4. If you are selling large files or have high sales traffic, you may need to upgrade your hosting account. Do at least set your PHP memory limit high.
 
@@ -209,6 +209,10 @@ No, sorry. This plugin is just for PDF files.
 * Give unique FPDF, etc. classes a unique name and check for existence before using
 * Woocommerce version check support
 
+= 2.0, 2018.05.30 =
+* Drop support for versions of WooCommerce older than 2.4 (released 8/10/2015)
+* Fix missing HTTP vars in wwpdf_file_handler and waterwoo-pdf.php
+
 == Upgrade Notice ==
 
 = 1.0.2 =
@@ -234,3 +238,6 @@ No, sorry. This plugin is just for PDF files.
 
 = 1.2 = 
 * Update to fix watermark not showing over PDF images/vectors
+
+= 2.0 = 
+* Support for WooCommerce versions older than 2.4 removed for security reasons. Please update your WooCommerce installation to the newest version before using WaterWoo.
