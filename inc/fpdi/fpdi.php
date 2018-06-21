@@ -548,7 +548,8 @@ class Woo_FPDI extends Woo_FPDF_TPL {
 
     			reset ($value[1]);
 
-    			while (list($k, $v) = each($value[1])) {
+//    			while (list($k, $v) = each($value[1])) { FOR PHP 7.2
+    			foreach ($value[1] as $k => $v) {
     				$this->_straightOut($k . ' ');
     				$this->_writeValue($v);
     			}

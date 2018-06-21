@@ -28,18 +28,22 @@ if ( ! class_exists( 'WWPDF_File_Handler' ) ) {
 				
                 if ( $wwpdf_enabled == "yes" ) {
                 
-                	if ( isset( $_GET['email'] ) ) { // WPCS: input var ok, CSRF ok.
-						$email_address = wp_unslash( $_GET['email'] ); // WPCS: input var ok, CSRF ok, sanitization ok.
+                    $order_id = wc_get_order_id_by_order_key( wc_clean( wp_unslash( $_GET['order'] ) ) );
+                    // order ID is post ID for backend (admin) watermarking
+                    if ( is_admin() ) { 
+                        $order_id = $_GET['post']; 
+                    }
+                    $order_key = wc_clean( isset( $_GET['key'] ) );
+
+                	if ( isset( $_GET['email'] ) ) {
+						$email_address = wp_unslash( $_GET['email'] );
 						$email_address = sanitize_email( str_replace( ' ', '+', $email_address ) );
 					} else {
 						// Get email address from order to verify hash.
-						$order_id      = wc_get_order_id_by_order_key( wc_clean( wp_unslash( $_GET['order'] ) ) ); // WPCS: input var ok, CSRF ok.
 						$order         = wc_get_order( $order_id );
 						$email_address = is_a( $order, 'WC_Order' ) ? $order->get_billing_email() : null;
 
 					}
-                    // returns an array( $user_email, $order_key, $product_id, $download_id )
-                    $download_data  = self::get_download_data( absint( $_GET['download_file'] ), $email_address, wc_clean( $_GET['order'] ), wc_clean( isset( $_GET['key'] ) ? preg_replace( '/\s+/', ' ', $_GET['key'] ) : '' ) );
         
  					$file_req = basename( $file_path );
 					$wwpdf_files = get_option( 'wwpdf_files', '' );
@@ -47,9 +51,16 @@ if ( ! class_exists( 'WWPDF_File_Handler' ) ) {
 					
 					// Watermark desired files only
 					if ( in_array( $file_req, $wwpdf_file_list ) || $wwpdf_files == '' ) { 
-			
-                        $watermarked_file_path = self::wwpdf_setup_watermark( $download_data->user_email, $download_data->order_key, $download_data->product_id, $download_data->user_id, $download_id, $download_data->order_id, $file_path );
+					
+                        $product_id = $product->get_id();
+					
+                        $footer_input = $this->wwpdf_setup_watermark( $email_address, $product_id, $order_id );            
             
+            			$parsed_file_path = WC_Download_Handler::parse_file_path( $file_path );
+			            $wwpdf_file_path = str_replace( '.pdf', '', $parsed_file_path['file_path'] ) . '_' . time() . '_' . $order_key . '.pdf';      
+            
+                        $watermarked_file_path = WWPDFWatermark::apply_and_spit( $parsed_file_path['file_path'], $wwpdf_file_path, $footer_input );
+
                         $watermarked_file_path = str_replace( ABSPATH, '', $watermarked_file_path );
                         return $watermarked_file_path;
                         
@@ -66,77 +77,35 @@ if ( ! class_exists( 'WWPDF_File_Handler' ) ) {
         /**
          * Returns file_path, either altered/stamped or not
          */
-        public static function wwpdf_setup_watermark( $user_email, $order_key, $product_id, $user_id, $download_id, $order_id, $file_path ) {
-            global $wpdb;
+        public static function wwpdf_setup_watermark( $user_email, $product_id, $order_id ) {
         
-  	        $first_name = "_billing_first_name";      
-			$watermark_first_name = $wpdb->get_row( $wpdb->prepare("
-				SELECT SQL_NO_CACHE meta_value
-				FROM ".$wpdb->prefix."postmeta
-				WHERE post_id = %s
-				AND meta_key = %s
-			;", $order_id, $first_name) );
-			$first_name = $watermark_first_name->meta_value;
+            $order = wc_get_order( $order_id );
+            $order_data = $order->get_data();
 
-			$last_name = "_billing_last_name";      
-			$watermark_last_name = $wpdb->get_row( $wpdb->prepare("
-				SELECT SQL_NO_CACHE meta_value
-				FROM ".$wpdb->prefix."postmeta
-				WHERE post_id = %s
-				AND meta_key = %s
-			;", $order_id, $last_name) );
-			$last_name = $watermark_last_name->meta_value;
+            $first_name         = $order_data['billing']['first_name'];
+            $last_name          = $order_data['billing']['last_name'];
+            $phone              = $order_data['billing']['phone'];
 
-			$phone = "_billing_phone";			
-			$watermark_phone = $wpdb->get_row( $wpdb->prepare("
-				SELECT SQL_NO_CACHE meta_value
-				FROM ".$wpdb->prefix."postmeta
-				WHERE post_id = %s
-				AND meta_key = %s
-				;", $order_id, $phone) );
-			$phone = $watermark_phone->meta_value;
-
-			$order_paid_date = "_paid_date";			
-			$watermark_order_paid_date = $wpdb->get_row( $wpdb->prepare("
-				SELECT SQL_NO_CACHE meta_value
-				FROM ".$wpdb->prefix."postmeta
-				WHERE post_id = %s
-				AND meta_key = %s
-				;", $order_id, $order_paid_date) );
-			$order_paid_date_SQL = $watermark_order_paid_date->meta_value;
-			// change time from SQL format: 2015-01-10 13:31:12
-			$date_format = get_option( 'date_format' );
-			$order_paid_date = date_i18n( $date_format, strtotime( $order_paid_date_SQL ) );
+            $order_paid_date    = $order_data['date_created']->date('Y-m-d H:i:s');
+            $date_format        = get_option( 'date_format' );
+            $order_paid_date    = date_i18n( $date_format, strtotime( $order_paid_date ) );
             
             $footer_input = get_option( 'wwpdf_footer_input' );
 			$footer_input = preg_replace( array( '/\[FIRSTNAME\]/','/\[LASTNAME\]/','/\[EMAIL\]/','/\[PHONE\]/','/\[DATE\]/' ), array( $first_name, $last_name, $user_email, $phone, $order_paid_date ), $footer_input );
-            $footer_input = iconv( 'UTF-8', 'windows-1252', html_entity_decode( $footer_input ) );
+
+            $footer_input = apply_filters( 'wwpdf_filter_footer', $footer_input, $order_id, $product_id );
+
+            // text encoding
+            if ( has_filter( 'wwpdf_font_decode' ) ) {
+                $footer_input = apply_filters( 'wwpdf_font_decode', $footer_input );
+            } else {
+                $out_charset = 'UTF-8';
+                $out_charset = apply_filters( 'wwpdf_out_charset', $out_charset );
+                $footer_input = html_entity_decode( $footer_input, ENT_QUOTES | ENT_XML1, $out_charset );
+            }     
 			
-			$parsed_file_path = WC_Download_Handler::parse_file_path( $file_path );
-			$wwpdf_file_path = str_replace( '.pdf', '', $parsed_file_path['file_path'] ) . '_' . time() . '_' . $order_key . '.pdf';      
-            
-            return WWPDFWatermark::apply_and_spit( $parsed_file_path['file_path'], $wwpdf_file_path, $footer_input );
-    
-        }
-
-        /**
-         * Fetch the download data for a specific download
-         * @param  int $product_id
-         * @param  string $user_email
-         * @param  string $order_key
-         * @param  int $download_id
-         * @return object
-         */
-        private static function get_download_data( $product_id, $user_email, $order_key, $download_id ) {
-            global $wpdb;
-
-            $query = "SELECT SQL_NO_CACHE * FROM " . $wpdb->prefix . "woocommerce_downloadable_product_permissions ";
-            $query .= "WHERE user_email = %s ";
-            $query .= "AND order_key = %s ";
-            $query .= "AND product_id = %s ";
-            $query .= "AND download_id = %s ";
-
-            return $wpdb->get_row( $wpdb->prepare( $query, array( $user_email, $order_key, $product_id, $download_id ) ) );
+            return $footer_input;
+     
         }
 
     }

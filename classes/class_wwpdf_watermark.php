@@ -65,27 +65,7 @@ if ( ! class_exists( 'WWPDFWatermark' ) ) :
 			$rgb = array($r, $g, $b);
 			return implode(",", $rgb);
 		}
-	
-		protected function _rotate($angle,$x=-1,$y=-1) {
-			if($x==-1)
-				$x=$this->pdf->x;
-			if($y==-1)
-				$y=$this->pdf->y;
-			if($this->pdf->angle!=0)
-				$this->pdf->_out('Q');
-				$this->pdf->angle=$angle;
-			if($angle!=0) {
-				$angle*=M_PI/180;
-				$c=cos($angle);
-					$s=sin($angle);
-				$cx=$x*$this->pdf->k;
-					$cy=($this->pdf->h-$y)*$this->pdf->k;
-				$this->pdf->_out(sprintf('q %.5f %.5f %.5f %.5f %.2f %.2f cm 1 0 0 1 %.2f %.2f cm',$c,$s,-$s,$c,$cx,$cy,-$cx,-$cy));
-				}
-		} // end function _rotate
 
 	} // end Class WWPDFWatermark
 	
 endif;
-
-?>

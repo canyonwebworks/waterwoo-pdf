@@ -1721,5 +1721,3 @@ if ( ! class_exists( 'Woo_FPDF' ) ) :
     }
 
 endif;
-
-?>

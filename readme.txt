@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: book, copyright, digital, ebook, ecommerce, e-commerce, file, marca de agua, pdf, plugin, property, protection, publishing, security, signature, watermark, watermarking, woocommerce
 Requires at least: 4.0
 Tested up to: 4.9.6
-Stable tag: 2.0
+Stable tag: 2.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -212,6 +212,13 @@ No, sorry. This plugin is just for PDF files.
 = 2.0, 2018.05.30 =
 * Drop support for versions of WooCommerce older than 2.4 (released 8/10/2015)
 * Fix missing HTTP vars in wwpdf_file_handler and waterwoo-pdf.php
+
+= 2.1, 2018.06.20 =
+* SQL calls removed from /classes/class-wwpdf-file-handler.php
+* Filter hooks added to /classes/class-wwpdf-file-handler.php: 'wwpdf_filter_footer' to filter footer watermark input; 'wwpdf_font_decode' & 'wwpdf_out_charset' filters to allow character encoding manipulation
+* Minor readability improvement to settings page
+* Remove PHP each() from FPDI to get ready for PHP 7.2
+* Fix so download link in Woo order management screen is watermarked
 
 == Upgrade Notice ==
 

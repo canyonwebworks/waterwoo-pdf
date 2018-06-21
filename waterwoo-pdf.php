@@ -3,12 +3,12 @@
  * Plugin Name: WaterWoo PDF
  * Plugin URI: https://wordpress.org/plugins/waterwoo-pdf/
  * Description: Custom watermark your PDFs upon WooCommerce sale. 
- * Version: 2.0
+ * Version: 2.1
  * Author: Little Package 
  * Author URI: https://waterwoo.me
  * Donate link: https://www.paypal.me/littlepackage
  * WC requires at least: 2.4
- * WC tested up to: 3.4.1
+ * WC tested up to: 3.4.3
  * 
  * License: GPLv3 or later
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -52,7 +52,7 @@ if ( ! class_exists( 'WaterWooPDF' ) ) {
 		/**
 		 * @var string
 		 */
-		public $version = '2.0';
+		public $version = '2.1';
 
 		/**
 		 * Init
@@ -140,19 +140,16 @@ if ( ! class_exists( 'WaterWooPDF' ) ) {
 						( isset( $_GET['download_file'] ) && isset( $_GET['order'] ) && isset( $_GET['email'] ) ) ||
 						( isset( $_GET['download_file'], $_GET['order'] ) && ( isset( $_GET['email'] ) || isset( $_GET['uid'] ) ) )
 					) {					
-					if ( version_compare( get_woocommerce_version(), '2.4', '>=') ) {
-						/* 2.4 and newer */
+					if ( version_compare( get_woocommerce_version(), '2.4', '>=') ) { // 2.4 and newer
 						new WWPDF_File_Handler();
 					} else if ( version_compare( get_woocommerce_version(), '2.4', '<') ) {
-						/* 2.4 and older */
-                        e_( 'For security reasons, you must update your WooCommerce plugin to use WaterWoo PDF.' );
+                        if ( is_admin() ) {	
+				            add_action( 'admin_notices', array( $this, 'wwpdf_notice' ) );
+                        } 
+                        return;
 					}
 					
 				}
-
-			} else { 
-
-				e_( 'Yikes! Your WooCommerce plugin installation seems to be missing the WC_Download_Handler class.' );
 
 			}
 
@@ -336,7 +333,7 @@ if ( ! class_exists( 'WaterWooPDF' ) ) {
 			global $current_user, $pagenow;
 			$user_id = $current_user->ID;
 			/* Check that the user hasn't already clicked to ignore the message */
-			if ( ! get_user_meta($user_id, 'wwpdf_ignore_notice10') ) {
+			if ( ! get_user_meta($user_id, 'wwpdf_ignore_notice11') ) {
 				$currentscreen = get_current_screen();
 				if ( $pagenow == 'admin.php' && $currentscreen->id == 'woocommerce_page_wc-settings' ) {
 					echo '<div class="updated"><p>'; 
@@ -346,6 +343,19 @@ if ( ! class_exists( 'WaterWooPDF' ) ) {
 
 			}
 
+		}
+		
+		public function wwpdf_notice() {
+		
+            $screen = get_current_screen();
+            if ( $screen->id === 'woocommerce_page_wc-settings' || $screen->id === 'edit-product' || $screen->id === 'woocommerce_page_wc-status' || $screen->id === 'edit-shop_order' ) { ?>
+        
+                <div id="message" class="notice notice-error is-dismissible">
+                    <p><?php echo wp_kses_post( __( 'Sorry, WaterWoo PDF requires you use WooCommerce version 2.4 or newer, mostly for security reasons.', 'waterwoo-pdf' ) ); ?></p>
+                </div>
+        
+            <?php }
+    
 		}
 
 		/**
@@ -365,7 +375,8 @@ if ( ! class_exists( 'WaterWooPDF' ) ) {
 				delete_user_meta( $user_id, 'wwpdf_ignore_notice7', 'true', true );
 				delete_user_meta( $user_id, 'wwpdf_ignore_notice8', 'true', true );
 				delete_user_meta( $user_id, 'wwpdf_ignore_notice9', 'true', true );
-				add_user_meta( $user_id, 'wwpdf_ignore_notice10', 'true', true );
+				delete_user_meta( $user_id, 'wwpdf_ignore_notice10', 'true', true );
+				add_user_meta( $user_id, 'wwpdf_ignore_notice11', 'true', true );
 			}
 		}
 
@@ -437,7 +448,7 @@ if ( ! class_exists( 'WaterWooPDF' ) ) {
 					'id' 		=> 'wwpdf_footer_size',
 					'type' 		=> 'number',
 					'title' 	=> __( 'Font size', 'waterwoo-pdf' ),
-					'css' 		=> 'width:50px;',
+					'css' 		=> 'width:60px;',
 					'desc' 		=> __( 'Provide a number (suggested 10-20) for the footer watermark font size', 'waterwoo-pdf' ),
 					'default' 	=> $wwpdf_footer_size_default,
 					'custom_attributes' => array(
@@ -461,7 +472,7 @@ if ( ! class_exists( 'WaterWooPDF' ) ) {
 				array(		
 					'id' 		=> 'wwpdf_footer_y',
 					'type' 		=> 'number',
-					'css' 		=> 'width:50px;',
+					'css' 		=> 'width:60px;',
 					'title' 	=> __( 'Y Fine Tuning', 'waterwoo-pdf' ),
 					'desc' 	=> __( 'Move the footer watermark up and down on the page by adjusting this number. Default is 270 millimeters (bottom of letter-sized page).', 'waterwoo-pdf' ),
 					'default' 	=> $wwpdf_footer_y_default,
@@ -509,5 +520,3 @@ if ( ! class_exists( 'WaterWooPDF' ) ) {
 }
 
 add_action( 'plugins_loaded', array( 'WaterWooPDF', 'init' ), 10 );
-
-?>
