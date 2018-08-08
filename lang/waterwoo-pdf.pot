@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: WaterWoo PDF\n"
-"POT-Creation-Date: 2018-04-09 12:21-0700\n"
+"POT-Creation-Date: 2018-08-08 15:18-0700\n"
 "PO-Revision-Date: 2015-12-12 14:59-0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -20,114 +20,37 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
-#: classes/class_wwpdf_download_handler_22.php:34
-msgid "Invalid email address."
-msgstr ""
-
-#: classes/class_wwpdf_download_handler_22.php:34
-#: classes/class_wwpdf_download_handler_22.php:59
-#: classes/class_wwpdf_download_handler_22.php:80
-#: classes/class_wwpdf_download_handler_22.php:87
-#: classes/class_wwpdf_download_handler_22.php:92
-#: classes/class_wwpdf_download_handler_22.php:96
-#: classes/class_wwpdf_download_handler_22.php:140
-#: classes/class_wwpdf_download_handler_22.php:402
-msgid "Go to homepage"
-msgstr ""
-
-#: classes/class_wwpdf_download_handler_22.php:59
-msgid "Invalid download."
-msgstr ""
-
-#: classes/class_wwpdf_download_handler_22.php:72
-#: classes/class_wwpdf_download_handler_23.php:162
-#: classes/class_wwpdf_download_handler_23.php:165
-msgid "You must be logged in to download files."
-msgstr ""
-
-#: classes/class_wwpdf_download_handler_22.php:72
-#: classes/class_wwpdf_download_handler_23.php:165
-msgid "Login"
-msgstr ""
-
-#: classes/class_wwpdf_download_handler_22.php:72
-#: classes/class_wwpdf_download_handler_23.php:165
-msgid "Log in to Download Files"
-msgstr ""
-
-#: classes/class_wwpdf_download_handler_22.php:74
-#: classes/class_wwpdf_download_handler_23.php:168
-msgid "This is not your download link."
-msgstr ""
-
-#: classes/class_wwpdf_download_handler_22.php:80
-msgid "Product no longer exists."
-msgstr ""
-
-#: classes/class_wwpdf_download_handler_22.php:87
-#: classes/class_wwpdf_download_handler_23.php:127
-msgid "Invalid order."
-msgstr ""
-
-#: classes/class_wwpdf_download_handler_22.php:92
-#: classes/class_wwpdf_download_handler_23.php:138
-msgid "Sorry, you have reached your download limit for this file"
-msgstr ""
-
-#: classes/class_wwpdf_download_handler_22.php:96
-#: classes/class_wwpdf_download_handler_23.php:149
-msgid "Sorry, this download has expired"
-msgstr ""
-
-#: classes/class_wwpdf_download_handler_22.php:140
-#: classes/class_wwpdf_download_handler_23.php:202
-msgid "No file defined"
-msgstr ""
-
-#: classes/class_wwpdf_download_handler_22.php:402
-#: classes/class_wwpdf_download_handler_23.php:295
-msgid "File not found"
-msgstr ""
-
-#: classes/class_wwpdf_download_handler_23.php:80
-msgid "Invalid download link."
-msgstr ""
-
-#: classes/class_wwpdf_download_handler_23.php:390
-msgid "Go to shop"
-msgstr ""
-
-#: waterwoo-pdf.php:217
+#: waterwoo-pdf.php:199
 msgid "FAQ"
 msgstr ""
 
-#: waterwoo-pdf.php:218
+#: waterwoo-pdf.php:200
 msgid "Support"
 msgstr ""
 
-#: waterwoo-pdf.php:230
+#: waterwoo-pdf.php:211
 msgid "Go to the settings page"
 msgstr ""
 
-#: waterwoo-pdf.php:230
+#: waterwoo-pdf.php:211
 msgid "Settings"
 msgstr ""
 
-#: waterwoo-pdf.php:293
+#: waterwoo-pdf.php:270
 msgid "About the Plugin"
 msgstr ""
 
-#: waterwoo-pdf.php:295
+#: waterwoo-pdf.php:272
 msgid "About WaterWoo PDF"
 msgstr ""
 
-#: waterwoo-pdf.php:296
+#: waterwoo-pdf.php:273
 msgid ""
 "Protect your intellectual property! WaterWoo PDF allows WooCommerce site "
 "administrators to apply custom watermarks to PDFs upon sale."
 msgstr ""
 
-#: waterwoo-pdf.php:297
+#: waterwoo-pdf.php:274
 msgid ""
 "WaterWoo PDF is a plugin that adds a watermark to every page of your PDF "
 "file(s). The watermark is customizable with font face, font color, font "
@@ -138,7 +61,7 @@ msgid ""
 "highly customizable and manipulatable."
 msgstr ""
 
-#: waterwoo-pdf.php:298
+#: waterwoo-pdf.php:275
 msgid ""
 "<a href=\"https://waterwoo.me/buy/waterwoo-premium/\" target=\"_blank"
 "\">Consider upgrading to the Premium version</a> if you need more "
@@ -148,108 +71,125 @@ msgid ""
 "support for many more foreign language characters. Thanks again, and enjoy!"
 msgstr ""
 
-#: waterwoo-pdf.php:304
+#: waterwoo-pdf.php:281
 msgid "For more information:"
 msgstr ""
 
-#: waterwoo-pdf.php:305
+#: waterwoo-pdf.php:282
 msgid "Frequently Asked Questions"
 msgstr ""
 
-#: waterwoo-pdf.php:306
+#: waterwoo-pdf.php:283
 msgid "Project on WordPress.org"
 msgstr ""
 
-#: waterwoo-pdf.php:307 waterwoo-pdf.php:321
+#: waterwoo-pdf.php:284 waterwoo-pdf.php:296
 msgid "Upgrade to Premium"
 msgstr ""
 
-#: waterwoo-pdf.php:341
+#: waterwoo-pdf.php:312
 msgid "Upgrade to WaterWoo PDF Premium"
 msgstr ""
 
-#: waterwoo-pdf.php:356
+#: waterwoo-pdf.php:325
 msgid "Watermark"
 msgstr ""
 
-#: waterwoo-pdf.php:372
+#: waterwoo-pdf.php:341
 #, php-format
 msgid ""
 "<p>Encourage Wordpress plugin authors to keep making & supporting free "
-"plugins! :) If you like WaterWoo, please <a href=\"https://wordpress.org/"
-"support/view/plugin-reviews/waterwoo-pdf?filter=5\" target=\"_blank\">submit "
-"a kind review</a> or <a href=\"https://www.paypal.com/cgi-bin/webscr?cmd=_s-"
-"xclick&hosted_button_id=PB2CFX8H4V49L\" target=\"_blank\">make a small "
-"donation</a>. <strong>Thank you</strong> for using WaterWoo!</p><p><a href="
-"\"%1$s\">Hide This Notice</a></p>"
+"plugins!<br />If you benefit from using WaterWoo, please <a href=\"https://"
+"wordpress.org/support/view/plugin-reviews/waterwoo-pdf?filter=5\" target="
+"\"_blank\">submit a kind review</a> or <a href=\"https://www.paypal.com/cgi-"
+"bin/webscr?cmd=_s-xclick&hosted_button_id=PB2CFX8H4V49L\" target=\"_blank"
+"\">make a small donation</a>. <strong>Thank you</strong>.</p><p class="
+"\"alignright\"><a href=\"%1$s\">Hide This Notice</a></p>"
 msgstr ""
 
-#: waterwoo-pdf.php:432
+#: waterwoo-pdf.php:355
+msgid ""
+"Sorry, WaterWoo PDF requires you use WooCommerce version 2.4 or newer, "
+"mostly for security reasons."
+msgstr ""
+
+#: waterwoo-pdf.php:402
 msgid "WaterWoo General Options"
 msgstr ""
 
-#: waterwoo-pdf.php:439
+#: waterwoo-pdf.php:403
+msgid ""
+"Note: This free watermarking plugin is rudimentary. You need the <a href="
+"\"https://www.waterwoo.me/buy/waterwoo-premium/\" target=\"_blank\">Premium "
+"Version of WaterWoo</a> if:<ol><li>Your watermark is not in English and/or "
+"contains extended Unicode characters (e.g. ě à é č ì ü Л Ж Ω ﺦ ﺉ ...)</"
+"li><li>If any of your PDFs are version 1.5 or newer.</li><li>You want "
+"extended shortcode function, opacity control, RTL, password protection, per-"
+"product and variable product watermarking, and much more.</li></ol>"
+msgstr ""
+
+#: waterwoo-pdf.php:409
 msgid "Enable Watermarking"
 msgstr ""
 
-#: waterwoo-pdf.php:440
+#: waterwoo-pdf.php:410
 msgid "Check to enable PDF watermarking"
 msgstr ""
 
-#: waterwoo-pdf.php:447
+#: waterwoo-pdf.php:417
 msgid "File(s) to watermark"
 msgstr ""
 
-#: waterwoo-pdf.php:448
+#: waterwoo-pdf.php:418
 msgid ""
 "List file name(s) of PDF(s) to watermark, one per line, e.g., <code>upload."
 "pdf</code> or <code>my_pdf.pdf</code> .<br />If left blank, WaterWoo PDF "
 "will watermark all PDFs sold through WooCommerce."
 msgstr ""
 
-#: waterwoo-pdf.php:456
+#: waterwoo-pdf.php:426
 msgid "Custom text for footer watermark"
 msgstr ""
 
-#: waterwoo-pdf.php:457
+#: waterwoo-pdf.php:427
 msgid ""
 "Shortcodes available, all caps, in brackets: <code>[FIRSTNAME]</code> "
 "<code>[LASTNAME]</code> <code>[EMAIL]</code> <code>[PHONE]</code> "
 "<code>[DATE]</code>"
 msgstr ""
 
-#: waterwoo-pdf.php:465
+#: waterwoo-pdf.php:435
 msgid "Font face"
 msgstr ""
 
-#: waterwoo-pdf.php:466
+#: waterwoo-pdf.php:436
 msgid "Select a font for watermarks."
 msgstr ""
 
-#: waterwoo-pdf.php:482
+#: waterwoo-pdf.php:452
 msgid "Font size"
 msgstr ""
 
-#: waterwoo-pdf.php:484
+#: waterwoo-pdf.php:454
 msgid "Provide a number (suggested 10-20) for the footer watermark font size"
 msgstr ""
 
-#: waterwoo-pdf.php:497
+#: waterwoo-pdf.php:467
 msgid "Watermark color"
 msgstr ""
 
-#: waterwoo-pdf.php:498
+#: waterwoo-pdf.php:468
 msgid "Color of the footer watermark. Default is black: <code>#000000</code>."
 msgstr ""
 
-#: waterwoo-pdf.php:509
+#: waterwoo-pdf.php:478
 msgid "Y Fine Tuning"
 msgstr ""
 
-#: waterwoo-pdf.php:510
+#: waterwoo-pdf.php:479
 msgid ""
 "Move the footer watermark up and down on the page by adjusting this number. "
-"Default is 270 millimeters (bottom of letter-sized page)."
+"Default is 260 millimeters (bottom of letter-sized page)."
 msgstr ""
 
 #. Plugin Name of the plugin/theme

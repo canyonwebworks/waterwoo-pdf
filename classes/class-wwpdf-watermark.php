@@ -1,6 +1,6 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) exit;
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( 'WWPDFWatermark' ) ) :
 
@@ -23,7 +23,8 @@ if ( ! class_exists( 'WWPDFWatermark' ) ) :
 			require_once WWPDF_PATH . 'inc/fpdi/fpdi.php';
 
 			$wm = new WWPDFWatermark($origfile, $newfile, $footer);
-			if( file_exists( $wm->newfile ) ) {
+			
+            if ( file_exists( $wm->newfile && ! apply_filters( 'wwpdf_do_cleanup', true ) ) ) {
 				return $wm->newfile;
 			} else {
 				$wm->do_watermark();
@@ -36,7 +37,8 @@ if ( ! class_exists( 'WWPDFWatermark' ) ) :
 
 			$pagecount = $this->pdf->setSourceFile($this->file);
 			$footer_y = get_option( 'wwpdf_footer_y' );
-			$font = get_option( 'wwpdf_font' );			
+			$font = get_option( 'wwpdf_font' );
+			$font = apply_filters( 'wwpdf_add_custom_font', $font );
 			$footer_size = get_option( 'wwpdf_footer_size' );
 			$this->pdf->SetFont( $font, '', $footer_size );	
 			$footer_color = $this->hex2rgb( get_option( 'wwpdf_footer_color' ) );

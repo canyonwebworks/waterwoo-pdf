@@ -3,12 +3,12 @@
  * Plugin Name: WaterWoo PDF
  * Plugin URI: https://wordpress.org/plugins/waterwoo-pdf/
  * Description: Custom watermark your PDFs upon WooCommerce sale. 
- * Version: 2.1
+ * Version: 2.2
  * Author: Little Package 
  * Author URI: https://waterwoo.me
  * Donate link: https://www.paypal.me/littlepackage
  * WC requires at least: 2.4
- * WC tested up to: 3.4.3
+ * WC tested up to: 3.4.4
  * 
  * License: GPLv3 or later
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -41,7 +41,7 @@
  *
  */
 
-if ( ! defined( 'ABSPATH' ) ) exit;
+defined( 'ABSPATH' ) || exit;
 if ( ! function_exists( 'is_woocommerce_active' ) || ! function_exists( 'get_woocommerce_version' ) ) require_once( 'woo-includes/woo-functions.php' );
 if ( ! is_woocommerce_active() ) return;
 
@@ -52,7 +52,7 @@ if ( ! class_exists( 'WaterWooPDF' ) ) {
 		/**
 		 * @var string
 		 */
-		public $version = '2.1';
+		public $version = '2.2';
 
 		/**
 		 * Init
@@ -83,8 +83,8 @@ if ( ! class_exists( 'WaterWooPDF' ) ) {
 		private function plugin_classes() {
 
 			return array(
-				'wwpdfwatermark'				=> WWPDF_PATH . 'classes/class_wwpdf_watermark.php',
-				'wwpdf_file_handler'		    => WWPDF_PATH . 'classes/class_wwpdf_file_handler.php',
+				'wwpdfwatermark'				=> WWPDF_PATH . 'classes/class-wwpdf-watermark.php',
+				'wwpdf_file_handler'		    => WWPDF_PATH . 'classes/class-wwpdf-file-handler.php',
 			);
 
 		}
@@ -248,7 +248,8 @@ if ( ! class_exists( 'WaterWooPDF' ) ) {
 		 */
 		public function add_scripts() {
 
-			wp_enqueue_script( 'wwpdf-scripts', WWPDF_BASE_URL . '/assets/js/wwpdf_admin.js', 'jquery', WWPDF_VERSION );
+			wp_enqueue_style( 'wwpdf_admin_styles', WWPDF_BASE_URL . 'assets/css/admin.css', true );			
+			wp_enqueue_script( 'wwpdf-scripts', WWPDF_BASE_URL . 'assets/js/wwpdf_admin.js', 'jquery', WWPDF_VERSION );
 
 		}
 
@@ -333,11 +334,11 @@ if ( ! class_exists( 'WaterWooPDF' ) ) {
 			global $current_user, $pagenow;
 			$user_id = $current_user->ID;
 			/* Check that the user hasn't already clicked to ignore the message */
-			if ( ! get_user_meta($user_id, 'wwpdf_ignore_notice11') ) {
+			if ( ! get_user_meta($user_id, 'wwpdf_ignore_notice12') ) {
 				$currentscreen = get_current_screen();
 				if ( $pagenow == 'admin.php' && $currentscreen->id == 'woocommerce_page_wc-settings' ) {
 					echo '<div class="updated"><p>'; 
-					printf(__('<p>Encourage Wordpress plugin authors to keep making & supporting free plugins! :) If you like WaterWoo, please <a href="https://wordpress.org/support/view/plugin-reviews/waterwoo-pdf?filter=5" target="_blank">submit a kind review</a> or <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=PB2CFX8H4V49L" target="_blank">make a small donation</a>. <strong>Thank you</strong> for using WaterWoo!</p><p><a href="%1$s">Hide This Notice</a></p>'), '?page=wc-settings&tab=waterwoo-pdf&nag_ignore=0');
+					printf(__('<p>Encourage Wordpress plugin authors to keep making & supporting free plugins!<br />If you benefit from using WaterWoo, please <a href="https://wordpress.org/support/view/plugin-reviews/waterwoo-pdf?filter=5" target="_blank">submit a kind review</a> or <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=PB2CFX8H4V49L" target="_blank">make a small donation</a>. <strong>Thank you</strong>.</p><p class="alignright"><a href="%1$s">Hide This Notice</a></p>'), '?page=wc-settings&tab=waterwoo-pdf&nag_ignore=0');
 					echo "</p></div>";
 				}
 
@@ -376,7 +377,8 @@ if ( ! class_exists( 'WaterWooPDF' ) ) {
 				delete_user_meta( $user_id, 'wwpdf_ignore_notice8', 'true', true );
 				delete_user_meta( $user_id, 'wwpdf_ignore_notice9', 'true', true );
 				delete_user_meta( $user_id, 'wwpdf_ignore_notice10', 'true', true );
-				add_user_meta( $user_id, 'wwpdf_ignore_notice11', 'true', true );
+				delete_user_meta( $user_id, 'wwpdf_ignore_notice11', 'true', true );
+				add_user_meta( $user_id, 'wwpdf_ignore_notice12', 'true', true );
 			}
 		}
 
@@ -390,7 +392,7 @@ if ( ! class_exists( 'WaterWooPDF' ) ) {
 			$wwpdf_footer_input_default = get_site_option( 'wwpdf_footer_input', 'Licensed to [FIRSTNAME] [LASTNAME], [EMAIL]' );
 			$wwpdf_footer_size_default = get_site_option( 'wwpdf_footer_size', '12' );
 			$wwpdf_footer_color_default = get_site_option( 'wwpdf_footer_color', '#000000' );
-			$wwpdf_footer_y_default = get_site_option( 'wwpdf_footer_y', '270' );
+			$wwpdf_footer_y_default = get_site_option( 'wwpdf_footer_y', '260' );
 	
 			return array(
 
@@ -398,7 +400,7 @@ if ( ! class_exists( 'WaterWooPDF' ) ) {
 					'id' 		=> 'wwpdf_general_options',
 					'type' 		=> 'title',
 					'title' 	=> __( 'WaterWoo General Options', 'waterwoo-pdf' ),
-					'desc' 		=> '',
+					'desc' 	=> __( 'Note: This free watermarking plugin is rudimentary. You need the <a href="https://www.waterwoo.me/buy/waterwoo-premium/" target="_blank">Premium version of WaterWoo</a> if:<ol><li>Your watermark is not in English and/or contains extended Unicode characters (e.g. ě à é č ì ü Л Ж Ω ﺦ ﺉ ...)</li><li>If any of your PDFs are version 1.5 or newer.</li><li>You want extended shortcode function, opacity control, RTL, password protection, per-product and variable product watermarking, and much more.</li></ol>', 'waterwoo-pdf' ), 
 				),
 	
 				array(	
@@ -415,7 +417,7 @@ if ( ! class_exists( 'WaterWooPDF' ) ) {
 					'title' 	=> __( 'File(s) to watermark', 'waterwoo-pdf' ), 
 					'desc' 		=> __( 'List file name(s) of PDF(s) to watermark, one per line, e.g., <code>upload.pdf</code> or <code>my_pdf.pdf</code> .<br />If left blank, WaterWoo PDF will watermark all PDFs sold through WooCommerce.', 'waterwoo-pdf' ), 
 					'default' 	=>  $wwpdf_files_default,
-					'css' 		=> 'min-width:600px;',
+					'css' 		=> 'min-width:600px',
 				),
 
 				array(
@@ -424,7 +426,7 @@ if ( ! class_exists( 'WaterWooPDF' ) ) {
 					'title' 	=> __( 'Custom text for footer watermark', 'waterwoo-pdf' ),
 					'desc' 		=> __( 'Shortcodes available, all caps, in brackets: <code>[FIRSTNAME]</code> <code>[LASTNAME]</code> <code>[EMAIL]</code> <code>[PHONE]</code> <code>[DATE]</code>', 'waterwoo-pdf' ),
 					'default' 	=> $wwpdf_footer_input_default,
-					'css' 		=> 'min-width:600px;',
+					'css' 		=> 'min-width:600px',
 				),
 	
 				array(	
@@ -432,7 +434,7 @@ if ( ! class_exists( 'WaterWooPDF' ) ) {
 					'type' 		=> 'select',
 					'title' 	=> __( 'Font face', 'waterwoo-pdf' ),
 					'desc' 	=> __( 'Select a font for watermarks.', 'waterwoo-pdf' ),
-					'css' 		=> 'min-width:300px;',
+					'css' 		=> 'min-width:300px',
 					'class'		=> 'chosen_select',
 					'default'	=> 'helvetica',
 					'options' => array(
@@ -474,7 +476,7 @@ if ( ! class_exists( 'WaterWooPDF' ) ) {
 					'type' 		=> 'number',
 					'css' 		=> 'width:60px;',
 					'title' 	=> __( 'Y Fine Tuning', 'waterwoo-pdf' ),
-					'desc' 	=> __( 'Move the footer watermark up and down on the page by adjusting this number. Default is 270 millimeters (bottom of letter-sized page).', 'waterwoo-pdf' ),
+					'desc' 	=> __( 'Move the footer watermark up and down on the page by adjusting this number. Default is 260 millimeters (bottom of letter-sized page).', 'waterwoo-pdf' ),
 					'default' 	=> $wwpdf_footer_y_default,
 					'custom_attributes' => array(
 									'min' 	=> 0,

@@ -1,19 +1,27 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) exit;
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( 'WWPDF_File_Handler' ) ) {
 
     class WWPDF_File_Handler {
 
+        private $watermarked_file;
+
         /**
          * Constructor
          */
         public function __construct() {
+        
+            $this->watermarked_file = '';
     
             // filter the file download path
             add_action( 'woocommerce_product_file_download_path', array( $this, 'pdf_file_download_path' ), 50, 3 );
-         
+
+		    if ( apply_filters( 'wwpdf_do_cleanup', true ) ) {
+                $this->do_cleanup();
+            }
+
         }
     
         public function pdf_file_download_path( $file_path, $product, $download_id ) {
@@ -27,12 +35,9 @@ if ( ! class_exists( 'WWPDF_File_Handler' ) ) {
                 $wwpdf_enabled = get_option( 'wwpdf_enable' );
 				
                 if ( $wwpdf_enabled == "yes" ) {
-                
-                    $order_id = wc_get_order_id_by_order_key( wc_clean( wp_unslash( $_GET['order'] ) ) );
+
                     // order ID is post ID for backend (admin) watermarking
-                    if ( is_admin() ) { 
-                        $order_id = $_GET['post']; 
-                    }
+                    $order_id = is_admin() ? $_GET['post'] : wc_get_order_id_by_order_key( wc_clean( wp_unslash( $_GET['order'] ) ) );
                     $order_key = wc_clean( isset( $_GET['key'] ) );
 
                 	if ( isset( $_GET['email'] ) ) {
@@ -42,7 +47,6 @@ if ( ! class_exists( 'WWPDF_File_Handler' ) ) {
 						// Get email address from order to verify hash.
 						$order         = wc_get_order( $order_id );
 						$email_address = is_a( $order, 'WC_Order' ) ? $order->get_billing_email() : null;
-
 					}
         
  					$file_req = basename( $file_path );
@@ -59,10 +63,10 @@ if ( ! class_exists( 'WWPDF_File_Handler' ) ) {
             			$parsed_file_path = WC_Download_Handler::parse_file_path( $file_path );
 			            $wwpdf_file_path = str_replace( '.pdf', '', $parsed_file_path['file_path'] ) . '_' . time() . '_' . $order_key . '.pdf';      
             
-                        $watermarked_file_path = WWPDFWatermark::apply_and_spit( $parsed_file_path['file_path'], $wwpdf_file_path, $footer_input );
+                        $this->watermarked_file = WWPDFWatermark::apply_and_spit( $parsed_file_path['file_path'], $wwpdf_file_path, $footer_input );
 
-                        $watermarked_file_path = str_replace( ABSPATH, '', $watermarked_file_path );
-                        return $watermarked_file_path;
+                        $this->watermarked_file = str_replace( ABSPATH, '', $this->watermarked_file );
+                        return $this->watermarked_file;
                         
                     }
 
@@ -102,12 +106,54 @@ if ( ! class_exists( 'WWPDF_File_Handler' ) ) {
                 $out_charset = 'UTF-8';
                 $out_charset = apply_filters( 'wwpdf_out_charset', $out_charset );
                 $footer_input = html_entity_decode( $footer_input, ENT_QUOTES | ENT_XML1, $out_charset );
+                if ( $out_charset == 'UTF-8' && ! has_filter( 'wwpdf_add_custom_font') ) {
+                    $footer_input = self::toASCII( $footer_input );
+                }
             }     
 			
             return $footer_input;
      
         }
+        
+        public static function toASCII( $str ) {
+            return strtr(utf8_decode($str),
+            utf8_decode(
+                'ŠŒŽšœžŸ¥µÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝßàáâãäåæçèéêëìíîïðñòóôõöøùúûüýÿ'),
+                'SOZsozYYuAAAAAAACEEEEIIIIDNOOOOOOUUUUYsaaaaaaaceeeeiiiionoooooouuuuyy');
+        }        
+        
+        
+        /**
+         * Check if there is a stamped file and delete it.
+         * @return void
+         */
+        public function cleanup_file() {
 
+            if ( isset( $this->watermarked_file ) && ! empty( $this->watermarked_file ) ) {
+                unlink( $this->watermarked_file );
+                $this->watermarked_file = '';
+            }
+
+        }
+
+        /**
+         * Clean up files stored locally
+         */
+        private function do_cleanup() {
+
+            // redirect
+            if ( get_option( 'woocommerce_file_download_method' ) == 'force' ) {
+                add_action( 'shutdown', array( $this, 'cleanup_file' ) );
+
+            // force or xsendfile
+            } else {
+                // recommend setting up a cron job to remove watermarked files periodically
+                do_action( 'wwpdf_file_cleanup', $this->watermarked_file );
+                
+            }
+    
+        }
+        
     }
     
 }
