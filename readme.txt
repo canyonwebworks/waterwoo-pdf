@@ -233,8 +233,6 @@ No, sorry. This plugin is just for PDF files.
 * WP/WooCommerce compatibility version updated
 * DB cleanup option added for uninstall events
 
-[ UPDATE FPDI ]
-
 == Upgrade Notice ==
 
 = 1.0.2 =
