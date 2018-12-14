@@ -3,13 +3,13 @@
  * Plugin Name: WaterWoo PDF
  * Plugin URI: https://wordpress.org/plugins/waterwoo-pdf/
  * Description: Custom watermark your PDFs upon WooCommerce sale. 
- * Version: 2.2
+ * Version: 2.3
  * Author: Little Package 
  * Author URI: https://waterwoo.me
  * Donate link: https://www.paypal.me/littlepackage
  * WC requires at least: 2.4
- * WC tested up to: 3.4.4
- * 
+ * WC tested up to: 3.5.2
+ *
  * License: GPLv3 or later
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  * 
@@ -40,7 +40,6 @@
  *     along with WordPress. If not, see <http://www.gnu.org/licenses/>.
  *
  */
-
 defined( 'ABSPATH' ) || exit;
 if ( ! function_exists( 'is_woocommerce_active' ) || ! function_exists( 'get_woocommerce_version' ) ) require_once( 'woo-includes/woo-functions.php' );
 if ( ! is_woocommerce_active() ) return;
@@ -52,7 +51,7 @@ if ( ! class_exists( 'WaterWooPDF' ) ) {
 		/**
 		 * @var string
 		 */
-		public $version = '2.2';
+		public $version = '2.3';
 
 		/**
 		 * Init
@@ -393,6 +392,7 @@ if ( ! class_exists( 'WaterWooPDF' ) ) {
 			$wwpdf_footer_size_default = get_site_option( 'wwpdf_footer_size', '12' );
 			$wwpdf_footer_color_default = get_site_option( 'wwpdf_footer_color', '#000000' );
 			$wwpdf_footer_y_default = get_site_option( 'wwpdf_footer_y', '260' );
+			$wwpdf_delete_default = get_site_option( 'wwpdf_delete_checkbox', 'no' );
 	
 			return array(
 
@@ -485,9 +485,17 @@ if ( ! class_exists( 'WaterWooPDF' ) ) {
 								),
 					'desc_tip' 	=> true,
 				),
-
+				
+				array(	
+					'id' 		=> 'wwpdf_delete_checkbox',
+					'type' 		=> 'checkbox', 
+					'title' 	=> __( 'Leave No Trace?', 'water_woo_pdf' ), 
+					'desc' 	=> __( 'If this box is checked if/when you uninstall WaterWoo, all your WaterWoo settings will be deleted from your Wordpress database.', 'waterwoo-pdf' ), 
+					'default' 	=> $wwpdf_delete_default,
+				),
+				
 				array( 'id' => 'wwpdf_general_options', 'type' => 'sectionend' ),
-
+				
 			);
 
 		}

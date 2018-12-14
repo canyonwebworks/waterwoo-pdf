@@ -3,8 +3,8 @@ Contributors: littlepackage
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=PB2CFX8H4V49L
 Tags: watermark, ebook, ecommerce, e-commerce, protection, file, copyright, digital, marca de agua, pdf, property, publishing, security, signature, watermarking, woocommerce, book
 Requires at least: 4.0
-Tested up to: 4.9.8
-Stable tag: 2.2
+Tested up to: 5.0.1
+Stable tag: 2.3
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -27,7 +27,7 @@ WaterWoo PDF is a plugin that adds a watermark to every page of your sold PDF fi
 
 **Premium version:**
 
-[WaterWoo Premium](https://www.waterwoo.me/buy/waterwoo-premium/ "WaterWoo PDF Premium Version") offers these helpful extra features:
+[WaterWoo Premium](https://www.waterwoo.me/ "WaterWoo PDF Premium Version") offers these helpful extra features in addition to free features:
 
 * Watermark all PDF files with same settings OR set individual watermarks per product or even per product variation!
 * Supports all versions of Adobe PDF (through 1.7)
@@ -55,7 +55,7 @@ WaterWoo PDF is a plugin that adds a watermark to every page of your sold PDF fi
 
 = Prerequisites =
 1. WordPress 4.0 or newer
-2. WooCommerce plugin version 2.3 and newer, and PDF products
+2. WooCommerce plugin version 2.4 and newer, and PDF products
 3. PHP version 5.4 or newer
 4. If you are selling large files or have high sales traffic, you may need to upgrade your hosting account. Do at least set your PHP memory limit high.
 
@@ -101,10 +101,10 @@ They are generated with a unique name and stored in the same folder as your orig
 WaterWoo PDF is intended to watermark PDF (.pdf) files. If you are specifically looking to watermark image files (.jpg, .jpeg, .gif, .png, .etc), you may want to look into a plugin such as [Image Watermark](http://wordpress.org/plugins/image-watermark/ "Image Watermark Plugin").
 
 = I get an FPDF error =
-If you get the "FPDF error: This document (../../yourfile.pdf) probably uses a compression technique which is not supported by the free parser shipped with FPDI" it is because the PDF you are trying to watermark uses a compression technique not supported by the bundled PDF generator, FPDI. FPDI parses PDFs through version 1.4, and occasionally has troubles with 1.5, 1.6 and 1.7. 
+If you get the "This document (../../yourfile.pdf) probably uses a compression technique which is not supported by the free parser shipped with FPDI" it is because the PDF you are trying to watermark uses a compression technique not supported by the bundled PDF generator, FPDI. FPDI parses PDFs through version 1.4, and occasionally has troubles with 1.5, 1.6 and 1.7. 
 
 1. Try this [solution using Acrobat](http://stackoverflow.com/a/7155711 "Stack Overflow"), if possible. Alternatively, you can go to Edit->Preflight->Standards and Save As PDF/A.
-2. If that doesn't work, test and perhaps purchase the [add-on from SetaSign](http://www.setasign.com/products/fpdi/demos/fpdi-pdf-parser/ "PDF Parser Add-On") and add it into this plugin. That will take some programming chops. Or consider buying the [Premium version](http://waterwoo.me "WaterWoo PDF Premium Version") of this plugin, as it will solve this problem.
+2. If that doesn't work, test and perhaps purchase the [add-on from SetaSign](http://www.setasign.com/products/fpdi/demos/fpdi-pdf-parser/ "PDF Parser Add-On") and add it into this plugin. That will take some programming chops. Or consider buying the [Premium version](https://waterwoo.me "WaterWoo PDF Premium Version") of this plugin, as it will solve this problem.
 
 = Does this work for ePub/Mobi files =
 No, sorry. This plugin is just for PDF files.
@@ -223,8 +223,17 @@ No, sorry. This plugin is just for PDF files.
 = 2.2, 2018.08.08 =
 * Filter hook 'wwpdf_add_custom_font' added to /classes/class-wwpdf-watermark.php
 * Language file updates
-* Convert non-printable Unicode characters into the "equivalent" ASCII
+* Convert non-printable Unicode characters into the "equivalent" ASCII 
 * Notice to customers placed in settings to clarify free plugin limitations
+
+= 2.3, 2018.12.13 =
+* Improved error handling for FPDI limitations
+* File cleanup improvement
+* FPDI and FPDF updated to most recent available versions with performance enhancements
+* WP/WooCommerce compatibility version updated
+* DB cleanup option added for uninstall events
+
+[ UPDATE FPDI ]
 
 == Upgrade Notice ==
 
@@ -254,3 +263,6 @@ No, sorry. This plugin is just for PDF files.
 
 = 2.0 = 
 * Support for WooCommerce versions older than 2.4 removed for security reasons. Please update your WooCommerce installation to the newest version before using WaterWoo.
+
+= 2.3 =
+* Version 2.3 is potentially (unlikely) a breaking update as the FPDI/FPDF libraries were updated

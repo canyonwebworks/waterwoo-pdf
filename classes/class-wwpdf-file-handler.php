@@ -32,7 +32,7 @@ if ( ! class_exists( 'WWPDF_File_Handler' ) ) {
             if ( strtolower( $file_extension ) == 'pdf' ) {
 
 				// Is the WaterWoo plugin enabled?
-                $wwpdf_enabled = get_option( 'wwpdf_enable' );
+                $wwpdf_enabled = get_site_option( 'wwpdf_enable', 'no' );
 				
                 if ( $wwpdf_enabled == "yes" ) {
 
@@ -41,17 +41,17 @@ if ( ! class_exists( 'WWPDF_File_Handler' ) ) {
                     $order_key = wc_clean( isset( $_GET['key'] ) );
 
                 	if ( isset( $_GET['email'] ) ) {
-						$email_address = wp_unslash( $_GET['email'] );
-						$email_address = sanitize_email( str_replace( ' ', '+', $email_address ) );
+						$email_address  = wp_unslash( $_GET['email'] );
+						$email_address  = sanitize_email( str_replace( ' ', '+', $email_address ) );
 					} else {
 						// Get email address from order to verify hash.
-						$order         = wc_get_order( $order_id );
-						$email_address = is_a( $order, 'WC_Order' ) ? $order->get_billing_email() : null;
+						$order          = wc_get_order( $order_id );
+						$email_address  = is_a( $order, 'WC_Order' ) ? $order->get_billing_email() : null;
 					}
         
- 					$file_req = basename( $file_path );
-					$wwpdf_files = get_option( 'wwpdf_files', '' );
-					$wwpdf_file_list = array_filter( array_map( 'trim', explode( PHP_EOL, $wwpdf_files ) ) );
+ 					$file_req           = basename( $file_path );
+					$wwpdf_files        = get_site_option( 'wwpdf_files', '' );
+					$wwpdf_file_list    = array_filter( array_map( 'trim', explode( PHP_EOL, $wwpdf_files ) ) );
 					
 					// Watermark desired files only
 					if ( in_array( $file_req, $wwpdf_file_list ) || $wwpdf_files == '' ) { 
@@ -63,15 +63,20 @@ if ( ! class_exists( 'WWPDF_File_Handler' ) ) {
             			$parsed_file_path = WC_Download_Handler::parse_file_path( $file_path );
 			            $wwpdf_file_path = str_replace( '.pdf', '', $parsed_file_path['file_path'] ) . '_' . time() . '_' . $order_key . '.pdf';      
             
-                        $this->watermarked_file = WWPDFWatermark::apply_and_spit( $parsed_file_path['file_path'], $wwpdf_file_path, $footer_input );
-
-                        $this->watermarked_file = str_replace( ABSPATH, '', $this->watermarked_file );
-                        return $this->watermarked_file;
+                        try {
+                            $this->watermarked_file = WWPDFWatermark::apply_and_spit( $parsed_file_path['file_path'], $wwpdf_file_path, $footer_input );
+                        } catch ( Exception $ex ) {
+                            _e( 'Unable to watermark this file for download. Please notify site administrator.', 'waterwoo-pdf' );
+                            echo $ex->getMessage();
+                            return;
+                        }
+                        
+                        $watermarked_file = str_replace( ABSPATH, '', $this->watermarked_file );
+                        return $watermarked_file;
                         
                     }
 
                 }
-                return $file_path;
                 
             }
             return $file_path;
@@ -91,10 +96,10 @@ if ( ! class_exists( 'WWPDF_File_Handler' ) ) {
             $phone              = $order_data['billing']['phone'];
 
             $order_paid_date    = $order_data['date_created']->date('Y-m-d H:i:s');
-            $date_format        = get_option( 'date_format' );
+            $date_format        = get_site_option( 'date_format' );
             $order_paid_date    = date_i18n( $date_format, strtotime( $order_paid_date ) );
             
-            $footer_input = get_option( 'wwpdf_footer_input' );
+            $footer_input = get_site_option( 'wwpdf_footer_input', 'Licensed to [FIRSTNAME] [LASTNAME], [EMAIL]' );
 			$footer_input = preg_replace( array( '/\[FIRSTNAME\]/','/\[LASTNAME\]/','/\[EMAIL\]/','/\[PHONE\]/','/\[DATE\]/' ), array( $first_name, $last_name, $user_email, $phone, $order_paid_date ), $footer_input );
 
             $footer_input = apply_filters( 'wwpdf_filter_footer', $footer_input, $order_id, $product_id );
@@ -110,7 +115,6 @@ if ( ! class_exists( 'WWPDF_File_Handler' ) ) {
                     $footer_input = self::toASCII( $footer_input );
                 }
             }     
-			
             return $footer_input;
      
         }
@@ -142,7 +146,7 @@ if ( ! class_exists( 'WWPDF_File_Handler' ) ) {
         private function do_cleanup() {
 
             // redirect
-            if ( get_option( 'woocommerce_file_download_method' ) == 'force' ) {
+            if ( get_site_option( 'woocommerce_file_download_method', 'force' ) == 'force' ) {
                 add_action( 'shutdown', array( $this, 'cleanup_file' ) );
 
             // force or xsendfile
