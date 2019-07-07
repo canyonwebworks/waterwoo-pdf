@@ -1,5 +1,6 @@
+#screen-meta-links #wwpdf-screen-options-link-wrap {float:right}
 #screen-meta-links #wwpdf-screen-options-link-wrap .show-settings{color:#FFF;line-height:2;text-decoration:none;text-shadow:1px 1px 1px rgba(173, 125, 37, 1)}
 #screen-meta-links #wwpdf-screen-options-link-wrap .show-settings:after{content:''}
 #screen-meta-links #wwpdf-screen-options-link-wrap #contextual-help-link-wrap{background-color:#d4992b;border-color:#ad7d25}
 #screen-meta-links #wwpdf-screen-options-link-wrap #contextual-help-link-wrap:hover{background-color:#86cebc;border-color:#6fbba8}
-#screen-meta-links #wwpdf-screen-options-link-wrap #contextual-help-link-wrap:hover .show-settings{text-shadow:1px 1px 1px rgba(111, 187, 168, 1)}
+#screen-meta-links #wwpdf-screen-options-link-wrap #contextual-help-link-wrap:hover .show-settings{border:0;text-shadow:1px 1px 1px rgba(111, 187, 168, 1)}

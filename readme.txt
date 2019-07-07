@@ -3,8 +3,8 @@ Contributors: littlepackage
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=PB2CFX8H4V49L
 Tags: watermark, ebook, ecommerce, e-commerce, protection, file, copyright, digital, marca de agua, pdf, property, publishing, security, signature, watermarking, woocommerce, book
 Requires at least: 4.0
-Tested up to: 5.0.1
-Stable tag: 2.3
+Tested up to: 5.2.2
+Stable tag: 2.4
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -30,7 +30,6 @@ WaterWoo PDF is a plugin that adds a watermark to every page of your sold PDF fi
 [WaterWoo Premium](https://www.waterwoo.me/ "WaterWoo PDF Premium Version") offers these helpful extra features in addition to free features:
 
 * Watermark all PDF files with same settings OR set individual watermarks per product or even per product variation!
-* Supports all versions of Adobe PDF (through 1.7)
 * Additional, rotatable watermark location - two watermark locations on one page!
 * Additional text formatting options, such as font color and style (bold, italics) 
 * Semi-opaque (transparent) watermarks
@@ -76,12 +75,11 @@ WaterWoo PDF is a plugin that adds a watermark to every page of your sold PDF fi
 = It doesn't seem to work =
 1. Have you checked the box at the top of your settings page (Woocommerce -> Settings -> Watermark) so that watermarking is enabled?
 2. Have you entered your PDF file names correctly in the second field if you've entered any at all?
-3. WaterWoo may not be able to watermark PDF files version 1.5 and newer. Consider the Premium version of the plugin, which includes the PDF parser necessary for newer files (1.5+). 
-4. Is your Y fine-tuning adjustment off the page? Read more below under "Why does the watermark go off the page, create blank pages?".
+3. Is your Y fine-tuning adjustment off the page? Read more below under "Why does the watermark go off the page, create blank pages?".
 
 Please do get in touch with your issues via the Wordpress.org support forum or email ( hello @ waterwoo .me ) before leaving negative feedback about this free plugin.
 
-If requesting help using the Wordpress.org support forum, please state which versions Wordpress/WooCommerce/WaterWoo you are using, what version your PDF is (it should be 1.4 or older), and what error messages if any you are seeing. Screenshots and clear descriptions of the steps it takes to reproduce your problem are also very helpful. Please also make your support request TITLE descriptive. I offer and support this plugin unpaid, and I'm sorry but I don't have time to guess or read minds.
+If requesting help using the Wordpress.org support forum, please state which versions Wordpress/WooCommerce/WaterWoo you are using, and what error messages if any you are seeing. Screenshots and clear descriptions of the steps it takes to reproduce your problem are also very helpful. Please also make your support request TITLE descriptive. I offer and support this plugin unpaid, and I'm sorry but I don't have time to guess or read minds.
 
 **Do not use the Wordpress.org support forum for help with the Premium (paid) version** of WaterWoo - that is against Wordpress.org rules.
 
@@ -99,12 +97,6 @@ They are generated with a unique name and stored in the same folder as your orig
 
 = Will WaterWoo PDF watermark images? =
 WaterWoo PDF is intended to watermark PDF (.pdf) files. If you are specifically looking to watermark image files (.jpg, .jpeg, .gif, .png, .etc), you may want to look into a plugin such as [Image Watermark](http://wordpress.org/plugins/image-watermark/ "Image Watermark Plugin").
-
-= I get an FPDF error =
-If you get the "This document (../../yourfile.pdf) probably uses a compression technique which is not supported by the free parser shipped with FPDI" it is because the PDF you are trying to watermark uses a compression technique not supported by the bundled PDF generator, FPDI. FPDI parses PDFs through version 1.4, and occasionally has troubles with 1.5, 1.6 and 1.7. 
-
-1. Try this [solution using Acrobat](http://stackoverflow.com/a/7155711 "Stack Overflow"), if possible. Alternatively, you can go to Edit->Preflight->Standards and Save As PDF/A.
-2. If that doesn't work, test and perhaps purchase the [add-on from SetaSign](http://www.setasign.com/products/fpdi/demos/fpdi-pdf-parser/ "PDF Parser Add-On") and add it into this plugin. That will take some programming chops. Or consider buying the [Premium version](https://waterwoo.me "WaterWoo PDF Premium Version") of this plugin, as it will solve this problem.
 
 = Does this work for ePub/Mobi files =
 No, sorry. This plugin is just for PDF files.
@@ -232,6 +224,10 @@ No, sorry. This plugin is just for PDF files.
 * FPDI and FPDF updated to most recent available versions with performance enhancements
 * WP/WooCommerce compatibility version updated
 * DB cleanup option added for uninstall events
+
+= 2.4, 2019.07.06 =
+* Use TCPDI/TCPDF libraries in favor of FPDI/FPDF in order to offer watermarking for ALL version PDFs
+* WP/WooCommerce compatibility version updated
 
 == Upgrade Notice ==
 

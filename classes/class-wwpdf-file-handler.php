@@ -40,9 +40,8 @@ if ( ! class_exists( 'WWPDF_File_Handler' ) ) {
                     $order_id = is_admin() ? $_GET['post'] : wc_get_order_id_by_order_key( wc_clean( wp_unslash( $_GET['order'] ) ) );
                     $order_key = wc_clean( isset( $_GET['key'] ) );
 
-                	if ( isset( $_GET['email'] ) ) {
+                    if ( isset( $_GET['email'] ) ) {
 						$email_address  = wp_unslash( $_GET['email'] );
-						$email_address  = sanitize_email( str_replace( ' ', '+', $email_address ) );
 					} else {
 						// Get email address from order to verify hash.
 						$order          = wc_get_order( $order_id );

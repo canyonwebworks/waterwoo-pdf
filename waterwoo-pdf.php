@@ -3,12 +3,12 @@
  * Plugin Name: WaterWoo PDF
  * Plugin URI: https://wordpress.org/plugins/waterwoo-pdf/
  * Description: Custom watermark your PDFs upon WooCommerce sale. 
- * Version: 2.3
+ * Version: 2.4
  * Author: Little Package 
  * Author URI: https://waterwoo.me
  * Donate link: https://www.paypal.me/littlepackage
  * WC requires at least: 2.4
- * WC tested up to: 3.5.2
+ * WC tested up to: 3.6.4
  *
  * License: GPLv3 or later
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -51,7 +51,7 @@ if ( ! class_exists( 'WaterWooPDF' ) ) {
 		/**
 		 * @var string
 		 */
-		public $version = '2.3';
+		public $version = '2.4';
 
 		/**
 		 * Init
@@ -400,7 +400,7 @@ if ( ! class_exists( 'WaterWooPDF' ) ) {
 					'id' 		=> 'wwpdf_general_options',
 					'type' 		=> 'title',
 					'title' 	=> __( 'WaterWoo General Options', 'waterwoo-pdf' ),
-					'desc' 	=> __( 'Note: This free watermarking plugin is rudimentary. You need the <a href="https://www.waterwoo.me/buy/waterwoo-premium/" target="_blank">Premium version of WaterWoo</a> if:<ol><li>Your watermark is not in English and/or contains extended Unicode characters (e.g. ě à é č ì ü Л Ж Ω ﺦ ﺉ ...)</li><li>If any of your PDFs are version 1.5 or newer.</li><li>You want extended shortcode function, opacity control, RTL, password protection, per-product and variable product watermarking, and much more.</li></ol>', 'waterwoo-pdf' ), 
+					'desc' 	=> __( 'Note: This free watermarking plugin is rudimentary. You need the <a href="https://www.waterwoo.me/buy/waterwoo-premium/" target="_blank">Premium version of WaterWoo</a> if:<ol><li>Your watermark is not in English and/or contains extended Unicode characters (e.g. ě à é č ì ü Л Ж Ω ﺦ ﺉ ...)</li><li>You want extended shortcode function, opacity control, RTL, password protection, per-product and variable product watermarking, and much more.</li></ol>', 'waterwoo-pdf' ), 
 				),
 	
 				array(	
