@@ -110,22 +110,12 @@ if ( ! class_exists( 'WWPDF_File_Handler' ) ) {
                 $out_charset = 'UTF-8';
                 $out_charset = apply_filters( 'wwpdf_out_charset', $out_charset );
                 $footer_input = html_entity_decode( $footer_input, ENT_QUOTES | ENT_XML1, $out_charset );
-                if ( $out_charset == 'UTF-8' && ! has_filter( 'wwpdf_add_custom_font') ) {
-                    $footer_input = self::toASCII( $footer_input );
-                }
-            }     
+            }
+                              
             return $footer_input;
      
         }
-        
-        public static function toASCII( $str ) {
-            return strtr(utf8_decode($str),
-            utf8_decode(
-                'ŠŒŽšœžŸ¥µÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝßàáâãäåæçèéêëìíîïðñòóôõöøùúûüýÿ'),
-                'SOZsozYYuAAAAAAACEEEEIIIIDNOOOOOOUUUUYsaaaaaaaceeeeiiiionoooooouuuuyy');
-        }        
-        
-        
+                
         /**
          * Check if there is a stamped file and delete it.
          * @return void

@@ -46,7 +46,7 @@ if ( ! class_exists( 'WWPDFWatermark' ) ) :
 
 			for( $i = 1; $i <= $pagecount; $i++ ) {
 			
-				$idx        = $this->pdf->importPage( $i, '/BleedBox' );
+				$idx        = $this->pdf->importPage( $i );
                 $meta       = $this->pdf->getMetaData();
 
 				$size       = $this->pdf->getTemplateSize( $idx );
@@ -56,11 +56,13 @@ if ( ! class_exists( 'WWPDFWatermark' ) ) :
 				$this->pdf->addPage( $orient, '', $meta );
 				$this->pdf->setPageFormatFromTemplatePage( $i, $orient, $size_arr );
                 $this->pdf->useTemplate( $idx );
-                $this->pdf->SetAutoPageBreak( true, 0 );
-				$this->pdf->SetMargins( 0, 0 );
                 $this->pdf->SetFont( $font, '', $footer_size );
+				$this->pdf->SetMargins( 0, 0 );
+                $this->pdf->SetAutoPageBreak( true, 0 );
                 $this->pdf->SetTextColor( $rgb_array[0], $rgb_array[1], $rgb_array[2] );
-				$this->pdf->Text( ( $size['w'] / 2 ) - ( $this->pdf->GetStringWidth( $this->footer ) / 2 ), $footer_y, $this->footer );
+                $footer_x = ( $size['w'] / 2 ) - ( $this->pdf->GetStringWidth( $this->footer ) / 2 );
+                $this->pdf->SetXY( $footer_x, $footer_y );
+				$this->pdf->Write( 1, $this->footer );
 				
 			}
 			$this->pdf->Output($this->newfile, 'F');

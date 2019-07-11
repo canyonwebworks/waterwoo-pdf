@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: watermark, ebook, ecommerce, e-commerce, protection, file, copyright, digital, marca de agua, pdf, property, publishing, security, signature, watermarking, woocommerce, book
 Requires at least: 4.0
 Tested up to: 5.2.2
-Stable tag: 2.4.1
+Stable tag: 2.4.2
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -234,6 +234,9 @@ No, sorry. This plugin is just for PDF files.
 * Extra fonts removed to slim down plugin folder size
 * WooCommerce testing compatibility with version 2.6.5
 
+= 2.4.2 2019.07.11 = 
+* Retain special UTF-8 characters while watermarking
+
 == Upgrade Notice ==
 
 = 1.0.2 =
@@ -265,3 +268,6 @@ No, sorry. This plugin is just for PDF files.
 
 = 2.3 =
 * Version 2.3 is potentially (unlikely) a breaking update as the FPDI/FPDF libraries were updated
+
+= 2.4.2 = 
+* Adjustments in Y-positioning (distance down the page) of the watermark since version 2.4 may cause blank pages or changes in watermark positioning. Please review your watermark settings to be sure they are where you like them.
