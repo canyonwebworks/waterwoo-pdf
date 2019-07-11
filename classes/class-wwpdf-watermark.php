@@ -56,9 +56,10 @@ if ( ! class_exists( 'WWPDFWatermark' ) ) :
 				$this->pdf->addPage( $orient, '', $meta );
 				$this->pdf->setPageFormatFromTemplatePage( $i, $orient, $size_arr );
                 $this->pdf->useTemplate( $idx );
-				$this->pdf->SetTextColor( $rgb_array[0], $rgb_array[1], $rgb_array[2] );
-                $this->pdf->SetFont( $font, '', $footer_size );	
-
+                $this->pdf->SetAutoPageBreak( true, 0 );
+				$this->pdf->SetMargins( 0, 0 );
+                $this->pdf->SetFont( $font, '', $footer_size );
+                $this->pdf->SetTextColor( $rgb_array[0], $rgb_array[1], $rgb_array[2] );
 				$this->pdf->Text( ( $size['w'] / 2 ) - ( $this->pdf->GetStringWidth( $this->footer ) / 2 ), $footer_y, $this->footer );
 				
 			}
@@ -66,13 +67,13 @@ if ( ! class_exists( 'WWPDFWatermark' ) ) :
 
 		} // end function do_watermark
 
-		protected function hex2rgb($hex) {
-			$hex = str_replace("#", "", $hex);
-			$r = hexdec(substr($hex,0,2));
-			$g = hexdec(substr($hex,2,2));
-			$b = hexdec(substr($hex,4,2));
-			$rgb = array($r, $g, $b);
-			return implode(",", $rgb);
+		protected function hex2rgb( $hex ) {
+			$hex = str_replace( "#", "", $hex );
+			$r = hexdec( substr( $hex,0,2 ) );
+			$g = hexdec( substr( $hex,2,2 ) );
+			$b = hexdec( substr( $hex,4,2 ) );
+			$rgb = array( $r, $g, $b );
+			return implode( ",", $rgb );
 		}
 
 	} // end Class WWPDFWatermark

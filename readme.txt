@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: watermark, ebook, ecommerce, e-commerce, protection, file, copyright, digital, marca de agua, pdf, property, publishing, security, signature, watermarking, woocommerce, book
 Requires at least: 4.0
 Tested up to: 5.2.2
-Stable tag: 2.4
+Stable tag: 2.4.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -90,7 +90,7 @@ You can find the WaterWoo settings page by clicking on the "settings" link under
 I recommend creating a coupon in your Woocommerce shop to allow 100% free purchases. Don't share this coupon code with anyone! Test your watermark by purchasing PDFs from your shop using the coupon. It's a bit more tedious. If you want an easier go of it (on-the-fly testing), purchase the Premium version of this plugin.
 
 = Why does the watermark go off the page, create blank pages? =
-Your watermark text string is too big or long for the page! Try decreasing font size or using the Y fine tuners to move the watermark back onto the page. Try lowering your "y-axis" value. This number corresponds to how many *millimeters* you want the watermark moved down the page. For example, if your PDF page is 11 inches tall, your Y-axis setting should be a deal less than 279.4mm in order for a watermark to show. The built-in adjustments on the settings page ultimately allow for watermarking on all document sizes. You may need to edit your watermark if it is too verbose.
+Your watermark text string is too big or long for the page, and goes off it! Try decreasing font size or using the Y fine tuners to move the watermark back onto the page. Try lowering your "y-axis" value. This number corresponds to how many *millimeters* you want the watermark moved down the page. For example, if your PDF page is 11 inches tall, your Y-axis setting should be a deal less than 279.4mm in order for a watermark to show. The built-in adjustments on the settings page ultimately allow for watermarking on all document sizes. You may need to edit your watermark if it is too verbose.
 
 = Where do the watermarked files go? =
 They are generated with a unique name and stored in the same folder as your original Wordpress/Woo product media upload (usually wp-content/uploads/year/month/file). The unique name includes the order number and a time stamp. If your end user complains of not being able to access their custom PDF for some reason (most often after their max number of downloads is exceeded), you can find it in that folder, right alongside your original.
@@ -228,6 +228,11 @@ No, sorry. This plugin is just for PDF files.
 = 2.4, 2019.07.06 =
 * Use TCPDI/TCPDF libraries in favor of FPDI/FPDF in order to offer watermarking for ALL version PDFs
 * WP/WooCommerce compatibility version updated
+
+= 2.4.1 2019.07.10 = 
+* TCPDF properties SetAutoPageBreak and SetMargins used to remove margins on Text Cell for more accurate watermark Y positioning
+* Extra fonts removed to slim down plugin folder size
+* WooCommerce testing compatibility with version 2.6.5
 
 == Upgrade Notice ==
 
