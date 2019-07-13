@@ -399,9 +399,11 @@ if ( ! class_exists( 'wwpdf_tcpdi_parser' ) ) :
         protected function getXrefData($offset=0, $xref=array()) {
             if ($offset == 0) {
                 // find last startxref
-                if ( preg_match('/.*[\r\n]startxref[\s\r\n]+([0-9]+)[\s\r\n]+%%EOF/is', $this->pdfdata, $matches ) == 0 ) {
+                if (preg_match_all('/[\r\n]startxref[\s]*[\r\n]+([0-9]+)[\s]*[\r\n]+%%EOF/i', $this->pdfdata, $matches, PREG_SET_ORDER, $offset) == 0) { // processes 4x5 times faster than following line
+//              if ( preg_match('/.*[\r\n]startxref[\s\r\n]+([0-9]+)[\s\r\n]+%%EOF/is', $this->pdfdata, $matches ) == 0 ) {
                     $this->Error('Unable to find startxref');
                 }
+                $matches = array_pop($matches);
                 $startxref = $matches[1];
             } elseif (strpos($this->pdfdata, 'xref', $offset) == $offset) {
 			    // Already pointing at the xref table

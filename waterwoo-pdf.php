@@ -3,7 +3,7 @@
  * Plugin Name: WaterWoo PDF
  * Plugin URI: https://wordpress.org/plugins/waterwoo-pdf/
  * Description: Custom watermark your PDFs upon WooCommerce sale. 
- * Version: 2.4.2
+ * Version: 2.4.3
  * Author: Little Package 
  * Author URI: https://waterwoo.me
  * Donate link: https://www.paypal.me/littlepackage
@@ -51,7 +51,7 @@ if ( ! class_exists( 'WaterWooPDF' ) ) {
 		/**
 		 * @var string
 		 */
-		public $version = '2.4.2';
+		public $version = '2.4.3';
 
 		/**
 		 * Init

@@ -56,6 +56,7 @@ if ( ! class_exists( 'WWPDFWatermark' ) ) :
 				$this->pdf->addPage( $orient, '', $meta );
 				$this->pdf->setPageFormatFromTemplatePage( $i, $orient, $size_arr );
                 $this->pdf->useTemplate( $idx );
+                $this->pdf->importAnnotations( $idx );
                 $this->pdf->SetFont( $font, '', $footer_size );
 				$this->pdf->SetMargins( 0, 0 );
                 $this->pdf->SetAutoPageBreak( true, 0 );

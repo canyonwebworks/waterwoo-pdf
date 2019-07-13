@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: watermark, ebook, ecommerce, e-commerce, protection, file, copyright, digital, marca de agua, pdf, property, publishing, security, signature, watermarking, woocommerce, book
 Requires at least: 4.0
 Tested up to: 5.2.2
-Stable tag: 2.4.2
+Stable tag: 2.4.3
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -271,3 +271,8 @@ No, sorry. This plugin is just for PDF files.
 
 = 2.4.2 = 
 * Adjustments in Y-positioning (distance down the page) of the watermark since version 2.4 may cause blank pages or changes in watermark positioning. Please review your watermark settings to be sure they are where you like them.
+
+= 2.4.3 = 
+* Tweak - /inc/tcpdi/tcpdi_parser.php property getXrefData() - runs 4-5x faster
+* Importannotations() in order to allow preserving of many (external) URL links in PDF
+
