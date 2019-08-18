@@ -41,7 +41,7 @@ class WWPDF_Uninstall {
 	 */
 	function uninstall() {
 
-		if ( get_option( 'wwpdf_delete_checkbox' ) !== 'on' ) {
+		if ( get_option( 'wwpdf_delete_checkbox' ) !== 'yes' ) {
 			return;
 		}
 		

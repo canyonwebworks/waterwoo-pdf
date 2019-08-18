@@ -2,9 +2,9 @@
 Contributors: littlepackage
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=PB2CFX8H4V49L
 Tags: watermark, ebook, ecommerce, e-commerce, protection, file, copyright, digital, marca de agua, pdf, property, publishing, security, signature, watermarking, woocommerce, book
-Requires at least: 4.0
+Requires at least: 4.4
 Tested up to: 5.2.2
-Stable tag: 2.4.3
+Stable tag: 2.4.4
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -40,7 +40,7 @@ WaterWoo PDF is a plugin that adds a watermark to every page of your sold PDF fi
 * Additional font (Deja Vu) adding more international character support
 * Additional fonts Furat (supports Arabic) and M Sung (supports Chinese)
 * Hook to add your own fonts
-* Additional dynamic customer data input (business name, order paid date)
+* Additional dynamic customer data input (business name, order paid date), hooks for adding even more
 * Hook to add 1D and 2D barcodes (including QR codes)
 * Begin watermark on selected page of PDF document (to avoid watermarking a cover page, for example)
 * Watermark every page, odd pages, or even pages
@@ -53,9 +53,9 @@ WaterWoo PDF is a plugin that adds a watermark to every page of your sold PDF fi
 == Installation ==
 
 = Prerequisites =
-1. WordPress 4.0 or newer
-2. WooCommerce plugin version 2.4 and newer, and PDF products
-3. PHP version 5.4 or newer
+1. WordPress 4.4 or newer
+2. WooCommerce plugin version 2.6 and newer, and PDF products
+3. PHP version 5.6 or newer
 4. If you are selling large files or have high sales traffic, you may need to upgrade your hosting account. Do at least set your PHP memory limit high.
 
 = To install plugin =
@@ -237,6 +237,16 @@ No, sorry. This plugin is just for PDF files.
 = 2.4.2 2019.07.11 = 
 * Retain special UTF-8 characters while watermarking
 
+= 2.4.3 = 
+* Tweak - /inc/tcpdi/tcpdi_parser.php property getXrefData() - runs 4-5x faster
+* Importannotations() in order to allow preserving of many (external) URL links in PDF
+
+= 2.4.4 2019.08.18 = 
+* Fix for settings not updating, fire settings hooks earlier in waterwoo-pdf.php
+* Links to waterwoo official website updated, and with noopener rel tags
+* Testing with WooCommerce 3.7
+* Minimum requirements for PHP, Wordpress, and WooCommerce updated
+
 == Upgrade Notice ==
 
 = 1.0.2 =
@@ -271,8 +281,4 @@ No, sorry. This plugin is just for PDF files.
 
 = 2.4.2 = 
 * Adjustments in Y-positioning (distance down the page) of the watermark since version 2.4 may cause blank pages or changes in watermark positioning. Please review your watermark settings to be sure they are where you like them.
-
-= 2.4.3 = 
-* Tweak - /inc/tcpdi/tcpdi_parser.php property getXrefData() - runs 4-5x faster
-* Importannotations() in order to allow preserving of many (external) URL links in PDF
 

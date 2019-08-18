@@ -2,11 +2,11 @@
 
 defined( 'ABSPATH' ) || exit;
 
-if ( ! class_exists( 'WWPDFWatermark' ) ) :
+if ( ! class_exists( 'WWPDF_Watermark' ) ) :
 
-	class WWPDFWatermark {
+	class WWPDF_Watermark {
 
-		public function __construct($origfile, $newfile, $footer) {
+		public function __construct( $origfile, $newfile, $footer ) {
 
             $this->pdf = new WWPDF_TCPDI();
 			$this->file = $origfile;
@@ -15,7 +15,7 @@ if ( ! class_exists( 'WWPDFWatermark' ) ) :
 
 		}
 
-		public static function apply_and_spit($origfile, $newfile, $footer) {
+		public static function apply_and_spit( $origfile, $newfile, $footer ) {
 
             /* 
              * Include TCPDF & TCPDI
@@ -23,7 +23,7 @@ if ( ! class_exists( 'WWPDFWatermark' ) ) :
             require_once WWPDF_PATH . 'inc/tcpdf/tcpdf_child.php';
             require_once WWPDF_PATH . 'inc/tcpdi/tcpdi.php';
             
-			$wm = new WWPDFWatermark($origfile, $newfile, $footer);
+			$wm = new WWPDF_Watermark( $origfile, $newfile, $footer );
 			
             if ( file_exists( $wm->newfile && ! apply_filters( 'wwpdf_do_cleanup', true ) ) ) {
 				return $wm->newfile;
@@ -37,12 +37,12 @@ if ( ! class_exists( 'WWPDFWatermark' ) ) :
 		public function do_watermark() {
 
 			$pagecount = $this->pdf->setSourceFile( $this->file );
-			$footer_y = get_site_option( 'wwpdf_footer_y', '260' );
-			$footer_color = $this->hex2rgb( get_site_option( 'wwpdf_footer_color', '#000000' ) );
+			$footer_y = get_option( 'wwpdf_footer_y', '260' );
+			$footer_color = $this->hex2rgb( get_option( 'wwpdf_footer_color', '#000000' ) );
 			$rgb_array = explode( ",", $footer_color );
-			$font = get_site_option( 'wwpdf_font', 'helvetica' );
+			$font = get_option( 'wwpdf_font', 'helvetica' );
 			$font = apply_filters( 'wwpdf_add_custom_font', $font );
-			$footer_size = get_site_option( 'wwpdf_footer_size', '12' );
+			$footer_size = get_option( 'wwpdf_footer_size', '12' );
 
 			for( $i = 1; $i <= $pagecount; $i++ ) {
 			
@@ -66,7 +66,7 @@ if ( ! class_exists( 'WWPDFWatermark' ) ) :
 				$this->pdf->Write( 1, $this->footer );
 				
 			}
-			$this->pdf->Output($this->newfile, 'F');
+			$this->pdf->Output( $this->newfile, 'F' );
 
 		} // end function do_watermark
 
@@ -79,6 +79,6 @@ if ( ! class_exists( 'WWPDFWatermark' ) ) :
 			return implode( ",", $rgb );
 		}
 
-	} // end Class WWPDFWatermark
+	} // end Class WWPDF_Watermark
 	
 endif;

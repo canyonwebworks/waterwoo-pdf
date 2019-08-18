@@ -32,7 +32,7 @@ if ( ! class_exists( 'WWPDF_File_Handler' ) ) {
             if ( strtolower( $file_extension ) == 'pdf' ) {
 
 				// Is the WaterWoo plugin enabled?
-                $wwpdf_enabled = get_site_option( 'wwpdf_enable', 'no' );
+                $wwpdf_enabled = get_option( 'wwpdf_enable', 'no' );
 				
                 if ( $wwpdf_enabled == "yes" ) {
 
@@ -49,7 +49,7 @@ if ( ! class_exists( 'WWPDF_File_Handler' ) ) {
 					}
         
  					$file_req           = basename( $file_path );
-					$wwpdf_files        = get_site_option( 'wwpdf_files', '' );
+					$wwpdf_files        = get_option( 'wwpdf_files', '' );
 					$wwpdf_file_list    = array_filter( array_map( 'trim', explode( PHP_EOL, $wwpdf_files ) ) );
 					
 					// Watermark desired files only
@@ -63,7 +63,7 @@ if ( ! class_exists( 'WWPDF_File_Handler' ) ) {
 			            $wwpdf_file_path = str_replace( '.pdf', '', $parsed_file_path['file_path'] ) . '_' . time() . '_' . $order_key . '.pdf';      
             
                         try {
-                            $this->watermarked_file = WWPDFWatermark::apply_and_spit( $parsed_file_path['file_path'], $wwpdf_file_path, $footer_input );
+                            $this->watermarked_file = WWPDF_Watermark::apply_and_spit( $parsed_file_path['file_path'], $wwpdf_file_path, $footer_input );
                         } catch ( Exception $ex ) {
                             _e( 'Unable to watermark this file for download. Please notify site administrator.', 'waterwoo-pdf' );
                             echo $ex->getMessage();
@@ -95,10 +95,10 @@ if ( ! class_exists( 'WWPDF_File_Handler' ) ) {
             $phone              = $order_data['billing']['phone'];
 
             $order_paid_date    = $order_data['date_created']->date('Y-m-d H:i:s');
-            $date_format        = get_site_option( 'date_format' );
+            $date_format        = get_option( 'date_format' );
             $order_paid_date    = date_i18n( $date_format, strtotime( $order_paid_date ) );
             
-            $footer_input = get_site_option( 'wwpdf_footer_input', 'Licensed to [FIRSTNAME] [LASTNAME], [EMAIL]' );
+            $footer_input = get_option( 'wwpdf_footer_input', 'Licensed to [FIRSTNAME] [LASTNAME], [EMAIL]' );
 			$footer_input = preg_replace( array( '/\[FIRSTNAME\]/','/\[LASTNAME\]/','/\[EMAIL\]/','/\[PHONE\]/','/\[DATE\]/' ), array( $first_name, $last_name, $user_email, $phone, $order_paid_date ), $footer_input );
 
             $footer_input = apply_filters( 'wwpdf_filter_footer', $footer_input, $order_id, $product_id );
@@ -118,6 +118,7 @@ if ( ! class_exists( 'WWPDF_File_Handler' ) ) {
                 
         /**
          * Check if there is a stamped file and delete it.
+         *
          * @return void
          */
         public function cleanup_file() {
@@ -135,7 +136,7 @@ if ( ! class_exists( 'WWPDF_File_Handler' ) ) {
         private function do_cleanup() {
 
             // redirect
-            if ( get_site_option( 'woocommerce_file_download_method', 'force' ) == 'force' ) {
+            if ( get_option( 'woocommerce_file_download_method', 'force' ) == 'force' ) {
                 add_action( 'shutdown', array( $this, 'cleanup_file' ) );
 
             // force or xsendfile
