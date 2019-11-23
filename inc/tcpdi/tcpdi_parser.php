@@ -49,9 +49,8 @@
 
 // include class for decoding filters
 require_once __DIR__ . '/../tcpdf/include/tcpdf_filters.php';
-// require_once '../tcpdf/includes/tcpdf_filters.php';
 
-if ( ! class_exists( 'wwpdf_tcpdi_parser' ) ) :
+if ( ! class_exists( 'littlep_tcpdi_parser' ) ) :
 
     if (!defined ('PDF_TYPE_NULL'))
         define ('PDF_TYPE_NULL', 0);
@@ -81,7 +80,7 @@ if ( ! class_exists( 'wwpdf_tcpdi_parser' ) ) :
         define ('PDF_TYPE_REAL', 12);
 
     /**
-     * @class wwpdf_tcpdi_parser
+     * @class littlep_tcpdi_parser
      * This is a PHP class for parsing PDF documents.<br>
      * Based on TCPDF_PARSER, part of the TCPDF project by Nicola Asuni.
      * @brief This is a PHP class for parsing PDF documents.
@@ -89,7 +88,7 @@ if ( ! class_exists( 'wwpdf_tcpdi_parser' ) ) :
      * @author Paul Nicholls - github.com/pauln
      * @author Nicola Asuni - info@tecnick.com
      */
-    class wwpdf_tcpdi_parser {
+    class littlep_tcpdi_parser {
         /**
          * Unique parser ID
          * @public
@@ -149,8 +148,8 @@ if ( ! class_exists( 'wwpdf_tcpdi_parser' ) ) :
          *
          * @private array
          */
+        // private $pages;
         public $pages;
-    //    private $pages;
 
         /**
          * Page count
@@ -220,17 +219,19 @@ if ( ! class_exists( 'wwpdf_tcpdi_parser' ) ) :
             
             // get PDF content string
 //          $this->pdfdata = $data;
-		    $this->pdfdata = substr( $data, $trimpos );
+		    $this->pdfdata = substr( $data, $trimpos );		    
 		
             // get length
             $pdflen = strlen($this->pdfdata);
+            
             // initialize class for decoding filters
-            $this->FilterDecoders = new TCPDF_FILTERS();
+            $this->FilterDecoders = new LittleP_TCPDF_FILTERS();
     
             // get xref and trailer data
             $this->xref = $this->getXrefData();
 
             $this->findObjectOffsets();
+            
             // parse all document objects
             $this->objects = array();
 /*          foreach ($this->xref['xref'] as $obj => $offset) {
@@ -238,7 +239,7 @@ if ( ! class_exists( 'wwpdf_tcpdi_parser' ) ) :
                     // decode only objects with positive offset
                     //$this->objects[$obj] = $this->getIndirectObject($obj, $offset, true);
                 }
-            } */          
+            } */   
             $this->getPDFVersion();
             $this->readPages();
   
@@ -246,10 +247,8 @@ if ( ! class_exists( 'wwpdf_tcpdi_parser' ) ) :
         
     
         public function _getMetaData() {
-        
             $metadata = $this->getObjectVal($this->xref['trailer'][1]['/Info']);
             return $metadata;
-        
         }
         
         private function pdfDecTxt($txt) {
@@ -266,13 +265,11 @@ if ( ! class_exists( 'wwpdf_tcpdi_parser' ) ) :
                     $i++;
                 }
             }
-        
             if ($out[0] == chr(254)) {
                 $enc = 'UTF-16';
             } else {
                 $enc = mb_detect_encoding($out);
             }
-
             return iconv($enc, 'UTF-8', $out);
         }
 
@@ -321,7 +318,7 @@ if ( ! class_exists( 'wwpdf_tcpdi_parser' ) ) :
         }
 
         /**
-         * Read all /Page(es)
+         * Read all /Page(s)
          *
          */
         function readPages() {
@@ -337,19 +334,15 @@ if ( ! class_exists( 'wwpdf_tcpdi_parser' ) ) :
                 // Offset not found.
                 return;
             }
-
             $dict = $this->getObjectVal($objref);
             if ($dict[0] == PDF_TYPE_OBJECT && $dict[1][0] == PDF_TYPE_DICTIONARY) {
                 // Dict wrapped in an object
                 $dict = $dict[1];
             }
-
-            if ($dict[0] !== PDF_TYPE_DICTIONARY) {
+            if ($dict[0] !== PDF_TYPE_DICTIONARY) {            
                 return;
             }
-
             $this->pages = array();
-  
             if (isset($dict[1]['/Kids'])) {
                 $v = $dict[1]['/Kids'];
                 if ($v[0] == PDF_TYPE_ARRAY) {
@@ -359,7 +352,6 @@ if ( ! class_exists( 'wwpdf_tcpdi_parser' ) ) :
                     }
                 }
             }
-
             $this->page_count = count($this->pages);
         }
 
@@ -396,8 +388,8 @@ if ( ! class_exists( 'wwpdf_tcpdi_parser' ) ) :
          * @protected
          * @since 1.0.000 (2011-05-24)
          */
-        protected function getXrefData($offset=0, $xref=array()) {
-            if ($offset == 0) {
+        protected function getXrefData( $offset=0, $xref=array() ){
+            if ($offset == 0) { 
                 // find last startxref
                 if (preg_match_all('/[\r\n]startxref[\s]*[\r\n]+([0-9]+)[\s]*[\r\n]+%%EOF/i', $this->pdfdata, $matches, PREG_SET_ORDER, $offset) == 0) { // processes 4x5 times faster than following line
 //              if ( preg_match('/.*[\r\n]startxref[\s\r\n]+([0-9]+)[\s\r\n]+%%EOF/is', $this->pdfdata, $matches ) == 0 ) {
@@ -405,7 +397,7 @@ if ( ! class_exists( 'wwpdf_tcpdi_parser' ) ) :
                 }
                 $matches = array_pop($matches);
                 $startxref = $matches[1];
-            } elseif (strpos($this->pdfdata, 'xref', $offset) == $offset) {
+            } elseif ( strpos( $this->pdfdata, 'xref', $offset ) == $offset ) {
 			    // Already pointing at the xref table
 			    $startxref = $offset;
 		    } elseif (preg_match('/([0-9]+[\s][0-9]+[\s]obj)/i', $this->pdfdata, $matches, PREG_OFFSET_CAPTURE, $offset)) {
@@ -420,21 +412,22 @@ if ( ! class_exists( 'wwpdf_tcpdi_parser' ) ) :
             unset($matches);
 
             // DOMPDF gets the startxref wrong, giving us the linebreak before the xref starts.
-            $startxref += strspn($this->pdfdata, "\r\n", $startxref);
+            $startxref += strspn( $this->pdfdata, "\r\n", $startxref );
 
             // check xref position
-            if (strpos($this->pdfdata, 'xref', $startxref) == $startxref) {
+            if ( strpos( $this->pdfdata, 'xref', $startxref ) == $startxref ) {
                 // Cross-Reference
-                $xref = $this->decodeXref($startxref, $xref);
+                $xref = $this->decodeXref( $startxref, $xref );
             } else {
                 // Cross-Reference Stream
-                $xref = $this->decodeXrefStream($startxref, $xref);
+                $xref = $this->decodeXrefStream( $startxref, $xref );
             }
             if (empty($xref)) {
                 $this->Error('Unable to find xref');
             }
 
             return $xref;
+            
         }
 
         /**
@@ -456,7 +449,11 @@ if ( ! class_exists( 'wwpdf_tcpdi_parser' ) ) :
             // initialize object number
             $obj_num = 0;
             $offset = $xoffset;
-            while (preg_match('/^([0-9]+)[\s]([0-9]+)[\s]?([nf]?)/im', $this->pdfdata, $matches, PREG_OFFSET_CAPTURE, $offset) > 0) {
+            
+            // LITTLE PACKAGE FIX, adding [.?|\W?] before the first capture group
+            // in order to parse PDFs with NUL characters IN the XREF     
+            while (preg_match('/^[.?|\W?]([0-9]+)[\s]([0-9]+)[\s]?([n|f]?)/im', $this->pdfdata, $matches, PREG_OFFSET_CAPTURE, $offset) > 0) {
+            // while (preg_match('/^([0-9]+)[\s]([0-9]+)[\s]?([nf]?)/im', $this->pdfdata, $matches, PREG_OFFSET_CAPTURE, $offset) > 0) {
                 $offset = (strlen($matches[0][0]) + $matches[0][1]);
                 if ($matches[3][0] == 'n') {
                     // create unique object index: [object number]_[generation number]
@@ -483,6 +480,7 @@ if ( ! class_exists( 'wwpdf_tcpdi_parser' ) ) :
             // 2.3 via https://github.com/pauln/tcpdi_parser/commit/55d75792c77eb80f17a98d7846d2fa74a497d64f        
             if (preg_match('/trailer[\s]*<<(.*)>>[\s]*[\r\n]+(?:[%].*[\r\n]+)*startxref[\s]*[\r\n]+/isU', $this->pdfdata, $matches, PREG_OFFSET_CAPTURE, $xoffset) > 0) {
     //      if (preg_match('/trailer[\s]*<<(.*)>>[\s\r\n]+(?:[%].*[\r\n]+)*startxref[\s\r\n]+/isU', $this->pdfdata, $matches, PREG_OFFSET_CAPTURE, $xoffset) > 0) {
+    
                 $trailer_data = $matches[1][0];
                 if (!isset($xref['trailer']) OR empty($xref['trailer'])) {
                     // get only the last updated version
@@ -508,6 +506,7 @@ if ( ! class_exists( 'wwpdf_tcpdi_parser' ) ) :
                         $xref['trailer'][1]['/ID'][1][1] = array(PDF_TYPE_HEX, $matches[2]);
                     }
                 }
+                // incremental PDF
                 if (preg_match('/Prev[\s]+([0-9]+)/i', $trailer_data, $matches) > 0) {
                     // get previous xref
                     $prevoffset = intval($matches[1]);
@@ -789,13 +788,12 @@ if ( ! class_exists( 'wwpdf_tcpdi_parser' ) ) :
             $objtype = ''; // object type to be returned
             $objval = ''; // object value to be returned
             // skip initial white space chars: \x00 null (NUL), \x09 horizontal tab (HT), \x0A line feed (LF), \x0C form feed (FF), \x0D carriage return (CR), \x20 space (SP)
-    // 2.2.2 to address https://github.com/SD-dthompson/tcpdi_parser/commit/fee436f3e9eaf1fd9aaffeb43cc2fec742b638be
-    //      while ( strspn( $data{$offset}, "\x00\x09\x0a\x0c\x0d\x20" ) == 1 ) {
-            while ( strspn( $data{$offset}, "\x00\x09\x0a\x0c\x0d\x20") ) {
+            // 2.2.2 to address https://github.com/SD-dthompson/tcpdi_parser/commit/fee436f3e9eaf1fd9aaffeb43cc2fec742b638be
+            // while ( strspn( $data{$offset}, "\x00\x09\x0a\x0c\x0d\x20" ) == 1 ) {
+            while ( strspn( $data{$offset}, "\x00\x09\x0a\x0c\x0d\x20" ) ) {
                 $offset++;
             }
             // get first char
-//          $char = $data{$offset};
             $char = $data[$offset];
             // get object type
             switch ($char) {
@@ -806,8 +804,8 @@ if ( ! class_exists( 'wwpdf_tcpdi_parser' ) ) :
                         $offset += $next;
                         // Since 2.9.2 
                         // https://github.com/pauln/tcpdi_parser/pull/23/commits/3bacfdc8ea0d391a01daa9507d941574de5a97bb
-//                      list($obj, $unused) = $this->getRawObject($offset, $data);
-//                      return $obj;
+                        // list($obj, $unused) = $this->getRawObject($offset, $data);
+                        // return $obj;
                         return $this->getRawObject($offset, $data);
                     }
                     break;
@@ -830,10 +828,10 @@ if ( ! class_exists( 'wwpdf_tcpdi_parser' ) ) :
                     if ($char == '(') {
                         $open_bracket = 1;
                         while ($open_bracket > 0) {
-                            if (!isset($data{$strpos})) {
+                            if (!isset($data[$strpos])) {
                                 break;
                             }
-                            $ch = $data{$strpos};
+                            $ch = $data[$strpos];
                             switch ($ch) {
                                 case '\\': { // REVERSE SOLIDUS (5Ch) (Backslash)
                                     // skip next character
@@ -878,7 +876,7 @@ if ( ! class_exists( 'wwpdf_tcpdi_parser' ) ) :
                 }
                 case '<':   // \x3C LESS-THAN SIGN
                 case '>': { // \x3E GREATER-THAN SIGN
-                    if (isset($data{($offset + 1)}) AND ($data{($offset + 1)} == $char)) {
+                    if (isset($data[($offset + 1)]) AND ($data[($offset + 1)] == $char)) {
                         // dictionary object
                         $objtype = PDF_TYPE_DICTIONARY;
                         if ($char == '<') {
@@ -1092,14 +1090,14 @@ if ( ! class_exists( 'wwpdf_tcpdi_parser' ) ) :
          */
         public function getObjectVal($obj) {
         
-            // if is object reference (8) and not object (9)
-            if ($obj[0] == PDF_TYPE_OBJREF) { // 8
+            if ($obj[0] == PDF_TYPE_OBJREF) {  
                 if (strpos($obj[1], '_') !== false) {
                     $key = explode('_', $obj[1]);
                 } else {
                     $key = array($obj[1], $obj[2]);
                 }
                 $ret = array(0=>PDF_TYPE_OBJECT, 'obj'=>$key[0], 'gen'=>$key[1]);
+                
                 // reference to indirect object
                 $object = null;
                 if (isset($this->objects[$key[0]][$key[1]])) {
@@ -1155,7 +1153,8 @@ if ( ! class_exists( 'wwpdf_tcpdi_parser' ) ) :
             $ints = preg_split('/\s/', substr($stream[0], 0, $first)); // Get list of object / offset pairs
             for ($j=1; $j<count($ints); $j++) {
                 if (($j % 2) == 1) {
-                    $this->objstreamobjs[$ints[$j-1]] = array($key, $ints[$j]+$first);
+                    // LITTLE PACKAGE FIX, $ints[$j] doesn't read as integer unless intval() used   
+                    $this->objstreamobjs[$ints[$j - 1]] = array( $key, intval($ints[$j]) + $first );
                 }
             }
             // Free memory - we may not need this at all.
@@ -1164,11 +1163,12 @@ if ( ! class_exists( 'wwpdf_tcpdi_parser' ) ) :
         }
 
         /**
-         * Find all object offsets.  Saves having to scour the file multiple times.
+         * Find all object offsets. Saves having to scour the file multiple times.
          * @private
          */
         private function findObjectOffsets() {
             $this->objoffsets = array();
+                // match any # of whitespace, then "# # obj"
             if (preg_match_all('/(*ANYCRLF)^[\s]*([0-9]+)[\s]+([0-9]+)[\s]+obj/im', $this->pdfdata, $matches, PREG_OFFSET_CAPTURE) >= 1) {
                 $i = 0;
                 $laststreamend = 0;
@@ -1352,56 +1352,23 @@ if ( ! class_exists( 'wwpdf_tcpdi_parser' ) ) :
     
             $obj = $this->getObjectVal($obj);
             
-// var_dump($obj);
-// echo '<hr />';
-            
             // If the current object has an annotations dictionary associated with it, we use
             // it. Otherwise, we move back to its parent object.
-            if ( isset ( $obj[1][1]['/Annots'] ) ) {  
-// echo '<h1>ROOT, has /Annots</h1>';      
+            if ( isset ( $obj[1][1]['/Annots'] ) ) {        
                 $annots = $obj[1][1]['/Annots'];
-//                echo 'the annots: ' . var_dump($annots);
             } else {
                 if ( ! isset ( $obj[1][1]['/Parent'] ) ) {
                     return false;
                 } else {
-//                    echo '<h3>PARENT TIME</h3>';
                     $annots = $this->_getPageAnnotations( $obj[1][1]['/Parent'] );
-///                    echo 'the annots: ' . var_dump($annots);
-
-//                    echo '<br />KIDS: ';
-// var_dump( $obj[1][1]['/Parent'][1][1]['/Kids'] );
                 }
             }
-            
-            // we still have an indirect reference
             if ( $annots[0] == PDF_TYPE_OBJREF ) { // 8
-//            echo 'hiiiiiii';
                return $this->getObjectVal($annots);
             }
         
             return $annots;
         }
-        
-        /*
-        array(4) { 
-            [0]=> int(9) 
-                ["obj"]=> int(18) 
-                ["gen"]=> int(0) 
-            [1]=> array(2) { 
-                [0]=> int(5) 
-                [1]=> array(8) { 
-                    ["/Type"]=> array(2) {
-                        [0]=> int(2) 
-                        [1]=> string(4) "Page"
-                    } 
-                    ["/Parent"]=> array(3) { 
-                        [0]=> int(8) 
-                        [1]=> int(2) 
-                        [2]=> int(0)
-                    } 
-                    ["/Resources"]=> 
-        */
 
 
         /**
@@ -1592,6 +1559,6 @@ if ( ! class_exists( 'wwpdf_tcpdi_parser' ) ) :
             throw new Exception( 'TCPDF_PARSER ERROR: ' . $msg );
         }
 
-    } // END OF WWPDF_TCPDF_PARSER CLASS
+    } // END OF littlep_tcpdi_parser CLASS
 
 endif;

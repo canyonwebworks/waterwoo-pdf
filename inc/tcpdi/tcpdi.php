@@ -19,15 +19,15 @@
 //
 
 // Dummy shim to allow unmodified use of fpdf_tpl
-class WWPDF_FPDF extends WWPDF_TCPDF_Child {}
+class LittleP_FPDF extends LittleP_TCPDF_Child {}
 
 require_once('fpdf_tpl.php');
 require_once('tcpdi_parser.php');
 // require_once __DIR__ . '/../tcpdf/tcpdf_parser.php';
 
-if ( ! class_exists( 'WWPDF_TCPDI' ) ) {
+if ( ! class_exists( 'LittleP_TCPDI' ) ) {
 
-    class WWPDF_TCPDI extends WWPDF_FPDF_TPL {
+    class LittleP_TCPDI extends LittleP_FPDF_TPL {
         /**
          * Actual filename
          * @var string
@@ -109,7 +109,7 @@ if ( ! class_exists( 'WWPDF_TCPDI' ) ) {
         function _getPdfParser( $filename ) {
 
             $data = file_get_contents( $filename );
-            return new wwpdf_tcpdi_parser( $data, $filename );
+            return new littlep_tcpdi_parser( $data, $filename );
             
         }
 
@@ -313,7 +313,7 @@ if ( ! class_exists( 'WWPDF_TCPDI' ) ) {
     
         /* Wrapper for AddTOC() which tracks TOC position to offset annotations later */
         function AddTOC($page='', $numbersfont='', $filler='.', $toc_name='TOC', $style='', $color=array(0,0,0)) {
-            if (!TCPDF_STATIC::empty_string($page)) {
+            if (!LittleP_TCPDF_STATIC::empty_string($page)) {
                 $this->_TOCpagenum = $page;
             } else {
                 $this->_TOCpagenum = $this->page;
@@ -327,7 +327,7 @@ if ( ! class_exists( 'WWPDF_TCPDI' ) ) {
             $parser =& $this->parsers[$fn];
             $parser->setPageno($pageno);
             $annots = $parser->getPageAnnotations();
-
+            
             if ( is_array($annots) && $annots[0] == PDF_TYPE_OBJECT // (9) We got an object
                 && is_array($annots[1]) && $annots[1][0] == PDF_TYPE_ARRAY // It's an array (6)
                 && is_array($annots[1][1]) && count($annots[1][1]) > 1  // It's not empty - there are annotations for this page
@@ -343,6 +343,7 @@ if ( ! class_exists( 'WWPDF_TCPDI' ) ) {
                 unset( $annot );
    
             // Added v2.4
+
             } else if ( is_array($annots) && $annots[0] == PDF_TYPE_ARRAY // It's an array (6)
                 && is_array($annots[1]) && count($annots[1]) > 1  // It's not empty - there are annotations for this page
             ) {
@@ -649,7 +650,7 @@ if ( ! class_exists( 'WWPDF_TCPDI' ) ) {
                     if ($this->encrypted) {
                         $value[1] = $this->_unescape($value[1]);
                         $value[1] = $this->_encrypt_data($this->_current_obj_id, $value[1]);
-                        $value[1] = TCPDF_STATIC::_escape($value[1]);
+                        $value[1] = LittleP_TCPDF_STATIC::_escape($value[1]);
                     }
                     break;
 

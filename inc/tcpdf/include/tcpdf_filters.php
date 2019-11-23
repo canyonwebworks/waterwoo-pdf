@@ -49,7 +49,7 @@
  * @author Nicola Asuni - info@tecnick.com
  */
 
-class TCPDF_FILTERS {
+class LittleP_TCPDF_FILTERS {
 
 	/**
 	 * Define a list of available filter decoders.
@@ -280,7 +280,10 @@ class TCPDF_FILTERS {
 		// convert string to binary string
 		$bitstring = '';
 		for ($i = 0; $i < $data_length; ++$i) {
-			$bitstring .= sprintf('%08b', ord($data{$i}));
+            // $bitstring .= sprintf('%08b', ord($data{$i}));
+            // https://github.com/tecnickcom/TCPDF/commit/b0948269a689c5ab08c5b6e00066bf9c9e6a9838
+            $bitstring .= sprintf('%08b', ord($data[$i]));
+
 		}
 		// get the number of bits
 		$data_length = strlen($bitstring);
@@ -377,7 +380,9 @@ class TCPDF_FILTERS {
 		$i = 0;
 		while($i < $data_length) {
 			// get current byte value
-			$byte = ord($data{$i});
+			// $byte = ord($data{$i});
+			// https://github.com/tecnickcom/TCPDF/commit/b0948269a689c5ab08c5b6e00066bf9c9e6a9838
+			$byte = ord($data[$i]);
 			if ($byte == 128) {
 				// a length value of 128 denote EOD
 				break;
@@ -390,7 +395,9 @@ class TCPDF_FILTERS {
 			} else {
 				// if length is in the range 129 to 255,
 				// the following single byte shall be copied 257 - length (2 to 128) times during decompression
-				$decoded .= str_repeat($data{($i + 1)}, (257 - $byte));
+				// $decoded .= str_repeat($data{($i + 1)}, (257 - $byte));
+				// https://github.com/tecnickcom/TCPDF/commit/b0948269a689c5ab08c5b6e00066bf9c9e6a9838
+				$decoded .= str_repeat($data[($i + 1)], (257 - $byte));
 				// move to next block
 				$i += 2;
 			}

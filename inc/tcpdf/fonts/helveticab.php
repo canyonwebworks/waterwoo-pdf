@@ -1,5 +1,4 @@
 <?php
-// TCPDF FONT FILE DESCRIPTION
 $type='core';
 $name='Helvetica-Bold';
 $up=-100;

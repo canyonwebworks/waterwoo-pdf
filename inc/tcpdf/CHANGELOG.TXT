@@ -57,7 +57,7 @@
 	- Fixed bug with the register_shutdown_function().
 
 6.1.0 (2014-12-07)
-	- The method TCPDF_STATIC::getRandomSeed() was improved.
+	- The method LittleP_TCPDF_STATIC::getRandomSeed() was improved.
 	- The disk caching feature was removed.
 	- Bug #1003 "Backslashes become duplicated in table, using WriteHTML" was fixed.
 	- Bug #1002 "SVG radialGradient within non-square Rect" was fixed.
@@ -200,7 +200,7 @@
 	- Bug #904 "PDF corrupted" was fixed.
 
 6.0.063 (2014-04-03)
-	- Method TCPDF_IMAGES::_parsepng() was fixed to support transparency in Indexed images.
+	- Method LittleP_TCPDF_IMAGES::_parsepng() was fixed to support transparency in Indexed images.
 
 6.0.062 (2014-03-02)
 	- The method startLayer() now accepts the NULL value for the $print parameter to not set the print layer option.

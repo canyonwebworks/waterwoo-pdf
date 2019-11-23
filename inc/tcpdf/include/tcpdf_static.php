@@ -50,7 +50,7 @@
  * @author Nicola Asuni - info@tecnick.com
  */
 
-class TCPDF_STATIC {
+class LittleP_TCPDF_STATIC {
 
 	/**
 	 * Current TCPDF version.
@@ -295,7 +295,7 @@ class TCPDF_STATIC {
 	 * @public static
 	 */
 	public static function getObjFilename($type='tmp', $file_id='') {
-		return tempnam(K_PATH_CACHE, '__tcpdf_'.$file_id.'_'.$type.'_'.md5(TCPDF_STATIC::getRandomSeed()).'_');
+		return tempnam(K_PATH_CACHE, '__tcpdf_'.$file_id.'_'.$type.'_'.md5(LittleP_TCPDF_STATIC::getRandomSeed()).'_');
 	}
 
 	/**
@@ -1536,7 +1536,7 @@ class TCPDF_STATIC {
 		// create new language array of patterns
 		$patterns = array();
 		foreach($patterns_array as $val) {
-			if (!TCPDF_STATIC::empty_string($val)) {
+			if (!LittleP_TCPDF_STATIC::empty_string($val)) {
 				$val = trim($val);
 				$val = str_replace('\'', '\\\'', $val);
 				$key = preg_replace('/[0-9]+/', '', $val);
@@ -1864,6 +1864,9 @@ class TCPDF_STATIC {
 	 */
 	public static function url_exists($url) {
 		$crs = curl_init();
+	    // https://github.com/tecnickcom/TCPDF/pull/148/commits/a428c95eaf73f2f04f9214235fc9cd16d540c4ae
+	    // encode query params in URL to get right response form the server
+		$url = self::encodeUrlQuery($url);
 		curl_setopt($crs, CURLOPT_URL, $url);
 		curl_setopt($crs, CURLOPT_NOBODY, true);
 		curl_setopt($crs, CURLOPT_FAILONERROR, true);
@@ -1880,6 +1883,27 @@ class TCPDF_STATIC {
 		curl_close($crs);
 		return ($code == 200);
 	}
+
+    /**
+	 * Encode query params in URL
+	 *
+	 * @param string $url
+	 * @return string
+	 * @since 6.3.3 (2019-11-01)
+	 * @public static
+	 */
+	public function encodeUrlQuery($url) {
+		$urlData = parse_url($url);
+		if (isset($urlData['query']) && $urlData['query']) {
+			$urlQueryData = [];
+			parse_str(urldecode($urlData['query']), $urlQueryData);
+			$updatedUrl = $urlData['scheme'] . '://' . $urlData['host'] . $urlData['path'] . '?' . http_build_query($urlQueryData);
+		} else {
+			$updatedUrl = $url;
+		}
+		return $updatedUrl;
+	}
+		
  	/**
 	 * Wrapper for file_exists.
 	 * Checks whether a file or directory exists.
@@ -1966,7 +1990,7 @@ class TCPDF_STATIC {
 				continue;
 			}
 			$ret = @file_get_contents($path);
-			if ($ret !== false) {
+			if ($ret != false) {
 			    return $ret;
 			}
 			// try to use CURL for URLs
@@ -2649,7 +2673,3 @@ class TCPDF_STATIC {
 
 
 } // END OF TCPDF_STATIC CLASS
-
-//============================================================+
-// END OF FILE
-//============================================================+

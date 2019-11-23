@@ -3,12 +3,12 @@
  * Plugin Name: WaterWoo PDF
  * Plugin URI: https://wordpress.org/plugins/waterwoo-pdf/
  * Description: Custom watermark your PDFs upon WooCommerce sale. 
- * Version: 2.4.4
+ * Version: 2.4.5
  * Author: Little Package 
  * Author URI: https://web.little-package.com
  * Donate link: https://www.paypal.me/littlepackage
  * WC requires at least: 2.6
- * WC tested up to: 3.7
+ * WC tested up to: 3.8
  *
  * License: GPLv3 or later
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -48,7 +48,7 @@ if ( ! class_exists( 'WaterWooPDF' ) ) {
 
 	class WaterWooPDF {
 
-		public $version = '2.4.4';
+		public $version = '2.4.5';
 
 		/**
 		 * Init
@@ -210,7 +210,7 @@ if ( ! class_exists( 'WaterWooPDF' ) ) {
 		public function plugin_action_links( $links ) {
 
 			if ( function_exists( 'is_plugin_active' ) && ! is_plugin_active( 'waterwoo-pdf-premium/waterwoo-pdf-premium.php' ) ) {
-				$links[] = '<a href="https://web.little-package.com/plugin/waterwoo-pdf-premium/" target="_blank" rel="noopener">' . __( 'Upgrade to Premium', 'waterwoo-pdf' ) . '</a>';
+				$links[] = '<a href="https://web.little-package.com/downloads/waterwoo-pdf-premium/" target="_blank" rel="noopener">' . __( 'Upgrade to Premium', 'waterwoo-pdf' ) . '</a>';
 			}
 			$settings = sprintf( '<a href="%s" title="%s">%s</a>' , admin_url( 'admin.php?page=wc-settings&tab=waterwoo-pdf' ) , __( 'Go to the settings page', 'waterwoo-pdf' ) , __( 'Settings', 'waterwoo-pdf' ) );
 			array_unshift( $links, $settings );
@@ -292,7 +292,7 @@ if ( ! class_exists( 'WaterWooPDF' ) ) {
 					'<h3>' . __( 'About WaterWoo PDF', 'waterwoo-pdf' ) . '</h3>' .
 					'<p>' . __( 'Protect your intellectual property! WaterWoo PDF allows WooCommerce site administrators to apply custom watermarks to PDFs upon sale.' ). '</p>' . 
 					'<p>' . __( 'WaterWoo PDF is a plugin that adds a watermark to every page of your PDF file(s). The watermark is customizable with font face, font color, font size, placement, and text. Not only that, but since the watermark is added when the download button is clicked (either on the customer\'s order confirmation page or email), the watermark can include customer-specifc data such as the customer\'s first name, last name, and email. Your watermark is highly customizable and manipulatable.', 'waterwoo-pdf' ) . '</p>' .
-	                '<p>' . __( '<a href="https://web.little-package.com/plugin/waterwoo-pdf-premium/" target="_blank" rel="noopener">Consider upgrading to the Premium version</a> if you need more functionality. The premium version adds the ability to start watermarking on a specified page, password protect and copy/print/modify protect your document, a watermark overlay, HTML input, and UTF-8 and extended Unicode support for many more foreign language characters. Thanks again, and enjoy!', 'waterwoo-pdf' ) . '</p>'
+	                '<p>' . __( '<a href="https://web.little-package.com/downloads/waterwoo-pdf-premium/" target="_blank" rel="noopener">Consider upgrading to the Premium version</a> if you need more functionality. The premium version adds the ability to start watermarking on a specified page, password protect and copy/print/modify protect your document, a watermark overlay, HTML input, and UTF-8 and extended Unicode support for many more foreign language characters. Thanks again, and enjoy!', 'waterwoo-pdf' ) . '</p>'
 
 				) );
 
@@ -301,7 +301,7 @@ if ( ! class_exists( 'WaterWooPDF' ) ) {
 				'<p><strong>' . __( 'For more information:', 'waterwoo-pdf' ) . '</strong></p>'.
 				'<p><a href="https://wordpress.org/extend/plugins/waterwoo-pdf/faq/" target="_blank" rel="noopener">' . __( 'Frequently Asked Questions', 'waterwoo-pdf' ) . '</a></p>' .
 				'<p><a href="https://wordpress.org/extend/plugins/waterwoo-pdf/" target="_blank" rel="noopener">' . __( 'Project on WordPress.org', 'waterwoo-pdf' ) . '</a></p>' .
-				'<p><a href="https://web.little-package.com/plugin/waterwoo-pdf-premium/" target="_blank" rel="noopener">' . __( 'Upgrade to Premium', 'waterwoo-pdf' ) . '</a></p>'
+				'<p><a href="https://web.little-package.com/downloads/waterwoo-pdf-premium/" target="_blank" rel="noopener">' . __( 'Upgrade to Premium', 'waterwoo-pdf' ) . '</a></p>'
 			);
 
 		}
@@ -313,7 +313,7 @@ if ( ! class_exists( 'WaterWooPDF' ) ) {
 
 			if ( function_exists( 'is_plugin_active' ) && ! is_plugin_active( 'waterwoo-pdf-premium/waterwoo-pdf-premium.php' ) ) {
 
-				$link = 'https://web.little-package.com/plugin/waterwoo-pdf-premium/';
+				$link = 'https://web.little-package.com/downloads/waterwoo-pdf-premium/';
 				$get_premium = "<div style='display: none;' id='wwpdf-screen-options-link-wrap'><div id='contextual-help-link-wrap'><a target='_blank' class='button show-settings' href='{$link}' rel='noopener'>" .
 					__( 'Upgrade to WaterWoo PDF Premium', 'waterwoo-pdf' ) .
 					"</a></div></div>";
@@ -405,7 +405,7 @@ if ( ! class_exists( 'WaterWooPDF' ) ) {
                         'id' 		=> 'wwpdf_options',
                         'type' 		=> 'title',
                         'title' 	=> __( 'WaterWoo Options', 'waterwoo-pdf' ),
-                        'desc' 	    => __( 'Note: This free watermarking plugin is rudimentary. You need the <a href="https://web.little-package.com/plugin/waterwoo-pdf-premium/" target="_blank" rel="noopener">Premium version of WaterWoo</a> if:<ol><li>Your watermark is not in English and/or contains extended Unicode characters (e.g. ě à é č ì ü Л Ж Ω ﺦ ﺉ ...)</li><li>You want extended shortcode function, opacity control, RTL, password protection, per-product and variable product watermarking, and much more.</li></ol>', 'waterwoo-pdf' ), 
+                        'desc' 	    => __( 'Note: This free watermarking plugin is rudimentary. You need the <a href="https://web.little-package.com/downloads/waterwoo-pdf-premium/" target="_blank" rel="noopener">Premium version of WaterWoo</a> if:<ol><li>Your watermark is not in English and/or contains extended Unicode characters (e.g. ě à é č ì ü Л Ж Ω ﺦ ﺉ ...)</li><li>You want extended shortcode function, opacity control, RTL, password protection, per-product and variable product watermarking, and much more.</li></ol>', 'waterwoo-pdf' ), 
                     ),
     
                     array(	
@@ -459,7 +459,7 @@ if ( ! class_exists( 'WaterWooPDF' ) ) {
                         'default' 	=> '12',
                         'css' 		=> 'width:60px;',
                         'custom_attributes' => array(
-                                        'min'   => 6,
+                                        'min'   => 1,
                                         'max'   => 200,
                                         'step' 	=> 1,
                                     ),

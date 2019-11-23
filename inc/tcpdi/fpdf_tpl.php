@@ -16,9 +16,9 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 //
-if ( ! class_exists( 'WWPDF_FPDF_TPL' ) ) {
+if ( ! class_exists( 'LittleP_FPDF_TPL' ) ) {
 
-    class WWPDF_FPDF_TPL extends WWPDF_FPDF {
+    class LittleP_FPDF_TPL extends LittleP_FPDF {
         /**
          * Array of Tpl-Data
          * @var array

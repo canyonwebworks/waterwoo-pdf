@@ -1,10 +1,10 @@
 === WaterWoo PDF Plugin ===
 Contributors: littlepackage
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=PB2CFX8H4V49L
-Tags: watermark, ebook, ecommerce, e-commerce, protection, file, copyright, digital, marca de agua, pdf, property, publishing, security, signature, watermarking, woocommerce, book
+Tags: watermark, pdf, ebook, copyright, property, marca de agua, publishing, security
 Requires at least: 4.4
-Tested up to: 5.2.2
-Stable tag: 2.4.4
+Tested up to: 5.3
+Stable tag: 2.4.5
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -27,7 +27,7 @@ WaterWoo PDF is a plugin that adds a watermark to every page of your sold PDF fi
 
 **Premium version:**
 
-[WaterWoo Premium](https://www.waterwoo.me/ "WaterWoo PDF Premium Version") offers these helpful extra features in addition to free features:
+[WaterWoo Premium](https://web.little-package.com/downloads/waterwoo-pdf-premium/ "WaterWoo PDF Premium Version") offers these helpful extra features in addition to free features:
 
 * Watermark all PDF files with same settings OR set individual watermarks per product or even per product variation!
 * Additional, rotatable watermark location - two watermark locations on one page!
@@ -48,7 +48,7 @@ WaterWoo PDF is a plugin that adds a watermark to every page of your sold PDF fi
 * Optionally prevent copying, annotating, or modifying of your PDF files
 * Test watermark and/or manually watermark a file on the fly, from the admin panel
 
-[Check out the full-featured version of this plugin](https://waterwoo.me "WaterWoo PDF Premium Version")!
+[Check out the full-featured version of this plugin](https://web.little-package.com/downloads/waterwoo-pdf-premium/ "WaterWoo PDF Premium Version")!
 
 == Installation ==
 
@@ -77,7 +77,7 @@ WaterWoo PDF is a plugin that adds a watermark to every page of your sold PDF fi
 2. Have you entered your PDF file names correctly in the second field if you've entered any at all?
 3. Is your Y fine-tuning adjustment off the page? Read more below under "Why does the watermark go off the page, create blank pages?".
 
-Please do get in touch with your issues via the Wordpress.org support forum or email ( hello @ waterwoo .me ) before leaving negative feedback about this free plugin.
+Please do get in touch with your issues via the Wordpress.org support forum or email ( web @ little-package .com ) before leaving negative feedback about this free plugin.
 
 If requesting help using the Wordpress.org support forum, please state which versions Wordpress/WooCommerce/WaterWoo you are using, and what error messages if any you are seeing. Screenshots and clear descriptions of the steps it takes to reproduce your problem are also very helpful. Please also make your support request TITLE descriptive. I offer and support this plugin unpaid, and I'm sorry but I don't have time to guess or read minds.
 
@@ -246,6 +246,11 @@ No, sorry. This plugin is just for PDF files.
 * Links to waterwoo official website updated, and with noopener rel tags
 * Testing with WooCommerce 3.7
 * Minimum requirements for PHP, Wordpress, and WooCommerce updated
+
+= 2.4.5 2019.11.22 = 
+* Testing with WooCommerce 3.8
+* Update language files
+* Tweak - allow font sizes down to 1pt in settings (previously 6pt)
 
 == Upgrade Notice ==
 
