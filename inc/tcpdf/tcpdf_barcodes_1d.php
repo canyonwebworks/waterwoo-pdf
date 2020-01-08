@@ -41,14 +41,16 @@
  */
 
 /**
- * @class TCPDFBarcode
+ * @class WaterWoo_TCPDFBarcode
  * PHP class to creates array representations for common 1D barcodes to be used with TCPDF (http://www.tcpdf.org).<br>
  * @package com.tecnick.tcpdf
  * @version 1.0.027
  * @author Nicola Asuni
  */
 
-class TCPDFBarcode {
+if ( ! class_exists( 'WaterWoo_TCPDFBarcode' ) ) :
+
+class WaterWoo_TCPDFBarcode {
 
 	/**
 	 * Array representation of barcode.
@@ -644,11 +646,9 @@ class TCPDFBarcode {
 		$code_ext = '';
 		$clen = strlen($code);
 		for ($i = 0 ; $i < $clen; ++$i) {
-			// if (ord($code[$i]) > 127) {
 			if (ord($code[$i]) > 127) {
 				return false;
 			}
-			// $code_ext .= $encode[$code[$i]];
 			$code_ext .= $encode[$code[$i]];
 		}
 		// checksum
@@ -659,7 +659,6 @@ class TCPDFBarcode {
 		$k = 0;
 		$clen = strlen($code);
 		for ($i = 0; $i < $clen; ++$i) {
-			// $char = ord($code[$i]);
 			$char = ord($code[$i]);
 			if(!isset($chr[$char])) {
 				// invalid character
@@ -671,7 +670,6 @@ class TCPDFBarcode {
 				} else {
 					$t = false; // space
 				}
-				// $w = $chr[$char]{$j};
 				$w = $chr[$char][$j];
 				$bararray['bcode'][$k] = array('t' => $t, 'w' => $w, 'h' => 1, 'p' => 0);
 				$bararray['maxw'] += $w;
@@ -704,7 +702,6 @@ class TCPDFBarcode {
 		$p = 1;
 		$check = 0;
 		for ($i = ($len - 1); $i >= 0; --$i) {
-			// $k = array_keys($chars, $code[$i]);
 			$k = array_keys($chars, $code[$i]);
 			$check += ($k[0] * $p);
 			++$p;
@@ -873,9 +870,7 @@ class TCPDFBarcode {
 		$k = 0;
 		for ($i = 0; $i < $len; ++$i) {
 			$w += 1;
-			// if (($i == ($len - 1)) OR (($i < ($len - 1)) AND ($seq{$i} != $seq{($i+1)}))) {
 			if (($i == ($len - 1)) OR (($i < ($len - 1)) AND ($seq[$i] != $seq[($i+1)]))) {
-				// if ($seq{$i} == '1') {
 				if ($seq[$i] == '1') {
 					$t = true; // bar
 				} else {
@@ -1501,7 +1496,7 @@ class TCPDFBarcode {
 		$w = 0;
 		for ($i = 0; $i < $clen; ++$i) {
 			$w += 1;
-			if (($i == ($clen - 1)) OR (($i < ($clen - 1)) AND ($seq[$i] != $seq[($i+1)]))) {
+            if (($i == ($clen - 1)) OR (($i < ($clen - 1)) AND ($seq[$i] != $seq[($i+1)]))) {
 				if ($seq[$i] == '1') {
 					$t = true; // bar
 				} else {
@@ -2360,6 +2355,5 @@ class TCPDFBarcode {
 	}
 
 } // end of class
-//============================================================+
-// END OF FILE
-//============================================================+
+
+endif;

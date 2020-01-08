@@ -274,7 +274,7 @@ if (!function_exists('str_split')) {
 // #####################################################
 
 /**
- * @class QRcode
+ * @class WaterWoo_QRcode
  * Class to create QR-code arrays for TCPDF class.
  * QR Code symbol is a 2D barcode that can be scanned by handy terminals such as a mobile phone with CCD.
  * The capacity of QR Code is up to 7000 digits or 4000 characters, and has high robustness.
@@ -288,7 +288,9 @@ if (!function_exists('str_split')) {
  * @author Nicola Asuni
  * @version 1.0.010
  */
-class QRcode {
+if ( ! class_exists( 'WaterWoo_QRcode' ) ) :
+
+class WaterWoo_QRcode {
 
 	/**
 	 * Barcode array to be returned which is readable by TCPDF.
@@ -2860,8 +2862,6 @@ class QRcode {
 		return $parity;
 	}
 
-} // end QRcode class
+} // end WaterWoo_QRcode class
 
-//============================================================+
-// END OF FILE
-//============================================================+
+endif;

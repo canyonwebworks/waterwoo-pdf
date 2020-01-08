@@ -3,12 +3,12 @@
  * Plugin Name: WaterWoo PDF
  * Plugin URI: https://wordpress.org/plugins/waterwoo-pdf/
  * Description: Custom watermark your PDFs upon WooCommerce sale. 
- * Version: 2.4.5
+ * Version: 2.4.6
  * Author: Little Package 
  * Author URI: https://web.little-package.com
  * Donate link: https://www.paypal.me/littlepackage
  * WC requires at least: 2.6
- * WC tested up to: 3.8
+ * WC tested up to: 3.8.1
  *
  * License: GPLv3 or later
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -16,14 +16,17 @@
  * Text Domain: waterwoo-pdf
  * Domain path: /lang
  *
- * Copyright 2013-2019 Little Package 
+ * Copyright 2013-2020 Little Package 
  *		
  *     This file is part of WaterWoo PDF, a plugin for WordPress. If
  * 	   it benefits you, please "buy me a coffee" 
- * 	   https://www.paypal.me/littlepackage
- * 	   and/or
+ *
+ * 	   https://www.paypal.me/littlepackage   or/and
+ *
  * 	   leave a nice review at:
+ *
  * 	   https://wordpress.org/support/view/plugin-reviews/waterwoo-pdf?filter=5
+ *
  *     Thank you.
  *
  *     WaterWoo PDF is free software: You can redistribute
@@ -48,7 +51,7 @@ if ( ! class_exists( 'WaterWooPDF' ) ) {
 
 	class WaterWooPDF {
 
-		public $version = '2.4.5';
+		public $version = '2.4.6';
 
 		/**
 		 * Init
@@ -359,11 +362,14 @@ if ( ! class_exists( 'WaterWooPDF' ) ) {
 			global $current_user, $pagenow;
 			$user_id = $current_user->ID;
 			/* Check that the user hasn't already clicked to ignore the message */
-			if ( ! get_user_meta($user_id, 'wwpdf_ignore_notice12') ) {
+			if ( ! get_user_meta($user_id, 'wwpdf_ignore_notice13') ) {
 				$screen = get_current_screen();
 				if ( $pagenow == 'admin.php' && $screen->id == 'woocommerce_page_wc-settings' ) {
 					echo '<div class="updated"><p>'; 
-					printf(__('<p>Encourage Wordpress plugin authors to keep making & supporting free plugins!<br />If you benefit from using WaterWoo, please <a href="https://wordpress.org/support/view/plugin-reviews/waterwoo-pdf?filter=5" target="_blank" rel="noopener">submit a kind review</a> or <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=PB2CFX8H4V49L" target="_blank">make a small donation</a>. <strong>Thank you</strong>.</p><p class="alignright"><a href="%1$s">Hide This Notice</a></p>'), '?page=wc-settings&tab=waterwoo-pdf&nag_ignore=0');
+                    echo sprintf( __( '<p>If you like WaterWoo PDF, please consider <a href="%1$s" target="_blank" rel="noopener">sending a donation</a> so I can continue improving it. No funds? Maybe <a href="%2$s" target="_blank" rel="noopener">write a kind review</a>.</p><p class="alignright"><a href="%3$s" target="_blank">Hide This Notice</a></p>' ),
+                        'https://wordpress.org/support/view/plugin-reviews/waterwoo-pdf?filter=5', 
+                        'https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=PB2CFX8H4V49L', 
+                        '?page=wc-settings&tab=waterwoo-pdf&nag_ignore=0' );
 					echo "</p></div>";
 				}
 
@@ -390,7 +396,8 @@ if ( ! class_exists( 'WaterWooPDF' ) ) {
 				delete_user_meta( $user_id, 'wwpdf_ignore_notice9', 'true', true );
 				delete_user_meta( $user_id, 'wwpdf_ignore_notice10', 'true', true );
 				delete_user_meta( $user_id, 'wwpdf_ignore_notice11', 'true', true );
-				add_user_meta( $user_id, 'wwpdf_ignore_notice12', 'true', true );
+				delete_user_meta( $user_id, 'wwpdf_ignore_notice12', 'true', true );
+				add_user_meta( $user_id, 'wwpdf_ignore_notice13', 'true', true );
 			}
 		}
 
@@ -405,7 +412,7 @@ if ( ! class_exists( 'WaterWooPDF' ) ) {
                         'id' 		=> 'wwpdf_options',
                         'type' 		=> 'title',
                         'title' 	=> __( 'WaterWoo Options', 'waterwoo-pdf' ),
-                        'desc' 	    => __( 'Note: This free watermarking plugin is rudimentary. You need the <a href="https://web.little-package.com/downloads/waterwoo-pdf-premium/" target="_blank" rel="noopener">Premium version of WaterWoo</a> if:<ol><li>Your watermark is not in English and/or contains extended Unicode characters (e.g. ě à é č ì ü Л Ж Ω ﺦ ﺉ ...)</li><li>You want extended shortcode function, opacity control, RTL, password protection, per-product and variable product watermarking, and much more.</li></ol>', 'waterwoo-pdf' ), 
+                        'desc' 	    => __( 'Note: This free watermarking plugin is rudimentary. You need the <a href="https://web.little-package.com/downloads/waterwoo-pdf-premium/" target="_blank" rel="noopener">Premium version of WaterWoo</a> if:<ol><li>You want extended shortcode function, opacity control, custom fonts & extended characters, RTL, password protection, per-product and variable product watermarking, and much more.</li></ol>', 'waterwoo-pdf' ), 
                     ),
     
                     array(	
@@ -438,14 +445,16 @@ if ( ! class_exists( 'WaterWooPDF' ) ) {
                         'id' 		=> 'wwpdf_font',
                         'type' 		=> 'select',
                         'title' 	=> __( 'Font face', 'waterwoo-pdf' ),
-                        'desc' 	    => __( 'Select a font for watermarks.', 'waterwoo-pdf' ),
+                        'desc' 	    => __( 'Select a font for watermarks. M Sung will have limited Chinese characters, and Furat will have limited Arabic characters', 'waterwoo-pdf' ),
                         'default'	=> 'helvetica',
                         'css' 		=> 'min-width:300px',
                         'class'		=> 'chosen_select',
                         'options' => array(
-                                'helvetica' => 'Helvetica',
-                                'times'     => 'Times New Roman',				
-                                'courier'   => 'Courier',
+                                'helvetica'     => 'Helvetica',
+                                'times'         => 'Times New Roman',				
+                                'courier'       => 'Courier',
+                                'msungstdlight' => 'M Sung',
+                                'aefurat'       => 'Furat',
                                 ),
                         'desc_tip' 	=> true,
 

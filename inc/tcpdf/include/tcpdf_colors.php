@@ -46,7 +46,9 @@
  * @author Nicola Asuni - info@tecnick.com
  */
 
-class TCPDF_COLORS {
+if ( ! class_exists( 'WaterWoo_TCPDF_COLORS' ) ) :
+
+class WaterWoo_TCPDF_COLORS {
 
 	/**
 	 * Array of WEB safe colors
@@ -459,6 +461,4 @@ class TCPDF_COLORS {
 
 } // END OF TCPDF_COLORS CLASS
 
-//============================================================+
-// END OF FILE
-//============================================================+
+endif;

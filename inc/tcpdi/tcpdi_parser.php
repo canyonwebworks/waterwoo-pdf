@@ -50,7 +50,7 @@
 // include class for decoding filters
 require_once __DIR__ . '/../tcpdf/include/tcpdf_filters.php';
 
-if ( ! class_exists( 'littlep_tcpdi_parser' ) ) :
+if ( ! class_exists( 'waterwoo_tcpdi_parser' ) ) :
 
     if (!defined ('PDF_TYPE_NULL'))
         define ('PDF_TYPE_NULL', 0);
@@ -88,7 +88,7 @@ if ( ! class_exists( 'littlep_tcpdi_parser' ) ) :
      * @author Paul Nicholls - github.com/pauln
      * @author Nicola Asuni - info@tecnick.com
      */
-    class littlep_tcpdi_parser {
+    class waterwoo_tcpdi_parser {
         /**
          * Unique parser ID
          * @public
@@ -218,14 +218,14 @@ if ( ! class_exists( 'littlep_tcpdi_parser' ) ) :
             $this->uniqueid = $uniqueid;
             
             // get PDF content string
-//          $this->pdfdata = $data;
+            // $this->pdfdata = $data;
 		    $this->pdfdata = substr( $data, $trimpos );		    
 		
             // get length
             $pdflen = strlen($this->pdfdata);
             
             // initialize class for decoding filters
-            $this->FilterDecoders = new LittleP_TCPDF_FILTERS();
+            $this->FilterDecoders = new WaterWoo_TCPDF_FILTERS();
     
             // get xref and trailer data
             $this->xref = $this->getXrefData();
@@ -234,12 +234,14 @@ if ( ! class_exists( 'littlep_tcpdi_parser' ) ) :
             
             // parse all document objects
             $this->objects = array();
-/*          foreach ($this->xref['xref'] as $obj => $offset) {
+            /*
+            foreach ($this->xref['xref'] as $obj => $offset) {
                 if (!isset($this->objects[$obj]) AND ($offset > 0)) {
                     // decode only objects with positive offset
-                    //$this->objects[$obj] = $this->getIndirectObject($obj, $offset, true);
+                    $this->objects[$obj] = $this->getIndirectObject($obj, $offset, true);
                 }
-            } */   
+            }
+            */   
             $this->getPDFVersion();
             $this->readPages();
   
@@ -392,7 +394,7 @@ if ( ! class_exists( 'littlep_tcpdi_parser' ) ) :
             if ($offset == 0) { 
                 // find last startxref
                 if (preg_match_all('/[\r\n]startxref[\s]*[\r\n]+([0-9]+)[\s]*[\r\n]+%%EOF/i', $this->pdfdata, $matches, PREG_SET_ORDER, $offset) == 0) { // processes 4x5 times faster than following line
-//              if ( preg_match('/.*[\r\n]startxref[\s\r\n]+([0-9]+)[\s\r\n]+%%EOF/is', $this->pdfdata, $matches ) == 0 ) {
+                // if ( preg_match('/.*[\r\n]startxref[\s\r\n]+([0-9]+)[\s\r\n]+%%EOF/is', $this->pdfdata, $matches ) == 0 ) {
                     $this->Error('Unable to find startxref');
                 }
                 $matches = array_pop($matches);
@@ -451,8 +453,8 @@ if ( ! class_exists( 'littlep_tcpdi_parser' ) ) :
             $offset = $xoffset;
             
             // LITTLE PACKAGE FIX, adding [.?|\W?] before the first capture group
-            // in order to parse PDFs with NUL characters IN the XREF     
-            while (preg_match('/^[.?|\W?]([0-9]+)[\s]([0-9]+)[\s]?([n|f]?)/im', $this->pdfdata, $matches, PREG_OFFSET_CAPTURE, $offset) > 0) {
+            // in order to parse PDFs with NUL characters IN the XREF
+            while (preg_match('/^[.?|\W?]([0-9]+)[\s]([0-9]+)[\s]?([nf]?)/im', $this->pdfdata, $matches, PREG_OFFSET_CAPTURE, $offset) > 0) {
             // while (preg_match('/^([0-9]+)[\s]([0-9]+)[\s]?([nf]?)/im', $this->pdfdata, $matches, PREG_OFFSET_CAPTURE, $offset) > 0) {
                 $offset = (strlen($matches[0][0]) + $matches[0][1]);
                 if ($matches[3][0] == 'n') {
@@ -479,7 +481,7 @@ if ( ! class_exists( 'littlep_tcpdi_parser' ) ) :
             // get trailer data
             // 2.3 via https://github.com/pauln/tcpdi_parser/commit/55d75792c77eb80f17a98d7846d2fa74a497d64f        
             if (preg_match('/trailer[\s]*<<(.*)>>[\s]*[\r\n]+(?:[%].*[\r\n]+)*startxref[\s]*[\r\n]+/isU', $this->pdfdata, $matches, PREG_OFFSET_CAPTURE, $xoffset) > 0) {
-    //      if (preg_match('/trailer[\s]*<<(.*)>>[\s\r\n]+(?:[%].*[\r\n]+)*startxref[\s\r\n]+/isU', $this->pdfdata, $matches, PREG_OFFSET_CAPTURE, $xoffset) > 0) {
+            // if (preg_match('/trailer[\s]*<<(.*)>>[\s\r\n]+(?:[%].*[\r\n]+)*startxref[\s\r\n]+/isU', $this->pdfdata, $matches, PREG_OFFSET_CAPTURE, $xoffset) > 0) {
     
                 $trailer_data = $matches[1][0];
                 if (!isset($xref['trailer']) OR empty($xref['trailer'])) {
@@ -505,7 +507,7 @@ if ( ! class_exists( 'littlep_tcpdi_parser' ) ) :
                         $xref['trailer'][1]['/ID'][1][0] = array(PDF_TYPE_HEX, $matches[1]);
                         $xref['trailer'][1]['/ID'][1][1] = array(PDF_TYPE_HEX, $matches[2]);
                     }
-                }
+                }           
                 // incremental PDF
                 if (preg_match('/Prev[\s]+([0-9]+)/i', $trailer_data, $matches) > 0) {
                     // get previous xref
@@ -600,7 +602,7 @@ if ( ! class_exists( 'littlep_tcpdi_parser' ) ) :
             $obj_num = 0;
             if ($valid_crs AND isset($xrefcrs[1][3][0])) {
                 // number of bytes in a row
-//              $rowlen = ($columns + 1);
+                // $rowlen = ($columns + 1);
                 $rowlen = ($columns + (isset($predictor) ? 1 : 0));
                 // convert the stream into an array of integers
                 $sdata = unpack('C*', $xrefcrs[1][3][0]);
@@ -802,7 +804,7 @@ if ( ! class_exists( 'littlep_tcpdi_parser' ) ) :
                     $next = strcspn($data, "\r\n", $offset);
                     if ($next > 0) {
                         $offset += $next;
-                        // Since 2.9.2 
+                        // Since 2.10.1
                         // https://github.com/pauln/tcpdi_parser/pull/23/commits/3bacfdc8ea0d391a01daa9507d941574de5a97bb
                         // list($obj, $unused) = $this->getRawObject($offset, $data);
                         // return $obj;
@@ -1017,8 +1019,7 @@ if ( ! class_exists( 'littlep_tcpdi_parser' ) ) :
                 }
                 list($element, $dictoffset) = $this->getRawObject($eloffset, $dict);
                 $objval['/'.$key[1]] = $element;
-                unset($key);
-                unset($element);
+                unset($key,$element);
             } while (true);
 
             return array($objval, $offset);
@@ -1051,6 +1052,7 @@ if ( ! class_exists( 'littlep_tcpdi_parser' ) ) :
             $objdata = array();
             $i = 0; // object main index
             do {
+                $oldoffset = $offset;
                 if (($i > 0) AND (isset($objdata[($i - 1)][0])) AND ($objdata[($i - 1)][0] == PDF_TYPE_DICTIONARY) AND array_key_exists('/Length', $objdata[($i - 1)][1])) {
                     // Stream - get using /Length in stream's dict
                     $lengthobj = $objdata[($i-1)][1]['/Length'];
@@ -1072,13 +1074,13 @@ if ( ! class_exists( 'littlep_tcpdi_parser' ) ) :
                 }
                 $objdata[$i] = $element;
                 ++$i;
-            } while ($element[0] != 'endobj');
+            } while ($element[0] != 'endobj' && ( $offset != $oldoffset ) );
             // remove closing delimiter
             array_pop($objdata);
             // return raw object content
             
             return $objdata;
-        }
+        }   
 
         /**
          * Get the content of object, resolving indirect object reference if necessary.
@@ -1118,8 +1120,7 @@ if ( ! class_exists( 'littlep_tcpdi_parser' ) ) :
                         $decoded = $this->decodeStream($objstream[1][1], $objstream[2][1]);
                         $this->objstreams[$objs[0]][$objs[1]] = $decoded[0]; // Store just the data, in case we need more from this objstream
                         // Free memory
-                        unset($objstream);
-                        unset($decoded);
+                        unset($objstream,$decoded);
                     }
                     $this->objects[$key[0]][$key[1]] = $this->getRawObject( $streaminfo[1], $this->objstreams[$objs[0]][$objs[1]] );
                     $object = $this->objects[$key[0]][$key[1]];
@@ -1153,13 +1154,12 @@ if ( ! class_exists( 'littlep_tcpdi_parser' ) ) :
             $ints = preg_split('/\s/', substr($stream[0], 0, $first)); // Get list of object / offset pairs
             for ($j=1; $j<count($ints); $j++) {
                 if (($j % 2) == 1) {
-                    // LITTLE PACKAGE FIX, $ints[$j] doesn't read as integer unless intval() used   
+                   // LITTLE PACKAGE FIX, $ints[$j] doesn't read as integer unless intval() used   
                     $this->objstreamobjs[$ints[$j - 1]] = array( $key, intval($ints[$j]) + $first );
                 }
             }
             // Free memory - we may not need this at all.
-            unset($obj);
-            unset($stream);
+            unset($obj,$stream);
         }
 
         /**
@@ -1190,9 +1190,7 @@ if ( ! class_exists( 'littlep_tcpdi_parser' ) ) :
                     $i++;
                 }
             }
-            unset($lengthmatch);
-            unset($dictfrag);
-            unset($matches);
+            unset($lengthmatch,$dictfrag,$matches);
         }
 
         /**
@@ -1207,12 +1205,10 @@ if ( ! class_exists( 'littlep_tcpdi_parser' ) ) :
                 $offset = $this->xref['xref'][$key[0]][$key[1]];
                 if (strpos($this->pdfdata, $objref, $offset) === $offset) {
                     // Offset is in xref table and matches actual position in file
-                    //echo "Offset in XREF is correct, returning<br>";
                     return $this->xref['xref'][$key[0]][$key[1]];
                 }
             }
             if (array_key_exists($objref, $this->objoffsets)) {
-                //echo "Offset found in internal reftable<br>";
                 return $this->objoffsets[$objref];
             }
             return false;
@@ -1383,11 +1379,10 @@ if ( ! class_exists( 'littlep_tcpdi_parser' ) ) :
 
             if (isset($this->pages[$this->pageno][1][1]['/Contents'])) {
                 $contents = $this->_getPageContent($this->pages[$this->pageno][1][1]['/Contents']);
-                foreach($contents AS $tmp_content) {
+                foreach($contents as $tmp_content) {
                     $buffer .= $this->_rebuildContentStream($tmp_content) . ' ';
                 }
             }
-
             return $buffer;
         }
 
@@ -1409,10 +1404,12 @@ if ( ! class_exists( 'littlep_tcpdi_parser' ) ) :
                     $contents[] = $content;
                 }
             } elseif ($content_ref[0] == PDF_TYPE_ARRAY) {
-                foreach ($content_ref[1] AS $tmp_content_ref) {
-                    $contents = array_merge($contents,$this->_getPageContent($tmp_content_ref));
+                foreach ($content_ref[1] as $tmp_content_ref) {
+                    $tmp_contents = $this->_getPageContent($tmp_content_ref);
+                    $contents = array_merge($contents,$tmp_contents);
                 }
             }
+           
             return $contents;
         }
 
@@ -1440,10 +1437,9 @@ if ( ! class_exists( 'littlep_tcpdi_parser' ) ) :
                     $filters = $_filter[1];
                 }
             }
-
             $stream = $obj[2][1];
 
-            foreach ($filters AS $_filter) {
+            foreach ($filters as $_filter) {
                 $stream = $this->FilterDecoders->decodeFilter($_filter[1], $stream);
             }
 

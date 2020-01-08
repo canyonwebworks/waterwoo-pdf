@@ -16,9 +16,9 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 //
-if ( ! class_exists( 'LittleP_FPDF_TPL' ) ) {
+if ( ! class_exists( 'WaterWoo_FPDF_TPL' ) ) :
 
-    class LittleP_FPDF_TPL extends LittleP_FPDF {
+    class WaterWoo_FPDF_TPL extends WaterWoo_FPDF {
         /**
          * Array of Tpl-Data
          * @var array
@@ -244,4 +244,5 @@ if ( ! class_exists( 'LittleP_FPDF_TPL' ) ) {
             }
         }
     }
-}
+    
+endif;

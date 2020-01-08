@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WaterWoo PDF\n"
-"POT-Creation-Date: 2019-11-22 16:31-0800\n"
-"PO-Revision-Date: 2019-11-22 16:46-0800\n"
+"POT-Creation-Date: 2020-01-08 12:04-0800\n"
+"PO-Revision-Date: 2020-01-08 12:06-0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es\n"
@@ -27,35 +27,35 @@ msgstr ""
 "No se puede marcar este archivo para su descarga. Notifique al administrador "
 "del sitio."
 
-#: waterwoo-pdf.php:197
+#: waterwoo-pdf.php:200
 msgid "FAQ"
 msgstr "FAQ"
 
-#: waterwoo-pdf.php:198
+#: waterwoo-pdf.php:201
 msgid "Support"
 msgstr "Asistencia"
 
-#: waterwoo-pdf.php:213 waterwoo-pdf.php:304
+#: waterwoo-pdf.php:216 waterwoo-pdf.php:307
 msgid "Upgrade to Premium"
 msgstr "Mejorar a Premium"
 
-#: waterwoo-pdf.php:215 waterwoo-pdf.php:229
+#: waterwoo-pdf.php:218 waterwoo-pdf.php:232
 msgid "Go to the settings page"
 msgstr "Ir a la página de configuración"
 
-#: waterwoo-pdf.php:215 waterwoo-pdf.php:229
+#: waterwoo-pdf.php:218 waterwoo-pdf.php:232
 msgid "Settings"
 msgstr "Parámetros"
 
-#: waterwoo-pdf.php:290
+#: waterwoo-pdf.php:293
 msgid "About the Plugin"
 msgstr "Acerca del plugin"
 
-#: waterwoo-pdf.php:292
+#: waterwoo-pdf.php:295
 msgid "About WaterWoo PDF"
 msgstr "Sobre WaterWoo PDF"
 
-#: waterwoo-pdf.php:293
+#: waterwoo-pdf.php:296
 msgid ""
 "Protect your intellectual property! WaterWoo PDF allows WooCommerce site "
 "administrators to apply custom watermarks to PDFs upon sale."
@@ -64,7 +64,7 @@ msgstr ""
 "administradores de sitio WooCommerce aplicar marcas de agua personalizados a "
 "PDF en venta."
 
-#: waterwoo-pdf.php:294
+#: waterwoo-pdf.php:297
 msgid ""
 "WaterWoo PDF is a plugin that adds a watermark to every page of your PDF "
 "file(s). The watermark is customizable with font face, font color, font "
@@ -83,9 +83,9 @@ msgstr ""
 "Apellido y correo electrónico del cliente. Su marca de agua es altamente "
 "personalizable y manipulable."
 
-#: waterwoo-pdf.php:295
+#: waterwoo-pdf.php:298
 msgid ""
-"<a href=\"https://web.little-package.com/plugin/waterwoo-pdf-premium/\" "
+"<a href=\"https://web.little-package.com/downloads/waterwoo-pdf-premium/\" "
 "target=\"_blank\" rel=\"noopener\">Consider upgrading to the Premium "
 "version</a> if you need more functionality. The premium version adds the "
 "ability to start watermarking on a specified page, password protect and copy/"
@@ -93,35 +93,36 @@ msgid ""
 "UTF-8 and extended Unicode support for many more foreign language "
 "characters. Thanks again, and enjoy!"
 msgstr ""
-"<a href=“https://web.little-package.com/plugin/waterwoo-pdf-premium/“ target="
-"\"_blank\">Considere actualizar a la versión Premium</a> si necesita más "
-"funcionalidad. La versión premium añade la posibilidad de poner marcas de "
-"agua en una página especificada, proteger con contraseña y copia/impresión/"
-"modificar proteger documento, superposición de marcas de agua, entrada de "
-"HTML y UTF-8 y soporta Unicode para muchos más caracteres de idioma "
-"extranjero. Gracias de nuevo y disfrutar!"
+"<a href=\"https://web.little-package.com/downloads/waterwoo-pdf-premium/\" "
+"target=\"_blank\" rel=\"noopener\">Considere la posibilidad de actualizar a "
+"la versión Premium</a> si necesita más funcionalidad. La versión premium "
+"añade la capacidad de comenzar la marca de agua en una página especificada, "
+"proteger con contraseña y copiar/imprimir/modificar proteger su documento, "
+"una superposición de marca de agua, entrada HTML y compatibilidad con UTF-8 "
+"y Unicode extendido para muchos más caracteres de idioma extranjero. Gracias "
+"de nuevo, y disfrutar!"
 
-#: waterwoo-pdf.php:301
+#: waterwoo-pdf.php:304
 msgid "For more information:"
 msgstr "Para más información:"
 
-#: waterwoo-pdf.php:302
+#: waterwoo-pdf.php:305
 msgid "Frequently Asked Questions"
 msgstr "Preguntas Frecuentes"
 
-#: waterwoo-pdf.php:303
+#: waterwoo-pdf.php:306
 msgid "Project on WordPress.org"
 msgstr "Proyecto en WordPress.org"
 
-#: waterwoo-pdf.php:318
+#: waterwoo-pdf.php:321
 msgid "Upgrade to WaterWoo PDF Premium"
 msgstr "Mejorar a WaterWoo PDF Premium"
 
-#: waterwoo-pdf.php:334
+#: waterwoo-pdf.php:337
 msgid "Watermark"
 msgstr "marca al agua"
 
-#: waterwoo-pdf.php:348
+#: waterwoo-pdf.php:351
 msgid ""
 "Sorry, WaterWoo PDF requires you use WooCommerce version 2.4 or newer, "
 "mostly for security reasons."
@@ -129,71 +130,55 @@ msgstr ""
 "Lo sentimos, WaterWoo PDF requiere que utilizar WooCommerce versión 2.4 o "
 "posterior, sobre todo por razones de seguridad."
 
-#: waterwoo-pdf.php:366
-#, fuzzy, php-format
-#| msgid ""
-#| "<p>Encourage Wordpress plugin authors to keep making & supporting free "
-#| "plugins!<br />If you benefit from using WaterWoo, please <a href="
-#| "\"https://wordpress.org/support/view/plugin-reviews/waterwoo-pdf?"
-#| "filter=5\" target=\"_blank\">submit a kind review</a> or <a href="
-#| "\"https://www.paypal.com/cgi-bin/webscr?cmd=_s-"
-#| "xclick&hosted_button_id=PB2CFX8H4V49L\" target=\"_blank\">make a small "
-#| "donation</a>. <strong>Thank you</strong>.</p><p class=\"alignright\"><a "
-#| "href=\"%1$s\">Hide This Notice</a></p>"
+#: waterwoo-pdf.php:369
+#, php-format
 msgid ""
-"<p>Encourage Wordpress plugin authors to keep making & supporting free "
-"plugins!<br />If you benefit from using WaterWoo, please <a href=\"https://"
-"wordpress.org/support/view/plugin-reviews/waterwoo-pdf?filter=5\" target="
-"\"_blank\" rel=\"noopener\">submit a kind review</a> or <a href=\"https://"
-"www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=PB2CFX8H4V49L\" "
-"target=\"_blank\">make a small donation</a>. <strong>Thank you</strong>.</"
-"p><p class=\"alignright\"><a href=\"%1$s\">Hide This Notice</a></p>"
+"<p>If you like WaterWoo PDF, please consider <a href=\"%1$s\" target=\"_blank"
+"\" rel=\"noopener\">sending a donation</a> so I can continue improving it. "
+"No funds? Maybe <a href=\"%2$s\" target=\"_blank\" rel=\"noopener\">write a "
+"kind review</a>.</p><p class=\"alignright\"><a href=\"%3$s\" target=\"_blank"
+"\">Hide This Notice</a></p>"
 msgstr ""
-"<p>¡Animamos a autores de plugin de Wordpress para seguir haciendo y "
-"mantenen plugins gratis!<br>Si usted beneficiarse del uso del WaterWoo, por "
-"favor <a href=\"https://wordpress.org/support/view/plugin-reviews/waterwoo-"
-"pdf?filter=5\" target=\"_blank\">enviar una revisión amable</a> o <a href="
-"\"https://www.paypal.com/cgi-bin/webscr?cmd=_s-"
-"xclick&hosted_button_id=PB2CFX8H4V49L\" target=\"_blank\">hacer una pequeña "
-"donación</a>. <strong>Muchas gracias</strong>.</p><p class=\"alignright\"><a "
-"href=\"%1$s\">Ocultar este aviso</a></p>"
+"<p>Si te gusta WaterWoo PDF, por favor considera <a href=\"%1$s\" target="
+"\"_blank\" rel=\"noopener\">enviar una donación</a> para que pueda seguir "
+"mejorándola. ¿Sin fondos? Tal vez <a href=\"%2$s\" target=\"_blank\" rel="
+"\"noopener\">escribir una amable evaluación</a>.</p><p class=\"alignright"
+"\"><a href=\"%3$s\" target=\"_blank\">Ocultar este aviso</a></p>"
 
-#: waterwoo-pdf.php:407
+#: waterwoo-pdf.php:414
 msgid "WaterWoo Options"
 msgstr "Opciones de WaterWoo"
 
-#: waterwoo-pdf.php:408
+#: waterwoo-pdf.php:415
 msgid ""
 "Note: This free watermarking plugin is rudimentary. You need the <a href="
-"\"https://web.little-package.com/plugin/waterwoo-pdf-premium/\" target="
-"\"_blank\" rel=\"noopener\">Premium version of WaterWoo</a> if:<ol><li>Your "
-"watermark is not in English and/or contains extended Unicode characters (e."
-"g. ě à é č ì ü Л Ж Ω ﺦ ﺉ ...)</li><li>You want extended shortcode function, "
-"opacity control, RTL, password protection, per-product and variable product "
+"\"https://web.little-package.com/downloads/waterwoo-pdf-premium/\" target="
+"\"_blank\" rel=\"noopener\">Premium version of WaterWoo</a> if:<ol><li>You "
+"want extended shortcode function, opacity control, custom fonts & extended "
+"characters, RTL, password protection, per-product and variable product "
 "watermarking, and much more.</li></ol>"
 msgstr ""
-"Nota: Este complemento gratuito de marca de agua es rudimentario. Necesita "
-"la <a href=“https://web.little-package.com/plugin/waterwoo-pdf-premium/“ "
-"target=\"_blank\"> Versión Premium de WaterWoo </a> si:<ol><li>Su marca de "
-"agua no está en inglés y / o contiene caracteres Unicode extendidos (por "
-"ej., ě à é č ì ü Л) </ li><li>Si alguno de sus archivos PDF es versión 1.5 o "
-"más reciente.</li><li> Desea una función de código breve extendida, control "
-"de opacidad, RTL, protección con contraseña, marca de agua por producto y "
-"variable, y mucho más.</ li>"
+"Nota: Este plugin de marca de agua gratis es rudimentario. Necesitas la <a "
+"href=\"https://web.little-package.com/downloads/waterwoo-pdf-premium/\" "
+"target=\"_blank\" rel=\"noopener\">versión Premium de WaterWoo</a> si:"
+"<ol><li>Desea la función de código corto extendido, el control de opacidad, "
+"las fuentes personalizadas y los caracteres extendidos, RTL, protección con "
+"contraseña, marca de agua por producto y producto variable, y mucho más.</"
+"li></ol>"
 
-#: waterwoo-pdf.php:414
+#: waterwoo-pdf.php:421
 msgid "Enable Watermarking"
 msgstr "Activar marca de agua"
 
-#: waterwoo-pdf.php:415
+#: waterwoo-pdf.php:422
 msgid "Check to enable PDF watermarking"
 msgstr "Check para habilitar marcas de agua PDF"
 
-#: waterwoo-pdf.php:422
+#: waterwoo-pdf.php:429
 msgid "File(s) to watermark"
 msgstr "Archivo (s) a la marca de agua"
 
-#: waterwoo-pdf.php:423
+#: waterwoo-pdf.php:430
 msgid ""
 "List file name(s) of PDF(s) to watermark, one per line, e.g., <code>upload."
 "pdf</code> or <code>my_pdf.pdf</code> .<br />If left blank, WaterWoo PDF "
@@ -204,11 +189,11 @@ msgstr ""
 "blanco, Waterloo PDF se marca de agua todos los PDFs de vendidos a través de "
 "WooCommerce."
 
-#: waterwoo-pdf.php:431
+#: waterwoo-pdf.php:438
 msgid "Custom text for footer watermark"
 msgstr "Texto personalizado para la marca de agua de pie de página"
 
-#: waterwoo-pdf.php:432
+#: waterwoo-pdf.php:439
 msgid ""
 "Shortcodes available, all caps, in brackets: <code>[FIRSTNAME]</code> "
 "<code>[LASTNAME]</code> <code>[EMAIL]</code> <code>[PHONE]</code> "
@@ -218,43 +203,47 @@ msgstr ""
 "<code>[LASTNAME]</code> <code>[EMAIL]</code> <code>[PHONE]</"
 "code><code>[DATE]</code>"
 
-#: waterwoo-pdf.php:433
+#: waterwoo-pdf.php:440
 msgid "Licensed to [FIRSTNAME] [LASTNAME], [EMAIL]"
 msgstr "Licenciado en [FIRSTNAME] [LASTNAME], [EMAIL]"
 
-#: waterwoo-pdf.php:440
+#: waterwoo-pdf.php:447
 msgid "Font face"
 msgstr "Cara de Fuente"
 
-#: waterwoo-pdf.php:441
-msgid "Select a font for watermarks."
-msgstr "Seleccione una fuente para marcas de agua."
+#: waterwoo-pdf.php:448
+msgid ""
+"Select a font for watermarks. M Sung will have limited Chinese characters, "
+"and Furat will have limited Arabic characters"
+msgstr ""
+"Seleccione una fuente para marcas de agua. M Sung tendrá caracteres chinos "
+"limitados, y Furat tendrá caracteres árabes limitados"
 
-#: waterwoo-pdf.php:457
+#: waterwoo-pdf.php:466
 msgid "Font size"
 msgstr "Tamaño de la fuente"
 
-#: waterwoo-pdf.php:458
+#: waterwoo-pdf.php:467
 msgid "Provide a number (suggested 10-20) for the footer watermark font size"
 msgstr ""
 "Proporcionar un número (sugerido 10-20) para el tamaño de letra de pie de "
 "página marca de agua"
 
-#: waterwoo-pdf.php:472
+#: waterwoo-pdf.php:481
 msgid "Watermark color"
 msgstr "Color de marca de agua"
 
-#: waterwoo-pdf.php:473
+#: waterwoo-pdf.php:482
 msgid "Color of the footer watermark. Default is black: <code>#000000</code>."
 msgstr ""
 "Color de la marca de agua de pie de página. Por defecto es negro: "
 "<code>#000000</code> ."
 
-#: waterwoo-pdf.php:482
+#: waterwoo-pdf.php:491
 msgid "Y Fine Tuning"
 msgstr "sintonía fina"
 
-#: waterwoo-pdf.php:483
+#: waterwoo-pdf.php:492
 msgid ""
 "Move the footer watermark up and down on the page by adjusting this number. "
 "Default is 260 millimeters (bottom of letter-sized page)."
@@ -263,11 +252,11 @@ msgstr ""
 "el ajuste de este número. Por defecto es de 260 milímetros (parte inferior "
 "de página tamaño carta)."
 
-#: waterwoo-pdf.php:497
+#: waterwoo-pdf.php:506
 msgid "Leave No Trace?"
 msgstr "¿No dejas rastro?"
 
-#: waterwoo-pdf.php:498
+#: waterwoo-pdf.php:507
 msgid ""
 "If this box is checked if/when you uninstall WaterWoo, all your WaterWoo "
 "settings will be deleted from your Wordpress database."
@@ -294,6 +283,38 @@ msgstr ""
 #. Author URI of the plugin/theme
 msgid "https://web.little-package.com"
 msgstr ""
+
+#, fuzzy, php-format
+#~| msgid ""
+#~| "<p>Encourage Wordpress plugin authors to keep making & supporting free "
+#~| "plugins!<br />If you benefit from using WaterWoo, please <a href="
+#~| "\"https://wordpress.org/support/view/plugin-reviews/waterwoo-pdf?"
+#~| "filter=5\" target=\"_blank\">submit a kind review</a> or <a href="
+#~| "\"https://www.paypal.com/cgi-bin/webscr?cmd=_s-"
+#~| "xclick&hosted_button_id=PB2CFX8H4V49L\" target=\"_blank\">make a small "
+#~| "donation</a>. <strong>Thank you</strong>.</p><p class=\"alignright\"><a "
+#~| "href=\"%1$s\">Hide This Notice</a></p>"
+#~ msgid ""
+#~ "<p>Encourage Wordpress plugin authors to keep making & supporting free "
+#~ "plugins!<br />If you benefit from using WaterWoo, please <a href="
+#~ "\"https://wordpress.org/support/view/plugin-reviews/waterwoo-pdf?"
+#~ "filter=5\" target=\"_blank\" rel=\"noopener\">submit a kind review</a> or "
+#~ "<a href=\"https://www.paypal.com/cgi-bin/webscr?cmd=_s-"
+#~ "xclick&hosted_button_id=PB2CFX8H4V49L\" target=\"_blank\">make a small "
+#~ "donation</a>. <strong>Thank you</strong>.</p><p class=\"alignright\"><a "
+#~ "href=\"%1$s\">Hide This Notice</a></p>"
+#~ msgstr ""
+#~ "<p>¡Animamos a autores de plugin de Wordpress para seguir haciendo y "
+#~ "mantenen plugins gratis!<br>Si usted beneficiarse del uso del WaterWoo, "
+#~ "por favor <a href=\"https://wordpress.org/support/view/plugin-reviews/"
+#~ "waterwoo-pdf?filter=5\" target=\"_blank\">enviar una revisión amable</a> "
+#~ "o <a href=\"https://www.paypal.com/cgi-bin/webscr?cmd=_s-"
+#~ "xclick&hosted_button_id=PB2CFX8H4V49L\" target=\"_blank\">hacer una "
+#~ "pequeña donación</a>. <strong>Muchas gracias</strong>.</p><p class="
+#~ "\"alignright\"><a href=\"%1$s\">Ocultar este aviso</a></p>"
+
+#~ msgid "Select a font for watermarks."
+#~ msgstr "Seleccione una fuente para marcas de agua."
 
 #~ msgid "https://waterwoo.me"
 #~ msgstr "https://waterwoo.me"

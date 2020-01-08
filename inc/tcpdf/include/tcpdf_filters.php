@@ -48,8 +48,9 @@
  * @version 1.0.001
  * @author Nicola Asuni - info@tecnick.com
  */
+if ( ! class_exists( 'WaterWoo_TCPDF_FILTERS' ) ) :
 
-class LittleP_TCPDF_FILTERS {
+class WaterWoo_TCPDF_FILTERS {
 
 	/**
 	 * Define a list of available filter decoders.
@@ -348,6 +349,18 @@ class LittleP_TCPDF_FILTERS {
 		return $decoded;
 	}
 
+    /**
+     * Checks whether the zlib extension is loaded.
+     *
+     * Used for testing purpose.
+     *
+     * @return boolean
+     * @internal
+     */
+    public static function extensionLoaded() {
+        return \extension_loaded('zlib');
+    }
+    
 	/**
 	 * FlateDecode
 	 * Decompresses data encoded using the zlib/deflate compression method, reproducing the original text or binary data.
@@ -357,12 +370,38 @@ class LittleP_TCPDF_FILTERS {
 	 * @public static
 	 */
 	public static function decodeFilterFlateDecode($data) {
-		// initialize string to return
-		$decoded = @gzuncompress($data);
-		if ($decoded === false) {
-			self::Error('decodeFilterFlateDecode: invalid code');
-		}
-		return $decoded;
+	
+        if (self::extensionLoaded()) {
+
+            $oData = $data;
+            // initialize string to return
+            // $decoded = @gzuncompress($data);
+            $data = @((\strlen($data) > 0) ? \gzuncompress($data) : '');
+            if ($data === false) {
+                // Try this fallback
+                $tries = 1;
+                while ($tries < 10 && ($data === false || \strlen($data) < (\strlen($oData) - $tries - 1))) {
+                    $data = @(\gzinflate(\substr($oData, $tries)));
+                    $tries++;
+                }
+                if ($data === false) {
+                    // let's try if the checksum is CRC32
+                    $fh = fopen('php://temp', 'w+b');
+                    \fwrite($fh, "\x1f\x8b\x08\x00\x00\x00\x00\x00" . $oData);
+                    \stream_filter_append($fh, 'zlib.inflate', \STREAM_FILTER_READ, ['window' => 30]);
+                    \fseek($fh, 0);
+                    $data = \stream_get_contents($fh);
+                    \fclose($fh);
+                }
+                if (!$data) {
+                    self::Error('decodeFilterFlateDecode: Error while decompressing stream.');
+                }
+            }
+        } else {
+            self::Error('To handle FlateDecode filter, enable zlib support in PHP.');
+        }
+        return $data;
+
 	}
 
 	/**
@@ -484,6 +523,4 @@ class LittleP_TCPDF_FILTERS {
 
 } // END OF TCPDF_FILTERS CLASS
 
-//============================================================+
-// END OF FILE
-//============================================================+
+endif;

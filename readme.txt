@@ -2,9 +2,9 @@
 Contributors: littlepackage
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=PB2CFX8H4V49L
 Tags: watermark, pdf, ebook, copyright, property, marca de agua, publishing, security
-Requires at least: 4.4
-Tested up to: 5.3
-Stable tag: 2.4.5
+Requires at least: 4.9
+Tested up to: 5.3.2
+Stable tag: 2.4.6
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -252,6 +252,14 @@ No, sorry. This plugin is just for PDF files.
 * Update language files
 * Tweak - allow font sizes down to 1pt in settings (previously 6pt)
 
+= 2.4.6 2020.1.8 = 
+* Required WP version moved from 4.4 to 4.9
+* Class naming and checks to prevent conflicts with other plugins using TCPDI/TCPDF
+* Update Flate filter
+* Added M Sung font, which also supports Chinese characters
+* Added Furat font, which also supports Arabic characters
+* Update lang files
+
 == Upgrade Notice ==
 
 = 1.0.2 =
@@ -286,4 +294,5 @@ No, sorry. This plugin is just for PDF files.
 
 = 2.4.2 = 
 * Adjustments in Y-positioning (distance down the page) of the watermark since version 2.4 may cause blank pages or changes in watermark positioning. Please review your watermark settings to be sure they are where you like them.
+
 

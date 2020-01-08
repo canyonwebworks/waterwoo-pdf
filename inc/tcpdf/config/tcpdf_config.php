@@ -40,7 +40,6 @@
 // If you define the constant K_TCPDF_EXTERNAL_CONFIG, all the following settings will be ignored.
 // If you use the tcpdf_autoconfig.php, then you can overwrite some values here.
 
-
 /**
  * Installation path (/var/www/tcpdf/).
  * By default it is automatically calculated but you can also set it as a fixed string to improve performances.
@@ -73,114 +72,133 @@
 /**
  * Page format.
  */
-define ('PDF_PAGE_FORMAT', 'A4');
-
+if (!defined('WaterWoo_PDF_PAGE_FORMAT')) {
+    define ('WaterWoo_PDF_PAGE_FORMAT', 'A4');
+}
 /**
  * Page orientation (P=portrait, L=landscape).
  */
-define ('PDF_PAGE_ORIENTATION', 'P');
-
+if (!defined('WaterWoo_PDF_PAGE_ORIENTATION')) {
+    define ('WaterWoo_PDF_PAGE_ORIENTATION', 'P');
+}
 /**
  * Document unit of measure [pt=point, mm=millimeter, cm=centimeter, in=inch].
  */
-define ('PDF_UNIT', 'mm');
-
+if (!defined('WaterWoo_PDF_UNIT')) {
+    define ('WaterWoo_PDF_UNIT', 'mm');
+}
 /**
  * Document creator.
  */
-define ('PDF_CREATOR', '');
-    
+if (!defined('WaterWoo_PDF_CREATOR')) {
+    define ('WaterWoo_PDF_CREATOR', '');
+} 
 /**
  * Document author.
  */
-define ('PDF_AUTHOR', '');
-
+if (!defined('WaterWoo_PDF_AUTHOR')) {
+    define ('WaterWoo_PDF_AUTHOR', '');
+}
 /**
  * Top margin.
  */
-define ('PDF_MARGIN_TOP', 27);
-
+if (!defined('WaterWoo_PDF_MARGIN_TOP')) {
+    define ('WaterWoo_PDF_MARGIN_TOP', 27);
+}
 /**
  * Bottom margin.
  */
-define ('PDF_MARGIN_BOTTOM', 25);
-
+if (!defined('WaterWoo_PDF_MARGIN_BOTTOM')) {
+    define ('WaterWoo_PDF_MARGIN_BOTTOM', 25);
+}
 /**
  * Left margin.
  */
-define ('PDF_MARGIN_LEFT', 15);
-
+if (!defined('WaterWoo_PDF_MARGIN_LEFT')) {
+    define ('WaterWoo_PDF_MARGIN_LEFT', 15);
+}
 /**
  * Right margin.
  */
-define ('PDF_MARGIN_RIGHT', 15);
-
+if (!defined('WaterWoo_PDF_MARGIN_RIGHT')) {
+    define ('WaterWoo_PDF_MARGIN_RIGHT', 15);
+}
 /**
  * Default main font name.
  */
-define ('PDF_FONT_NAME_MAIN', 'helvetica');
-
+if (!defined('WaterWoo_PDF_FONT_NAME_MAIN')) {
+    define ('WaterWoo_PDF_FONT_NAME_MAIN', 'helvetica');
+}
 /**
  * Default main font size.
  */
-define ('PDF_FONT_SIZE_MAIN', 10);
-
+if (!defined('WaterWoo_PDF_FONT_SIZE_MAIN')) {
+    define ('WaterWoo_PDF_FONT_SIZE_MAIN', 10);
+}
 /**
  * Default data font name.
  */
-define ('PDF_FONT_NAME_DATA', 'helvetica');
-
+if (!defined('WaterWoo_PDF_FONT_NAME_DATA')) {
+    define ('WaterWoo_PDF_FONT_NAME_DATA', 'helvetica');
+}
 /**
  * Default data font size.
  */
-define ('PDF_FONT_SIZE_DATA', 8);
-
+if (!defined('WaterWoo_PDF_FONT_SIZE_DATA')) {
+    define ('WaterWoo_PDF_FONT_SIZE_DATA', 8);
+}
 /**
  * Default monospaced font name.
  */
-define ('PDF_FONT_MONOSPACED', 'courier');
-
+if (!defined('WaterWoo_PDF_FONT_MONOSPACED')) {
+    define ('WaterWoo_PDF_FONT_MONOSPACED', 'courier');
+}
 /**
  * Ratio used to adjust the conversion of pixels to user units.
  */
-define ('PDF_IMAGE_SCALE_RATIO', 1.25);
-
+if (!defined('WaterWoo_PDF_IMAGE_SCALE_RATIO')) {
+    define ('WaterWoo_PDF_IMAGE_SCALE_RATIO', 1.25);
+}
 /**
  * Magnification factor for titles.
  */
-define('HEAD_MAGNIFICATION', 1.1);
-
+if (!defined('WaterWoo_HEAD_MAGNIFICATION')) {
+    define('WaterWoo_HEAD_MAGNIFICATION', 1.1);
+}
 /**
  * Height of cell respect font height.
  */
-define('K_CELL_HEIGHT_RATIO', 1.25);
-
+if (!defined('WaterWoo_K_CELL_HEIGHT_RATIO')) {
+    define('WaterWoo_K_CELL_HEIGHT_RATIO', 1.25);
+}
 /**
  * Title magnification respect main font size.
  */
-define('K_TITLE_MAGNIFICATION', 1.3);
-
+if (!defined('WaterWoo_K_TITLE_MAGNIFICATION')) {
+    define('WaterWoo_K_TITLE_MAGNIFICATION', 1.3);
+}
 /**
  * Reduction factor for small font.
  */
-define('K_SMALL_RATIO', 2/3);
-
+if (!defined('WaterWoo_K_SMALL_RATIO')) {
+    define('WaterWoo_K_SMALL_RATIO', 2/3);
+}
 /**
  * Set to true to enable the special procedure used to avoid the overlappind of symbols on Thai language.
  */
-define('K_THAI_TOPCHARS', false);
-
+if (!defined('WaterWoo_K_THAI_TOPCHARS')) {
+    define('WaterWoo_K_THAI_TOPCHARS', false);
+}
 /**
  * If true allows to call TCPDF methods using HTML syntax
  * IMPORTANT: For security reason, disable this feature if you are printing user HTML content.
  */
-define('K_TCPDF_CALLS_IN_HTML', false);
-
+if (!defined('WaterWoo_K_TCPDF_CALLS_IN_HTML')) {
+    define('WaterWoo_K_TCPDF_CALLS_IN_HTML', false);
+}
 /**
  * Default timezone for datetime functions
  */
-define('K_TIMEZONE', 'UTC');
-
-//============================================================+
-// END OF FILE
-//============================================================+
+if (!defined('WaterWoo_K_TIMEZONE')) {
+    define('WaterWoo_K_TIMEZONE', 'UTC');
+}

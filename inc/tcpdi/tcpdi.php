@@ -17,17 +17,18 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 //
+defined( 'ABSPATH' ) || exit;
 
 // Dummy shim to allow unmodified use of fpdf_tpl
-class LittleP_FPDF extends LittleP_TCPDF_Child {}
+class WaterWoo_FPDF extends WaterWoo_TCPDF_Child {}
 
 require_once('fpdf_tpl.php');
 require_once('tcpdi_parser.php');
 // require_once __DIR__ . '/../tcpdf/tcpdf_parser.php';
 
-if ( ! class_exists( 'LittleP_TCPDI' ) ) {
+if ( ! class_exists( 'WaterWoo_TCPDI' ) ) :
 
-    class LittleP_TCPDI extends LittleP_FPDF_TPL {
+    class WaterWoo_TCPDI extends WaterWoo_FPDF_TPL {
         /**
          * Actual filename
          * @var string
@@ -109,7 +110,7 @@ if ( ! class_exists( 'LittleP_TCPDI' ) ) {
         function _getPdfParser( $filename ) {
 
             $data = file_get_contents( $filename );
-            return new littlep_tcpdi_parser( $data, $filename );
+            return new waterwoo_tcpdi_parser( $data, $filename );
             
         }
 
@@ -313,7 +314,7 @@ if ( ! class_exists( 'LittleP_TCPDI' ) ) {
     
         /* Wrapper for AddTOC() which tracks TOC position to offset annotations later */
         function AddTOC($page='', $numbersfont='', $filler='.', $toc_name='TOC', $style='', $color=array(0,0,0)) {
-            if (!LittleP_TCPDF_STATIC::empty_string($page)) {
+            if (!WaterWoo_TCPDF_STATIC::empty_string($page)) {
                 $this->_TOCpagenum = $page;
             } else {
                 $this->_TOCpagenum = $this->page;
@@ -452,25 +453,6 @@ if ( ! class_exists( 'LittleP_TCPDI' ) ) {
             $this->_out('q 0 J 1 w 0 j 0 G 0 g'); // reset standard values
             $size = parent::useTemplate($tplidx, $_x, $_y, $_w, $_h);
             $this->_out('Q');
-            
-/*            
-            $tpl =& $this->tpls[$tplidx];
-            // var_dump($this->tpls[$tplidx]);
-
-            if ( isset( $tpl['links'] ) ) {
-                foreach ( $tpl['links'] as $link ) {
-                    // $link[4] is either a string (external link) or an integer (page number)
-                    // if it is an integer:
-                    if ( is_int( $link[4] ) ) {
-                        $l = $this->AddLink();		
-                        $this->SetLink( $l, 0, $link[4] );
-                        $link[4] = $l;
-                    }
-    //				$this->links[$this->page][] = $link;
-                    $this->PageLinks[$this->page][] = $link;
-                }
-            }       
-*/
             return $size;
         }
 
@@ -650,7 +632,7 @@ if ( ! class_exists( 'LittleP_TCPDI' ) ) {
                     if ($this->encrypted) {
                         $value[1] = $this->_unescape($value[1]);
                         $value[1] = $this->_encrypt_data($this->_current_obj_id, $value[1]);
-                        $value[1] = LittleP_TCPDF_STATIC::_escape($value[1]);
+                        $value[1] = WaterWoo_TCPDF_STATIC::_escape($value[1]);
                     }
                     break;
 
@@ -922,4 +904,5 @@ if ( ! class_exists( 'LittleP_TCPDI' ) ) {
             return current(unpack('H*', $str));
         }
     }
-}
+
+endif;

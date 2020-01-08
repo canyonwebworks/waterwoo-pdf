@@ -1,6 +1,6 @@
 <?php
 //============================================================+
-// File name   : tcpdf_static.php
+// File name   : WaterWoo_TCPDF_STATIC.php
 // Version     : 1.1.3
 // Begin       : 2002-08-03
 // Last Update : 2015-04-28
@@ -42,15 +42,17 @@
  */
 
 /**
- * @class TCPDF_STATIC
+ * @class WaterWoo_TCPDF_STATIC
  * Static methods used by the TCPDF class.
  * @package com.tecnick.tcpdf
  * @brief PHP class for generating PDF documents without requiring external extensions.
  * @version 1.1.1
  * @author Nicola Asuni - info@tecnick.com
  */
+ 
+if ( ! class_exists( 'WaterWoo_TCPDF_STATIC' ) ) :
 
-class LittleP_TCPDF_STATIC {
+class WaterWoo_TCPDF_STATIC {
 
 	/**
 	 * Current TCPDF version.
@@ -295,7 +297,7 @@ class LittleP_TCPDF_STATIC {
 	 * @public static
 	 */
 	public static function getObjFilename($type='tmp', $file_id='') {
-		return tempnam(K_PATH_CACHE, '__tcpdf_'.$file_id.'_'.$type.'_'.md5(LittleP_TCPDF_STATIC::getRandomSeed()).'_');
+		return tempnam(K_PATH_CACHE, '__tcpdf_'.$file_id.'_'.$type.'_'.md5(WaterWoo_TCPDF_STATIC::getRandomSeed()).'_');
 	}
 
 	/**
@@ -824,7 +826,7 @@ class LittleP_TCPDF_STATIC {
 			if (is_array($prop['fillColor'])) {
 				$opt['mk']['bg'] = $prop['fillColor'];
 			} else {
-				$opt['mk']['bg'] = TCPDF_COLORS::convertHTMLColorToDec($prop['fillColor'], $spot_colors);
+				$opt['mk']['bg'] = WaterWoo_TCPDF_COLORS::convertHTMLColorToDec($prop['fillColor'], $spot_colors);
 			}
 		}
 		// strokeColor: Specifies the stroke color for a field that is used to stroke the rectangle of the field with a line as large as the line width.
@@ -832,7 +834,7 @@ class LittleP_TCPDF_STATIC {
 			if (is_array($prop['strokeColor'])) {
 				$opt['mk']['bc'] = $prop['strokeColor'];
 			} else {
-				$opt['mk']['bc'] = TCPDF_COLORS::convertHTMLColorToDec($prop['strokeColor'], $spot_colors);
+				$opt['mk']['bc'] = WaterWoo_TCPDF_COLORS::convertHTMLColorToDec($prop['strokeColor'], $spot_colors);
 			}
 		}
 		// rotation: The rotation of a widget in counterclockwise increments.
@@ -1536,7 +1538,7 @@ class LittleP_TCPDF_STATIC {
 		// create new language array of patterns
 		$patterns = array();
 		foreach($patterns_array as $val) {
-			if (!LittleP_TCPDF_STATIC::empty_string($val)) {
+			if (!WaterWoo_TCPDF_STATIC::empty_string($val)) {
 				$val = trim($val);
 				$val = str_replace('\'', '\\\'', $val);
 				$key = preg_replace('/[0-9]+/', '', $val);
@@ -1864,9 +1866,9 @@ class LittleP_TCPDF_STATIC {
 	 */
 	public static function url_exists($url) {
 		$crs = curl_init();
-	    // https://github.com/tecnickcom/TCPDF/pull/148/commits/a428c95eaf73f2f04f9214235fc9cd16d540c4ae
+        // https://github.com/tecnickcom/TCPDF/pull/148/commits/a428c95eaf73f2f04f9214235fc9cd16d540c4ae
 	    // encode query params in URL to get right response form the server
-		$url = self::encodeUrlQuery($url);
+		$url = self::encodeUrlQuery($url);		
 		curl_setopt($crs, CURLOPT_URL, $url);
 		curl_setopt($crs, CURLOPT_NOBODY, true);
 		curl_setopt($crs, CURLOPT_FAILONERROR, true);
@@ -2671,5 +2673,6 @@ class LittleP_TCPDF_STATIC {
 		return $page_mode;
 	}
 
+} // END OF WaterWoo_TCPDF_STATIC CLASS
 
-} // END OF TCPDF_STATIC CLASS
+endif;
