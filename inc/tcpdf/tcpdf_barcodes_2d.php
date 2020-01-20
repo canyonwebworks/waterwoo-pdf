@@ -41,16 +41,16 @@
  */
 
 /**
- * @class WaterWoo_TCPDF2DBarcode
+ * @class TCPDF2DBarcode
  * PHP class to creates array representations for 2D barcodes to be used with TCPDF (http://www.tcpdf.org).
  * @package com.tecnick.tcpdf
  * @version 1.0.015
  * @author Nicola Asuni
  */
 
-if ( ! class_exists( 'WaterWoo_TCPDF2DBarcode' ) ) :
+if ( ! class_exists( 'TCPDF2DBarcode' ) ) :
 
-class WaterWoo_TCPDF2DBarcode {
+class TCPDF2DBarcode {
 
 	/**
 	 * Array representation of barcode.
@@ -258,7 +258,7 @@ class WaterWoo_TCPDF2DBarcode {
 		switch ($qrtype) {
 			case 'DATAMATRIX': { // DATAMATRIX (ISO/IEC 16022)
 				require_once(dirname(__FILE__).'/include/barcodes/datamatrix.php');
-				$qrcode = new WaterWoo_Datamatrix($code);
+				$qrcode = new Datamatrix($code);
 				$this->barcode_array = $qrcode->getBarcodeArray();
 				$this->barcode_array['code'] = $code;
 				break;
@@ -289,7 +289,7 @@ class WaterWoo_TCPDF2DBarcode {
 						}
 					}
 				}
-				$qrcode = new WaterWoo_PDF417($code, $ecl, $aspectratio, $macro);
+				$qrcode = new PDF417($code, $ecl, $aspectratio, $macro);
 				$this->barcode_array = $qrcode->getBarcodeArray();
 				$this->barcode_array['code'] = $code;
 				break;
@@ -299,7 +299,7 @@ class WaterWoo_TCPDF2DBarcode {
 				if (!isset($mode[1]) OR (!in_array($mode[1],array('L','M','Q','H')))) {
 					$mode[1] = 'L'; // Ddefault: Low error correction
 				}
-				$qrcode = new WaterWoo_QRcode($code, strtoupper($mode[1]));
+				$qrcode = new QRcode($code, strtoupper($mode[1]));
 				$this->barcode_array = $qrcode->getBarcodeArray();
 				$this->barcode_array['code'] = $code;
 				break;

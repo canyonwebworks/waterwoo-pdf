@@ -138,9 +138,9 @@ require_once( __DIR__ . '/include/tcpdf_static.php');
  * @IgnoreAnnotation("pre")
  */
 
-if ( ! class_exists( 'WaterWoo_TCPDF' ) ) :
+if ( ! class_exists( 'LP_TCPDF' ) ) :
 
-class WaterWoo_TCPDF {
+class LP_TCPDF {
 
 	// Protected properties
 
@@ -937,7 +937,7 @@ class WaterWoo_TCPDF {
 	 * @protected
 	 * @since 3.0.014 (2008-05-23)
 	 */
-	protected $cell_height_ratio = WaterWoo_K_CELL_HEIGHT_RATIO;
+	protected $cell_height_ratio = K_CELL_HEIGHT_RATIO;
 
 	/**
 	 * PDF viewer preferences.
@@ -1861,7 +1861,7 @@ class WaterWoo_TCPDF {
 		}
 		// set file ID for trailer
 		$serformat = (is_array($format) ? json_encode($format) : $format);
-		$this->file_id = md5(WaterWoo_TCPDF_STATIC::getRandomSeed('TCPDF'.$orientation.$unit.$serformat.$encoding));
+		$this->file_id = md5(LP_TCPDF_STATIC::getRandomSeed('TCPDF'.$orientation.$unit.$serformat.$encoding));
 		$this->font_obj_ids = array();
 		$this->page_obj_id = array();
 		$this->form_obj_id = array();
@@ -1895,7 +1895,7 @@ class WaterWoo_TCPDF {
 		$this->gradients = array();
 		$this->InFooter = false;
 		$this->lasth = 0;
-		$this->FontFamily = defined('WaterWoo_PDF_FONT_NAME_MAIN') ? WaterWoo_PDF_FONT_NAME_MAIN : 'helvetica';
+		$this->FontFamily = defined('PDF_FONT_NAME_MAIN') ? PDF_FONT_NAME_MAIN : 'helvetica';
 		$this->FontStyle = '';
 		$this->FontSizePt = 12;
 		$this->underline = false;
@@ -1980,7 +1980,7 @@ class WaterWoo_TCPDF {
 		// set default JPEG quality
 		$this->jpeg_quality = 100;
 		// initialize some settings
-		WaterWoo_TCPDF_FONTS::utf8Bidi(array(), '', false, $this->isunicode, $this->CurrentFont);
+		LP_TCPDF_FONTS::utf8Bidi(array(), '', false, $this->isunicode, $this->CurrentFont);
 		// set default font
 		$this->SetFont($this->FontFamily, $this->FontStyle, $this->FontSizePt);
 		$this->setHeaderFont(array($this->FontFamily, $this->FontStyle, $this->FontSizePt));
@@ -2126,13 +2126,13 @@ class WaterWoo_TCPDF {
 		}
 		if (is_string($format)) {
 			// get page measures from format name
-			$pf = WaterWoo_TCPDF_STATIC::getPageSizeFromFormat($format);
+			$pf = LP_TCPDF_STATIC::getPageSizeFromFormat($format);
 			$this->fwPt = $pf[0];
 			$this->fhPt = $pf[1];
 		} else {
 			// the boundaries of the physical medium on which the page shall be displayed or printed
 			if (isset($format['MediaBox'])) {
-				$this->pagedim = WaterWoo_TCPDF_STATIC::setPageBoxes($this->page, 'MediaBox', $format['MediaBox']['llx'], $format['MediaBox']['lly'], $format['MediaBox']['urx'], $format['MediaBox']['ury'], false, $this->k, $this->pagedim);
+				$this->pagedim = LP_TCPDF_STATIC::setPageBoxes($this->page, 'MediaBox', $format['MediaBox']['llx'], $format['MediaBox']['lly'], $format['MediaBox']['urx'], $format['MediaBox']['ury'], false, $this->k, $this->pagedim);
 				$this->fwPt = (($format['MediaBox']['urx'] - $format['MediaBox']['llx']) * $this->k);
 				$this->fhPt = (($format['MediaBox']['ury'] - $format['MediaBox']['lly']) * $this->k);
 			} else {
@@ -2143,27 +2143,27 @@ class WaterWoo_TCPDF {
 						// default value
 						$format['format'] = 'A4';
 					}
-					$pf = WaterWoo_TCPDF_STATIC::getPageSizeFromFormat($format['format']);
+					$pf = LP_TCPDF_STATIC::getPageSizeFromFormat($format['format']);
 				}
 				$this->fwPt = $pf[0];
 				$this->fhPt = $pf[1];
-				$this->pagedim = WaterWoo_TCPDF_STATIC::setPageBoxes($this->page, 'MediaBox', 0, 0, $this->fwPt, $this->fhPt, true, $this->k, $this->pagedim);
+				$this->pagedim = LP_TCPDF_STATIC::setPageBoxes($this->page, 'MediaBox', 0, 0, $this->fwPt, $this->fhPt, true, $this->k, $this->pagedim);
 			}
 			// the visible region of default user space
 			if (isset($format['CropBox'])) {
-				$this->pagedim = WaterWoo_TCPDF_STATIC::setPageBoxes($this->page, 'CropBox', $format['CropBox']['llx'], $format['CropBox']['lly'], $format['CropBox']['urx'], $format['CropBox']['ury'], false, $this->k, $this->pagedim);
+				$this->pagedim = LP_TCPDF_STATIC::setPageBoxes($this->page, 'CropBox', $format['CropBox']['llx'], $format['CropBox']['lly'], $format['CropBox']['urx'], $format['CropBox']['ury'], false, $this->k, $this->pagedim);
 			}
 			// the region to which the contents of the page shall be clipped when output in a production environment
 			if (isset($format['BleedBox'])) {
-				$this->pagedim = WaterWoo_TCPDF_STATIC::setPageBoxes($this->page, 'BleedBox', $format['BleedBox']['llx'], $format['BleedBox']['lly'], $format['BleedBox']['urx'], $format['BleedBox']['ury'], false, $this->k, $this->pagedim);
+				$this->pagedim = LP_TCPDF_STATIC::setPageBoxes($this->page, 'BleedBox', $format['BleedBox']['llx'], $format['BleedBox']['lly'], $format['BleedBox']['urx'], $format['BleedBox']['ury'], false, $this->k, $this->pagedim);
 			}
 			// the intended dimensions of the finished page after trimming
 			if (isset($format['TrimBox'])) {
-				$this->pagedim = WaterWoo_TCPDF_STATIC::setPageBoxes($this->page, 'TrimBox', $format['TrimBox']['llx'], $format['TrimBox']['lly'], $format['TrimBox']['urx'], $format['TrimBox']['ury'], false, $this->k, $this->pagedim);
+				$this->pagedim = LP_TCPDF_STATIC::setPageBoxes($this->page, 'TrimBox', $format['TrimBox']['llx'], $format['TrimBox']['lly'], $format['TrimBox']['urx'], $format['TrimBox']['ury'], false, $this->k, $this->pagedim);
 			}
 			// the page's meaningful content (including potential white space)
 			if (isset($format['ArtBox'])) {
-				$this->pagedim = WaterWoo_TCPDF_STATIC::setPageBoxes($this->page, 'ArtBox', $format['ArtBox']['llx'], $format['ArtBox']['lly'], $format['ArtBox']['urx'], $format['ArtBox']['ury'], false, $this->k, $this->pagedim);
+				$this->pagedim = LP_TCPDF_STATIC::setPageBoxes($this->page, 'ArtBox', $format['ArtBox']['llx'], $format['ArtBox']['lly'], $format['ArtBox']['urx'], $format['ArtBox']['ury'], false, $this->k, $this->pagedim);
 			}
 			// specify the colours and other visual characteristics that should be used in displaying guidelines on the screen for the various page boundaries
 			if (isset($format['BoxColorInfo'])) {
@@ -2236,23 +2236,23 @@ class WaterWoo_TCPDF {
 	public function setPageOrientation($orientation, $autopagebreak='', $bottommargin='') {
 		if (!isset($this->pagedim[$this->page]['MediaBox'])) {
 			// the boundaries of the physical medium on which the page shall be displayed or printed
-			$this->pagedim = WaterWoo_TCPDF_STATIC::setPageBoxes($this->page, 'MediaBox', 0, 0, $this->fwPt, $this->fhPt, true, $this->k, $this->pagedim);
+			$this->pagedim = LP_TCPDF_STATIC::setPageBoxes($this->page, 'MediaBox', 0, 0, $this->fwPt, $this->fhPt, true, $this->k, $this->pagedim);
 		}
 		if (!isset($this->pagedim[$this->page]['CropBox'])) {
 			// the visible region of default user space
-			$this->pagedim = WaterWoo_TCPDF_STATIC::setPageBoxes($this->page, 'CropBox', $this->pagedim[$this->page]['MediaBox']['llx'], $this->pagedim[$this->page]['MediaBox']['lly'], $this->pagedim[$this->page]['MediaBox']['urx'], $this->pagedim[$this->page]['MediaBox']['ury'], true, $this->k, $this->pagedim);
+			$this->pagedim = LP_TCPDF_STATIC::setPageBoxes($this->page, 'CropBox', $this->pagedim[$this->page]['MediaBox']['llx'], $this->pagedim[$this->page]['MediaBox']['lly'], $this->pagedim[$this->page]['MediaBox']['urx'], $this->pagedim[$this->page]['MediaBox']['ury'], true, $this->k, $this->pagedim);
 		}
 		if (!isset($this->pagedim[$this->page]['BleedBox'])) {
 			// the region to which the contents of the page shall be clipped when output in a production environment
-			$this->pagedim = WaterWoo_TCPDF_STATIC::setPageBoxes($this->page, 'BleedBox', $this->pagedim[$this->page]['CropBox']['llx'], $this->pagedim[$this->page]['CropBox']['lly'], $this->pagedim[$this->page]['CropBox']['urx'], $this->pagedim[$this->page]['CropBox']['ury'], true, $this->k, $this->pagedim);
+			$this->pagedim = LP_TCPDF_STATIC::setPageBoxes($this->page, 'BleedBox', $this->pagedim[$this->page]['CropBox']['llx'], $this->pagedim[$this->page]['CropBox']['lly'], $this->pagedim[$this->page]['CropBox']['urx'], $this->pagedim[$this->page]['CropBox']['ury'], true, $this->k, $this->pagedim);
 		}
 		if (!isset($this->pagedim[$this->page]['TrimBox'])) {
 			// the intended dimensions of the finished page after trimming
-			$this->pagedim = WaterWoo_TCPDF_STATIC::setPageBoxes($this->page, 'TrimBox', $this->pagedim[$this->page]['CropBox']['llx'], $this->pagedim[$this->page]['CropBox']['lly'], $this->pagedim[$this->page]['CropBox']['urx'], $this->pagedim[$this->page]['CropBox']['ury'], true, $this->k, $this->pagedim);
+			$this->pagedim = LP_TCPDF_STATIC::setPageBoxes($this->page, 'TrimBox', $this->pagedim[$this->page]['CropBox']['llx'], $this->pagedim[$this->page]['CropBox']['lly'], $this->pagedim[$this->page]['CropBox']['urx'], $this->pagedim[$this->page]['CropBox']['ury'], true, $this->k, $this->pagedim);
 		}
 		if (!isset($this->pagedim[$this->page]['ArtBox'])) {
 			// the page's meaningful content (including potential white space)
-			$this->pagedim = WaterWoo_TCPDF_STATIC::setPageBoxes($this->page, 'ArtBox', $this->pagedim[$this->page]['CropBox']['llx'], $this->pagedim[$this->page]['CropBox']['lly'], $this->pagedim[$this->page]['CropBox']['urx'], $this->pagedim[$this->page]['CropBox']['ury'], true, $this->k, $this->pagedim);
+			$this->pagedim = LP_TCPDF_STATIC::setPageBoxes($this->page, 'ArtBox', $this->pagedim[$this->page]['CropBox']['llx'], $this->pagedim[$this->page]['CropBox']['lly'], $this->pagedim[$this->page]['CropBox']['urx'], $this->pagedim[$this->page]['CropBox']['ury'], true, $this->k, $this->pagedim);
 		}
 		if (!isset($this->pagedim[$this->page]['Rotate'])) {
 			// The number of degrees by which the page shall be rotated clockwise when displayed or printed. The value shall be a multiple of 90.
@@ -2286,18 +2286,18 @@ class WaterWoo_TCPDF {
 		}
 		if ((abs($this->pagedim[$this->page]['MediaBox']['urx'] - $this->hPt) < $this->feps) AND (abs($this->pagedim[$this->page]['MediaBox']['ury'] - $this->wPt) < $this->feps)){
 			// swap X and Y coordinates (change page orientation)
-			$this->pagedim = WaterWoo_TCPDF_STATIC::swapPageBoxCoordinates($this->page, $this->pagedim);
+			$this->pagedim = LP_TCPDF_STATIC::swapPageBoxCoordinates($this->page, $this->pagedim);
 		}
 		$this->w = ($this->wPt / $this->k);
 		$this->h = ($this->hPt / $this->k);
-		if (WaterWoo_TCPDF_STATIC::empty_string($autopagebreak)) {
+		if (LP_TCPDF_STATIC::empty_string($autopagebreak)) {
 			if (isset($this->AutoPageBreak)) {
 				$autopagebreak = $this->AutoPageBreak;
 			} else {
 				$autopagebreak = true;
 			}
 		}
-		if (WaterWoo_TCPDF_STATIC::empty_string($bottommargin)) {
+		if (LP_TCPDF_STATIC::empty_string($bottommargin)) {
 			if (isset($this->bMargin)) {
 				$bottommargin = $this->bMargin;
 			} else {
@@ -2836,8 +2836,8 @@ class WaterWoo_TCPDF {
 		} else {
 			$this->Error('Incorrect zoom display mode: '.$zoom);
 		}
-		$this->LayoutMode = WaterWoo_TCPDF_STATIC::getPageLayoutMode($layout);
-		$this->PageMode = WaterWoo_TCPDF_STATIC::getPageMode($mode);
+		$this->LayoutMode = LP_TCPDF_STATIC::getPageLayoutMode($layout);
+		$this->PageMode = LP_TCPDF_STATIC::getPageMode($mode);
 	}
 
 	/**
@@ -3012,7 +3012,7 @@ class WaterWoo_TCPDF {
 			$this->y = $this->h - (1 / $this->k);
 			$this->lMargin = 0;
 			$this->_outSaveGraphicsState();
-			$font = defined('WaterWoo_PDF_FONT_NAME_MAIN') ? WaterWoo_PDF_FONT_NAME_MAIN : 'helvetica';
+			$font = defined('PDF_FONT_NAME_MAIN') ? PDF_FONT_NAME_MAIN : 'helvetica';
 			$this->SetFont($font, '', 1);
 			$this->setTextRenderingMode(0, false, false);
 			$msg = "\x50\x6f\x77\x65\x72\x65\x64\x20\x62\x79\x20\x54\x43\x50\x44\x46\x20\x28\x77\x77\x77\x2e\x74\x63\x70\x64\x66\x2e\x6f\x72\x67\x29";
@@ -3468,7 +3468,7 @@ class WaterWoo_TCPDF {
 			$this->pagedim[$this->page]['tm'] = $this->tMargin;
 			$this->y = $this->tMargin;
 		}
-		if (!WaterWoo_TCPDF_STATIC::empty_string($this->thead) AND (!$this->inthead)) {
+		if (!LP_TCPDF_STATIC::empty_string($this->thead) AND (!$this->inthead)) {
 			// set margins
 			$prev_lMargin = $this->lMargin;
 			$prev_rMargin = $this->rMargin;
@@ -3568,7 +3568,7 @@ class WaterWoo_TCPDF {
 	 * @since 5.9.125 (2011-10-03)
 	 */
 	public function setSpotColor($type, $name, $tint=100) {
-		$spotcolor = WaterWoo_TCPDF_COLORS::getSpotColor($name, $this->spot_colors);
+		$spotcolor = TCPDF_COLORS::getSpotColor($name, $this->spot_colors);
 		if ($spotcolor === false) {
 			$this->Error('Undefined spot color: '.$name.', you must add it using the AddSpotColor() method.');
 		}
@@ -3868,7 +3868,7 @@ class WaterWoo_TCPDF {
 	 * @since 1.2
 	 */
 	public function GetStringWidth($s, $fontname='', $fontstyle='', $fontsize=0, $getarray=false) {
-		return $this->GetArrStringWidth(WaterWoo_TCPDF_FONTS::utf8Bidi(WaterWoo_TCPDF_FONTS::UTF8StringToArray($s, $this->isunicode, $this->CurrentFont), $s, $this->tmprtl, $this->isunicode, $this->CurrentFont), $fontname, $fontstyle, $fontsize, $getarray);
+		return $this->GetArrStringWidth(LP_TCPDF_FONTS::utf8Bidi(LP_TCPDF_FONTS::UTF8StringToArray($s, $this->isunicode, $this->CurrentFont), $s, $this->tmprtl, $this->isunicode, $this->CurrentFont), $fontname, $fontstyle, $fontsize, $getarray);
 	}
 
 	/**
@@ -3885,7 +3885,7 @@ class WaterWoo_TCPDF {
 	 */
 	public function GetArrStringWidth($sa, $fontname='', $fontstyle='', $fontsize=0, $getarray=false) {
 		// store current values
-		if (!WaterWoo_TCPDF_STATIC::empty_string($fontname)) {
+		if (!LP_TCPDF_STATIC::empty_string($fontname)) {
 			$prev_FontFamily = $this->FontFamily;
 			$prev_FontStyle = $this->FontStyle;
 			$prev_FontSizePt = $this->FontSizePt;
@@ -3893,7 +3893,7 @@ class WaterWoo_TCPDF {
 		}
 		// convert UTF-8 array to Latin1 if required
 		if ($this->isunicode AND (!$this->isUnicodeFont())) {
-			$sa = WaterWoo_TCPDF_FONTS::UTF8ArrToLatin1Arr($sa);
+			$sa = LP_TCPDF_FONTS::UTF8ArrToLatin1Arr($sa);
 		}
 		$w = 0; // total width
 		$wa = array(); // array of characters widths
@@ -3904,7 +3904,7 @@ class WaterWoo_TCPDF {
 			$w += $cw;
 		}
 		// restore previous values
-		if (!WaterWoo_TCPDF_STATIC::empty_string($fontname)) {
+		if (!LP_TCPDF_STATIC::empty_string($fontname)) {
 			$this->SetFont($prev_FontFamily, $prev_FontStyle, $prev_FontSizePt, '', 'default', false);
 		}
 		if ($getarray) {
@@ -3972,7 +3972,7 @@ class WaterWoo_TCPDF {
 	 */
 	public function GetNumChars($s) {
 		if ($this->isUnicodeFont()) {
-			return count(WaterWoo_TCPDF_FONTS::UTF8StringToArray($s, $this->isunicode, $this->CurrentFont));
+			return count(LP_TCPDF_FONTS::UTF8StringToArray($s, $this->isunicode, $this->CurrentFont));
 		}
 		return strlen($s);
 	}
@@ -3983,7 +3983,7 @@ class WaterWoo_TCPDF {
 	 * @since 4.0.013 (2008-07-28)
 	 */
 	protected function getFontsList() {
-		if (($fontsdir = opendir(WaterWoo_TCPDF_FONTS::_getfontpath())) !== false) {
+		if (($fontsdir = opendir(LP_TCPDF_FONTS::_getfontpath())) !== false) {
 			while (($file = readdir($fontsdir)) !== false) {
 				if (substr($file, -4) == '.php') {
 					array_push($this->fontlist, strtolower(basename($file, '.php')));
@@ -4016,8 +4016,8 @@ class WaterWoo_TCPDF {
 		if ($this->pdfa_mode) {
 			$subset = false;
 		}
-		if (WaterWoo_TCPDF_STATIC::empty_string($family)) {
-			if (!WaterWoo_TCPDF_STATIC::empty_string($this->FontFamily)) {
+		if (LP_TCPDF_STATIC::empty_string($family)) {
+			if (!LP_TCPDF_STATIC::empty_string($this->FontFamily)) {
 				$family = $this->FontFamily;
 			} else {
 				$this->Error('Empty font family');
@@ -4087,9 +4087,9 @@ class WaterWoo_TCPDF {
 		}
 		// get specified font directory (if any)
 		$fontdir = false;
-		if ( ! WaterWoo_TCPDF_STATIC::empty_string($fontfile)) {
+		if ( ! LP_TCPDF_STATIC::empty_string($fontfile)) {
 			$fontdir = dirname($fontfile);
-			if (WaterWoo_TCPDF_STATIC::empty_string($fontdir) OR ($fontdir == '.')) {
+			if (LP_TCPDF_STATIC::empty_string($fontdir) OR ($fontdir == '.')) {
 				$fontdir = '';
 			} else {
 				$fontdir .= '/';
@@ -4098,19 +4098,19 @@ class WaterWoo_TCPDF {
 		// true when the font style variation is missing
 		$missing_style = false;
 		// search and include font file
-		if (WaterWoo_TCPDF_STATIC::empty_string($fontfile) OR (!@WaterWoo_TCPDF_STATIC::file_exists($fontfile))) {
+		if (LP_TCPDF_STATIC::empty_string($fontfile) OR (!@LP_TCPDF_STATIC::file_exists($fontfile))) {
 			// build a standard filenames for specified font
 			$tmp_fontfile = str_replace(' ', '', $family).strtolower($style).'.php';
-			$fontfile = WaterWoo_TCPDF_FONTS::getFontFullPath($tmp_fontfile, $fontdir);
-			if (WaterWoo_TCPDF_STATIC::empty_string($fontfile)) {
+			$fontfile = LP_TCPDF_FONTS::getFontFullPath($tmp_fontfile, $fontdir);
+			if (LP_TCPDF_STATIC::empty_string($fontfile)) {
 				$missing_style = true;
 				// try to remove the style part
 				$tmp_fontfile = str_replace(' ', '', $family).'.php';
-				$fontfile = WaterWoo_TCPDF_FONTS::getFontFullPath($tmp_fontfile, $fontdir);
+				$fontfile = LP_TCPDF_FONTS::getFontFullPath($tmp_fontfile, $fontdir);
 			}
 		}
 		// include font file
-		if (!WaterWoo_TCPDF_STATIC::empty_string($fontfile) AND (@WaterWoo_TCPDF_STATIC::file_exists($fontfile))) {
+		if (!LP_TCPDF_STATIC::empty_string($fontfile) AND (@LP_TCPDF_STATIC::file_exists($fontfile))) {
 			include($fontfile);
 		} else {
 			$this->Error('Could not include font definition file: '.$family.'');
@@ -4120,32 +4120,32 @@ class WaterWoo_TCPDF {
 			$this->Error('The font definition file has a bad format: '.$fontfile.'');
 		}
 		// SET default parameters
-		if (!isset($file) OR WaterWoo_TCPDF_STATIC::empty_string($file)) {
+		if (!isset($file) OR LP_TCPDF_STATIC::empty_string($file)) {
 			$file = '';
 		}
-		if (!isset($enc) OR WaterWoo_TCPDF_STATIC::empty_string($enc)) {
+		if (!isset($enc) OR LP_TCPDF_STATIC::empty_string($enc)) {
 			$enc = '';
 		}
-		if (!isset($cidinfo) OR WaterWoo_TCPDF_STATIC::empty_string($cidinfo)) {
+		if (!isset($cidinfo) OR LP_TCPDF_STATIC::empty_string($cidinfo)) {
 			$cidinfo = array('Registry'=>'Adobe', 'Ordering'=>'Identity', 'Supplement'=>0);
 			$cidinfo['uni2cid'] = array();
 		}
-		if (!isset($ctg) OR WaterWoo_TCPDF_STATIC::empty_string($ctg)) {
+		if (!isset($ctg) OR LP_TCPDF_STATIC::empty_string($ctg)) {
 			$ctg = '';
 		}
-		if (!isset($desc) OR WaterWoo_TCPDF_STATIC::empty_string($desc)) {
+		if (!isset($desc) OR LP_TCPDF_STATIC::empty_string($desc)) {
 			$desc = array();
 		}
-		if (!isset($up) OR WaterWoo_TCPDF_STATIC::empty_string($up)) {
+		if (!isset($up) OR LP_TCPDF_STATIC::empty_string($up)) {
 			$up = -100;
 		}
-		if (!isset($ut) OR WaterWoo_TCPDF_STATIC::empty_string($ut)) {
+		if (!isset($ut) OR LP_TCPDF_STATIC::empty_string($ut)) {
 			$ut = 50;
 		}
-		if (!isset($cw) OR WaterWoo_TCPDF_STATIC::empty_string($cw)) {
+		if (!isset($cw) OR LP_TCPDF_STATIC::empty_string($cw)) {
 			$cw = array();
 		}
-		if (!isset($dw) OR WaterWoo_TCPDF_STATIC::empty_string($dw)) {
+		if (!isset($dw) OR LP_TCPDF_STATIC::empty_string($dw)) {
 			// set default width
 			if (isset($desc['MissingWidth']) AND ($desc['MissingWidth'] > 0)) {
 				$dw = $desc['MissingWidth'];
@@ -4230,7 +4230,7 @@ class WaterWoo_TCPDF {
 			}
 			$this->setFontSubBuffer($fontkey, 'diff', $d);
 		}
-		if ( ! WaterWoo_TCPDF_STATIC::empty_string($file) ) {
+		if ( ! LP_TCPDF_STATIC::empty_string($file) ) {
 			if (!isset($this->FontFiles[$file])) {
 				if ((strcasecmp($type,'TrueType') == 0) OR (strcasecmp($type, 'TrueTypeUnicode') == 0)) {				
 					$this->FontFiles[$file] = array('length1' => $originalsize, 'fontdir' => $fontdir, 'subset' => $subset, 'fontkeys' => array($fontkey));
@@ -4450,11 +4450,11 @@ class WaterWoo_TCPDF {
 	public function isCharDefined($char, $font='', $style='') {
 		if (is_string($char)) {
 			// get character code
-			$char = WaterWoo_TCPDF_FONTS::UTF8StringToArray($char, $this->isunicode, $this->CurrentFont);
+			$char = LP_TCPDF_FONTS::UTF8StringToArray($char, $this->isunicode, $this->CurrentFont);
 			$char = $char[0];
 		}
-		if (WaterWoo_TCPDF_STATIC::empty_string($font)) {
-			if (WaterWoo_TCPDF_STATIC::empty_string($style)) {
+		if (LP_TCPDF_STATIC::empty_string($font)) {
+			if (LP_TCPDF_STATIC::empty_string($style)) {
 				return (isset($this->CurrentFont['cw'][intval($char)]));
 			}
 			$font = $this->FontFamily;
@@ -4478,12 +4478,12 @@ class WaterWoo_TCPDF {
 		if (empty($subs)) {
 			return $text;
 		}
-		if (WaterWoo_TCPDF_STATIC::empty_string($font)) {
+		if (LP_TCPDF_STATIC::empty_string($font)) {
 			$font = $this->FontFamily;
 		}
 		$fontdata = $this->AddFont($font, $style);
 		$fontinfo = $this->getFontBuffer($fontdata['fontkey']);
-		$uniarr = WaterWoo_TCPDF_FONTS::UTF8StringToArray($text, $this->isunicode, $this->CurrentFont);
+		$uniarr = LP_TCPDF_FONTS::UTF8StringToArray($text, $this->isunicode, $this->CurrentFont);
 		foreach ($uniarr as $k => $chr) {
 			if (!isset($fontinfo['cw'][$chr])) {
 				// this character is missing on the selected font
@@ -4502,7 +4502,7 @@ class WaterWoo_TCPDF {
 				}
 			}
 		}
-		return WaterWoo_TCPDF_FONTS::UniArrSubString(WaterWoo_TCPDF_FONTS::UTF8ArrayToUniArray($uniarr, $this->isunicode));
+		return LP_TCPDF_FONTS::UniArrSubString(LP_TCPDF_FONTS::UTF8ArrayToUniArray($uniarr, $this->isunicode));
 	}
 
 	/**
@@ -4650,20 +4650,20 @@ class WaterWoo_TCPDF {
 		}
 		$this->PageAnnots[$page][] = array('n' => ++$this->n, 'x' => $x, 'y' => $y, 'w' => $w, 'h' => $h, 'txt' => $text, 'opt' => $opt, 'numspaces' => $spaces);
         if (!$this->pdfa_mode || ($this->pdfa_mode && $this->pdfa_version == 3)) {
-			if ((($opt['Subtype'] == 'FileAttachment') OR ($opt['Subtype'] == 'Sound')) AND (!WaterWoo_TCPDF_STATIC::empty_string($opt['FS']))
-				AND (@WaterWoo_TCPDF_STATIC::file_exists($opt['FS']) OR WaterWoo_TCPDF_STATIC::isValidURL($opt['FS']))
+			if ((($opt['Subtype'] == 'FileAttachment') OR ($opt['Subtype'] == 'Sound')) AND (!LP_TCPDF_STATIC::empty_string($opt['FS']))
+				AND (@LP_TCPDF_STATIC::file_exists($opt['FS']) OR LP_TCPDF_STATIC::isValidURL($opt['FS']))
 				AND (!isset($this->embeddedfiles[basename($opt['FS'])]))) {
 				$this->embeddedfiles[basename($opt['FS'])] = array('f' => ++$this->n, 'n' => ++$this->n, 'file' => $opt['FS']);
 			}
 		}
 		// Add widgets annotation's icons
-		if (isset($opt['mk']['i']) AND @WaterWoo_TCPDF_STATIC::file_exists($opt['mk']['i'])) {
+		if (isset($opt['mk']['i']) AND @LP_TCPDF_STATIC::file_exists($opt['mk']['i'])) {
 			$this->Image($opt['mk']['i'], '', '', 10, 10, '', '', '', false, 300, '', false, false, 0, false, true);
 		}
-		if (isset($opt['mk']['ri']) AND @WaterWoo_TCPDF_STATIC::file_exists($opt['mk']['ri'])) {
+		if (isset($opt['mk']['ri']) AND @LP_TCPDF_STATIC::file_exists($opt['mk']['ri'])) {
 			$this->Image($opt['mk']['ri'], '', '', 0, 0, '', '', '', false, 300, '', false, false, 0, false, true);
 		}
-		if (isset($opt['mk']['ix']) AND @WaterWoo_TCPDF_STATIC::file_exists($opt['mk']['ix'])) {
+		if (isset($opt['mk']['ix']) AND @LP_TCPDF_STATIC::file_exists($opt['mk']['ix'])) {
 			$this->Image($opt['mk']['ix'], '', '', 0, 0, '', '', '', false, 300, '', false, false, 0, false, true);
 		}
 	}
@@ -4681,7 +4681,7 @@ class WaterWoo_TCPDF {
 		}
 		reset($this->embeddedfiles);
 		foreach ($this->embeddedfiles as $filename => $filedata) {
-			$data = WaterWoo_TCPDF_STATIC::fileGetContents($filedata['file']);
+			$data = LP_TCPDF_STATIC::fileGetContents($filedata['file']);
 			if ($data !== FALSE) {
 				$rawsize = strlen($data);
 				if ($rawsize > 0) {
@@ -4786,7 +4786,7 @@ class WaterWoo_TCPDF {
 	 * @protected
 	 */
 	protected function checkPageBreak($h=0, $y='', $addpage=true) {
-		if (WaterWoo_TCPDF_STATIC::empty_string($y)) {
+		if (LP_TCPDF_STATIC::empty_string($y)) {
 			$y = $this->y;
 		}
 		$current_page = $this->page;
@@ -4910,10 +4910,10 @@ class WaterWoo_TCPDF {
 	 */
 	protected function getCellCode($w, $h=0, $txt='', $border=0, $ln=0, $align='', $fill=false, $link='', $stretch=0, $ignore_min_height=false, $calign='T', $valign='M') {
 		// replace 'NO-BREAK SPACE' (U+00A0) character with a simple space
-		$txt = str_replace(WaterWoo_TCPDF_FONTS::unichr(160, $this->isunicode), ' ', $txt);
+		$txt = str_replace(LP_TCPDF_FONTS::unichr(160, $this->isunicode), ' ', $txt);
 		$prev_cell_margin = $this->cell_margin;
 		$prev_cell_padding = $this->cell_padding;
-		$txt = WaterWoo_TCPDF_STATIC::removeSHY($txt, $this->isunicode);
+		$txt = LP_TCPDF_STATIC::removeSHY($txt, $this->isunicode);
 		$rs = ''; //string to be returned
 		$this->adjustCellPadding($border);
 		if (!$ignore_min_height) {
@@ -5042,7 +5042,7 @@ class WaterWoo_TCPDF {
 			}
 		}
 		$basefonty = $yt + $this->FontAscent;
-		if (WaterWoo_TCPDF_STATIC::empty_string($w) OR ($w <= 0)) {
+		if (LP_TCPDF_STATIC::empty_string($w) OR ($w <= 0)) {
 			if ($this->rtl) {
 				$w = $x - $this->lMargin;
 			} else {
@@ -5074,12 +5074,12 @@ class WaterWoo_TCPDF {
 			$txt2 = $txt;
 			if ($this->isunicode) {
 				if (($this->CurrentFont['type'] == 'core') OR ($this->CurrentFont['type'] == 'TrueType') OR ($this->CurrentFont['type'] == 'Type1')) {
-					$txt2 = WaterWoo_TCPDF_FONTS::UTF8ToLatin1($txt2, $this->isunicode, $this->CurrentFont);
+					$txt2 = LP_TCPDF_FONTS::UTF8ToLatin1($txt2, $this->isunicode, $this->CurrentFont);
 				} else {
-					$unicode = WaterWoo_TCPDF_FONTS::UTF8StringToArray($txt, $this->isunicode, $this->CurrentFont); // array of UTF-8 unicode values
-					$unicode = WaterWoo_TCPDF_FONTS::utf8Bidi($unicode, '', $this->tmprtl, $this->isunicode, $this->CurrentFont);
+					$unicode = LP_TCPDF_FONTS::UTF8StringToArray($txt, $this->isunicode, $this->CurrentFont); // array of UTF-8 unicode values
+					$unicode = LP_TCPDF_FONTS::utf8Bidi($unicode, '', $this->tmprtl, $this->isunicode, $this->CurrentFont);
 					// replace thai chars (if any)
-					if (defined('WaterWoo_K_THAI_TOPCHARS') AND (WaterWoo_K_THAI_TOPCHARS == true)) {
+					if (defined('K_THAI_TOPCHARS') AND (K_THAI_TOPCHARS == true)) {
 						// number of chars
 						$numchars = count($unicode);
 						// po pla, for far, for fan
@@ -5168,11 +5168,11 @@ class WaterWoo_TCPDF {
 						$unicode = $output;
 						// update font subsetchars
 						$this->setFontSubBuffer($this->CurrentFont['fontkey'], 'subsetchars', $this->CurrentFont['subsetchars']);
-					} // end of WaterWoo_K_THAI_TOPCHARS
-					$txt2 = WaterWoo_TCPDF_FONTS::arrUTF8ToUTF16BE($unicode, false);
+					} // end of K_THAI_TOPCHARS
+					$txt2 = LP_TCPDF_FONTS::arrUTF8ToUTF16BE($unicode, false);
 				}
 			}
-			$txt2 = WaterWoo_TCPDF_STATIC::_escape($txt2);
+			$txt2 = LP_TCPDF_STATIC::_escape($txt2);
 			// get current text width (considering general font stretching and spacing)
 			$txwidth = $this->GetStringWidth($txt);
 			$width = $txwidth;
@@ -5303,8 +5303,8 @@ class WaterWoo_TCPDF {
 						$xshift += $this->GetArrStringWidth($uniarr); // + shift justification
 					} else {
 						// character to print
-						$topchr = WaterWoo_TCPDF_FONTS::arrUTF8ToUTF16BE($uniarr, false);
-						$topchr = WaterWoo_TCPDF_STATIC::_escape($topchr);
+						$topchr = LP_TCPDF_FONTS::arrUTF8ToUTF16BE($uniarr, false);
+						$topchr = LP_TCPDF_STATIC::_escape($topchr);
 						$s .= sprintf(' BT %F %F Td [(%s)] TJ ET', ($xdk + ($xshift * $k)), $ty, $topchr);
 					}
 				}
@@ -5615,12 +5615,12 @@ class WaterWoo_TCPDF {
 		$this->cell_padding['T'] = 0;
 		$this->cell_padding['B'] = 0;
 		$this->setCellMargins(0, 0, 0, 0);
-		if (WaterWoo_TCPDF_STATIC::empty_string($this->lasth) OR $reseth) {
+		if (LP_TCPDF_STATIC::empty_string($this->lasth) OR $reseth) {
 			// reset row height
 			$this->resetLastH();
 		}
 		// https://github.com/tecnickcom/TCPDF/commit/b6651409f055a07d19973487c64f1d8ec2dd8bc0
-		if (!WaterWoo_TCPDF_STATIC::empty_string($y)) {
+		if (!LP_TCPDF_STATIC::empty_string($y)) {
 			$this->SetY($y); // set y in order to convert negative y values to positive ones
 		}
 		$y = $this->GetY();
@@ -5635,7 +5635,7 @@ class WaterWoo_TCPDF {
 		$startpage = $this->page;
 		// get current column
 		$startcolumn = $this->current_column;
-		if (!WaterWoo_TCPDF_STATIC::empty_string($x)) {
+		if (!LP_TCPDF_STATIC::empty_string($x)) {
 			$this->SetX($x);
 		} else {
 			$x = $this->GetX();
@@ -5652,7 +5652,7 @@ class WaterWoo_TCPDF {
 		$this->x = $ox;
 		$this->y = $oy;
 		// set width
-		if (WaterWoo_TCPDF_STATIC::empty_string($w) OR ($w <= 0)) {
+		if (LP_TCPDF_STATIC::empty_string($w) OR ($w <= 0)) {
 			if ($this->rtl) {
 				$w = ($this->x - $this->lMargin - $mc_margin['L']);
 			} else {
@@ -5772,9 +5772,9 @@ class WaterWoo_TCPDF {
 		$check_page_regions = $this->check_page_regions;
 		$this->check_page_regions = false;
 		// get border modes
-		$border_start = WaterWoo_TCPDF_STATIC::getBorderMode($border, $position='start', $this->opencell);
-		$border_end = WaterWoo_TCPDF_STATIC::getBorderMode($border, $position='end', $this->opencell);
-		$border_middle = WaterWoo_TCPDF_STATIC::getBorderMode($border, $position='middle', $this->opencell);
+		$border_start = LP_TCPDF_STATIC::getBorderMode($border, $position='start', $this->opencell);
+		$border_end = LP_TCPDF_STATIC::getBorderMode($border, $position='end', $this->opencell);
+		$border_middle = LP_TCPDF_STATIC::getBorderMode($border, $position='middle', $this->opencell);
 		// design borders around HTML cells.
 		for ($page = $startpage; $page <= $endpage; ++$page) { // for each page
 			$ccode = '';
@@ -5989,7 +5989,7 @@ class WaterWoo_TCPDF {
 			$this->cell_padding = $cellpadding;
 		}
 		$this->adjustCellPadding($border);
-		if (WaterWoo_TCPDF_STATIC::empty_string($w) OR ($w <= 0)) {
+		if (LP_TCPDF_STATIC::empty_string($w) OR ($w <= 0)) {
 			if ($this->rtl) {
 				$w = $this->x - $this->lMargin;
 			} else {
@@ -6003,7 +6003,7 @@ class WaterWoo_TCPDF {
 		}
 		$lines = 1;
 		$sum = 0;
-		$chars = WaterWoo_TCPDF_FONTS::utf8Bidi(WaterWoo_TCPDF_FONTS::UTF8StringToArray($txt, $this->isunicode, $this->CurrentFont), $txt, $this->tmprtl, $this->isunicode, $this->CurrentFont);
+		$chars = LP_TCPDF_FONTS::utf8Bidi(LP_TCPDF_FONTS::UTF8StringToArray($txt, $this->isunicode, $this->CurrentFont), $txt, $this->tmprtl, $this->isunicode, $this->CurrentFont);
 		$charsWidth = $this->GetArrStringWidth($chars, '', '', 0, true);
 		$length = count($chars);
 		$lastSeparator = -1;
@@ -6012,11 +6012,11 @@ class WaterWoo_TCPDF {
 			$charWidth = $charsWidth[$i];
 			if (($c != 160)
 					AND (($c == 173)
-						OR preg_match($this->re_spaces, WaterWoo_TCPDF_FONTS::unichr($c, $this->isunicode))
+						OR preg_match($this->re_spaces, LP_TCPDF_FONTS::unichr($c, $this->isunicode))
 						OR (($c == 45)
 							AND ($i > 0) AND ($i < ($length - 1))
-							AND @preg_match('/[\p{L}]/'.$this->re_space['m'], WaterWoo_TCPDF_FONTS::unichr($chars[($i - 1)], $this->isunicode))
-							AND @preg_match('/[\p{L}]/'.$this->re_space['m'], WaterWoo_TCPDF_FONTS::unichr($chars[($i + 1)], $this->isunicode))
+							AND @preg_match('/[\p{L}]/'.$this->re_space['m'], LP_TCPDF_FONTS::unichr($chars[($i - 1)], $this->isunicode))
+							AND @preg_match('/[\p{L}]/'.$this->re_space['m'], LP_TCPDF_FONTS::unichr($chars[($i + 1)], $this->isunicode))
 						)
 					)
 				) {
@@ -6140,13 +6140,13 @@ class WaterWoo_TCPDF {
 		// remove carriage returns
 		$s = str_replace("\r", '', $txt);
 		// check if string contains arabic text
-		if (preg_match(WaterWoo_TCPDF_FONT_DATA::$uni_RE_PATTERN_ARABIC, $s)) {
+		if (preg_match(TCPDF_FONT_DATA::$uni_RE_PATTERN_ARABIC, $s)) {
 			$arabic = true;
 		} else {
 			$arabic = false;
 		}
 		// check if string contains RTL text
-		if ($arabic OR ($this->tmprtl == 'R') OR preg_match(WaterWoo_TCPDF_FONT_DATA::$uni_RE_PATTERN_RTL, $s)) {
+		if ($arabic OR ($this->tmprtl == 'R') OR preg_match(TCPDF_FONT_DATA::$uni_RE_PATTERN_RTL, $s)) {
 			$rtlmode = true;
 		} else {
 			$rtlmode = false;
@@ -6154,7 +6154,7 @@ class WaterWoo_TCPDF {
 		// get a char width
 		$chrwidth = $this->GetCharWidth(46); // dot character
 		// get array of unicode values
-		$chars = WaterWoo_TCPDF_FONTS::UTF8StringToArray($s, $this->isunicode, $this->CurrentFont);
+		$chars = LP_TCPDF_FONTS::UTF8StringToArray($s, $this->isunicode, $this->CurrentFont);
 		// calculate maximum width for a single character on string
 		$chrw = $this->GetArrStringWidth($chars, '', '', 0, true);
 		array_walk( $chrw, array( $this, 'getRawCharWidth' ) );
@@ -6165,12 +6165,12 @@ class WaterWoo_TCPDF {
 			}
 		}
 		// get array of chars
-		$uchars = WaterWoo_TCPDF_FONTS::UTF8ArrayToUniArray($chars, $this->isunicode);
+		$uchars = LP_TCPDF_FONTS::UTF8ArrayToUniArray($chars, $this->isunicode);
 		// get the number of characters
 		$nb = count($chars);
 		// replacement for SHY character (minus symbol)
 		$shy_replacement = 45;
-		$shy_replacement_char = WaterWoo_TCPDF_FONTS::unichr($shy_replacement, $this->isunicode);
+		$shy_replacement_char = LP_TCPDF_FONTS::unichr($shy_replacement, $this->isunicode);
 		// widht for SHY replacement
 		$shy_replacement_width = $this->GetCharWidth($shy_replacement);
 		// page width
@@ -6223,12 +6223,12 @@ class WaterWoo_TCPDF {
 				} else {
 					$talign = $align;
 				}
-				$tmpstr = WaterWoo_TCPDF_FONTS::UniArrSubString($uchars, $j, $i);
+				$tmpstr = LP_TCPDF_FONTS::UniArrSubString($uchars, $j, $i);
 				if ($firstline) {
 					$startx = $this->x;
 					$tmparr = array_slice($chars, $j, ($i - $j));
 					if ($rtlmode) {
-						$tmparr = WaterWoo_TCPDF_FONTS::utf8Bidi($tmparr, $tmpstr, $this->tmprtl, $this->isunicode, $this->CurrentFont);
+						$tmparr = LP_TCPDF_FONTS::utf8Bidi($tmparr, $tmpstr, $this->tmprtl, $this->isunicode, $this->CurrentFont);
 					}
 					$linew = $this->GetArrStringWidth($tmparr);
 					unset($tmparr);
@@ -6253,7 +6253,7 @@ class WaterWoo_TCPDF {
 				unset($tmpstr);
 				if ($firstline) {
 					$this->cell_padding = $tmpcellpadding;
-					return (WaterWoo_TCPDF_FONTS::UniArrSubString($uchars, $i));
+					return (LP_TCPDF_FONTS::UniArrSubString($uchars, $i));
 				}
 				++$nl;
 				$j = $i + 1;
@@ -6282,11 +6282,11 @@ class WaterWoo_TCPDF {
 				// \p{Lo} is needed because Chinese characters are packed next to each other without spaces in between.
 				if (($c != 160)
 					AND (($c == 173)
-						OR preg_match($this->re_spaces, WaterWoo_TCPDF_FONTS::unichr($c, $this->isunicode))
+						OR preg_match($this->re_spaces, LP_TCPDF_FONTS::unichr($c, $this->isunicode))
 						OR (($c == 45)
 							AND ($i < ($nb - 1))
-							AND @preg_match('/[\p{L}]/'.$this->re_space['m'], WaterWoo_TCPDF_FONTS::unichr($pc, $this->isunicode))
-							AND @preg_match('/[\p{L}]/'.$this->re_space['m'], WaterWoo_TCPDF_FONTS::unichr($chars[($i + 1)], $this->isunicode))
+							AND @preg_match('/[\p{L}]/'.$this->re_space['m'], LP_TCPDF_FONTS::unichr($pc, $this->isunicode))
+							AND @preg_match('/[\p{L}]/'.$this->re_space['m'], LP_TCPDF_FONTS::unichr($chars[($i + 1)], $this->isunicode))
 						)
 					)
 				) {
@@ -6312,7 +6312,7 @@ class WaterWoo_TCPDF {
 				if ($this->isUnicodeFont() AND ($arabic)) {
 					// with bidirectional algorithm some chars may be changed affecting the line length
 					// *** very slow ***
-					$l = $this->GetArrStringWidth(WaterWoo_TCPDF_FONTS::utf8Bidi(array_slice($chars, $j, ($i - $j)), '', $this->tmprtl, $this->isunicode, $this->CurrentFont));
+					$l = $this->GetArrStringWidth(LP_TCPDF_FONTS::utf8Bidi(array_slice($chars, $j, ($i - $j)), '', $this->tmprtl, $this->isunicode, $this->CurrentFont));
 				} else {
 					$l += $this->GetCharWidth($c);
 				}
@@ -6330,16 +6330,16 @@ class WaterWoo_TCPDF {
 							$this->Cell($w, $h, '', 0, 1);
 							$linebreak = true;
 							if ($firstline) {
-								return (WaterWoo_TCPDF_FONTS::UniArrSubString($uchars, $j));
+								return (LP_TCPDF_FONTS::UniArrSubString($uchars, $j));
 							}
 						} else {
 							// truncate the word because do not fit on column
-							$tmpstr = WaterWoo_TCPDF_FONTS::UniArrSubString($uchars, $j, $i);
+							$tmpstr = LP_TCPDF_FONTS::UniArrSubString($uchars, $j, $i);
 							if ($firstline) {
 								$startx = $this->x;
 								$tmparr = array_slice($chars, $j, ($i - $j));
 								if ($rtlmode) {
-									$tmparr = WaterWoo_TCPDF_FONTS::utf8Bidi($tmparr, $tmpstr, $this->tmprtl, $this->isunicode, $this->CurrentFont);
+									$tmparr = LP_TCPDF_FONTS::utf8Bidi($tmparr, $tmpstr, $this->tmprtl, $this->isunicode, $this->CurrentFont);
 								}
 								$linew = $this->GetArrStringWidth($tmparr);
 								unset($tmparr);
@@ -6361,7 +6361,7 @@ class WaterWoo_TCPDF {
 							unset($tmpstr);
 							if ($firstline) {
 								$this->cell_padding = $tmpcellpadding;
-								return (WaterWoo_TCPDF_FONTS::UniArrSubString($uchars, $i));
+								return (LP_TCPDF_FONTS::UniArrSubString($uchars, $i));
 							}
 							$j = $i;
 							--$i;
@@ -6374,16 +6374,16 @@ class WaterWoo_TCPDF {
 							$endspace = 0;
 						}
 						// check the length of the next string
-						$strrest = WaterWoo_TCPDF_FONTS::UniArrSubString($uchars, ($sep + $endspace));
-						$nextstr = WaterWoo_TCPDF_STATIC::pregSplit('/'.$this->re_space['p'].'/', $this->re_space['m'], $this->stringTrim($strrest));
+						$strrest = LP_TCPDF_FONTS::UniArrSubString($uchars, ($sep + $endspace));
+						$nextstr = LP_TCPDF_STATIC::pregSplit('/'.$this->re_space['p'].'/', $this->re_space['m'], $this->stringTrim($strrest));
 						if (isset($nextstr[0]) AND ($this->GetStringWidth($nextstr[0]) > $pw)) {
 							// truncate the word because do not fit on a full page width
-							$tmpstr = WaterWoo_TCPDF_FONTS::UniArrSubString($uchars, $j, $i);
+							$tmpstr = LP_TCPDF_FONTS::UniArrSubString($uchars, $j, $i);
 							if ($firstline) {
 								$startx = $this->x;
 								$tmparr = array_slice($chars, $j, ($i - $j));
 								if ($rtlmode) {
-									$tmparr = WaterWoo_TCPDF_FONTS::utf8Bidi($tmparr, $tmpstr, $this->tmprtl, $this->isunicode, $this->CurrentFont);
+									$tmparr = LP_TCPDF_FONTS::utf8Bidi($tmparr, $tmpstr, $this->tmprtl, $this->isunicode, $this->CurrentFont);
 								}
 								$linew = $this->GetArrStringWidth($tmparr);
 								unset($tmparr);
@@ -6405,7 +6405,7 @@ class WaterWoo_TCPDF {
 							unset($tmpstr);
 							if ($firstline) {
 								$this->cell_padding = $tmpcellpadding;
-								return (WaterWoo_TCPDF_FONTS::UniArrSubString($uchars, $i));
+								return (LP_TCPDF_FONTS::UniArrSubString($uchars, $i));
 							}
 							$j = $i;
 							--$i;
@@ -6426,12 +6426,12 @@ class WaterWoo_TCPDF {
 								$shy_char_left = '';
 								$shy_char_right = '';
 							}
-							$tmpstr = WaterWoo_TCPDF_FONTS::UniArrSubString($uchars, $j, ($sep + $endspace));
+							$tmpstr = LP_TCPDF_FONTS::UniArrSubString($uchars, $j, ($sep + $endspace));
 							if ($firstline) {
 								$startx = $this->x;
 								$tmparr = array_slice($chars, $j, (($sep + $endspace) - $j));
 								if ($rtlmode) {
-									$tmparr = WaterWoo_TCPDF_FONTS::utf8Bidi($tmparr, $tmpstr, $this->tmprtl, $this->isunicode, $this->CurrentFont);
+									$tmparr = LP_TCPDF_FONTS::utf8Bidi($tmparr, $tmpstr, $this->tmprtl, $this->isunicode, $this->CurrentFont);
 								}
 								$linew = $this->GetArrStringWidth($tmparr);
 								unset($tmparr);
@@ -6458,7 +6458,7 @@ class WaterWoo_TCPDF {
 								}
 								// return the remaining text
 								$this->cell_padding = $tmpcellpadding;
-								return (WaterWoo_TCPDF_FONTS::UniArrSubString($uchars, ($sep + $endspace)));
+								return (LP_TCPDF_FONTS::UniArrSubString($uchars, ($sep + $endspace)));
 							}
 							$i = $sep;
 							$sep = -1;
@@ -6520,12 +6520,12 @@ class WaterWoo_TCPDF {
 					break;
 				}
 			}
-			$tmpstr = WaterWoo_TCPDF_FONTS::UniArrSubString($uchars, $j, $nb);
+			$tmpstr = LP_TCPDF_FONTS::UniArrSubString($uchars, $j, $nb);
 			if ($firstline) {
 				$startx = $this->x;
 				$tmparr = array_slice($chars, $j, ($nb - $j));
 				if ($rtlmode) {
-					$tmparr = WaterWoo_TCPDF_FONTS::utf8Bidi($tmparr, $tmpstr, $this->tmprtl, $this->isunicode, $this->CurrentFont);
+					$tmparr = LP_TCPDF_FONTS::utf8Bidi($tmparr, $tmpstr, $this->tmprtl, $this->isunicode, $this->CurrentFont);
 				}
 				$linew = $this->GetArrStringWidth($tmparr);
 				unset($tmparr);
@@ -6547,7 +6547,7 @@ class WaterWoo_TCPDF {
 			unset($tmpstr);
 			if ($firstline) {
 				$this->cell_padding = $tmpcellpadding;
-				return (WaterWoo_TCPDF_FONTS::UniArrSubString($uchars, $nb));
+				return (LP_TCPDF_FONTS::UniArrSubString($uchars, $nb));
 			}
 			++$nl;
 		}
@@ -6702,7 +6702,7 @@ class WaterWoo_TCPDF {
 				$exurl = $file;
 			}
 			// check if file exist and it is valid
-			if (!@WaterWoo_TCPDF_STATIC::file_exists($file)) {
+			if (!@LP_TCPDF_STATIC::file_exists($file)) {
 				return false;
 			}
 			if (($imsize = @getimagesize($file)) === FALSE) {
@@ -6711,15 +6711,15 @@ class WaterWoo_TCPDF {
 					$info = $this->getImageBuffer($file);
 					$imsize = array($info['w'], $info['h']);
 				} elseif (strpos($file, '__tcpdf_'.$this->file_id.'_img') === FALSE) {
-					$imgdata = WaterWoo_TCPDF_STATIC::fileGetContents($file);
+					$imgdata = LP_TCPDF_STATIC::fileGetContents($file);
 				}
 			}
 		}
 		if (!empty($imgdata)) {
 			// copy image to cache
 			$original_file = $file;
-			$file = WaterWoo_TCPDF_STATIC::getObjFilename('img', $this->file_id);
-			$fp = WaterWoo_TCPDF_STATIC::fopenLocal($file, 'w');
+			$file = LP_TCPDF_STATIC::getObjFilename('img', $this->file_id);
+			$fp = LP_TCPDF_STATIC::fopenLocal($file, 'w');
 			if (!$fp) {
 				$this->Error('Unable to write file: '.$file);
 			}
@@ -6867,20 +6867,20 @@ class WaterWoo_TCPDF {
 			//First use of image, get info
 			$type = strtolower($type);
 			if ($type == '') {
-				$type = WaterWoo_TCPDF_IMAGES::getImageFileType($file, $imsize);
+				$type = LP_TCPDF_IMAGES::getImageFileType($file, $imsize);
 			} elseif ($type == 'jpg') {
 				$type = 'jpeg';
 			}
-			$mqr = WaterWoo_TCPDF_STATIC::get_mqr();
-			WaterWoo_TCPDF_STATIC::set_mqr(false);
+			$mqr = LP_TCPDF_STATIC::get_mqr();
+			LP_TCPDF_STATIC::set_mqr(false);
 			// Specific image handlers (defined on TCPDF_IMAGES CLASS)
 			$mtd = '_parse'.$type;
 			// GD image handler function
 			$gdfunction = 'imagecreatefrom'.$type;
 			$info = false;
-    		if ((method_exists('WaterWoo_TCPDF_IMAGES', $mtd)) AND (!($resize AND (function_exists($gdfunction) OR extension_loaded('imagick'))))) {
+    		if ((method_exists('LP_TCPDF_IMAGES', $mtd)) AND (!($resize AND (function_exists($gdfunction) OR extension_loaded('imagick'))))) {
 				// TCPDF image functions				
-				$info = WaterWoo_TCPDF_IMAGES::$mtd($file);
+				$info = LP_TCPDF_IMAGES::$mtd($file);
 				if (($ismask === false) AND ($imgmask === false) AND (strpos($file, '__tcpdf_'.$this->file_id.'_imgmask_') === FALSE)
 					AND (($info === 'pngalpha') OR (isset($info['trns']) AND !empty($info['trns'])))) {					
 					return $this->ImagePngAlpha($file, $x, $y, $pixw, $pixh, $w, $h, 'PNG', $link, $align, $resize, $dpi, $palign, $filehash);
@@ -6894,15 +6894,15 @@ class WaterWoo_TCPDF {
 						if ($resize) {
 							$imgr = imagecreatetruecolor($neww, $newh);
 							if (($type == 'gif') OR ($type == 'png')) {
-								$imgr = WaterWoo_TCPDF_IMAGES::setGDImageTransparency($imgr, $img);
+								$imgr = LP_TCPDF_IMAGES::setGDImageTransparency($imgr, $img);
 							}
 							imagecopyresampled($imgr, $img, 0, 0, 0, 0, $neww, $newh, $pixw, $pixh);
 							$img = $imgr;
 						}
 						if (($type == 'gif') OR ($type == 'png')) {
-							$info = WaterWoo_TCPDF_IMAGES::_toPNG($img, WaterWoo_TCPDF_STATIC::getObjFilename('img', $this->file_id));
+							$info = LP_TCPDF_IMAGES::_toPNG($img, LP_TCPDF_STATIC::getObjFilename('img', $this->file_id));
 						} else {
-							$info = WaterWoo_TCPDF_IMAGES::_toJPEG($img, $this->jpeg_quality, WaterWoo_TCPDF_STATIC::getObjFilename('img', $this->file_id));
+							$info = LP_TCPDF_IMAGES::_toJPEG($img, $this->jpeg_quality, LP_TCPDF_STATIC::getObjFilename('img', $this->file_id));
 						}
 					}
 				} catch(Exception $e) {
@@ -6919,7 +6919,7 @@ class WaterWoo_TCPDF {
 							$svgimg = substr($file, 1);
 						} else {
 							// get SVG file content
-							$svgimg = WaterWoo_TCPDF_STATIC::fileGetContents($file);
+							$svgimg = LP_TCPDF_STATIC::fileGetContents($file);
 						}
 						if ($svgimg !== FALSE) {
 							// get width and height
@@ -6961,9 +6961,9 @@ class WaterWoo_TCPDF {
 					}
 					$img->setCompressionQuality($this->jpeg_quality);
 					$img->setImageFormat('jpeg');
-					$tempname = WaterWoo_TCPDF_STATIC::getObjFilename('img', $this->file_id);
+					$tempname = LP_TCPDF_STATIC::getObjFilename('img', $this->file_id);
 					$img->writeImage($tempname);
-					$info = WaterWoo_TCPDF_IMAGES::_parsejpeg($tempname);
+					$info = LP_TCPDF_IMAGES::_parsejpeg($tempname);
 					unlink($tempname);
 					$img->destroy();
 				} catch(Exception $e) {
@@ -6974,7 +6974,7 @@ class WaterWoo_TCPDF {
 				// unable to process image
 				return;
 			}
-			WaterWoo_TCPDF_STATIC::set_mqr($mqr);
+			LP_TCPDF_STATIC::set_mqr($mqr);
 			if ($ismask) {
 				// force grayscale
 				$info['cs'] = 'DeviceGray';
@@ -7112,7 +7112,7 @@ class WaterWoo_TCPDF {
 				$img = new Imagick();
 				$img->readImage($file);
 				// clone image object
-				$imga = WaterWoo_TCPDF_STATIC::objclone($img);
+				$imga = LP_TCPDF_STATIC::objclone($img);
 				// extract alpha channel
 				if (method_exists($img, 'setImageAlphaChannel') AND defined('Imagick::ALPHACHANNEL_EXTRACT')) {
 					$img->setImageAlphaChannel(Imagick::ALPHACHANNEL_EXTRACT);
@@ -7406,7 +7406,7 @@ class WaterWoo_TCPDF {
 	 * @since 1.0
 	 * @see Close()
 	 */
-	public function Output($name='doc.pdf', $dest='I') {
+	public function Output($name='doc.pdf', $dest='F') {
 		//Output PDF to some destination
 		//Finish document if necessary
 		if ($this->state < 3) {
@@ -7428,21 +7428,21 @@ class WaterWoo_TCPDF {
 			// remove last newline
 			$pdfdoc = substr($pdfdoc, 0, -1);
 			// remove filler space
-			$byterange_string_len = strlen(WaterWoo_TCPDF_STATIC::$byterange_string);
+			$byterange_string_len = strlen(LP_TCPDF_STATIC::$byterange_string);
 			// define the ByteRange
 			$byte_range = array();
 			$byte_range[0] = 0;
-			$byte_range[1] = strpos($pdfdoc, WaterWoo_TCPDF_STATIC::$byterange_string) + $byterange_string_len + 10;
+			$byte_range[1] = strpos($pdfdoc, LP_TCPDF_STATIC::$byterange_string) + $byterange_string_len + 10;
 			$byte_range[2] = $byte_range[1] + $this->signature_max_length + 2;
 			$byte_range[3] = strlen($pdfdoc) - $byte_range[2];
 			$pdfdoc = substr($pdfdoc, 0, $byte_range[1]).substr($pdfdoc, $byte_range[2]);
 			// replace the ByteRange
 			$byterange = sprintf('/ByteRange[0 %u %u %u]', $byte_range[1], $byte_range[2], $byte_range[3]);
 			$byterange .= str_repeat(' ', ($byterange_string_len - strlen($byterange)));
-			$pdfdoc = str_replace(WaterWoo_TCPDF_STATIC::$byterange_string, $byterange, $pdfdoc);
+			$pdfdoc = str_replace(LP_TCPDF_STATIC::$byterange_string, $byterange, $pdfdoc);
 			// write the document to a temporary folder
-			$tempdoc = WaterWoo_TCPDF_STATIC::getObjFilename('doc', $this->file_id);
-			$f = WaterWoo_TCPDF_STATIC::fopenLocal($tempdoc, 'wb');
+			$tempdoc = LP_TCPDF_STATIC::getObjFilename('doc', $this->file_id);
+			$f = LP_TCPDF_STATIC::fopenLocal($tempdoc, 'wb');
 			if (!$f) {
 				$this->Error('Unable to create temporary file: '.$tempdoc);
 			}
@@ -7450,7 +7450,7 @@ class WaterWoo_TCPDF {
 			fwrite($f, $pdfdoc, $pdfdoc_length);
 			fclose($f);
 			// get digital signature via openssl library
-			$tempsign = WaterWoo_TCPDF_STATIC::getObjFilename('sig', $this->file_id);
+			$tempsign = LP_TCPDF_STATIC::getObjFilename('sig', $this->file_id);
 			if (empty($this->signature_data['extracerts'])) {
 				openssl_pkcs7_sign($tempdoc, $tempsign, $this->signature_data['signcert'], array($this->signature_data['privkey'], $this->signature_data['password']), array(), PKCS7_BINARY | PKCS7_DETACHED);
 			} else {
@@ -7492,7 +7492,7 @@ class WaterWoo_TCPDF {
 					header('Expires: Sat, 26 Jul 1997 05:00:00 GMT'); // Date in the past
 					header('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT');
 					header('Content-Disposition: inline; filename="'.basename($name).'"');
-					WaterWoo_TCPDF_STATIC::sendOutputData($this->getBuffer(), $this->bufferlen);
+					LP_TCPDF_STATIC::sendOutputData($this->getBuffer(), $this->bufferlen);
 				} else {
 					echo $this->getBuffer();
 				}
@@ -7524,14 +7524,15 @@ class WaterWoo_TCPDF {
 				// use the Content-Disposition header to supply a recommended filename
 				header('Content-Disposition: attachment; filename="'.basename($name).'"');
 				header('Content-Transfer-Encoding: binary');
-				WaterWoo_TCPDF_STATIC::sendOutputData($this->getBuffer(), $this->bufferlen);
+				LP_TCPDF_STATIC::sendOutputData($this->getBuffer(), $this->bufferlen);
 				break;
 			}
 			case 'F':
 			case 'FI':
 			case 'FD': {
-				// save PDF to a local file
-				$f = WaterWoo_TCPDF_STATIC::fopenLocal($name, 'wb');
+				// save PDF to a local file, "b" for "binary"
+				// $name is temporary file location	
+				$f = LP_TCPDF_STATIC::fopenLocal($name, 'wb');
 				if (!$f) {
 					$this->Error('Unable to create output file: '.$name);
 				}
@@ -7546,7 +7547,7 @@ class WaterWoo_TCPDF {
 					header('Expires: Sat, 26 Jul 1997 05:00:00 GMT'); // Date in the past
 					header('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT');
 					header('Content-Disposition: inline; filename="'.basename($name).'"');
-					WaterWoo_TCPDF_STATIC::sendOutputData(file_get_contents($name), filesize($name));
+					LP_TCPDF_STATIC::sendOutputData(file_get_contents($name), filesize($name));
 				} elseif ($dest == 'FD') {
 					// send headers to browser
 					if (ob_get_contents()) {
@@ -7572,7 +7573,7 @@ class WaterWoo_TCPDF {
 					// use the Content-Disposition header to supply a recommended filename
 					header('Content-Disposition: attachment; filename="'.basename($name).'"');
 					header('Content-Transfer-Encoding: binary');
-					WaterWoo_TCPDF_STATIC::sendOutputData(file_get_contents($name), filesize($name));
+					LP_TCPDF_STATIC::sendOutputData(file_get_contents($name), filesize($name));
 				}
 				break;
 			}
@@ -7680,14 +7681,14 @@ class WaterWoo_TCPDF {
 		// build array of Unicode + ASCII variants (the order is important)
 		$alias = array('u' => array(), 'a' => array());
 		$u = '{'.$a.'}';
-		$alias['u'][] = WaterWoo_TCPDF_STATIC::_escape($u);
+		$alias['u'][] = LP_TCPDF_STATIC::_escape($u);
 		if ($this->isunicode) {
-			$alias['u'][] = WaterWoo_TCPDF_STATIC::_escape(WaterWoo_TCPDF_FONTS::UTF8ToLatin1($u, $this->isunicode, $this->CurrentFont));
-			$alias['u'][] = WaterWoo_TCPDF_STATIC::_escape(WaterWoo_TCPDF_FONTS::utf8StrRev($u, false, $this->tmprtl, $this->isunicode, $this->CurrentFont));
-			$alias['a'][] = WaterWoo_TCPDF_STATIC::_escape(WaterWoo_TCPDF_FONTS::UTF8ToLatin1($a, $this->isunicode, $this->CurrentFont));
-			$alias['a'][] = WaterWoo_TCPDF_STATIC::_escape(WaterWoo_TCPDF_FONTS::utf8StrRev($a, false, $this->tmprtl, $this->isunicode, $this->CurrentFont));
+			$alias['u'][] = LP_TCPDF_STATIC::_escape(LP_TCPDF_FONTS::UTF8ToLatin1($u, $this->isunicode, $this->CurrentFont));
+			$alias['u'][] = LP_TCPDF_STATIC::_escape(LP_TCPDF_FONTS::utf8StrRev($u, false, $this->tmprtl, $this->isunicode, $this->CurrentFont));
+			$alias['a'][] = LP_TCPDF_STATIC::_escape(LP_TCPDF_FONTS::UTF8ToLatin1($a, $this->isunicode, $this->CurrentFont));
+			$alias['a'][] = LP_TCPDF_STATIC::_escape(LP_TCPDF_FONTS::utf8StrRev($a, false, $this->tmprtl, $this->isunicode, $this->CurrentFont));
 		}
-		$alias['a'][] = WaterWoo_TCPDF_STATIC::_escape($a);
+		$alias['a'][] = LP_TCPDF_STATIC::_escape($a);
 		return $alias;
 	}
 
@@ -7697,7 +7698,7 @@ class WaterWoo_TCPDF {
 	 * @protected
 	 */
 	protected function getAllInternalPageNumberAliases() {
-		$basic_alias = array(WaterWoo_TCPDF_STATIC::$alias_tot_pages, WaterWoo_TCPDF_STATIC::$alias_num_page, WaterWoo_TCPDF_STATIC::$alias_group_tot_pages, WaterWoo_TCPDF_STATIC::$alias_group_num_page, WaterWoo_TCPDF_STATIC::$alias_right_shift);
+		$basic_alias = array(LP_TCPDF_STATIC::$alias_tot_pages, LP_TCPDF_STATIC::$alias_num_page, LP_TCPDF_STATIC::$alias_group_tot_pages, LP_TCPDF_STATIC::$alias_group_num_page, LP_TCPDF_STATIC::$alias_right_shift);
 		$pnalias = array();
 		foreach($basic_alias as $k => $a) {
 			$pnalias[$k] = $this->getInternalPageNumberAliases($a);
@@ -7732,7 +7733,7 @@ class WaterWoo_TCPDF {
 					if ($type == 'u') {
 						$chrdiff = floor(($diff + 12) * $ratio);
 						$shift = str_repeat(' ', $chrdiff);
-						$shift = WaterWoo_TCPDF_FONTS::UTF8ToUTF16BE($shift, false, $this->isunicode, $this->CurrentFont);
+						$shift = LP_TCPDF_FONTS::UTF8ToUTF16BE($shift, false, $this->isunicode, $this->CurrentFont);
 					} else {
 						$chrdiff = floor(($diff + 11) * $ratio);
 						$shift = str_repeat(' ', $chrdiff);
@@ -7752,7 +7753,7 @@ class WaterWoo_TCPDF {
 	protected function setPageBoxTypes($boxes) {
 		$this->page_boxes = array();
 		foreach ($boxes as $box) {
-			if (in_array($box, WaterWoo_TCPDF_STATIC::$pageboxes)) {
+			if (in_array($box, LP_TCPDF_STATIC::$pageboxes)) {
 				$this->page_boxes[] = $box;
 			}
 		}
@@ -7767,8 +7768,8 @@ class WaterWoo_TCPDF {
 		// get internal aliases for page numbers
 		$pnalias = $this->getAllInternalPageNumberAliases();
 		$num_pages = $this->numpages;
-		$ptpa = WaterWoo_TCPDF_STATIC::formatPageNumber(($this->starting_page_number + $num_pages - 1));
-		$ptpu = WaterWoo_TCPDF_FONTS::UTF8ToUTF16BE($ptpa, false, $this->isunicode, $this->CurrentFont);
+		$ptpa = LP_TCPDF_STATIC::formatPageNumber(($this->starting_page_number + $num_pages - 1));
+		$ptpu = LP_TCPDF_FONTS::UTF8ToUTF16BE($ptpa, false, $this->isunicode, $this->CurrentFont);
 		$ptp_num_chars = $this->GetNumChars($ptpa);
 		$pagegroupnum = 0;
 		$groupnum = 0;
@@ -7780,8 +7781,8 @@ class WaterWoo_TCPDF {
 			$temppage = $this->getPageBuffer($n);
 			$pagelen = strlen($temppage);
 			// set replacements for total pages number
-			$pnpa = WaterWoo_TCPDF_STATIC::formatPageNumber(($this->starting_page_number + $n - 1));
-			$pnpu = WaterWoo_TCPDF_FONTS::UTF8ToUTF16BE($pnpa, false, $this->isunicode, $this->CurrentFont);
+			$pnpa = LP_TCPDF_STATIC::formatPageNumber(($this->starting_page_number + $n - 1));
+			$pnpu = LP_TCPDF_FONTS::UTF8ToUTF16BE($pnpa, false, $this->isunicode, $this->CurrentFont);
 			$pnp_num_chars = $this->GetNumChars($pnpa);
 			$pdiff = 0; // difference used for right shift alignment of page numbers
 			$gdiff = 0; // difference used for right shift alignment of page group numbers
@@ -7789,13 +7790,13 @@ class WaterWoo_TCPDF {
 				if (isset($this->newpagegroup[$n])) {
 					$pagegroupnum = 0;
 					++$groupnum;
-					$ptga = WaterWoo_TCPDF_STATIC::formatPageNumber($this->pagegroups[$groupnum]);
-					$ptgu = WaterWoo_TCPDF_FONTS::UTF8ToUTF16BE($ptga, false, $this->isunicode, $this->CurrentFont);
+					$ptga = LP_TCPDF_STATIC::formatPageNumber($this->pagegroups[$groupnum]);
+					$ptgu = LP_TCPDF_FONTS::UTF8ToUTF16BE($ptga, false, $this->isunicode, $this->CurrentFont);
 					$ptg_num_chars = $this->GetNumChars($ptga);
 				}
 				++$pagegroupnum;
-				$pnga = WaterWoo_TCPDF_STATIC::formatPageNumber($pagegroupnum);
-				$pngu = WaterWoo_TCPDF_FONTS::UTF8ToUTF16BE($pnga, false, $this->isunicode, $this->CurrentFont);
+				$pnga = LP_TCPDF_STATIC::formatPageNumber($pagegroupnum);
+				$pngu = LP_TCPDF_FONTS::UTF8ToUTF16BE($pnga, false, $this->isunicode, $this->CurrentFont);
 				$png_num_chars = $this->GetNumChars($pnga);
 				// replace page numbers
 				$replace = array();
@@ -7803,7 +7804,7 @@ class WaterWoo_TCPDF {
 				$replace[] = array($ptga, $ptg_num_chars, 7, $pnalias[2]['a']);
 				$replace[] = array($pngu, $png_num_chars, 9, $pnalias[3]['u']);
 				$replace[] = array($pnga, $png_num_chars, 7, $pnalias[3]['a']);
-				list($temppage, $gdiff) = WaterWoo_TCPDF_STATIC::replacePageNumAliases($temppage, $replace, $gdiff);
+				list($temppage, $gdiff) = LP_TCPDF_STATIC::replacePageNumAliases($temppage, $replace, $gdiff);
 			}
 			// replace page numbers
 			$replace = array();
@@ -7811,7 +7812,7 @@ class WaterWoo_TCPDF {
 			$replace[] = array($ptpa, $ptp_num_chars, 7, $pnalias[0]['a']);
 			$replace[] = array($pnpu, $pnp_num_chars, 9, $pnalias[1]['u']);
 			$replace[] = array($pnpa, $pnp_num_chars, 7, $pnalias[1]['a']);
-			list($temppage, $pdiff) = WaterWoo_TCPDF_STATIC::replacePageNumAliases($temppage, $replace, $pdiff);
+			list($temppage, $pdiff) = LP_TCPDF_STATIC::replacePageNumAliases($temppage, $replace, $pdiff);
 			// replace right shift alias
 			$temppage = $this->replaceRightShiftPageNumAliases($temppage, $pnalias[4], max($pdiff, $gdiff));
 			// replace EPS marker
@@ -8177,7 +8178,7 @@ class WaterWoo_TCPDF {
 						$annots .= '>>';
 					}
 					if (isset($pl['opt']['c']) AND (is_array($pl['opt']['c'])) AND !empty($pl['opt']['c'])) {
-						$annots .= ' /C '.WaterWoo_TCPDF_COLORS::getColorStringFromArray($pl['opt']['c']);
+						$annots .= ' /C '.TCPDF_COLORS::getColorStringFromArray($pl['opt']['c']);
 					}
 					//$annots .= ' /StructParent ';
 					//$annots .= ' /OC ';
@@ -8243,7 +8244,7 @@ class WaterWoo_TCPDF {
 							if (is_string($pl['txt']) && !empty($pl['txt'])) {
 								if ($pl['txt'][0] == '#') {
 									// internal destination
-									$annots .= ' /Dest /'.WaterWoo_TCPDF_STATIC::encodeNameObject(substr($pl['txt'], 1));
+									$annots .= ' /Dest /'.LP_TCPDF_STATIC::encodeNameObject(substr($pl['txt'], 1));
 								} elseif ($pl['txt'][0] == '%') {
 									// embedded PDF file
 									$filename = basename(substr($pl['txt'], 1));
@@ -8416,10 +8417,10 @@ class WaterWoo_TCPDF {
 									$annots .= ' /R '.$pl['opt']['mk']['r'];
 								}
 								if (isset($pl['opt']['mk']['bc']) AND (is_array($pl['opt']['mk']['bc']))) {
-									$annots .= ' /BC '.WaterWoo_TCPDF_COLORS::getColorStringFromArray($pl['opt']['mk']['bc']);
+									$annots .= ' /BC '.TCPDF_COLORS::getColorStringFromArray($pl['opt']['mk']['bc']);
 								}
 								if (isset($pl['opt']['mk']['bg']) AND (is_array($pl['opt']['mk']['bg']))) {
-									$annots .= ' /BG '.WaterWoo_TCPDF_COLORS::getColorStringFromArray($pl['opt']['mk']['bg']);
+									$annots .= ' /BG '.TCPDF_COLORS::getColorStringFromArray($pl['opt']['mk']['bg']);
 								}
 								if (isset($pl['opt']['mk']['ca'])) {
 									$annots .= ' /CA '.$pl['opt']['mk']['ca'];
@@ -8651,12 +8652,12 @@ class WaterWoo_TCPDF {
 			$this->_newobj();
 			$this->_out('<< /Type /Encoding /BaseEncoding /WinAnsiEncoding /Differences ['.$diff.'] >>'."\n".'endobj');
 		}
-		$mqr = WaterWoo_TCPDF_STATIC::get_mqr();
-		WaterWoo_TCPDF_STATIC::set_mqr(false);
+		$mqr = LP_TCPDF_STATIC::get_mqr();
+		LP_TCPDF_STATIC::set_mqr(false);
 		foreach ($this->FontFiles as $file => $info) {
 			// search and get font file to embedd
-			$fontfile = WaterWoo_TCPDF_FONTS::getFontFullPath($file, $info['fontdir']);
-			if (!WaterWoo_TCPDF_STATIC::empty_string($fontfile)) {
+			$fontfile = LP_TCPDF_FONTS::getFontFullPath($file, $info['fontdir']);
+			if (!LP_TCPDF_STATIC::empty_string($fontfile)) {
 				$font = file_get_contents($fontfile);
 				$compressed = (substr($file, -2) == '.z');
 				if ((!$compressed) AND (isset($info['length2']))) {
@@ -8681,7 +8682,7 @@ class WaterWoo_TCPDF {
 						$subsetchars += $fontinfo['subsetchars'];
 					}
 					// rebuild a font subset
-					$font = WaterWoo_TCPDF_FONTS::_getTrueTypeFontSubset($font, $subsetchars);
+					$font = LP_TCPDF_FONTS::_getTrueTypeFontSubset($font, $subsetchars);
 					// calculate new font length
 					$info['length1'] = strlen($font);
 					if ($compressed) {
@@ -8706,7 +8707,7 @@ class WaterWoo_TCPDF {
 				$this->_out($out);
 			}
 		}
-		WaterWoo_TCPDF_STATIC::set_mqr($mqr);
+		LP_TCPDF_STATIC::set_mqr($mqr);
 		foreach ($this->fontkeys as $k) {
 			//Font objects
 			$font = $this->getFontBuffer($k);
@@ -8771,7 +8772,7 @@ class WaterWoo_TCPDF {
 					}
 					$s .= ' /'.$fdk.' '.$fdv.'';
 				}
-				if (!WaterWoo_TCPDF_STATIC::empty_string($font['file'])) {
+				if (!LP_TCPDF_STATIC::empty_string($font['file'])) {
 					$s .= ' /FontFile'.($type == 'Type1' ? '' : '2').' '.$this->FontFiles[$font['file']]['n'].' 0 R';
 				}
 				$s .= '>>';
@@ -8819,7 +8820,7 @@ class WaterWoo_TCPDF {
 		$out .= "\n".'endobj';
 		$this->_out($out);
 		// ToUnicode map for Identity-H
-		$stream = WaterWoo_TCPDF_FONT_DATA::$uni_identity_h;
+		$stream = TCPDF_FONT_DATA::$uni_identity_h;
 		// ToUnicode Object
 		$this->_newobj();
 		$stream = ($this->compress) ? gzcompress($stream) : $stream;
@@ -8839,8 +8840,8 @@ class WaterWoo_TCPDF {
 		$out .= ' /CIDSystemInfo << '.$cidinfo.' >>';
 		$out .= ' /FontDescriptor '.($this->n + 1).' 0 R';
 		$out .= ' /DW '.$font['dw']; // default width
-		$out .= "\n".WaterWoo_TCPDF_FONTS::_putfontwidths($font, 0);
-		if (isset($font['ctg']) AND (!WaterWoo_TCPDF_STATIC::empty_string($font['ctg']))) {
+		$out .= "\n".LP_TCPDF_FONTS::_putfontwidths($font, 0);
+		if (isset($font['ctg']) AND (!LP_TCPDF_STATIC::empty_string($font['ctg']))) {
 			$out .= "\n".'/CIDToGIDMap '.($this->n + 2).' 0 R';
 		}
 		$out .= ' >>';
@@ -8858,7 +8859,7 @@ class WaterWoo_TCPDF {
 			$out .= ' /'.$key.' '.$value;
 		}
 		$fontdir = false;
-		if (!WaterWoo_TCPDF_STATIC::empty_string($font['file'])) {
+		if (!LP_TCPDF_STATIC::empty_string($font['file'])) {
 			// A stream containing a TrueType font
 			$out .= ' /FontFile2 '.$this->FontFiles[$font['file']]['n'].' 0 R';
 			$fontdir = $this->FontFiles[$font['file']]['fontdir'];
@@ -8866,15 +8867,15 @@ class WaterWoo_TCPDF {
 		$out .= ' >>';
 		$out .= "\n".'endobj';
 		$this->_out($out);
-		if (isset($font['ctg']) AND (!WaterWoo_TCPDF_STATIC::empty_string($font['ctg']))) {
+		if (isset($font['ctg']) AND (!LP_TCPDF_STATIC::empty_string($font['ctg']))) {
 			$this->_newobj();
 			// Embed CIDToGIDMap
 			// A specification of the mapping from CIDs to glyph indices
 			// search and get CTG font file to embedd
 			$ctgfile = strtolower($font['ctg']);
 			// search and get ctg font file to embedd
-			$fontfile = WaterWoo_TCPDF_FONTS::getFontFullPath($ctgfile, $fontdir);
-			if (WaterWoo_TCPDF_STATIC::empty_string($fontfile)) {
+			$fontfile = LP_TCPDF_FONTS::getFontFullPath($ctgfile, $fontdir);
+			if (LP_TCPDF_STATIC::empty_string($fontfile)) {
 				$this->Error('Font file not found: '.$ctgfile);
 			}
 			$stream = $this->_getrawstream(file_get_contents($fontfile));
@@ -8947,7 +8948,7 @@ class WaterWoo_TCPDF {
 		$out .= ' /CIDSystemInfo <<'.$cidinfo.'>>';
 		$out .= ' /FontDescriptor '.($this->n + 1).' 0 R';
 		$out .= ' /DW '.$font['dw'];
-		$out .= "\n".WaterWoo_TCPDF_FONTS::_putfontwidths($font, $cidoffset);
+		$out .= "\n".LP_TCPDF_FONTS::_putfontwidths($font, $cidoffset);
 		$out .= ' >>';
 		$out .= "\n".'endobj';
 		$this->_out($out);
@@ -9329,29 +9330,29 @@ class WaterWoo_TCPDF {
 		if ($this->docinfounicode) {
 			$this->isunicode = true;
 		}
-		if (!WaterWoo_TCPDF_STATIC::empty_string($this->title)) {
+		if (!LP_TCPDF_STATIC::empty_string($this->title)) {
 			// The document's title.
 			$out .= ' /Title '.$this->_textstring($this->title, $oid);
 		}
-		if (!WaterWoo_TCPDF_STATIC::empty_string($this->author)) {
+		if (!LP_TCPDF_STATIC::empty_string($this->author)) {
 			// The name of the person who created the document.
 			$out .= ' /Author '.$this->_textstring($this->author, $oid);
 		}
-		if (!WaterWoo_TCPDF_STATIC::empty_string($this->subject)) {
+		if (!LP_TCPDF_STATIC::empty_string($this->subject)) {
 			// The subject of the document.
 			$out .= ' /Subject '.$this->_textstring($this->subject, $oid);
 		}
-		if (!WaterWoo_TCPDF_STATIC::empty_string($this->keywords)) {
+		if (!LP_TCPDF_STATIC::empty_string($this->keywords)) {
 			// Keywords associated with the document.
 			$out .= ' /Keywords '.$this->_textstring($this->keywords, $oid);
 		}
-		if (!WaterWoo_TCPDF_STATIC::empty_string($this->creator)) {
+		if (!LP_TCPDF_STATIC::empty_string($this->creator)) {
 			// If the document was converted to PDF from another format, the name of the conforming product that created the original document from which it was converted.
 			$out .= ' /Creator '.$this->_textstring($this->creator, $oid);
 		}
 		// The date and time the document was created, in human-readable form (improved with WaterWoo 2.7)
 		if ( ! empty( $this->creationdate ) ) {		
-            $out .= ' /CreationDate ' . $this->_datestring( 0, WaterWoo_TCPDF_STATIC::getTimestamp($this->creationdate) );
+            $out .= ' /CreationDate ' . $this->_datestring( 0, LP_TCPDF_STATIC::getTimestamp($this->creationdate) );
             if ( empty( $this->producer ) ) {
                 // restore previous isunicode value
 	    	    $this->isunicode = $prev_isunicode;
@@ -9374,7 +9375,7 @@ class WaterWoo_TCPDF {
 			    // restore previous isunicode value
 		        $this->isunicode = $prev_isunicode;
             }
-		    $out .= ' /Producer ' . $this->_textstring(WaterWoo_TCPDF_STATIC::getTCPDFProducer(), $oid);		
+		    $out .= ' /Producer ' . $this->_textstring(LP_TCPDF_STATIC::getTCPDFProducer(), $oid);		
         }
 
 		// The date and time the document was most recently modified, in human-readable form
@@ -9412,48 +9413,48 @@ class WaterWoo_TCPDF {
 		$prev_encrypted = $this->encrypted;
 		$this->encrypted = false;
 		// set XMP data
-		$xmp = '<?xpacket begin="'.WaterWoo_TCPDF_FONTS::unichr(0xfeff, $this->isunicode).'" id="W5M0MpCehiHzreSzNTczkc9d"?>'."\n";
+		$xmp = '<?xpacket begin="'.LP_TCPDF_FONTS::unichr(0xfeff, $this->isunicode).'" id="W5M0MpCehiHzreSzNTczkc9d"?>'."\n";
 		$xmp .= '<x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="Adobe XMP Core 4.2.1-c043 52.372728, 2009/01/18-15:08:04">'."\n";
 		$xmp .= "\t".'<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">'."\n";
 		$xmp .= "\t\t".'<rdf:Description rdf:about="" xmlns:dc="http://purl.org/dc/elements/1.1/">'."\n";
 		$xmp .= "\t\t\t".'<dc:format>application/pdf</dc:format>'."\n";
 		$xmp .= "\t\t\t".'<dc:title>'."\n";
 		$xmp .= "\t\t\t\t".'<rdf:Alt>'."\n";
-		$xmp .= "\t\t\t\t\t".'<rdf:li xml:lang="x-default">'.WaterWoo_TCPDF_STATIC::_escapeXML($this->title).'</rdf:li>'."\n";
+		$xmp .= "\t\t\t\t\t".'<rdf:li xml:lang="x-default">'.LP_TCPDF_STATIC::_escapeXML($this->title).'</rdf:li>'."\n";
 		$xmp .= "\t\t\t\t".'</rdf:Alt>'."\n";
 		$xmp .= "\t\t\t".'</dc:title>'."\n";
 		$xmp .= "\t\t\t".'<dc:creator>'."\n";
 		$xmp .= "\t\t\t\t".'<rdf:Seq>'."\n";
-		$xmp .= "\t\t\t\t\t".'<rdf:li>'.WaterWoo_TCPDF_STATIC::_escapeXML($this->author).'</rdf:li>'."\n";
+		$xmp .= "\t\t\t\t\t".'<rdf:li>'.LP_TCPDF_STATIC::_escapeXML($this->author).'</rdf:li>'."\n";
 		$xmp .= "\t\t\t\t".'</rdf:Seq>'."\n";
 		$xmp .= "\t\t\t".'</dc:creator>'."\n";
 		$xmp .= "\t\t\t".'<dc:description>'."\n";
 		$xmp .= "\t\t\t\t".'<rdf:Alt>'."\n";
-		$xmp .= "\t\t\t\t\t".'<rdf:li xml:lang="x-default">'.WaterWoo_TCPDF_STATIC::_escapeXML($this->subject).'</rdf:li>'."\n";
+		$xmp .= "\t\t\t\t\t".'<rdf:li xml:lang="x-default">'.LP_TCPDF_STATIC::_escapeXML($this->subject).'</rdf:li>'."\n";
 		$xmp .= "\t\t\t\t".'</rdf:Alt>'."\n";
 		$xmp .= "\t\t\t".'</dc:description>'."\n";
 		$xmp .= "\t\t\t".'<dc:subject>'."\n";
 		$xmp .= "\t\t\t\t".'<rdf:Bag>'."\n";
-		$xmp .= "\t\t\t\t\t".'<rdf:li>'.WaterWoo_TCPDF_STATIC::_escapeXML($this->keywords).'</rdf:li>'."\n";
+		$xmp .= "\t\t\t\t\t".'<rdf:li>'.LP_TCPDF_STATIC::_escapeXML($this->keywords).'</rdf:li>'."\n";
 		$xmp .= "\t\t\t\t".'</rdf:Bag>'."\n";
 		$xmp .= "\t\t\t".'</dc:subject>'."\n";
 		$xmp .= "\t\t".'</rdf:Description>'."\n";
 		// convert doc creation date format (modified for WaterWoo 2.7)
 		if ( ! empty( $this->creationdate ) ) {	
-		    $dcdate = WaterWoo_TCPDF_STATIC::getFormattedDate( WaterWoo_TCPDF_STATIC::getTimestamp($this->creationdate) );
+		    $dcdate = LP_TCPDF_STATIC::getFormattedDate( LP_TCPDF_STATIC::getTimestamp($this->creationdate) );
 		} else {
-            $dcdate = WaterWoo_TCPDF_STATIC::getFormattedDate($this->doc_creation_timestamp);
+            $dcdate = LP_TCPDF_STATIC::getFormattedDate($this->doc_creation_timestamp);
         }
 		$doccreationdate = substr($dcdate, 0, 4).'-'.substr($dcdate, 4, 2).'-'.substr($dcdate, 6, 2);
 		$doccreationdate .= 'T'.substr($dcdate, 8, 2).':'.substr($dcdate, 10, 2).':'.substr($dcdate, 12, 2);
 		$doccreationdate .= substr($dcdate, 14, 3).':'.substr($dcdate, 18, 2);
-		$doccreationdate = WaterWoo_TCPDF_STATIC::_escapeXML($doccreationdate);
+		$doccreationdate = LP_TCPDF_STATIC::_escapeXML($doccreationdate);
 		// convert doc modification date format
-		$dmdate = WaterWoo_TCPDF_STATIC::getFormattedDate($this->doc_modification_timestamp);
+		$dmdate = LP_TCPDF_STATIC::getFormattedDate($this->doc_modification_timestamp);
 		$docmoddate = substr($dmdate, 0, 4).'-'.substr($dmdate, 4, 2).'-'.substr($dmdate, 6, 2);
 		$docmoddate .= 'T'.substr($dmdate, 8, 2).':'.substr($dmdate, 10, 2).':'.substr($dmdate, 12, 2);
 		$docmoddate .= substr($dmdate, 14, 3).':'.substr($dmdate, 18, 2);
-		$docmoddate = WaterWoo_TCPDF_STATIC::_escapeXML($docmoddate);
+		$docmoddate = LP_TCPDF_STATIC::_escapeXML($docmoddate);
 		$xmp .= "\t\t".'<rdf:Description rdf:about="" xmlns:xmp="http://ns.adobe.com/xap/1.0/">'."\n";
 		$xmp .= "\t\t\t".'<xmp:CreateDate>'.$doccreationdate.'</xmp:CreateDate>'."\n";
 		$xmp .= "\t\t\t".'<xmp:CreatorTool>'.$this->creator.'</xmp:CreatorTool>'."\n";
@@ -9461,8 +9462,8 @@ class WaterWoo_TCPDF {
 		$xmp .= "\t\t\t".'<xmp:MetadataDate>'.$doccreationdate.'</xmp:MetadataDate>'."\n";
 		$xmp .= "\t\t".'</rdf:Description>'."\n";
 		$xmp .= "\t\t".'<rdf:Description rdf:about="" xmlns:pdf="http://ns.adobe.com/pdf/1.3/">'."\n";
-		$xmp .= "\t\t\t".'<pdf:Keywords>'.WaterWoo_TCPDF_STATIC::_escapeXML($this->keywords).'</pdf:Keywords>'."\n";
-		$xmp .= "\t\t\t".'<pdf:Producer>'.WaterWoo_TCPDF_STATIC::_escapeXML(WaterWoo_TCPDF_STATIC::getTCPDFProducer()).'</pdf:Producer>'."\n";
+		$xmp .= "\t\t\t".'<pdf:Keywords>'.LP_TCPDF_STATIC::_escapeXML($this->keywords).'</pdf:Keywords>'."\n";
+		$xmp .= "\t\t\t".'<pdf:Producer>'.LP_TCPDF_STATIC::_escapeXML(LP_TCPDF_STATIC::getTCPDFProducer()).'</pdf:Producer>'."\n";
 		$xmp .= "\t\t".'</rdf:Description>'."\n";
 		$xmp .= "\t\t".'<rdf:Description rdf:about="" xmlns:xmpMM="http://ns.adobe.com/xap/1.0/mm/">'."\n";
 		$uuid = 'uuid:'.substr($this->file_id, 0, 8).'-'.substr($this->file_id, 8, 4).'-'.substr($this->file_id, 12, 4).'-'.substr($this->file_id, 16, 4).'-'.substr($this->file_id, 20, 12);
@@ -9596,10 +9597,10 @@ class WaterWoo_TCPDF {
 			$out .= ' /Dests '.($this->n_dests).' 0 R';
 		}
 		$out .= $this->_putviewerpreferences();
-		if (isset($this->LayoutMode) AND (!WaterWoo_TCPDF_STATIC::empty_string($this->LayoutMode))) {
+		if (isset($this->LayoutMode) AND (!LP_TCPDF_STATIC::empty_string($this->LayoutMode))) {
 			$out .= ' /PageLayout /'.$this->LayoutMode;
 		}
-		if (isset($this->PageMode) AND (!WaterWoo_TCPDF_STATIC::empty_string($this->PageMode))) {
+		if (isset($this->PageMode) AND (!LP_TCPDF_STATIC::empty_string($this->PageMode))) {
 			$out .= ' /PageMode /'.$this->PageMode;
 		}
 		if (count($this->outlines) > 0) {
@@ -9789,7 +9790,7 @@ class WaterWoo_TCPDF {
 		if (isset($vp['PrintScaling'])) {
 			$out .= ' /PrintScaling /'.$vp['PrintScaling'];
 		}
-		if (isset($vp['Duplex']) AND (!WaterWoo_TCPDF_STATIC::empty_string($vp['Duplex']))) {
+		if (isset($vp['Duplex']) AND (!LP_TCPDF_STATIC::empty_string($vp['Duplex']))) {
 			$out .= ' /Duplex /'.$vp['Duplex'];
 		}
 		if (isset($vp['PickTrayByPDFSize'])) {
@@ -9924,7 +9925,7 @@ class WaterWoo_TCPDF {
 		// initialize array for graphics tranformation positions inside a page buffer
 		$this->transfmrk[$this->page] = array();
 		$this->state = 2;
-		if (WaterWoo_TCPDF_STATIC::empty_string($orientation)) {
+		if (LP_TCPDF_STATIC::empty_string($orientation)) {
 			if (isset($this->CurOrientation)) {
 				$orientation = $this->CurOrientation;
 			} elseif ($this->fwPt > $this->fhPt) {
@@ -9935,7 +9936,7 @@ class WaterWoo_TCPDF {
 				$orientation = 'P';
 			}
 		}
-		if (WaterWoo_TCPDF_STATIC::empty_string($format)) {
+		if (LP_TCPDF_STATIC::empty_string($format)) {
 			$this->pagedim[$this->page] = $this->pagedim[($this->page - 1)];
 			$this->setPageOrientation($orientation);
 		} else {
@@ -10081,7 +10082,7 @@ class WaterWoo_TCPDF {
 			$n = $this->n;
 		}
 		$s = $this->_encrypt_data($n, $s);
-		return '('. WaterWoo_TCPDF_STATIC::_escape($s).')';
+		return '('. LP_TCPDF_STATIC::_escape($s).')';
 	}
 
 	/**
@@ -10092,7 +10093,7 @@ class WaterWoo_TCPDF {
 	 */
 	public function setDocCreationTimestamp($time) {
 		if (is_string($time)) {
-			$time = WaterWoo_TCPDF_STATIC::getTimestamp($time);
+			$time = LP_TCPDF_STATIC::getTimestamp($time);
 		}
 		$this->doc_creation_timestamp = intval($time);
 	}
@@ -10105,7 +10106,7 @@ class WaterWoo_TCPDF {
 	 */
 	public function setDocModificationTimestamp($time) {
 		if (is_string($time)) {
-			$time = WaterWoo_TCPDF_STATIC::getTimestamp($time);
+			$time = LP_TCPDF_STATIC::getTimestamp($time);
 		}
 		$this->doc_modification_timestamp = intval($time);
 	}
@@ -10142,7 +10143,7 @@ class WaterWoo_TCPDF {
 		if ((empty($timestamp)) OR ($timestamp < 0)) {
 			$timestamp = $this->doc_creation_timestamp;
 		}
-		return $this->_datastring('D:'.WaterWoo_TCPDF_STATIC::getFormattedDate($timestamp), $n);
+		return $this->_datastring('D:'.LP_TCPDF_STATIC::getFormattedDate($timestamp), $n);
 	}
 
 	/**
@@ -10155,7 +10156,7 @@ class WaterWoo_TCPDF {
 	protected function _textstring($s, $n=0) {
 		if ($this->isunicode) {
 			//Convert string to UTF-16BE
-			$s = WaterWoo_TCPDF_FONTS::UTF8ToUTF16BE($s, true, $this->isunicode, $this->CurrentFont);
+			$s = LP_TCPDF_FONTS::UTF8ToUTF16BE($s, true, $this->isunicode, $this->CurrentFont);
 		}
 		return $this->_datastring($s, $n);
 	}
@@ -10356,7 +10357,7 @@ class WaterWoo_TCPDF {
 			// AES padding
 			$objkey .= "\x73\x41\x6C\x54"; // sAlT
 		}
-		$objkey = substr(WaterWoo_TCPDF_STATIC::_md5_16($objkey), 0, (($this->encryptdata['Length'] / 8) + 5));
+		$objkey = substr(LP_TCPDF_STATIC::_md5_16($objkey), 0, (($this->encryptdata['Length'] / 8) + 5));
 		$objkey = substr($objkey, 0, 16);
 		return $objkey;
 	}
@@ -10377,15 +10378,15 @@ class WaterWoo_TCPDF {
 		switch ($this->encryptdata['mode']) {
 			case 0:   // RC4-40
 			case 1: { // RC4-128
-				$s = WaterWoo_TCPDF_STATIC::_RC4($this->_objectkey($n), $s, $this->last_enc_key, $this->last_enc_key_c);
+				$s = LP_TCPDF_STATIC::_RC4($this->_objectkey($n), $s, $this->last_enc_key, $this->last_enc_key_c);
 				break;
 			}
 			case 2: { // AES-128
-				$s = WaterWoo_TCPDF_STATIC::_AES($this->_objectkey($n), $s);
+				$s = LP_TCPDF_STATIC::_AES($this->_objectkey($n), $s);
 				break;
 			}
 			case 3: { // AES-256
-				$s = WaterWoo_TCPDF_STATIC::_AES($this->encryptdata['key'], $s);
+				$s = LP_TCPDF_STATIC::_AES($this->encryptdata['key'], $s);
 				break;
 			}
 		}
@@ -10487,9 +10488,9 @@ class WaterWoo_TCPDF {
 			$out .= ' /R';
 			if ($this->encryptdata['V'] == 5) { // AES-256
 				$out .= ' 5';
-				$out .= ' /OE ('.WaterWoo_TCPDF_STATIC::_escape($this->encryptdata['OE']).')';
-				$out .= ' /UE ('.WaterWoo_TCPDF_STATIC::_escape($this->encryptdata['UE']).')';
-				$out .= ' /Perms ('.WaterWoo_TCPDF_STATIC::_escape($this->encryptdata['perms']).')';
+				$out .= ' /OE ('.LP_TCPDF_STATIC::_escape($this->encryptdata['OE']).')';
+				$out .= ' /UE ('.LP_TCPDF_STATIC::_escape($this->encryptdata['UE']).')';
+				$out .= ' /Perms ('.LP_TCPDF_STATIC::_escape($this->encryptdata['perms']).')';
 			} elseif ($this->encryptdata['V'] == 4) { // AES-128
 				$out .= ' 4';
 			} elseif ($this->encryptdata['V'] < 2) { // RC-40
@@ -10497,8 +10498,8 @@ class WaterWoo_TCPDF {
 			} else { // RC-128
 				$out .= ' 3';
 			}
-			$out .= ' /O ('.WaterWoo_TCPDF_STATIC::_escape($this->encryptdata['O']).')';
-			$out .= ' /U ('.WaterWoo_TCPDF_STATIC::_escape($this->encryptdata['U']).')';
+			$out .= ' /O ('.LP_TCPDF_STATIC::_escape($this->encryptdata['O']).')';
+			$out .= ' /U ('.LP_TCPDF_STATIC::_escape($this->encryptdata['U']).')';
 			$out .= ' /P '.$this->encryptdata['P'];
 			if (isset($this->encryptdata['EncryptMetadata']) AND (!$this->encryptdata['EncryptMetadata'])) {
 				$out .= ' /EncryptMetadata false';
@@ -10520,22 +10521,22 @@ class WaterWoo_TCPDF {
 	 */
 	protected function _Uvalue() {
 		if ($this->encryptdata['mode'] == 0) { // RC4-40
-			return WaterWoo_TCPDF_STATIC::_RC4($this->encryptdata['key'], WaterWoo_TCPDF_STATIC::$enc_padding, $this->last_enc_key, $this->last_enc_key_c);
+			return LP_TCPDF_STATIC::_RC4($this->encryptdata['key'], LP_TCPDF_STATIC::$enc_padding, $this->last_enc_key, $this->last_enc_key_c);
 		} elseif ($this->encryptdata['mode'] < 3) { // RC4-128, AES-128
-			$tmp = WaterWoo_TCPDF_STATIC::_md5_16(WaterWoo_TCPDF_STATIC::$enc_padding.$this->encryptdata['fileid']);
-			$enc = WaterWoo_TCPDF_STATIC::_RC4($this->encryptdata['key'], $tmp, $this->last_enc_key, $this->last_enc_key_c);
+			$tmp = LP_TCPDF_STATIC::_md5_16(LP_TCPDF_STATIC::$enc_padding.$this->encryptdata['fileid']);
+			$enc = LP_TCPDF_STATIC::_RC4($this->encryptdata['key'], $tmp, $this->last_enc_key, $this->last_enc_key_c);
 			$len = strlen($tmp);
 			for ($i = 1; $i <= 19; ++$i) {
 				$ek = '';
 				for ($j = 0; $j < $len; ++$j) {
 					$ek .= chr(ord($this->encryptdata['key'][$j]) ^ $i);
 				}
-				$enc = WaterWoo_TCPDF_STATIC::_RC4($ek, $enc, $this->last_enc_key, $this->last_enc_key_c);
+				$enc = LP_TCPDF_STATIC::_RC4($ek, $enc, $this->last_enc_key, $this->last_enc_key_c);
 			}
 			$enc .= str_repeat("\x00", 16);
 			return substr($enc, 0, 32);
 		} elseif ($this->encryptdata['mode'] == 3) { // AES-256
-			$seed = WaterWoo_TCPDF_STATIC::_md5_16(WaterWoo_TCPDF_STATIC::getRandomSeed());
+			$seed = LP_TCPDF_STATIC::_md5_16(LP_TCPDF_STATIC::getRandomSeed());
 			// User Validation Salt
 			$this->encryptdata['UVS'] = substr($seed, 0, 8);
 			// User Key Salt
@@ -10553,7 +10554,7 @@ class WaterWoo_TCPDF {
 	 */
 	protected function _UEvalue() {
 		$hashkey = hash('sha256', $this->encryptdata['user_password'].$this->encryptdata['UKS'], true);
-		return WaterWoo_TCPDF_STATIC::_AESnopad($hashkey, $this->encryptdata['key']);
+		return LP_TCPDF_STATIC::_AESnopad($hashkey, $this->encryptdata['key']);
 	}
 
 	/**
@@ -10565,14 +10566,14 @@ class WaterWoo_TCPDF {
 	 */
 	protected function _Ovalue() {
 		if ($this->encryptdata['mode'] < 3) { // RC4-40, RC4-128, AES-128
-			$tmp = WaterWoo_TCPDF_STATIC::_md5_16($this->encryptdata['owner_password']);
+			$tmp = LP_TCPDF_STATIC::_md5_16($this->encryptdata['owner_password']);
 			if ($this->encryptdata['mode'] > 0) {
 				for ($i = 0; $i < 50; ++$i) {
-					$tmp = WaterWoo_TCPDF_STATIC::_md5_16($tmp);
+					$tmp = LP_TCPDF_STATIC::_md5_16($tmp);
 				}
 			}
 			$owner_key = substr($tmp, 0, ($this->encryptdata['Length'] / 8));
-			$enc = WaterWoo_TCPDF_STATIC::_RC4($owner_key, $this->encryptdata['user_password'], $this->last_enc_key, $this->last_enc_key_c);
+			$enc = LP_TCPDF_STATIC::_RC4($owner_key, $this->encryptdata['user_password'], $this->last_enc_key, $this->last_enc_key_c);
 			if ($this->encryptdata['mode'] > 0) {
 				$len = strlen($owner_key);
 				for ($i = 1; $i <= 19; ++$i) {
@@ -10580,12 +10581,12 @@ class WaterWoo_TCPDF {
 					for ($j = 0; $j < $len; ++$j) {
 						$ek .= chr(ord($owner_key[$j]) ^ $i);
 					}
-					$enc = WaterWoo_TCPDF_STATIC::_RC4($ek, $enc, $this->last_enc_key, $this->last_enc_key_c);
+					$enc = LP_TCPDF_STATIC::_RC4($ek, $enc, $this->last_enc_key, $this->last_enc_key_c);
 				}
 			}
 			return $enc;
 		} elseif ($this->encryptdata['mode'] == 3) { // AES-256
-			$seed = WaterWoo_TCPDF_STATIC::_md5_16(WaterWoo_TCPDF_STATIC::getRandomSeed());
+			$seed = LP_TCPDF_STATIC::_md5_16(LP_TCPDF_STATIC::getRandomSeed());
 			// Owner Validation Salt
 			$this->encryptdata['OVS'] = substr($seed, 0, 8);
 			// Owner Key Salt
@@ -10603,7 +10604,7 @@ class WaterWoo_TCPDF {
 	 */
 	protected function _OEvalue() {
 		$hashkey = hash('sha256', $this->encryptdata['owner_password'].$this->encryptdata['OKS'].$this->encryptdata['U'], true);
-		return WaterWoo_TCPDF_STATIC::_AESnopad($hashkey, $this->encryptdata['key']);
+		return LP_TCPDF_STATIC::_AESnopad($hashkey, $this->encryptdata['key']);
 	}
 
 	/**
@@ -10616,9 +10617,9 @@ class WaterWoo_TCPDF {
 	 */
 	protected function _fixAES256Password($password) {
 		$psw = ''; // password to be returned
-		$psw_array = WaterWoo_TCPDF_FONTS::utf8Bidi(WaterWoo_TCPDF_FONTS::UTF8StringToArray($password, $this->isunicode, $this->CurrentFont), $password, $this->rtl, $this->isunicode, $this->CurrentFont);
+		$psw_array = LP_TCPDF_FONTS::utf8Bidi(LP_TCPDF_FONTS::UTF8StringToArray($password, $this->isunicode, $this->CurrentFont), $password, $this->rtl, $this->isunicode, $this->CurrentFont);
 		foreach ($psw_array as $c) {
-			$psw .= WaterWoo_TCPDF_FONTS::unichr($c, $this->isunicode);
+			$psw .= LP_TCPDF_FONTS::unichr($c, $this->isunicode);
 		}
 		return substr($psw, 0, 127);
 	}
@@ -10634,7 +10635,7 @@ class WaterWoo_TCPDF {
 		if (!$this->encryptdata['pubkey']) { // standard mode
 			if ($this->encryptdata['mode'] == 3) { // AES-256
 				// generate 256 bit random key
-				$this->encryptdata['key'] = substr(hash('sha256', WaterWoo_TCPDF_STATIC::getRandomSeed(), true), 0, $keybytelen);
+				$this->encryptdata['key'] = substr(hash('sha256', LP_TCPDF_STATIC::getRandomSeed(), true), 0, $keybytelen);
 				// truncate passwords
 				$this->encryptdata['user_password'] = $this->_fixAES256Password($this->encryptdata['user_password']);
 				$this->encryptdata['owner_password'] = $this->_fixAES256Password($this->encryptdata['owner_password']);
@@ -10649,7 +10650,7 @@ class WaterWoo_TCPDF {
 				// Compute P value
 				$this->encryptdata['P'] = $this->encryptdata['protection'];
 				// Computing the encryption dictionary's Perms (permissions) value
-				$perms = WaterWoo_TCPDF_STATIC::getEncPermissionsString($this->encryptdata['protection']); // bytes 0-3
+				$perms = LP_TCPDF_STATIC::getEncPermissionsString($this->encryptdata['protection']); // bytes 0-3
 				$perms .= chr(255).chr(255).chr(255).chr(255); // bytes 4-7
 				if (isset($this->encryptdata['CF']['EncryptMetadata']) AND (!$this->encryptdata['CF']['EncryptMetadata'])) { // byte 8
 					$perms .= 'F';
@@ -10658,20 +10659,20 @@ class WaterWoo_TCPDF {
 				}
 				$perms .= 'adb'; // bytes 9-11
 				$perms .= 'nick'; // bytes 12-15
-				$this->encryptdata['perms'] = WaterWoo_TCPDF_STATIC::_AESnopad($this->encryptdata['key'], $perms);
+				$this->encryptdata['perms'] = LP_TCPDF_STATIC::_AESnopad($this->encryptdata['key'], $perms);
 			} else { // RC4-40, RC4-128, AES-128
 				// Pad passwords
-				$this->encryptdata['user_password'] = substr($this->encryptdata['user_password'].WaterWoo_TCPDF_STATIC::$enc_padding, 0, 32);
-				$this->encryptdata['owner_password'] = substr($this->encryptdata['owner_password'].WaterWoo_TCPDF_STATIC::$enc_padding, 0, 32);
+				$this->encryptdata['user_password'] = substr($this->encryptdata['user_password'].LP_TCPDF_STATIC::$enc_padding, 0, 32);
+				$this->encryptdata['owner_password'] = substr($this->encryptdata['owner_password'].LP_TCPDF_STATIC::$enc_padding, 0, 32);
 				// Compute O value
 				$this->encryptdata['O'] = $this->_Ovalue();
 				// get default permissions (reverse byte order)
-				$permissions = WaterWoo_TCPDF_STATIC::getEncPermissionsString($this->encryptdata['protection']);
+				$permissions = LP_TCPDF_STATIC::getEncPermissionsString($this->encryptdata['protection']);
 				// Compute encryption key
-				$tmp = WaterWoo_TCPDF_STATIC::_md5_16($this->encryptdata['user_password'].$this->encryptdata['O'].$permissions.$this->encryptdata['fileid']);
+				$tmp = LP_TCPDF_STATIC::_md5_16($this->encryptdata['user_password'].$this->encryptdata['O'].$permissions.$this->encryptdata['fileid']);
 				if ($this->encryptdata['mode'] > 0) {
 					for ($i = 0; $i < 50; ++$i) {
-						$tmp = WaterWoo_TCPDF_STATIC::_md5_16(substr($tmp, 0, $keybytelen));
+						$tmp = LP_TCPDF_STATIC::_md5_16(substr($tmp, 0, $keybytelen));
 					}
 				}
 				$this->encryptdata['key'] = substr($tmp, 0, $keybytelen);
@@ -10682,29 +10683,29 @@ class WaterWoo_TCPDF {
 			}
 		} else { // Public-Key mode
 			// random 20-byte seed
-			$seed = sha1(WaterWoo_TCPDF_STATIC::getRandomSeed(), true);
+			$seed = sha1(LP_TCPDF_STATIC::getRandomSeed(), true);
 			$recipient_bytes = '';
 			foreach ($this->encryptdata['pubkeys'] as $pubkey) {
 				// for each public certificate
 				if (isset($pubkey['p'])) {
-					$pkprotection = WaterWoo_TCPDF_STATIC::getUserPermissionCode($pubkey['p'], $this->encryptdata['mode']);
+					$pkprotection = LP_TCPDF_STATIC::getUserPermissionCode($pubkey['p'], $this->encryptdata['mode']);
 				} else {
 					$pkprotection = $this->encryptdata['protection'];
 				}
 				// get default permissions (reverse byte order)
-				$pkpermissions = WaterWoo_TCPDF_STATIC::getEncPermissionsString($pkprotection);
+				$pkpermissions = LP_TCPDF_STATIC::getEncPermissionsString($pkprotection);
 				// envelope data
 				$envelope = $seed.$pkpermissions;
 				// write the envelope data to a temporary file
-				$tempkeyfile = WaterWoo_TCPDF_STATIC::getObjFilename('key', $this->file_id);
-				$f = WaterWoo_TCPDF_STATIC::fopenLocal($tempkeyfile, 'wb');
+				$tempkeyfile = LP_TCPDF_STATIC::getObjFilename('key', $this->file_id);
+				$f = LP_TCPDF_STATIC::fopenLocal($tempkeyfile, 'wb');
 				if (!$f) {
 					$this->Error('Unable to create temporary key file: '.$tempkeyfile);
 				}
 				$envelope_length = strlen($envelope);
 				fwrite($f, $envelope, $envelope_length);
 				fclose($f);
-				$tempencfile = WaterWoo_TCPDF_STATIC::getObjFilename('enc', $this->file_id);
+				$tempencfile = LP_TCPDF_STATIC::getObjFilename('enc', $this->file_id);
 				if (!openssl_pkcs7_encrypt($tempkeyfile, $tempencfile, $pubkey['c'], array(), PKCS7_BINARY | PKCS7_DETACHED)) {
 					$this->Error('Unable to encrypt the file: '.$tempkeyfile);
 				}
@@ -10738,16 +10739,7 @@ class WaterWoo_TCPDF {
 	 * Remark: the protection against modification is for people who have the full Acrobat product.
 	 * If you don't set any password, the document will open as usual. If you set a user password, the PDF viewer will ask for it before displaying the document. The master password, if different from the user one, can be used to get full access.
 	 * Note: protecting a document requires to encrypt it, which increases the processing time a lot. This can cause a PHP time-out in some cases, especially if the document contains images or fonts.
-	 * @param $permissions (Array) the set of permissions (specify the ones you want to block):<ul>
-	        <li>print : Print the document;</li>
-	        <li>modify : Modify the contents of the document by operations other than those controlled by 'fill-forms', 'extract' and 'assemble';</li>
-	        <li>copy : Copy or otherwise extract text and graphics from the document;</li>
-	        <li>annot-forms : Add or modify text annotations, fill in interactive form fields, and, if 'modify' is also set, create or modify interactive form fields (including signature fields);</li>
-	        <li>fill-forms : Fill in existing interactive form fields (including signature fields), even if 'annot-forms' is not specified;</li>
-	        <li>extract : Extract text and graphics (in support of accessibility to users with disabilities or for other purposes);</li>
-	        <li>assemble : Assemble the document (insert, rotate, or delete pages and create bookmarks or thumbnail images), even if 'modify' is not set;</li>
-	        <li>print-high : Print the document to a representation from which a faithful digital copy of the PDF content could be generated. When this is not set, printing is limited to a low-level representation of the appearance, possibly of degraded quality.</li>
-	        <li>owner : (inverted logic - only for public-key) when set permits change of encryption and enables all other permissions.</li></ul>
+     * @param $permissions (Array) the set of permissions (specify the ones you want to block):<ul><li>print : Print the document;</li><li>modify : Modify the contents of the document by operations other than those controlled by 'fill-forms', 'extract' and 'assemble';</li><li>copy : Copy or otherwise extract text and graphics from the document;</li><li>annot-forms : Add or modify text annotations, fill in interactive form fields, and, if 'modify' is also set, create or modify interactive form fields (including signature fields);</li><li>fill-forms : Fill in existing interactive form fields (including signature fields), even if 'annot-forms' is not specified;</li><li>extract : Extract text and graphics (in support of accessibility to users with disabilities or for other purposes);</li><li>assemble : Assemble the document (insert, rotate, or delete pages and create bookmarks or thumbnail images), even if 'modify' is not set;</li><li>print-high : Print the document to a representation from which a faithful digital copy of the PDF content could be generated. When this is not set, printing is limited to a low-level representation of the appearance, possibly of degraded quality.</li><li>owner : (inverted logic - only for public-key) when set permits change of encryption and enables all other permissions.</li></ul>
 	 * @param $user_pass (String) user password. Empty by default.
 	 * @param $owner_pass (String) owner password. If not specified, a random value is used.
 	 * @param $mode (int) encryption strength: 0 = RC4 40 bit; 1 = RC4 128 bit; 2 = AES 128 bit; 3 = AES 256 bit.
@@ -10761,7 +10753,7 @@ class WaterWoo_TCPDF {
 			// encryption is not allowed in PDF/A mode
 			return;
 		}
-		$this->encryptdata['protection'] = WaterWoo_TCPDF_STATIC::getUserPermissionCode($permissions, $mode);
+		$this->encryptdata['protection'] = LP_TCPDF_STATIC::getUserPermissionCode($permissions, $mode);
 		if (($pubkeys !== null) AND (is_array($pubkeys))) {
 			// public-key mode
 			$this->encryptdata['pubkeys'] = $pubkeys;
@@ -10800,7 +10792,7 @@ class WaterWoo_TCPDF {
 			}
 		}
 		if ($owner_pass === null) {
-			$owner_pass = md5(WaterWoo_TCPDF_STATIC::getRandomSeed());
+			$owner_pass = md5(LP_TCPDF_STATIC::getRandomSeed());
 		}
 		$this->encryptdata['user_password'] = $user_pass;
 		$this->encryptdata['owner_password'] = $owner_pass;
@@ -10846,7 +10838,7 @@ class WaterWoo_TCPDF {
 			}
 		}
 		$this->encrypted = true;
-		$this->encryptdata['fileid'] = WaterWoo_TCPDF_STATIC::convertHexStringToString($this->file_id);
+		$this->encryptdata['fileid'] = LP_TCPDF_STATIC::convertHexStringToString($this->file_id);
 		$this->_generateencryptionkey();
 	}
 
@@ -11453,7 +11445,7 @@ class WaterWoo_TCPDF {
 			}
 		}
 		if (!empty($style)) {
-			$op = WaterWoo_TCPDF_STATIC::getPathPaintOperator($style);
+			$op = LP_TCPDF_STATIC::getPathPaintOperator($style);
 			$this->_outRect($x, $y, $w, $h, $op);
 		}
 		if (!empty($border_style)) {
@@ -11506,7 +11498,7 @@ class WaterWoo_TCPDF {
 		if (!(false === strpos($style, 'F')) AND isset($fill_color)) {
 			$this->SetFillColorArray($fill_color);
 		}
-		$op = WaterWoo_TCPDF_STATIC::getPathPaintOperator($style);
+		$op = LP_TCPDF_STATIC::getPathPaintOperator($style);
 		if ($line_style) {
 			$this->SetLineStyle($line_style);
 		}
@@ -11536,7 +11528,7 @@ class WaterWoo_TCPDF {
 		if (!(false === strpos($style, 'F')) AND isset($fill_color)) {
 			$this->SetFillColorArray($fill_color);
 		}
-		$op = WaterWoo_TCPDF_STATIC::getPathPaintOperator($style);
+		$op = LP_TCPDF_STATIC::getPathPaintOperator($style);
 		if ($op == 'f') {
 			$line_style = array();
 		}
@@ -11573,13 +11565,13 @@ class WaterWoo_TCPDF {
 		if ($this->state != 2) {
 			return;
 		}
-		if (WaterWoo_TCPDF_STATIC::empty_string($ry) OR ($ry == 0)) {
+		if (LP_TCPDF_STATIC::empty_string($ry) OR ($ry == 0)) {
 			$ry = $rx;
 		}
 		if (!(false === strpos($style, 'F')) AND isset($fill_color)) {
 			$this->SetFillColorArray($fill_color);
 		}
-		$op = WaterWoo_TCPDF_STATIC::getPathPaintOperator($style);
+		$op = LP_TCPDF_STATIC::getPathPaintOperator($style);
 		if ($op == 'f') {
 			$line_style = array();
 		}
@@ -11798,7 +11790,7 @@ class WaterWoo_TCPDF {
 		if (!(false === strpos($style, 'F')) AND isset($fill_color)) {
 			$this->SetFillColorArray($fill_color);
 		}
-		$op = WaterWoo_TCPDF_STATIC::getPathPaintOperator($style);
+		$op = LP_TCPDF_STATIC::getPathPaintOperator($style);
 		if ($op == 'f') {
 			$line_style = array();
 		}
@@ -12001,7 +11993,7 @@ class WaterWoo_TCPDF {
 		if (!(false === strpos($style, 'F')) AND isset($fill_color)) {
 			$this->SetFillColorArray($fill_color);
 		}
-		$op = WaterWoo_TCPDF_STATIC::getPathPaintOperator($style);
+		$op = LP_TCPDF_STATIC::getPathPaintOperator($style);
 		if ($op == 'f') {
 			$border_style = array();
 		}
@@ -12125,8 +12117,8 @@ class WaterWoo_TCPDF {
 	 */
 	public function setDestination($name, $y=-1, $page='', $x=-1) {
 		// remove unsupported characters
-		$name = WaterWoo_TCPDF_STATIC::encodeNameObject($name);
-		if (WaterWoo_TCPDF_STATIC::empty_string($name)) {
+		$name = LP_TCPDF_STATIC::encodeNameObject($name);
+		if (LP_TCPDF_STATIC::empty_string($name)) {
 			return false;
 		}
 		if ($y == -1) {
@@ -12345,7 +12337,7 @@ class WaterWoo_TCPDF {
 				if (is_string($o['u'])) {
 					if ($o['u'][0] == '#') {
 						// internal destination
-						$out .= ' /Dest /'.WaterWoo_TCPDF_STATIC::encodeNameObject(substr($o['u'], 1));
+						$out .= ' /Dest /'.LP_TCPDF_STATIC::encodeNameObject(substr($o['u'], 1));
 					} elseif ($o['u'][0] == '%') {
 						// embedded PDF file
 						$filename = basename(substr($o['u'], 1));
@@ -12508,7 +12500,7 @@ class WaterWoo_TCPDF {
 		$this->javascript .= 'f'.$name.'.textSize='.$this->FontSizePt.";\n";
 		foreach($prop as $key => $val) {
 			if (strcmp(substr($key, -5), 'Color') == 0) {
-				$val = WaterWoo_TCPDF_COLORS::_JScolor($val);
+				$val = TCPDF_COLORS::_JScolor($val);
 			} else {
 				$val = "'".$val."'";
 			}
@@ -12578,7 +12570,7 @@ class WaterWoo_TCPDF {
 		// get default style
 		$prop = array_merge($this->getFormDefaultProp(), $prop);
 		// get annotation data
-		$popt = WaterWoo_TCPDF_STATIC::getAnnotOptFromJSProp($prop, $this->spot_colors, $this->rtl);
+		$popt = LP_TCPDF_STATIC::getAnnotOptFromJSProp($prop, $this->spot_colors, $this->rtl);
 		// set default appearance stream
 		$this->annotation_fonts[$this->CurrentFont['fontkey']] = $this->CurrentFont['i'];
 		$fontstyle = sprintf('/F%d %F Tf %s', $this->CurrentFont['i'], $this->FontSizePt, $this->TextColor);
@@ -12696,7 +12688,7 @@ class WaterWoo_TCPDF {
 			$this->_addfield('radiobutton', $name, $x, $y, $w, $w, $prop);
 			return;
 		}
-		if (WaterWoo_TCPDF_STATIC::empty_string($onvalue)) {
+		if (LP_TCPDF_STATIC::empty_string($onvalue)) {
 			$onvalue = 'On';
 		}
 		if ($checked) {
@@ -12731,7 +12723,7 @@ class WaterWoo_TCPDF {
 		$prop['Radio'] = 'true';
 		$prop['borderStyle'] = 'inset';
 		// get annotation data
-		$popt = WaterWoo_TCPDF_STATIC::getAnnotOptFromJSProp($prop, $this->spot_colors, $this->rtl);
+		$popt = LP_TCPDF_STATIC::getAnnotOptFromJSProp($prop, $this->spot_colors, $this->rtl);
 		// set additional default options
 		$this->annotation_fonts[$tmpfont['fontkey']] = $tmpfont['i'];
 		$fontstyle = sprintf('/F%d %F Tf %s', $tmpfont['i'], $this->FontSizePt, $this->TextColor);
@@ -12811,7 +12803,7 @@ class WaterWoo_TCPDF {
 		// get default style
 		$prop = array_merge($this->getFormDefaultProp(), $prop);
 		// get annotation data
-		$popt = WaterWoo_TCPDF_STATIC::getAnnotOptFromJSProp($prop, $this->spot_colors, $this->rtl);
+		$popt = LP_TCPDF_STATIC::getAnnotOptFromJSProp($prop, $this->spot_colors, $this->rtl);
 		// set additional default values
 		$this->annotation_fonts[$this->CurrentFont['fontkey']] = $this->CurrentFont['i'];
 		$fontstyle = sprintf('/F%d %F Tf %s', $this->CurrentFont['i'], $this->FontSizePt, $this->TextColor);
@@ -12898,7 +12890,7 @@ class WaterWoo_TCPDF {
 		$prop = array_merge($this->getFormDefaultProp(), $prop);
 		$prop['Combo'] = true;
 		// get annotation data
-		$popt = WaterWoo_TCPDF_STATIC::getAnnotOptFromJSProp($prop, $this->spot_colors, $this->rtl);
+		$popt = LP_TCPDF_STATIC::getAnnotOptFromJSProp($prop, $this->spot_colors, $this->rtl);
 		// set additional default options
 		$this->annotation_fonts[$this->CurrentFont['fontkey']] = $this->CurrentFont['i'];
 		$fontstyle = sprintf('/F%d %F Tf %s', $this->CurrentFont['i'], $this->FontSizePt, $this->TextColor);
@@ -12979,7 +12971,7 @@ class WaterWoo_TCPDF {
 		$prop = array_merge($this->getFormDefaultProp(), $prop);
 		$prop['borderStyle'] = 'inset';
 		// get annotation data
-		$popt = WaterWoo_TCPDF_STATIC::getAnnotOptFromJSProp($prop, $this->spot_colors, $this->rtl);
+		$popt = LP_TCPDF_STATIC::getAnnotOptFromJSProp($prop, $this->spot_colors, $this->rtl);
 		// set additional default options
 		$font = 'zapfdingbats';
 		if ($this->pdfa_mode) {
@@ -13004,7 +12996,7 @@ class WaterWoo_TCPDF {
 		$opt['Subtype'] = 'Widget';
 		$opt['ft'] = 'Btn';
 		$opt['t'] = $name;
-		if (WaterWoo_TCPDF_STATIC::empty_string($onvalue)) {
+		if (LP_TCPDF_STATIC::empty_string($onvalue)) {
 			$onvalue = 'Yes';
 		}
 		$opt['opt'] = array($onvalue);
@@ -13062,7 +13054,7 @@ class WaterWoo_TCPDF {
 		$prop['highlight'] = 'push';
 		$prop['display'] = 'display.noPrint';
 		// get annotation data
-		$popt = WaterWoo_TCPDF_STATIC::getAnnotOptFromJSProp($prop, $this->spot_colors, $this->rtl);
+		$popt = LP_TCPDF_STATIC::getAnnotOptFromJSProp($prop, $this->spot_colors, $this->rtl);
 		$this->annotation_fonts[$this->CurrentFont['fontkey']] = $this->CurrentFont['i'];
 		$fontstyle = sprintf('/F%d %F Tf %s', $this->CurrentFont['i'], $this->FontSizePt, $this->TextColor);
 		$popt['da'] = $fontstyle;
@@ -13215,7 +13207,7 @@ class WaterWoo_TCPDF {
 		$out .= '<< /Type /Sig';
 		$out .= ' /Filter /Adobe.PPKLite';
 		$out .= ' /SubFilter /adbe.pkcs7.detached';
-		$out .= ' '.WaterWoo_TCPDF_STATIC::$byterange_string;
+		$out .= ' '.LP_TCPDF_STATIC::$byterange_string;
 		$out .= ' /Contents<'.str_repeat('0', $this->signature_max_length).'>';
 		if (empty($this->signature_data['approval']) OR ($this->signature_data['approval'] != 'A')) {
 			$out .= ' /Reference ['; // array of signature reference dictionaries
@@ -13231,22 +13223,22 @@ class WaterWoo_TCPDF {
 				$out .= ' /TransformParams <<';
 				$out .= ' /Type /TransformParams';
 				$out .= ' /V /2.2';
-				if (!WaterWoo_TCPDF_STATIC::empty_string($this->ur['document'])) {
+				if (!LP_TCPDF_STATIC::empty_string($this->ur['document'])) {
 					$out .= ' /Document['.$this->ur['document'].']';
 				}
-				if (!WaterWoo_TCPDF_STATIC::empty_string($this->ur['form'])) {
+				if (!LP_TCPDF_STATIC::empty_string($this->ur['form'])) {
 					$out .= ' /Form['.$this->ur['form'].']';
 				}
-				if (!WaterWoo_TCPDF_STATIC::empty_string($this->ur['signature'])) {
+				if (!LP_TCPDF_STATIC::empty_string($this->ur['signature'])) {
 					$out .= ' /Signature['.$this->ur['signature'].']';
 				}
-				if (!WaterWoo_TCPDF_STATIC::empty_string($this->ur['annots'])) {
+				if (!LP_TCPDF_STATIC::empty_string($this->ur['annots'])) {
 					$out .= ' /Annots['.$this->ur['annots'].']';
 				}
-				if (!WaterWoo_TCPDF_STATIC::empty_string($this->ur['ef'])) {
+				if (!LP_TCPDF_STATIC::empty_string($this->ur['ef'])) {
 					$out .= ' /EF['.$this->ur['ef'].']';
 				}
-				if (!WaterWoo_TCPDF_STATIC::empty_string($this->ur['formex'])) {
+				if (!LP_TCPDF_STATIC::empty_string($this->ur['formex'])) {
 					$out .= ' /FormEX['.$this->ur['formex'].']';
 				}
 			}
@@ -13259,16 +13251,16 @@ class WaterWoo_TCPDF {
 			$out .= ' >>';
 			$out .= ' ]'; // end of reference
 		}
-		if (isset($this->signature_data['info']['Name']) AND !WaterWoo_TCPDF_STATIC::empty_string($this->signature_data['info']['Name'])) {
+		if (isset($this->signature_data['info']['Name']) AND !LP_TCPDF_STATIC::empty_string($this->signature_data['info']['Name'])) {
 			$out .= ' /Name '.$this->_textstring($this->signature_data['info']['Name'], $sigobjid);
 		}
-		if (isset($this->signature_data['info']['Location']) AND !WaterWoo_TCPDF_STATIC::empty_string($this->signature_data['info']['Location'])) {
+		if (isset($this->signature_data['info']['Location']) AND !LP_TCPDF_STATIC::empty_string($this->signature_data['info']['Location'])) {
 			$out .= ' /Location '.$this->_textstring($this->signature_data['info']['Location'], $sigobjid);
 		}
-		if (isset($this->signature_data['info']['Reason']) AND !WaterWoo_TCPDF_STATIC::empty_string($this->signature_data['info']['Reason'])) {
+		if (isset($this->signature_data['info']['Reason']) AND !LP_TCPDF_STATIC::empty_string($this->signature_data['info']['Reason'])) {
 			$out .= ' /Reason '.$this->_textstring($this->signature_data['info']['Reason'], $sigobjid);
 		}
-		if (isset($this->signature_data['info']['ContactInfo']) AND !WaterWoo_TCPDF_STATIC::empty_string($this->signature_data['info']['ContactInfo'])) {
+		if (isset($this->signature_data['info']['ContactInfo']) AND !LP_TCPDF_STATIC::empty_string($this->signature_data['info']['ContactInfo'])) {
 			$out .= ' /ContactInfo '.$this->_textstring($this->signature_data['info']['ContactInfo'], $sigobjid);
 		}
 		$out .= ' /M '.$this->_datestring($sigobjid, $this->doc_modification_timestamp);
@@ -13503,7 +13495,7 @@ class WaterWoo_TCPDF {
 	 */
 	public function getAliasRightShift() {
 		// calculate aproximatively the ratio between widths of aliases and replacements.
-		$ref = '{'.WaterWoo_TCPDF_STATIC::$alias_right_shift.'}{'.WaterWoo_TCPDF_STATIC::$alias_tot_pages.'}{'.WaterWoo_TCPDF_STATIC::$alias_num_page.'}';
+		$ref = '{'.LP_TCPDF_STATIC::$alias_right_shift.'}{'.LP_TCPDF_STATIC::$alias_tot_pages.'}{'.LP_TCPDF_STATIC::$alias_num_page.'}';
 		$rep = str_repeat(' ', $this->GetNumChars($ref));
 		$wrep = $this->GetStringWidth($rep);
 		if ($wrep > 0) {
@@ -13512,7 +13504,7 @@ class WaterWoo_TCPDF {
 			$wdiff = 1;
 		}
 		$sdiff = sprintf('%F', $wdiff);
-		$alias = WaterWoo_TCPDF_STATIC::$alias_right_shift.$sdiff.'}';
+		$alias = LP_TCPDF_STATIC::$alias_right_shift.$sdiff.'}';
 		if ($this->isUnicodeFont()) {
 			$alias = '{'.$alias;
 		}
@@ -13529,9 +13521,9 @@ class WaterWoo_TCPDF {
 	 */
 	public function getAliasNbPages() {
 		if ($this->isUnicodeFont()) {
-			return '{'.WaterWoo_TCPDF_STATIC::$alias_tot_pages.'}';
+			return '{'.LP_TCPDF_STATIC::$alias_tot_pages.'}';
 		}
-		return WaterWoo_TCPDF_STATIC::$alias_tot_pages;
+		return LP_TCPDF_STATIC::$alias_tot_pages;
 	}
 
 	/**
@@ -13544,9 +13536,9 @@ class WaterWoo_TCPDF {
 	 */
 	public function getAliasNumPage() {
 		if ($this->isUnicodeFont()) {
-			return '{'.WaterWoo_TCPDF_STATIC::$alias_num_page.'}';
+			return '{'.LP_TCPDF_STATIC::$alias_num_page.'}';
 		}
-		return WaterWoo_TCPDF_STATIC::$alias_num_page;
+		return LP_TCPDF_STATIC::$alias_num_page;
 	}
 
 	/**
@@ -13559,9 +13551,9 @@ class WaterWoo_TCPDF {
 	 */
 	public function getPageGroupAlias() {
 		if ($this->isUnicodeFont()) {
-			return '{'.WaterWoo_TCPDF_STATIC::$alias_group_tot_pages.'}';
+			return '{'.LP_TCPDF_STATIC::$alias_group_tot_pages.'}';
 		}
-		return WaterWoo_TCPDF_STATIC::$alias_group_tot_pages;
+		return LP_TCPDF_STATIC::$alias_group_tot_pages;
 	}
 
 	/**
@@ -13574,9 +13566,9 @@ class WaterWoo_TCPDF {
 	 */
 	public function getPageNumGroupAlias() {
 		if ($this->isUnicodeFont()) {
-			return '{'.WaterWoo_TCPDF_STATIC::$alias_group_num_page.'}';
+			return '{'.LP_TCPDF_STATIC::$alias_group_num_page.'}';
 		}
-		return WaterWoo_TCPDF_STATIC::$alias_group_num_page;
+		return LP_TCPDF_STATIC::$alias_group_num_page;
 	}
 
 	/**
@@ -13596,7 +13588,7 @@ class WaterWoo_TCPDF {
 	 * @see PaneNo(), formatPageNumber()
 	 */
 	public function getGroupPageNoFormatted() {
-		return WaterWoo_TCPDF_STATIC::formatPageNumber($this->getGroupPageNo());
+		return LP_TCPDF_STATIC::formatPageNumber($this->getGroupPageNo());
 	}
 
 	/**
@@ -13606,7 +13598,7 @@ class WaterWoo_TCPDF {
 	 * @see PaneNo(), formatPageNumber()
 	 */
 	public function PageNoFormatted() {
-		return WaterWoo_TCPDF_STATIC::formatPageNumber($this->PageNo());
+		return LP_TCPDF_STATIC::formatPageNumber($this->PageNo());
 	}
 
 	/**
@@ -13792,7 +13784,7 @@ class WaterWoo_TCPDF {
 			return;
 		}
 		$stroking = $stroking ? true : false;
-		if (WaterWoo_TCPDF_STATIC::empty_string($nonstroking)) {
+		if (LP_TCPDF_STATIC::empty_string($nonstroking)) {
 			// default value if not set
 			$nonstroking = $stroking;
 		} else {
@@ -13832,7 +13824,7 @@ class WaterWoo_TCPDF {
 			return;
 		}
 		$stroking = floatval($stroking);
-		if (WaterWoo_TCPDF_STATIC::empty_string($nonstroking)) {
+		if (LP_TCPDF_STATIC::empty_string($nonstroking)) {
 			// default value if not set
 			$nonstroking = $stroking;
 		} else {
@@ -14050,7 +14042,7 @@ class WaterWoo_TCPDF {
 				}
 				default: { // SPECIFIC SPOT COLOR NAME
 					$col_a = array(0,0,0,0,'None');
-					$col_b = WaterWoo_TCPDF_COLORS::getSpotColor($col, $this->spot_colors);
+					$col_b = TCPDF_COLORS::getSpotColor($col, $this->spot_colors);
 					if ($col_b === false) {
 						// in case of error defaults to the registration color
 						$col_b = array(100,100,100,100,'All');
@@ -14714,7 +14706,7 @@ class WaterWoo_TCPDF {
 		if ($this->rtl) {
 			$xc = ($this->w - $xc);
 		}
-		$op = WaterWoo_TCPDF_STATIC::getPathPaintOperator($style);
+		$op = LP_TCPDF_STATIC::getPathPaintOperator($style);
 		if ($op == 'f') {
 			$line_style = array();
 		}
@@ -14771,7 +14763,7 @@ class WaterWoo_TCPDF {
 		if ($file[0] === '@') { // image from string
 			$data = substr($file, 1);
 		} else { // EPS/AI file
-			$data = WaterWoo_TCPDF_STATIC::fileGetContents($file);
+			$data = LP_TCPDF_STATIC::fileGetContents($file);
 		}
 		if ($data === FALSE) {
 			$this->Error('EPS file not found: '.$file);
@@ -15115,14 +15107,14 @@ class WaterWoo_TCPDF {
 	 * @public
 	 */
 	public function write1DBarcode($code, $type, $x='', $y='', $w='', $h='', $xres='', $style=array(), $align='') {
-		if (WaterWoo_TCPDF_STATIC::empty_string(trim($code))) {
+		if (LP_TCPDF_STATIC::empty_string(trim($code))) {
 			return;
 		}
 		require_once(dirname(__FILE__).'/tcpdf_barcodes_1d.php');
 		// save current graphic settings
 		$gvars = $this->getGraphicVars();
 		// create new barcode object
-		$barcodeobj = new WaterWoo_TCPDFBarcode($code, $type);
+		$barcodeobj = new LP_TCPDFBarcode($code, $type);
 		$arrcode = $barcodeobj->getBarcodeArray();
 		if (($arrcode === false) OR empty($arrcode) OR ($arrcode['maxw'] <= 0)) {
 			$this->Error('Error in 1D barcode string');
@@ -15222,7 +15214,7 @@ class WaterWoo_TCPDF {
 		if ($style['stretch']) {
 			$xres = $max_xres;
 		} else {
-			if (WaterWoo_TCPDF_STATIC::empty_string($xres)) {
+			if (LP_TCPDF_STATIC::empty_string($xres)) {
 				$xres = (0.141 * $this->k); // default bar width = 0.4 mm
 			}
 			if ($xres > $max_xres) {
@@ -15359,7 +15351,7 @@ class WaterWoo_TCPDF {
 		}
 		// print text
 		if ($style['text']) {
-			if (isset($style['label']) AND !WaterWoo_TCPDF_STATIC::empty_string($style['label'])) {
+			if (isset($style['label']) AND !LP_TCPDF_STATIC::empty_string($style['label'])) {
 				$label = $style['label'];
 			} else {
 				$label = $code;
@@ -15434,14 +15426,14 @@ class WaterWoo_TCPDF {
 	 * @public
 	 */
 	public function write2DBarcode($code, $type, $x='', $y='', $w='', $h='', $style=array(), $align='', $distort=false) {
-		if (WaterWoo_TCPDF_STATIC::empty_string(trim($code))) {
+		if (LP_TCPDF_STATIC::empty_string(trim($code))) {
 			return;
 		}
 		require_once(dirname(__FILE__).'/tcpdf_barcodes_2d.php');
 		// save current graphic settings
 		$gvars = $this->getGraphicVars();
 		// create new barcode object
-		$barcodeobj = new WaterWoo_TCPDF2DBarcode($code, $type);
+		$barcodeobj = new TCPDF2DBarcode($code, $type);
 		$arrcode = $barcodeobj->getBarcodeArray();
 		if (($arrcode === false) OR empty($arrcode) OR !isset($arrcode['num_rows']) OR ($arrcode['num_rows'] == 0) OR !isset($arrcode['num_cols']) OR ($arrcode['num_cols'] == 0)) {
 			$this->Error('Error in 2D barcode string');
@@ -15750,7 +15742,7 @@ class WaterWoo_TCPDF {
 	 * @see setHtmlVSpace()
 	 */
 	public function fixHTMLCode($html, $default_css='', $tagvs='', $tidy_options='') {
-		return WaterWoo_TCPDF_STATIC::fixHTMLCode($html, $default_css, $tagvs, $tidy_options, $this->tagvspaces);
+		return LP_TCPDF_STATIC::fixHTMLCode($html, $default_css, $tagvs, $tidy_options, $this->tagvspaces);
 	}
 
 	/**
@@ -15855,7 +15847,7 @@ class WaterWoo_TCPDF {
 			return array();
 		}
 		$border['width'] = $this->getCSSBorderWidth($width);
-		$border['color'] = WaterWoo_TCPDF_COLORS::convertHTMLColorToDec($color, $this->spot_colors);
+		$border['color'] = TCPDF_COLORS::convertHTMLColorToDec($color, $this->spot_colors);
 		return $border;
 	}
 
@@ -16113,8 +16105,8 @@ class WaterWoo_TCPDF {
 	 * @public
 	 */
 	public function getHTMLFontUnits($val, $refsize=12, $parent_size=12, $defaultunit='pt') {
-		$refsize = WaterWoo_TCPDF_FONTS::getFontRefSize($refsize);
-		$parent_size = WaterWoo_TCPDF_FONTS::getFontRefSize($parent_size, $refsize);
+		$refsize = LP_TCPDF_FONTS::getFontRefSize($refsize);
+		$parent_size = LP_TCPDF_FONTS::getFontRefSize($parent_size, $refsize);
 		switch ($val) {
 			case 'xx-small': {
 				$size = ($refsize - 4);
@@ -16345,7 +16337,7 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 		$this->listordered = array();
 		$this->listcount = array();
 		$this->lispacer = '';
-		if ((WaterWoo_TCPDF_STATIC::empty_string($this->lasth)) OR ($reseth)) {
+		if ((LP_TCPDF_STATIC::empty_string($this->lasth)) OR ($reseth)) {
 			// reset row height
 			$this->resetLastH();
 		}
@@ -16434,7 +16426,7 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 			}
 			// print THEAD block
 			if (($dom[$key]['value'] == 'tr') AND isset($dom[$key]['thead']) AND $dom[$key]['thead']) {
-				if (isset($dom[$key]['parent']) AND isset($dom[$dom[$key]['parent']]['thead']) AND !WaterWoo_TCPDF_STATIC::empty_string($dom[$dom[$key]['parent']]['thead'])) {
+				if (isset($dom[$key]['parent']) AND isset($dom[$dom[$key]['parent']]['thead']) AND !LP_TCPDF_STATIC::empty_string($dom[$dom[$key]['parent']]['thead'])) {
 					$this->inthead = true;
 					// print table header (thead)
 					$this->writeHTML($this->thead, false, false, false, false, '');
@@ -16688,7 +16680,7 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 				if (isset($dom[$key]['align'])) {
 					$lalign = $dom[$key]['align'];
 				}
-				if (WaterWoo_TCPDF_STATIC::empty_string($lalign)) {
+				if (LP_TCPDF_STATIC::empty_string($lalign)) {
 					$lalign = $align;
 				}
 			}
@@ -16757,14 +16749,14 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 						$no = 0; // number of spaces on a line contained on a single block
 						if ($this->isRTLTextDir()) { // RTL
 							// remove left space if exist
-							$pos1 = WaterWoo_TCPDF_STATIC::revstrpos($pmid, '[(');
+							$pos1 = LP_TCPDF_STATIC::revstrpos($pmid, '[(');
 							if ($pos1 > 0) {
 								$pos1 = intval($pos1);
 								if ($this->isUnicodeFont()) {
-									$pos2 = intval(WaterWoo_TCPDF_STATIC::revstrpos($pmid, '[('.chr(0).chr(32)));
+									$pos2 = intval(LP_TCPDF_STATIC::revstrpos($pmid, '[('.chr(0).chr(32)));
 									$spacelen = 2;
 								} else {
-									$pos2 = intval(WaterWoo_TCPDF_STATIC::revstrpos($pmid, '[('.chr(32)));
+									$pos2 = intval(LP_TCPDF_STATIC::revstrpos($pmid, '[('.chr(32)));
 									$spacelen = 1;
 								}
 								if ($pos1 == $pos2) {
@@ -16778,14 +16770,14 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 							}
 						} else { // LTR
 							// remove right space if exist
-							$pos1 = WaterWoo_TCPDF_STATIC::revstrpos($pmid, ')]');
+							$pos1 = LP_TCPDF_STATIC::revstrpos($pmid, ')]');
 							if ($pos1 > 0) {
 								$pos1 = intval($pos1);
 								if ($this->isUnicodeFont()) {
-									$pos2 = intval(WaterWoo_TCPDF_STATIC::revstrpos($pmid, chr(0).chr(32).')]')) + 2;
+									$pos2 = intval(LP_TCPDF_STATIC::revstrpos($pmid, chr(0).chr(32).')]')) + 2;
 									$spacelen = 2;
 								} else {
-									$pos2 = intval(WaterWoo_TCPDF_STATIC::revstrpos($pmid, chr(32).')]')) + 1;
+									$pos2 = intval(LP_TCPDF_STATIC::revstrpos($pmid, chr(32).')]')) + 1;
 									$spacelen = 1;
 								}
 								if ($pos1 == $pos2) {
@@ -16926,7 +16918,7 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 										}
 										case 're': {
 											// justify block
-											if (!WaterWoo_TCPDF_STATIC::empty_string($this->lispacer)) {
+											if (!LP_TCPDF_STATIC::empty_string($this->lispacer)) {
 												$this->lispacer = '';
 												break;
 											}
@@ -17443,7 +17435,7 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 				}
 			} elseif (strlen($dom[$key]['value']) > 0) {
 				// print list-item
-				if (!WaterWoo_TCPDF_STATIC::empty_string($this->lispacer) AND ($this->lispacer != '^')) {
+				if (!LP_TCPDF_STATIC::empty_string($this->lispacer) AND ($this->lispacer != '^')) {
 					$this->SetFont($pfontname, $pfontstyle, $pfontsize);
 					$this->resetLastH();
 					$minstartliney = $this->y;
@@ -17463,7 +17455,7 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 				}
 				// text
 				$this->htmlvspace = 0;
-				$isRTLString = preg_match(WaterWoo_TCPDF_FONT_DATA::$uni_RE_PATTERN_RTL, $dom[$key]['value']) || preg_match(WaterWoo_TCPDF_FONT_DATA::$uni_RE_PATTERN_ARABIC, $dom[$key]['value']);
+				$isRTLString = preg_match(TCPDF_FONT_DATA::$uni_RE_PATTERN_RTL, $dom[$key]['value']) || preg_match(TCPDF_FONT_DATA::$uni_RE_PATTERN_ARABIC, $dom[$key]['value']);
 				if ((!$this->premode) AND $this->isRTLTextDir() AND !$isRTLString) {
 					// reverse spaces order
 					$lsp = ''; // left spaces
@@ -17543,7 +17535,7 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 									$tmp_fontsize = isset($dom[$nkey]['fontsize']) ? $dom[$nkey]['fontsize'] : $this->FontSizePt;
 									$same_textdir = ($dom[$nkey]['dir'] == $dom[$key]['dir']);
 								} else {
-									$nextstr = WaterWoo_TCPDF_STATIC::pregSplit('/'.$this->re_space['p'].'+/', $this->re_space['m'], $dom[$nkey]['value']);
+									$nextstr = LP_TCPDF_STATIC::pregSplit('/'.$this->re_space['p'].'+/', $this->re_space['m'], $dom[$nkey]['value']);
 									if (isset($nextstr[0]) AND $same_textdir) {
 										$wadj += $this->GetStringWidth($nextstr[0], $tmp_fontname, $tmp_fontstyle, $tmp_fontsize);
 										if (isset($nextstr[1])) {
@@ -17556,7 +17548,7 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 						}
 						if (($wadj > 0) AND (($strlinelen + $wadj) >= $cwa)) {
 							$wadj = 0;
-							$nextstr = WaterWoo_TCPDF_STATIC::pregSplit('/'.$this->re_space['p'].'/', $this->re_space['m'], $dom[$key]['value']);
+							$nextstr = LP_TCPDF_STATIC::pregSplit('/'.$this->re_space['p'].'/', $this->re_space['m'], $dom[$key]['value']);
 							$numblks = count($nextstr);
 							if ($numblks > 1) {
 								// try to split on blank spaces
@@ -17705,14 +17697,14 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 				$no = 0; // number of spaces on a line contained on a single block
 				if ($this->isRTLTextDir()) { // RTL
 					// remove left space if exist
-					$pos1 = WaterWoo_TCPDF_STATIC::revstrpos($pmid, '[(');
+					$pos1 = LP_TCPDF_STATIC::revstrpos($pmid, '[(');
 					if ($pos1 > 0) {
 						$pos1 = intval($pos1);
 						if ($this->isUnicodeFont()) {
-							$pos2 = intval(WaterWoo_TCPDF_STATIC::revstrpos($pmid, '[('.chr(0).chr(32)));
+							$pos2 = intval(LP_TCPDF_STATIC::revstrpos($pmid, '[('.chr(0).chr(32)));
 							$spacelen = 2;
 						} else {
-							$pos2 = intval(WaterWoo_TCPDF_STATIC::revstrpos($pmid, '[('.chr(32)));
+							$pos2 = intval(LP_TCPDF_STATIC::revstrpos($pmid, '[('.chr(32)));
 							$spacelen = 1;
 						}
 						if ($pos1 == $pos2) {
@@ -17726,14 +17718,14 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 					}
 				} else { // LTR
 					// remove right space if exist
-					$pos1 = WaterWoo_TCPDF_STATIC::revstrpos($pmid, ')]');
+					$pos1 = LP_TCPDF_STATIC::revstrpos($pmid, ')]');
 					if ($pos1 > 0) {
 						$pos1 = intval($pos1);
 						if ($this->isUnicodeFont()) {
-							$pos2 = intval(WaterWoo_TCPDF_STATIC::revstrpos($pmid, chr(0).chr(32).')]')) + 2;
+							$pos2 = intval(LP_TCPDF_STATIC::revstrpos($pmid, chr(0).chr(32).')]')) + 2;
 							$spacelen = 2;
 						} else {
-							$pos2 = intval(WaterWoo_TCPDF_STATIC::revstrpos($pmid, chr(32).')]')) + 1;
+							$pos2 = intval(LP_TCPDF_STATIC::revstrpos($pmid, chr(32).')]')) + 1;
 							$spacelen = 1;
 						}
 						if ($pos1 == $pos2) {
@@ -17892,7 +17884,7 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 				if (!isset($dom[$key]['attribute']['nested']) OR ($dom[$key]['attribute']['nested'] != 'true')) {
 					$this->htmlvspace = 0;
 					// set table header
-					if (!WaterWoo_TCPDF_STATIC::empty_string($dom[$key]['thead'])) {
+					if (!LP_TCPDF_STATIC::empty_string($dom[$key]['thead'])) {
 						// set table header
 						$this->thead = $dom[$key]['thead'];
 						if (!isset($this->theadMargins) OR (empty($this->theadMargins))) {
@@ -17994,7 +17986,7 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 						}
 					}
 					// get image type
-					$type = WaterWoo_TCPDF_IMAGES::getImageFileType($imgsrc);
+					$type = LP_TCPDF_IMAGES::getImageFileType($imgsrc);
 				}
 				if (!isset($tag['width'])) {
 					$tag['width'] = 0;
@@ -18028,7 +18020,7 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 				$prevy = $this->y;
 				$xpos = $this->x;
 				$imglink = '';
-				if (isset($this->HREF['url']) AND !WaterWoo_TCPDF_STATIC::empty_string($this->HREF['url'])) {
+				if (isset($this->HREF['url']) AND !LP_TCPDF_STATIC::empty_string($this->HREF['url'])) {
 					$imglink = $this->HREF['url'];
 					if ($imglink[0] == '#') {
 						// convert url to internal link
@@ -18143,11 +18135,11 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 				}
 				if ($this->listordered[$this->listnum]) {
 					// ordered item
-					if (isset($parent['attribute']['type']) AND !WaterWoo_TCPDF_STATIC::empty_string($parent['attribute']['type'])) {
+					if (isset($parent['attribute']['type']) AND !LP_TCPDF_STATIC::empty_string($parent['attribute']['type'])) {
 						$this->lispacer = $parent['attribute']['type'];
-					} elseif (isset($parent['listtype']) AND !WaterWoo_TCPDF_STATIC::empty_string($parent['listtype'])) {
+					} elseif (isset($parent['listtype']) AND !LP_TCPDF_STATIC::empty_string($parent['listtype'])) {
 						$this->lispacer = $parent['listtype'];
-					} elseif (isset($this->lisymbol) AND !WaterWoo_TCPDF_STATIC::empty_string($this->lisymbol)) {
+					} elseif (isset($this->lisymbol) AND !LP_TCPDF_STATIC::empty_string($this->lisymbol)) {
 						$this->lispacer = $this->lisymbol;
 					} else {
 						$this->lispacer = '#';
@@ -18158,11 +18150,11 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 					}
 				} else {
 					// unordered item
-					if (isset($parent['attribute']['type']) AND !WaterWoo_TCPDF_STATIC::empty_string($parent['attribute']['type'])) {
+					if (isset($parent['attribute']['type']) AND !LP_TCPDF_STATIC::empty_string($parent['attribute']['type'])) {
 						$this->lispacer = $parent['attribute']['type'];
-					} elseif (isset($parent['listtype']) AND !WaterWoo_TCPDF_STATIC::empty_string($parent['listtype'])) {
+					} elseif (isset($parent['listtype']) AND !LP_TCPDF_STATIC::empty_string($parent['listtype'])) {
 						$this->lispacer = $parent['listtype'];
-					} elseif (isset($this->lisymbol) AND !WaterWoo_TCPDF_STATIC::empty_string($this->lisymbol)) {
+					} elseif (isset($this->lisymbol) AND !LP_TCPDF_STATIC::empty_string($this->lisymbol)) {
 						$this->lispacer = $this->lisymbol;
 					} else {
 						$this->lispacer = '!';
@@ -18234,24 +18226,24 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 				break;
 			}
 			case 'input': {
-				if (isset($tag['attribute']['name']) AND !WaterWoo_TCPDF_STATIC::empty_string($tag['attribute']['name'])) {
+				if (isset($tag['attribute']['name']) AND !LP_TCPDF_STATIC::empty_string($tag['attribute']['name'])) {
 					$name = $tag['attribute']['name'];
 				} else {
 					break;
 				}
 				$prop = array();
 				$opt = array();
-				if (isset($tag['attribute']['readonly']) AND !WaterWoo_TCPDF_STATIC::empty_string($tag['attribute']['readonly'])) {
+				if (isset($tag['attribute']['readonly']) AND !LP_TCPDF_STATIC::empty_string($tag['attribute']['readonly'])) {
 					$prop['readonly'] = true;
 				}
-				if (isset($tag['attribute']['value']) AND !WaterWoo_TCPDF_STATIC::empty_string($tag['attribute']['value'])) {
+				if (isset($tag['attribute']['value']) AND !LP_TCPDF_STATIC::empty_string($tag['attribute']['value'])) {
 					$value = $tag['attribute']['value'];
 				}
-				if (isset($tag['attribute']['maxlength']) AND !WaterWoo_TCPDF_STATIC::empty_string($tag['attribute']['maxlength'])) {
+				if (isset($tag['attribute']['maxlength']) AND !LP_TCPDF_STATIC::empty_string($tag['attribute']['maxlength'])) {
 					$opt['maxlen'] = intval($tag['attribute']['maxlength']);
 				}
 				$h = $this->getCellHeight($this->FontSize);
-				if (isset($tag['attribute']['size']) AND !WaterWoo_TCPDF_STATIC::empty_string($tag['attribute']['size'])) {
+				if (isset($tag['attribute']['size']) AND !LP_TCPDF_STATIC::empty_string($tag['attribute']['size'])) {
 					$w = intval($tag['attribute']['size']) * $this->GetStringWidth(chr(32)) * 2;
 				} else {
 					$w = $h;
@@ -18359,7 +18351,7 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 					}
 					case 'image': {
 						// THIS TYPE MUST BE FIXED
-						if (isset($tag['attribute']['src']) AND !WaterWoo_TCPDF_STATIC::empty_string($tag['attribute']['src'])) {
+						if (isset($tag['attribute']['src']) AND !LP_TCPDF_STATIC::empty_string($tag['attribute']['src'])) {
 							$img = $tag['attribute']['src'];
 						} else {
 							break;
@@ -18395,23 +18387,23 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 			case 'textarea': {
 				$prop = array();
 				$opt = array();
-				if (isset($tag['attribute']['readonly']) AND !WaterWoo_TCPDF_STATIC::empty_string($tag['attribute']['readonly'])) {
+				if (isset($tag['attribute']['readonly']) AND !LP_TCPDF_STATIC::empty_string($tag['attribute']['readonly'])) {
 					$prop['readonly'] = true;
 				}
-				if (isset($tag['attribute']['name']) AND !WaterWoo_TCPDF_STATIC::empty_string($tag['attribute']['name'])) {
+				if (isset($tag['attribute']['name']) AND !LP_TCPDF_STATIC::empty_string($tag['attribute']['name'])) {
 					$name = $tag['attribute']['name'];
 				} else {
 					break;
 				}
-				if (isset($tag['attribute']['value']) AND !WaterWoo_TCPDF_STATIC::empty_string($tag['attribute']['value'])) {
+				if (isset($tag['attribute']['value']) AND !LP_TCPDF_STATIC::empty_string($tag['attribute']['value'])) {
 					$opt['v'] = $tag['attribute']['value'];
 				}
-				if (isset($tag['attribute']['cols']) AND !WaterWoo_TCPDF_STATIC::empty_string($tag['attribute']['cols'])) {
+				if (isset($tag['attribute']['cols']) AND !LP_TCPDF_STATIC::empty_string($tag['attribute']['cols'])) {
 					$w = intval($tag['attribute']['cols']) * $this->GetStringWidth(chr(32)) * 2;
 				} else {
 					$w = 40;
 				}
-				if (isset($tag['attribute']['rows']) AND !WaterWoo_TCPDF_STATIC::empty_string($tag['attribute']['rows'])) {
+				if (isset($tag['attribute']['rows']) AND !LP_TCPDF_STATIC::empty_string($tag['attribute']['rows'])) {
 					$h = intval($tag['attribute']['rows']) * $this->getCellHeight($this->FontSize);
 				} else {
 					$h = 10;
@@ -18422,18 +18414,18 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 			}
 			case 'select': {
 				$h = $this->getCellHeight($this->FontSize);
-				if (isset($tag['attribute']['size']) AND !WaterWoo_TCPDF_STATIC::empty_string($tag['attribute']['size'])) {
+				if (isset($tag['attribute']['size']) AND !LP_TCPDF_STATIC::empty_string($tag['attribute']['size'])) {
 					$h *= ($tag['attribute']['size'] + 1);
 				}
 				$prop = array();
 				$opt = array();
-				if (isset($tag['attribute']['name']) AND !WaterWoo_TCPDF_STATIC::empty_string($tag['attribute']['name'])) {
+				if (isset($tag['attribute']['name']) AND !LP_TCPDF_STATIC::empty_string($tag['attribute']['name'])) {
 					$name = $tag['attribute']['name'];
 				} else {
 					break;
 				}
 				$w = 0;
-				if (isset($tag['attribute']['opt']) AND !WaterWoo_TCPDF_STATIC::empty_string($tag['attribute']['opt'])) {
+				if (isset($tag['attribute']['opt']) AND !LP_TCPDF_STATIC::empty_string($tag['attribute']['opt'])) {
 					$options = explode('#!NwL!#', $tag['attribute']['opt']);
 					$values = array();
 					foreach ($options as $val) {
@@ -18459,7 +18451,7 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 				break;
 			}
 			case 'tcpdf': {
-				if (defined('WaterWoo_K_TCPDF_CALLS_IN_HTML') AND (WaterWoo_K_TCPDF_CALLS_IN_HTML === true)) {
+				if (defined('K_TCPDF_CALLS_IN_HTML') AND (K_TCPDF_CALLS_IN_HTML === true)) {
 					// Special tag used to call TCPDF methods
 					if (isset($tag['attribute']['method'])) {
 						$tcpdf_method = $tag['attribute']['method'];
@@ -18723,9 +18715,9 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 						$starty = $y;
 						$w = abs($cellpos['endx'] - $cellpos['startx']);
 						// get border modes
-						$border_start = WaterWoo_TCPDF_STATIC::getBorderMode($border, $position='start', $this->opencell);
-						$border_end = WaterWoo_TCPDF_STATIC::getBorderMode($border, $position='end', $this->opencell);
-						$border_middle = WaterWoo_TCPDF_STATIC::getBorderMode($border, $position='middle', $this->opencell);
+						$border_start = LP_TCPDF_STATIC::getBorderMode($border, $position='start', $this->opencell);
+						$border_end = LP_TCPDF_STATIC::getBorderMode($border, $position='end', $this->opencell);
+						$border_middle = LP_TCPDF_STATIC::getBorderMode($border, $position='middle', $this->opencell);
 						// design borders around HTML cells.
 						for ($page = $startpage; $page <= $endpage; ++$page) { // for each page
 							$ccode = '';
@@ -19114,9 +19106,9 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 		if (isset($tag['border']) AND !empty($tag['border'])) {
 			// get border style
 			$border = $tag['border'];
-			if (!WaterWoo_TCPDF_STATIC::empty_string($this->thead) AND (!$this->inthead)) {
+			if (!LP_TCPDF_STATIC::empty_string($this->thead) AND (!$this->inthead)) {
 				// border for table header
-				$border = WaterWoo_TCPDF_STATIC::getBorderMode($border, $position='middle', $this->opencell);
+				$border = LP_TCPDF_STATIC::getBorderMode($border, $position='middle', $this->opencell);
 			}
 		}
 		if (isset($tag['bgcolor']) AND ($tag['bgcolor'] !== false)) {
@@ -19170,9 +19162,9 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 			$this->num_columns = 1;
 		}
 		// get border modes
-		$border_start = WaterWoo_TCPDF_STATIC::getBorderMode($border, $position='start', $this->opencell);
-		$border_end = WaterWoo_TCPDF_STATIC::getBorderMode($border, $position='end', $this->opencell);
-		$border_middle = WaterWoo_TCPDF_STATIC::getBorderMode($border, $position='middle', $this->opencell);
+		$border_start = LP_TCPDF_STATIC::getBorderMode($border, $position='start', $this->opencell);
+		$border_end = LP_TCPDF_STATIC::getBorderMode($border, $position='end', $this->opencell);
+		$border_middle = LP_TCPDF_STATIC::getBorderMode($border, $position='middle', $this->opencell);
 		// temporary disable page regions
 		$temp_page_regions = $this->page_regions;
 		$this->page_regions = array();
@@ -19607,12 +19599,12 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 			}
 			case 'i':
 			case 'lower-roman': {
-				$textitem = strtolower(WaterWoo_TCPDF_STATIC::intToRoman($this->listcount[$this->listnum]));
+				$textitem = strtolower(LP_TCPDF_STATIC::intToRoman($this->listcount[$this->listnum]));
 				break;
 			}
 			case 'I':
 			case 'upper-roman': {
-				$textitem = WaterWoo_TCPDF_STATIC::intToRoman($this->listcount[$this->listnum]);
+				$textitem = LP_TCPDF_STATIC::intToRoman($this->listcount[$this->listnum]);
 				break;
 			}
 			case 'a':
@@ -19628,7 +19620,7 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 				break;
 			}
 			case 'lower-greek': {
-				$textitem = WaterWoo_TCPDF_FONTS::unichr((945 + $this->listcount[$this->listnum] - 1), $this->isunicode);
+				$textitem = LP_TCPDF_FONTS::unichr((945 + $this->listcount[$this->listnum] - 1), $this->isunicode);
 				break;
 			}
 			/*
@@ -19662,7 +19654,7 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 				$textitem = $this->listcount[$this->listnum];
 			}
 		}
-		if (!WaterWoo_TCPDF_STATIC::empty_string($textitem)) {
+		if (!LP_TCPDF_STATIC::empty_string($textitem)) {
 			// Check whether we need a new page or new column
 			$prev_y = $this->y;
 			$h = $this->getCellHeight($this->FontSize);
@@ -19813,7 +19805,7 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 			$this->num_columns = $gvars['num_columns'];
 		}
 		$this->_out(''.$this->linestyleWidth.' '.$this->linestyleCap.' '.$this->linestyleJoin.' '.$this->linestyleDash.' '.$this->DrawColor.' '.$this->FillColor.'');
-		if (!WaterWoo_TCPDF_STATIC::empty_string($this->FontFamily)) {
+		if (!LP_TCPDF_STATIC::empty_string($this->FontFamily)) {
 			$this->SetFont($this->FontFamily, $this->FontStyle, $this->FontSizePt);
 		}
 	}
@@ -20455,13 +20447,13 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 		$page_fill_start = false;
 		$page_fill_end = false;
 		$current_column = $this->current_column;
-		if (WaterWoo_TCPDF_STATIC::empty_string($numbersfont)) {
+		if (LP_TCPDF_STATIC::empty_string($numbersfont)) {
 			$numbersfont = $this->default_monospaced_font;
 		}
-		if (WaterWoo_TCPDF_STATIC::empty_string($filler)) {
+		if (LP_TCPDF_STATIC::empty_string($filler)) {
 			$filler = ' ';
 		}
-		if (WaterWoo_TCPDF_STATIC::empty_string($page)) {
+		if (LP_TCPDF_STATIC::empty_string($page)) {
 			$gap = ' ';
 		} else {
 			$gap = '';
@@ -20533,7 +20525,7 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 				$tw = $this->w - $this->rMargin - $this->x;
 			}
 			$this->SetFont($numbersfont, $fontstyle, $fontsize);
-			if (WaterWoo_TCPDF_STATIC::empty_string($page)) {
+			if (LP_TCPDF_STATIC::empty_string($page)) {
 				$pagenum = $outline['p'];
 			} else {
 				// placemark to be replaced with the correct number
@@ -20584,7 +20576,7 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 			}
 		}
 		$maxpage = max($maxpage, $page_last);
-		if (!WaterWoo_TCPDF_STATIC::empty_string($page)) {
+		if (!LP_TCPDF_STATIC::empty_string($page)) {
 			for ($p = $page_first; $p <= $page_last; ++$p) {
 				// get page data
 				$temppage = $this->getPageBuffer($p);
@@ -20599,15 +20591,15 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 					} else {
 						$np = $n;
 					}
-					$na = WaterWoo_TCPDF_STATIC::formatTOCPageNumber(($this->starting_page_number + $np - 1));
-					$nu = WaterWoo_TCPDF_FONTS::UTF8ToUTF16BE($na, false, $this->isunicode, $this->CurrentFont);
+					$na = LP_TCPDF_STATIC::formatTOCPageNumber(($this->starting_page_number + $np - 1));
+					$nu = LP_TCPDF_FONTS::UTF8ToUTF16BE($na, false, $this->isunicode, $this->CurrentFont);
 					// replace aliases with numbers
 					foreach ($pnalias['u'] as $u) {
 						$sfill = str_repeat($filler, max(0, (strlen($u) - strlen($nu.' '))));
 						if ($this->rtl) {
-							$nr = $nu.WaterWoo_TCPDF_FONTS::UTF8ToUTF16BE(' '.$sfill, false, $this->isunicode, $this->CurrentFont);
+							$nr = $nu.LP_TCPDF_FONTS::UTF8ToUTF16BE(' '.$sfill, false, $this->isunicode, $this->CurrentFont);
 						} else {
-							$nr = WaterWoo_TCPDF_FONTS::UTF8ToUTF16BE($sfill.' ', false, $this->isunicode, $this->CurrentFont).$nu;
+							$nr = LP_TCPDF_FONTS::UTF8ToUTF16BE($sfill.' ', false, $this->isunicode, $this->CurrentFont).$nu;
 						}
 						$temppage = str_replace($u, $nr, $temppage);
 					}
@@ -20677,7 +20669,7 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 		foreach ($this->outlines as $key => $outline) {
 			// get HTML template
 			$row = $templates[$outline['l']];
-			if (WaterWoo_TCPDF_STATIC::empty_string($page)) {
+			if (LP_TCPDF_STATIC::empty_string($page)) {
 				$pagenum = $outline['p'];
 			} else {
 				// placemark to be replaced with the correct number
@@ -20720,7 +20712,7 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 			}
 		}
 		$maxpage = max($maxpage, $page_last);
-		if (!WaterWoo_TCPDF_STATIC::empty_string($page)) {
+		if (!LP_TCPDF_STATIC::empty_string($page)) {
 			for ($p = $page_first; $p <= $page_last; ++$p) {
 				// get page data
 				$temppage = $this->getPageBuffer($p);
@@ -20735,16 +20727,16 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 					} else {
 						$np = $n;
 					}
-					$na = WaterWoo_TCPDF_STATIC::formatTOCPageNumber(($this->starting_page_number + $np - 1));
-					$nu = WaterWoo_TCPDF_FONTS::UTF8ToUTF16BE($na, false, $this->isunicode, $this->CurrentFont);
+					$na = LP_TCPDF_STATIC::formatTOCPageNumber(($this->starting_page_number + $np - 1));
+					$nu = LP_TCPDF_FONTS::UTF8ToUTF16BE($na, false, $this->isunicode, $this->CurrentFont);
 					// replace aliases with numbers
 					foreach ($pnalias['u'] as $u) {
 						if ($correct_align) {
 							$sfill = str_repeat($filler, (strlen($u) - strlen($nu.' ')));
 							if ($this->rtl) {
-								$nr = $nu.WaterWoo_TCPDF_FONTS::UTF8ToUTF16BE(' '.$sfill, false, $this->isunicode, $this->CurrentFont);
+								$nr = $nu.LP_TCPDF_FONTS::UTF8ToUTF16BE(' '.$sfill, false, $this->isunicode, $this->CurrentFont);
 							} else {
-								$nr = WaterWoo_TCPDF_FONTS::UTF8ToUTF16BE($sfill.' ', false, $this->isunicode, $this->CurrentFont).$nu;
+								$nr = LP_TCPDF_FONTS::UTF8ToUTF16BE($sfill.' ', false, $this->isunicode, $this->CurrentFont).$nu;
 							}
 						} else {
 							$nr = $nu;
@@ -20793,7 +20785,7 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 		$this->start_transaction_page = $this->page;
 		$this->start_transaction_y = $this->y;
 		// clone current object
-		$this->objcopy = WaterWoo_TCPDF_STATIC::objclone($this);
+		$this->objcopy = LP_TCPDF_STATIC::objclone($this);
 	}
 
 	/**
@@ -20850,7 +20842,7 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 			if (($width == 0) OR ($width > $maxwidth)) {
 				$width = $maxwidth;
 			}
-			if (WaterWoo_TCPDF_STATIC::empty_string($y)) {
+			if (LP_TCPDF_STATIC::empty_string($y)) {
 				$y = $this->y;
 			}
 			// space between columns
@@ -20946,7 +20938,7 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 		// fix for HTML mode
 		$this->newline = true;
 		// print HTML table header (if any)
-		if ((!WaterWoo_TCPDF_STATIC::empty_string($this->thead)) AND (!$this->inthead)) {
+		if ((!LP_TCPDF_STATIC::empty_string($this->thead)) AND (!$this->inthead)) {
 			if ($enable_thead) {
 				// print table header
 				$this->writeHTML($this->thead, false, false, false, false, '');
@@ -21120,7 +21112,7 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 		if ($numchars <= $charmin) {
 			return $word;
 		}
-		$word_string = WaterWoo_TCPDF_FONTS::UTF8ArrSubString($word, '', '', $this->isunicode);
+		$word_string = LP_TCPDF_FONTS::UTF8ArrSubString($word, '', '', $this->isunicode);
 		// some words will be returned as-is
 		$pattern = '/^([a-zA-Z0-9_\.\-]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/';
 		if (preg_match($pattern, $word_string) > 0) {
@@ -21133,7 +21125,7 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 			return $word;
 		}
 		if (isset($dictionary[$word_string])) {
-			return WaterWoo_TCPDF_FONTS::UTF8StringToArray($dictionary[$word_string], $this->isunicode, $this->CurrentFont);
+			return LP_TCPDF_FONTS::UTF8StringToArray($dictionary[$word_string], $this->isunicode, $this->CurrentFont);
 		}
 		// surround word with '_' characters
 		$tmpword = array_merge(array(46), $word, array(46));
@@ -21142,9 +21134,9 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 		for ($pos = 0; $pos < $maxpos; ++$pos) {
 			$imax = min(($tmpnumchars - $pos), $charmax);
 			for ($i = 1; $i <= $imax; ++$i) {
-				$subword = strtolower(WaterWoo_TCPDF_FONTS::UTF8ArrSubString($tmpword, $pos, ($pos + $i), $this->isunicode));
+				$subword = strtolower(LP_TCPDF_FONTS::UTF8ArrSubString($tmpword, $pos, ($pos + $i), $this->isunicode));
 				if (isset($patterns[$subword])) {
-					$pattern = WaterWoo_TCPDF_FONTS::UTF8StringToArray($patterns[$subword], $this->isunicode, $this->CurrentFont);
+					$pattern = LP_TCPDF_FONTS::UTF8StringToArray($patterns[$subword], $this->isunicode, $this->CurrentFont);
 					$pattern_length = count($pattern);
 					$digits = 1;
 					for ($j = 0; $j < $pattern_length; ++$j) {
@@ -21201,18 +21193,18 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 		$intag = false; // true if we are inside an HTML tag
 		$skip = false; // true to skip hyphenation
 		if (!is_array($patterns)) {
-			$patterns = WaterWoo_TCPDF_STATIC::getHyphenPatternsFromTEX($patterns);
+			$patterns = LP_TCPDF_STATIC::getHyphenPatternsFromTEX($patterns);
 		}
 		// get array of characters
-		$unichars = WaterWoo_TCPDF_FONTS::UTF8StringToArray($text, $this->isunicode, $this->CurrentFont);
+		$unichars = LP_TCPDF_FONTS::UTF8StringToArray($text, $this->isunicode, $this->CurrentFont);
 		// for each char
 		foreach ($unichars as $char) {
-			if ((!$intag) AND (!$skip) AND WaterWoo_TCPDF_FONT_DATA::$uni_type[$char] == 'L') {
+			if ((!$intag) AND (!$skip) AND TCPDF_FONT_DATA::$uni_type[$char] == 'L') {
 				// letter character
 				$word[] = $char;
 			} else {
 				// other type of character
-				if (!WaterWoo_TCPDF_STATIC::empty_string($word)) {
+				if (!LP_TCPDF_STATIC::empty_string($word)) {
 					// hypenate the word
 					$txtarr = array_merge($txtarr, $this->hyphenateWord($word, $patterns, $dictionary, $leftmin, $rightmin, $charmin, $charmax));
 					$word = array();
@@ -21244,12 +21236,12 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 				}
 			}
 		}
-		if (!WaterWoo_TCPDF_STATIC::empty_string($word)) {
+		if (!LP_TCPDF_STATIC::empty_string($word)) {
 			// hypenate the word
 			$txtarr = array_merge($txtarr, $this->hyphenateWord($word, $patterns, $dictionary, $leftmin, $rightmin, $charmin, $charmax));
 		}
 		// convert char array to string and return
-		return WaterWoo_TCPDF_FONTS::UTF8ArrSubString($txtarr, '', '', $this->isunicode);
+		return LP_TCPDF_FONTS::UTF8ArrSubString($txtarr, '', '', $this->isunicode);
 	}
 
 	/**
@@ -21576,10 +21568,10 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 		if (!empty($this->xobjects[$id]['annotations'])) {
 			foreach ($this->xobjects[$id]['annotations'] as $annot) {
 				// transform original coordinates
-				$coordlt = WaterWoo_TCPDF_STATIC::getTransformationMatrixProduct($tm, array(1, 0, 0, 1, ($annot['x'] * $this->k), (-$annot['y'] * $this->k)));
+				$coordlt = LP_TCPDF_STATIC::getTransformationMatrixProduct($tm, array(1, 0, 0, 1, ($annot['x'] * $this->k), (-$annot['y'] * $this->k)));
 				$ax = ($coordlt[4] / $this->k);
 				$ay = ($this->h - $h - ($coordlt[5] / $this->k));
-				$coordrb = WaterWoo_TCPDF_STATIC::getTransformationMatrixProduct($tm, array(1, 0, 0, 1, (($annot['x'] + $annot['w']) * $this->k), ((-$annot['y'] - $annot['h']) * $this->k)));
+				$coordrb = LP_TCPDF_STATIC::getTransformationMatrixProduct($tm, array(1, 0, 0, 1, (($annot['x'] + $annot['w']) * $this->k), ((-$annot['y'] - $annot['h']) * $this->k)));
 				$aw = ($coordrb[4] / $this->k) - $ax;
 				$ah = ($this->h - $h - ($coordrb[5] / $this->k)) - $ay;
 				$this->Annotation($ax, $ay, $aw, $ah, $annot['text'], $annot['opt'], $annot['spaces']);
@@ -21863,7 +21855,7 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 			$svgdata = substr($file, 1);
 		} else { // SVG file
 			$this->svgdir = dirname($file);
-			$svgdata = WaterWoo_TCPDF_STATIC::fileGetContents($file);
+			$svgdata = LP_TCPDF_STATIC::fileGetContents($file);
 		}
 		if ($svgdata === FALSE) {
 			$this->Error('SVG file not found: '.$file);
@@ -22221,10 +22213,10 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 			$this->setAlpha($svgstyle['opacity'], 'Normal', $svgstyle['opacity'], false);
 		}
 		// color
-		$fill_color = WaterWoo_TCPDF_COLORS::convertHTMLColorToDec($svgstyle['color'], $this->spot_colors);
+		$fill_color = TCPDF_COLORS::convertHTMLColorToDec($svgstyle['color'], $this->spot_colors);
 		$this->SetFillColorArray($fill_color);
 		// text color
-		$text_color = WaterWoo_TCPDF_COLORS::convertHTMLColorToDec($svgstyle['text-color'], $this->spot_colors);
+		$text_color = TCPDF_COLORS::convertHTMLColorToDec($svgstyle['text-color'], $this->spot_colors);
 		$this->SetTextColorArray($text_color);
 		// clip
 		if (preg_match('/rect\(([a-z0-9\-\.]*)[\s]*([a-z0-9\-\.]*)[\s]*([a-z0-9\-\.]*)[\s]*([a-z0-9\-\.]*)\)/si', $svgstyle['clip'], $regs)) {
@@ -22348,7 +22340,7 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 				$this->Gradient($gradient['type'], $gradient['coords'], $gradient['stops'], array(), false);
 			}
 		} elseif ($svgstyle['fill'] != 'none') {
-			$fill_color = WaterWoo_TCPDF_COLORS::convertHTMLColorToDec($svgstyle['fill'], $this->spot_colors);
+			$fill_color = TCPDF_COLORS::convertHTMLColorToDec($svgstyle['fill'], $this->spot_colors);
 			if ($svgstyle['fill-opacity'] != 1) {
 				$this->setAlpha($this->alpha['CA'], 'Normal', $svgstyle['fill-opacity'], false);
 			}
@@ -22367,7 +22359,7 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 				$this->setAlpha($rgba_matches[1], 'Normal', $this->alpha['ca'], false);
 			}
 			$stroke_style = array(
-				'color' => WaterWoo_TCPDF_COLORS::convertHTMLColorToDec($svgstyle['stroke'], $this->spot_colors),
+				'color' => TCPDF_COLORS::convertHTMLColorToDec($svgstyle['stroke'], $this->spot_colors),
 				'width' => $this->getHTMLUnitToUnits($svgstyle['stroke-width'], 0, $this->svgunit, false),
 				'cap' => $svgstyle['stroke-linecap'],
 				'join' => $svgstyle['stroke-linejoin']
@@ -22499,7 +22491,7 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 			 return;
 		}
 		// set fill/stroke style
-		$op = WaterWoo_TCPDF_STATIC::getPathPaintOperator($style, '');
+		$op = LP_TCPDF_STATIC::getPathPaintOperator($style, '');
 		if (empty($op)) {
 			return;
 		}
@@ -22794,8 +22786,8 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 								$cx = ($cax * $cos_ang) - ($cay * $sin_ang) + (($x0 + $x) / 2);
 								$cy = ($cax * $sin_ang) + ($cay * $cos_ang) + (($y0 + $y) / 2);
 								// get angles
-								$angs = WaterWoo_TCPDF_STATIC::getVectorsAngle(1, 0, (($xa - $cax) / $rx), (($cay - $ya) / $ry));
-								$dang = WaterWoo_TCPDF_STATIC::getVectorsAngle((($xa - $cax) / $rx), (($ya - $cay) / $ry), ((-$xa - $cax) / $rx), ((-$ya - $cay) / $ry));
+								$angs = LP_TCPDF_STATIC::getVectorsAngle(1, 0, (($xa - $cax) / $rx), (($cay - $ya) / $ry));
+								$dang = LP_TCPDF_STATIC::getVectorsAngle((($xa - $cax) / $rx), (($ya - $cay) / $ry), ((-$xa - $cax) / $rx), ((-$ya - $cay) / $ry));
 								if (($fs == 0) AND ($dang > 0)) {
 									$dang -= (2 * M_PI);
 								} elseif (($fs == 1) AND ($dang < 0)) {
@@ -22904,23 +22896,23 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 			// default fill attribute for clipping
 			$attribs['fill'] = 'none';
 		}
-		if (isset($attribs['style']) AND !WaterWoo_TCPDF_STATIC::empty_string($attribs['style']) AND ($attribs['style'][0] != ';')) {
+		if (isset($attribs['style']) AND !LP_TCPDF_STATIC::empty_string($attribs['style']) AND ($attribs['style'][0] != ';')) {
 			// fix style for regular expression
 			$attribs['style'] = ';'.$attribs['style'];
 		}
 		foreach ($prev_svgstyle as $key => $val) {
-			if (in_array($key, WaterWoo_TCPDF_IMAGES::$svginheritprop)) {
+			if (in_array($key, LP_TCPDF_IMAGES::$svginheritprop)) {
 				// inherit previous value
 				$svgstyle[$key] = $val;
 			}
-			if (isset($attribs[$key]) AND !WaterWoo_TCPDF_STATIC::empty_string($attribs[$key])) {
+			if (isset($attribs[$key]) AND !LP_TCPDF_STATIC::empty_string($attribs[$key])) {
 				// specific attribute settings
 				if ($attribs[$key] == 'inherit') {
 					$svgstyle[$key] = $val;
 				} else {
 					$svgstyle[$key] = $attribs[$key];
 				}
-			} elseif (isset($attribs['style']) AND !WaterWoo_TCPDF_STATIC::empty_string($attribs['style'])) {
+			} elseif (isset($attribs['style']) AND !LP_TCPDF_STATIC::empty_string($attribs['style'])) {
 				// CSS style syntax
 				$attrval = array();
 				if (preg_match('/[;\"\s]{1}'.$key.'[\s]*:[\s]*([^;\"]*)/si', $attribs['style'], $attrval) AND isset($attrval[1])) {
@@ -22939,7 +22931,7 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 			$tm = array(1,0,0,1,0,0);
 		}
 		if (isset($attribs['transform']) AND !empty($attribs['transform'])) {
-			$tm = WaterWoo_TCPDF_STATIC::getTransformationMatrixProduct($tm, WaterWoo_TCPDF_STATIC::getSVGTransformMatrix($attribs['transform']));
+			$tm = LP_TCPDF_STATIC::getTransformationMatrixProduct($tm, LP_TCPDF_STATIC::getSVGTransformMatrix($attribs['transform']));
 		}
 		$svgstyle['transfmatrix'] = $tm;
 		$invisible = false;
@@ -22980,7 +22972,7 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 				$svgW = (isset($attribs['width'])?$attribs['width']:0);
 				$svgH = (isset($attribs['height'])?$attribs['height']:0);
 				// set x, y position using transform matrix
-				$tm = WaterWoo_TCPDF_STATIC::getTransformationMatrixProduct($tm, array( 1, 0, 0, 1, $svgX, $svgY));
+				$tm = LP_TCPDF_STATIC::getTransformationMatrixProduct($tm, array( 1, 0, 0, 1, $svgX, $svgY));
 				$this->SVGTransform($tm);
 				// set clipping for width and height
 				$x = 0;
@@ -23038,7 +23030,7 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 							$hr = $wr;
 						}
 						$newtm = array($wr, 0, 0, $hr, (($wr * ($ax - $vx)) - $svgX), (($hr * ($ay - $vy)) - $svgY));
-						$tm = WaterWoo_TCPDF_STATIC::getTransformationMatrixProduct($tm, $newtm);
+						$tm = LP_TCPDF_STATIC::getTransformationMatrixProduct($tm, $newtm);
 						$this->SVGTransform($tm);
 					}
 				}
@@ -23053,7 +23045,7 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 				$y = (isset($attribs['y'])?$attribs['y']:0);
 				$w = 1;//(isset($attribs['width'])?$attribs['width']:1);
 				$h = 1;//(isset($attribs['height'])?$attribs['height']:1);
-				$tm = WaterWoo_TCPDF_STATIC::getTransformationMatrixProduct($tm, array($w, 0, 0, $h, $x, $y));
+				$tm = LP_TCPDF_STATIC::getTransformationMatrixProduct($tm, array($w, 0, 0, $h, $x, $y));
 				$this->SVGTransform($tm);
 				$this->setSVGStyles($svgstyle, $prev_svgstyle);
 				break;
@@ -23089,7 +23081,7 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 				$x2 = (isset($attribs['x2'])?$attribs['x2']:'100');
 				$y2 = (isset($attribs['y2'])?$attribs['y2']:'0');
 				if (isset($attribs['gradientTransform'])) {
-					$this->svggradients[$this->svggradientid]['gradientTransform'] = WaterWoo_TCPDF_STATIC::getSVGTransformMatrix($attribs['gradientTransform']);
+					$this->svggradients[$this->svggradientid]['gradientTransform'] = LP_TCPDF_STATIC::getSVGTransformMatrix($attribs['gradientTransform']);
 				}
 				$this->svggradients[$this->svggradientid]['coords'] = array($x1, $y1, $x2, $y2);
 				if (isset($attribs['xlink:href']) AND !empty($attribs['xlink:href'])) {
@@ -23130,7 +23122,7 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 				$fy = (isset($attribs['fy']) ? $attribs['fy'] : $cy);
 				$r = (isset($attribs['r']) ? $attribs['r'] : 0.5);
 				if (isset($attribs['gradientTransform'])) {
-					$this->svggradients[$this->svggradientid]['gradientTransform'] = WaterWoo_TCPDF_STATIC::getSVGTransformMatrix($attribs['gradientTransform']);
+					$this->svggradients[$this->svggradientid]['gradientTransform'] = LP_TCPDF_STATIC::getSVGTransformMatrix($attribs['gradientTransform']);
 				}
 				$this->svggradients[$this->svggradientid]['coords'] = array($cx, $cy, $fx, $fy, $r);
 				if (isset($attribs['xlink:href']) AND !empty($attribs['xlink:href'])) {
@@ -23150,7 +23142,7 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 						$offset /= 100;
 					}
 				}
-				$stop_color = isset($svgstyle['stop-color'])?WaterWoo_TCPDF_COLORS::convertHTMLColorToDec($svgstyle['stop-color'], $this->spot_colors):'black';
+				$stop_color = isset($svgstyle['stop-color'])?TCPDF_COLORS::convertHTMLColorToDec($svgstyle['stop-color'], $this->spot_colors):'black';
 				$opacity = isset($svgstyle['stop-opacity'])?$svgstyle['stop-opacity']:1;
 				$this->svggradients[$this->svggradientid]['stops'][] = array('offset' => $offset, 'color' => $stop_color, 'opacity' => $opacity);
 				break;
@@ -23167,7 +23159,7 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 						$y = (isset($attribs['y'])?$attribs['y']:0);
 						$w = (isset($attribs['width'])?$attribs['width']:1);
 						$h = (isset($attribs['height'])?$attribs['height']:1);
-						$tm = WaterWoo_TCPDF_STATIC::getTransformationMatrixProduct($tm, array($w, 0, 0, $h, $x, $y));
+						$tm = LP_TCPDF_STATIC::getTransformationMatrixProduct($tm, array($w, 0, 0, $h, $x, $y));
 						if ($clipping) {
 							$this->SVGTransform($tm);
 							$this->SVGPath($d, 'CNZ');
@@ -23360,7 +23352,7 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 						$img = '@'.base64_decode(substr($img, strlen($m[0])));
 					} else {
 						// fix image path
-						if (!WaterWoo_TCPDF_STATIC::empty_string($this->svgdir) AND (($img[0] == '.') OR (basename($img) == $img))) {
+						if (!LP_TCPDF_STATIC::empty_string($this->svgdir) AND (($img[0] == '.') OR (basename($img) == $img))) {
 							// replace relative path with full server path
 							$img = $this->svgdir.'/'.$img;
 						}
@@ -23385,7 +23377,7 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 						}
 					}
 					// get image type
-					$imgtype = WaterWoo_TCPDF_IMAGES::getImageFileType($img);
+					$imgtype = LP_TCPDF_IMAGES::getImageFileType($img);
 					if (($imgtype == 'eps') OR ($imgtype == 'ai')) {
 						$this->ImageEps($img, $x, $y, $w, $h);
 					} elseif ($imgtype == 'svg') {
@@ -23653,6 +23645,6 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 
 	// --- END SVG METHODS -----------------------------------------------------
 
-} // END OF WaterWoo_TCPDF CLASS
+} // END OF LP_TCPDF CLASS
 
 endif;

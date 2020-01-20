@@ -260,6 +260,12 @@ No, sorry. This plugin is just for PDF files.
 * Added Furat font, which also supports Arabic characters
 * Update lang files
 
+= 2.5 2020.1.20 = 
+* Improve autoloader, performance improvements
+* Added Deja Vu font, which has extensive international language character support
+* Added compatibility check - because folks really should be upgrading their servers before running e-commerce!
+* 'woocommerce_product_file_download_path' is a filter, not an action hook in classes/wwpdf-file-handler
+
 == Upgrade Notice ==
 
 = 1.0.2 =

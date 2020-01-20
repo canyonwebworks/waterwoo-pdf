@@ -48,9 +48,9 @@
  * @version 1.0.001
  * @author Nicola Asuni - info@tecnick.com
  */
-if ( ! class_exists( 'WaterWoo_TCPDF_FILTERS' ) ) :
+if ( ! class_exists( 'LP_TCPDF_FILTERS' ) ) :
 
-class WaterWoo_TCPDF_FILTERS {
+class LP_TCPDF_FILTERS {
 
 	/**
 	 * Define a list of available filter decoders.

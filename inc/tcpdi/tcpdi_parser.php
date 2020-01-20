@@ -50,7 +50,7 @@
 // include class for decoding filters
 require_once __DIR__ . '/../tcpdf/include/tcpdf_filters.php';
 
-if ( ! class_exists( 'waterwoo_tcpdi_parser' ) ) :
+if ( ! class_exists( 'lp_tcpdi_parser' ) ) :
 
     if (!defined ('PDF_TYPE_NULL'))
         define ('PDF_TYPE_NULL', 0);
@@ -88,7 +88,7 @@ if ( ! class_exists( 'waterwoo_tcpdi_parser' ) ) :
      * @author Paul Nicholls - github.com/pauln
      * @author Nicola Asuni - info@tecnick.com
      */
-    class waterwoo_tcpdi_parser {
+    class lp_tcpdi_parser {
         /**
          * Unique parser ID
          * @public
@@ -225,7 +225,7 @@ if ( ! class_exists( 'waterwoo_tcpdi_parser' ) ) :
             $pdflen = strlen($this->pdfdata);
             
             // initialize class for decoding filters
-            $this->FilterDecoders = new WaterWoo_TCPDF_FILTERS();
+            $this->FilterDecoders = new LP_TCPDF_FILTERS();
     
             // get xref and trailer data
             $this->xref = $this->getXrefData();
@@ -1409,7 +1409,6 @@ if ( ! class_exists( 'waterwoo_tcpdi_parser' ) ) :
                     $contents = array_merge($contents,$tmp_contents);
                 }
             }
-           
             return $contents;
         }
 

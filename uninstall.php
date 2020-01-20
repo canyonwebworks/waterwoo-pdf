@@ -41,9 +41,15 @@ class WWPDF_Uninstall {
 	 */
 	function uninstall() {
 
-		if ( get_option( 'wwpdf_delete_checkbox' ) !== 'yes' ) {
-			return;
-		}
+		if ( get_option( 'wwpdf_delete_checkbox' ) !== 'yes' ) return;
+
+        global $current_user;
+        $user_id = $current_user->ID;
+        
+        delete_user_meta( $user_id, 'wwpdf_ignore_notice' );
+        for( $i = 2; $i <= 14; $i++ ) {
+            delete_user_meta( $user_id, 'wwpdf_ignore_notice' . $i );
+        }		
 		
         foreach ( array(
             'wwpdf_enable',
@@ -56,6 +62,8 @@ class WWPDF_Uninstall {
         ) as $option) {
                 delete_option( $option );
         }
+
 	}
+	
 }		
 new WWPDF_Uninstall();

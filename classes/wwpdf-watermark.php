@@ -8,7 +8,7 @@ if ( ! class_exists( 'WWPDF_Watermark' ) ) :
 
 		public function __construct( $origfile, $newfile, $footer ) {
 
-            $this->pdf = new WaterWoo_TCPDI();
+            $this->pdf = new LP_TCPDI();
 			$this->file = $origfile;
 			$this->newfile = $newfile;
 			$this->footer = $footer; 
@@ -20,7 +20,7 @@ if ( ! class_exists( 'WWPDF_Watermark' ) ) :
             /* 
              * Include TCPDF & TCPDI
              */
-            require_once WWPDF_PATH . 'inc/tcpdf/tcpdf_child.php';
+            require_once WWPDF_PATH . 'inc/tcpdf/tcpdf.php';
             require_once WWPDF_PATH . 'inc/tcpdi/tcpdi.php';
             
 			$wm = new WWPDF_Watermark( $origfile, $newfile, $footer );

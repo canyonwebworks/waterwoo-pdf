@@ -1,6 +1,6 @@
 <?php
 //============================================================+
-// File name   : WaterWoo_TCPDF_STATIC.php
+// File name   : TCPDF_STATIC.php
 // Version     : 1.1.3
 // Begin       : 2002-08-03
 // Last Update : 2015-04-28
@@ -42,7 +42,7 @@
  */
 
 /**
- * @class WaterWoo_TCPDF_STATIC
+ * @class LP_TCPDF_STATIC
  * Static methods used by the TCPDF class.
  * @package com.tecnick.tcpdf
  * @brief PHP class for generating PDF documents without requiring external extensions.
@@ -50,9 +50,9 @@
  * @author Nicola Asuni - info@tecnick.com
  */
  
-if ( ! class_exists( 'WaterWoo_TCPDF_STATIC' ) ) :
+if ( ! class_exists( 'LP_TCPDF_STATIC' ) ) :
 
-class WaterWoo_TCPDF_STATIC {
+class LP_TCPDF_STATIC {
 
 	/**
 	 * Current TCPDF version.
@@ -297,7 +297,7 @@ class WaterWoo_TCPDF_STATIC {
 	 * @public static
 	 */
 	public static function getObjFilename($type='tmp', $file_id='') {
-		return tempnam(K_PATH_CACHE, '__tcpdf_'.$file_id.'_'.$type.'_'.md5(WaterWoo_TCPDF_STATIC::getRandomSeed()).'_');
+		return tempnam(K_PATH_CACHE, '__tcpdf_'.$file_id.'_'.$type.'_'.md5(LP_TCPDF_STATIC::getRandomSeed()).'_');
 	}
 
 	/**
@@ -826,7 +826,7 @@ class WaterWoo_TCPDF_STATIC {
 			if (is_array($prop['fillColor'])) {
 				$opt['mk']['bg'] = $prop['fillColor'];
 			} else {
-				$opt['mk']['bg'] = WaterWoo_TCPDF_COLORS::convertHTMLColorToDec($prop['fillColor'], $spot_colors);
+				$opt['mk']['bg'] = TCPDF_COLORS::convertHTMLColorToDec($prop['fillColor'], $spot_colors);
 			}
 		}
 		// strokeColor: Specifies the stroke color for a field that is used to stroke the rectangle of the field with a line as large as the line width.
@@ -834,7 +834,7 @@ class WaterWoo_TCPDF_STATIC {
 			if (is_array($prop['strokeColor'])) {
 				$opt['mk']['bc'] = $prop['strokeColor'];
 			} else {
-				$opt['mk']['bc'] = WaterWoo_TCPDF_COLORS::convertHTMLColorToDec($prop['strokeColor'], $spot_colors);
+				$opt['mk']['bc'] = TCPDF_COLORS::convertHTMLColorToDec($prop['strokeColor'], $spot_colors);
 			}
 		}
 		// rotation: The rotation of a widget in counterclockwise increments.
@@ -1538,7 +1538,7 @@ class WaterWoo_TCPDF_STATIC {
 		// create new language array of patterns
 		$patterns = array();
 		foreach($patterns_array as $val) {
-			if (!WaterWoo_TCPDF_STATIC::empty_string($val)) {
+			if (!LP_TCPDF_STATIC::empty_string($val)) {
 				$val = trim($val);
 				$val = str_replace('\'', '\\\'', $val);
 				$key = preg_replace('/[0-9]+/', '', $val);
@@ -2673,6 +2673,6 @@ class WaterWoo_TCPDF_STATIC {
 		return $page_mode;
 	}
 
-} // END OF WaterWoo_TCPDF_STATIC CLASS
+} // END OF LP_TCPDF_STATIC CLASS
 
 endif;

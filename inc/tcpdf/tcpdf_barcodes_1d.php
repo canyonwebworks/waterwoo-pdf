@@ -41,16 +41,16 @@
  */
 
 /**
- * @class WaterWoo_TCPDFBarcode
+ * @class TCPDFBarcode
  * PHP class to creates array representations for common 1D barcodes to be used with TCPDF (http://www.tcpdf.org).<br>
  * @package com.tecnick.tcpdf
  * @version 1.0.027
  * @author Nicola Asuni
  */
 
-if ( ! class_exists( 'WaterWoo_TCPDFBarcode' ) ) :
+if ( ! class_exists( 'LP_TCPDFBarcode' ) ) :
 
-class WaterWoo_TCPDFBarcode {
+class LP_TCPDFBarcode {
 
 	/**
 	 * Array representation of barcode.

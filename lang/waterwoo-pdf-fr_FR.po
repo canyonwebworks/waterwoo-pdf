@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WaterWoo PDF\n"
-"POT-Creation-Date: 2020-01-08 12:04-0800\n"
-"PO-Revision-Date: 2020-01-08 12:05-0800\n"
+"POT-Creation-Date: 2020-01-20 09:57-0800\n"
+"PO-Revision-Date: 2020-01-20 09:57-0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr_FR\n"
@@ -20,42 +20,92 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
-#: classes/class-wwpdf-file-handler.php:68
+#: classes/wwpdf-compatibility.php:78
+#, php-format
+msgid ""
+"<strong>WaterWoo PDF</strong> requires WooCommerce to work. You can download "
+"WooCommerce %s."
+msgstr ""
+"<strong>WaterWoo PDF</strong> nécessite WooCommerce pour travailler. Vous "
+"pouvez télécharger WooCommerce %s."
+
+#: classes/wwpdf-compatibility.php:78
+msgid "here"
+msgstr "ici"
+
+#: classes/wwpdf-compatibility.php:81
+msgid ""
+"The <strong>WC_Download_Handler</strong> WooCommerce class is missing! It is "
+"required for WaterWoo to work. Perhaps your WooCommerce installation is "
+"corrupted?"
+msgstr ""
+"La classe <strong>WC_Download_Handler</strong> WooCommerce est manquante! Il "
+"est nécessaire pour WaterWoo de travailler. Peut-être votre installation "
+"WooCommerce est corrompu?"
+
+#: classes/wwpdf-compatibility.php:84
+#, php-format
+msgid ""
+"<strong>WaterWoo PDF</strong> supports PHP %s or later. Please update PHP on "
+"your server for better results."
+msgstr ""
+"<strong>WaterWoo PDF</strong> prend en charge PHP %s ou plus tard. S'il vous "
+"plaît mettre à jour PHP sur votre serveur pour de meilleurs résultats."
+
+#: classes/wwpdf-compatibility.php:87
+#, php-format
+msgid ""
+"<strong>WaterWoo PDF</strong> supports WordPress version %s or later. Please "
+"update WordPress to use this plugin."
+msgstr ""
+"<strong>WaterWoo PDF</strong> prend en charge WordPress version %s ou plus "
+"tard. S'il vous plaît mettre à jour WordPress pour utiliser ce plugin."
+
+#: classes/wwpdf-compatibility.php:90
+#, php-format
+msgid ""
+"Sorry, <strong>WaterWoo PDF</strong> supports WooCommerce version %s or "
+"newer, for security reasons."
+msgstr ""
+"Désolé, <strong>WaterWoo PDF</strong> prend en charge WooCommerce version %s "
+"ou plus récent, pour des raisons de sécurité."
+
+#: classes/wwpdf-file-handler.php:62
 msgid ""
 "Unable to watermark this file for download. Please notify site administrator."
 msgstr ""
 "Impossible de filigrane ce fichier pour téléchargement. Veuillez en informer "
 "l'administrateur du site."
 
-#: waterwoo-pdf.php:200
+#: classes/wwpdf-settings.php:47
 msgid "FAQ"
 msgstr "FAQ"
 
-#: waterwoo-pdf.php:201
+#: classes/wwpdf-settings.php:48
 msgid "Support"
 msgstr "Assistance"
 
-#: waterwoo-pdf.php:216 waterwoo-pdf.php:307
+#: classes/wwpdf-settings.php:63 classes/wwpdf-settings.php:111
 msgid "Upgrade to Premium"
 msgstr "Passage au Prémium"
 
-#: waterwoo-pdf.php:218 waterwoo-pdf.php:232
+#: classes/wwpdf-settings.php:65
 msgid "Go to the settings page"
 msgstr "Aller à la page des paramètres"
 
-#: waterwoo-pdf.php:218 waterwoo-pdf.php:232
+#: classes/wwpdf-settings.php:65
 msgid "Settings"
 msgstr "Paramètres"
 
-#: waterwoo-pdf.php:293
+#: classes/wwpdf-settings.php:97
 msgid "About the Plugin"
 msgstr "Sur le Plugin"
 
-#: waterwoo-pdf.php:295
+#: classes/wwpdf-settings.php:99
 msgid "About WaterWoo PDF"
 msgstr "Sujet de WaterWoo PDF"
 
-#: waterwoo-pdf.php:296
+#: classes/wwpdf-settings.php:100
 msgid ""
 "Protect your intellectual property! WaterWoo PDF allows WooCommerce site "
 "administrators to apply custom watermarks to PDFs upon sale."
@@ -64,7 +114,7 @@ msgstr ""
 "administrateurs de sites WooCommerce d'appliquer des filigranes "
 "personnalisés au format PDF à la vente."
 
-#: waterwoo-pdf.php:297
+#: classes/wwpdf-settings.php:101
 msgid ""
 "WaterWoo PDF is a plugin that adds a watermark to every page of your PDF "
 "file(s). The watermark is customizable with font face, font color, font "
@@ -83,7 +133,7 @@ msgstr ""
 "particulières telles que prénom, nom et e-mail du client. Votre filigrane "
 "est hautement personnalisable et balayages."
 
-#: waterwoo-pdf.php:298
+#: classes/wwpdf-settings.php:102
 msgid ""
 "<a href=\"https://web.little-package.com/downloads/waterwoo-pdf-premium/\" "
 "target=\"_blank\" rel=\"noopener\">Consider upgrading to the Premium "
@@ -102,92 +152,79 @@ msgstr ""
 "en charge Unicode étendue pour de nombreux autres caractères en langue "
 "étrangère. Merci encore, et profitez-en!"
 
-#: waterwoo-pdf.php:304
+#: classes/wwpdf-settings.php:108
 msgid "For more information:"
 msgstr "Renseignements :"
 
-#: waterwoo-pdf.php:305
+#: classes/wwpdf-settings.php:109
 msgid "Frequently Asked Questions"
 msgstr "Foire aux questions"
 
-#: waterwoo-pdf.php:306
+#: classes/wwpdf-settings.php:110
 msgid "Project on WordPress.org"
 msgstr "Projet sur WordPress.org"
 
-#: waterwoo-pdf.php:321
-msgid "Upgrade to WaterWoo PDF Premium"
-msgstr "Passage au WaterWoo PDF Prémium"
-
-#: waterwoo-pdf.php:337
+#: classes/wwpdf-settings.php:124
 msgid "Watermark"
 msgstr "Filigrane"
 
-#: waterwoo-pdf.php:351
-msgid ""
-"Sorry, WaterWoo PDF requires you use WooCommerce version 2.4 or newer, "
-"mostly for security reasons."
-msgstr ""
-"Désolé, WaterWoo PDF exige que vous utilisez WooCommerce version 2.4 ou plus "
-"récente, surtout pour des raisons de sécurité."
-
-#: waterwoo-pdf.php:369
-#, php-format
-msgid ""
-"<p>If you like WaterWoo PDF, please consider <a href=\"%1$s\" target=\"_blank"
-"\" rel=\"noopener\">sending a donation</a> so I can continue improving it. "
-"No funds? Maybe <a href=\"%2$s\" target=\"_blank\" rel=\"noopener\">write a "
-"kind review</a>.</p><p class=\"alignright\"><a href=\"%3$s\" target=\"_blank"
-"\">Hide This Notice</a></p>"
-msgstr ""
-"<p>Si vous aimez WaterWoo PDF, s'il vous plaît envisager <a href=\"%1$s\" "
-"target=\"_blank\" rel=\"noopener\">d'envoyer un don</a> afin que je puisse "
-"continuer à l'améliorer. Pas de fonds ? Peut-être <a href=\"%2$s\" target="
-"\"_blank\" rel=\"noopener\">écrire un avis aimable</a>.</p><p class="
-"\"alignright\"><a href=\"%3$s\" target=\"_blank\">Masquer cet avis</a></p>"
-
-#: waterwoo-pdf.php:414
+#: classes/wwpdf-settings.php:139
 msgid "WaterWoo Options"
 msgstr "WaterWoo Options"
 
-#: waterwoo-pdf.php:415
-#, fuzzy
-#| msgid ""
-#| "Note: This free watermarking plugin is rudimentary. You need the <a href="
-#| "\"https://web.little-package.com/downloads/waterwoo-pdf-premium/\" target="
-#| "\"_blank\" rel=\"noopener\">Premium version of WaterWoo</a> if:"
-#| "<ol><li>Your watermark is not in English and/or contains extended Unicode "
-#| "characters (e.g. ě à é č ì ü Л Ж Ω ﺦ ﺉ ...)</li><li>You want extended "
-#| "shortcode function, opacity control, RTL, password protection, per-"
-#| "product and variable product watermarking, and much more.</li></ol>"
-msgid ""
-"Note: This free watermarking plugin is rudimentary. You need the <a href="
-"\"https://web.little-package.com/downloads/waterwoo-pdf-premium/\" target="
-"\"_blank\" rel=\"noopener\">Premium version of WaterWoo</a> if:<ol><li>You "
-"want extended shortcode function, opacity control, custom fonts & extended "
-"characters, RTL, password protection, per-product and variable product "
-"watermarking, and much more.</li></ol>"
+#: classes/wwpdf-settings.php:140
+msgid "<strong>Note:</strong> This free watermarking plugin is rudimentary."
 msgstr ""
-"Note: Ce plugin de filigrane gratuit est rudimentaire. Vous avez besoin de "
-"la <a href=\"https://web.little-package.com/downloads/waterwoo-pdf-premium/"
-"\" target=\"_blank\" rel=\"noopener\">version Premium de WaterWoo</a> si :"
-"<ol><li>Votre filigrane n'est pas en anglais et/ou contient des caractères "
-"Unicode étendus</li><li>Vous voulez une fonction de code court étendue, un "
-"contrôle de l'opacité, RTL, une protection par mot de passe, un filigrane "
-"par produit et un produit variable, et bien plus encore.</li></ol>"
+"<strong>Note:</strong> Ce plugin de filigrane gratuit est rudimentaire."
 
-#: waterwoo-pdf.php:421
+#: classes/wwpdf-settings.php:141
+msgid ""
+"<p><a href=\"https://web.little-package.com/downloads/waterwoo-pdf-premium/"
+"\" target=\"_blank\" rel=\"noopener\">Purchase the premium version of "
+"WaterWoo PDF</a> if you want: extended <strong>shortcodes</strong>, "
+"including order number, quantity sold and future dates;<br />"
+msgstr ""
+"<p><a href=\"https://web.little-package.com/downloads/waterwoo-pdf-premium/"
+"\" target=\"_blank\" rel=\"noopener\">Achetez la version premium de WaterWoo "
+"PDF</a> si vous voulez : <strong>les codes courts étendus,</strong>y compris "
+"le numéro de commande, la quantité vendue et les dates futures ;<br>"
+
+#: classes/wwpdf-settings.php:142
+msgid ""
+"<strong>opacity</strong> control; custom <strong>fonts</strong>, extended "
+"characters & RTL; <strong>barcodes</strong> and QR codes; <strong>password</"
+"strong> protection & permissions control;<br />"
+msgstr ""
+"contrôle <strong>de l'opacité;</strong> <strong>polices personnalisées, "
+"caractères étendus</strong>- RTL; <strong>codes à barres</strong> et codes "
+"QR; protection <strong>par mot de passe</strong> et contrôle des "
+"autorisations;<br>"
+
+#: classes/wwpdf-settings.php:143
+msgid ""
+"backend <strong>test watermarking</strong> of PDFs on-the-fly; <strong>per-"
+"product</strong> and variable product watermarking; <strong>Dropbox & S3</"
+"strong> support; compatibility with <strong>Free Downloads WooCommerce</"
+"strong>; AND MORE!</p>"
+msgstr ""
+"marquage à <strong>l'essai</strong> de backend des FDP à la volée; "
+"<strong>par produit</strong> et marque à filigrane variable; <strong>Soutien "
+"Dropbox et S3;</strong> compatibilité avec <strong>Free Downloads "
+"WooCommerce;</strong> ET PLUS ENCORE!<p>"
+
+#: classes/wwpdf-settings.php:149
 msgid "Enable Watermarking"
 msgstr "Activez le tatouage"
 
-#: waterwoo-pdf.php:422
+#: classes/wwpdf-settings.php:150
 msgid "Check to enable PDF watermarking"
 msgstr "Cocher pour activer le filigranage PDF"
 
-#: waterwoo-pdf.php:429
+#: classes/wwpdf-settings.php:157
 msgid "File(s) to watermark"
 msgstr "Fichier (s) à filigrane"
 
-#: waterwoo-pdf.php:430
+#: classes/wwpdf-settings.php:158
 msgid ""
 "List file name(s) of PDF(s) to watermark, one per line, e.g., <code>upload."
 "pdf</code> or <code>my_pdf.pdf</code> .<br />If left blank, WaterWoo PDF "
@@ -198,11 +235,11 @@ msgstr ""
 "vide, WaterWoo PDF sera filigrane tous les PDFs vendus par l'intermédiaire "
 "de WooCommerce."
 
-#: waterwoo-pdf.php:438
+#: classes/wwpdf-settings.php:166
 msgid "Custom text for footer watermark"
 msgstr "Texte personnalisé pour le filigrane de pied de page"
 
-#: waterwoo-pdf.php:439
+#: classes/wwpdf-settings.php:167
 msgid ""
 "Shortcodes available, all caps, in brackets: <code>[FIRSTNAME]</code> "
 "<code>[LASTNAME]</code> <code>[EMAIL]</code> <code>[PHONE]</code> "
@@ -212,15 +249,15 @@ msgstr ""
 "<code>[FIRSTNAME]</code> <code>[LASTNAME]</code> <code>[EMAIL]</code> "
 "<code>[PHONE]</code><code>[DATE]</code>"
 
-#: waterwoo-pdf.php:440
+#: classes/wwpdf-settings.php:168
 msgid "Licensed to [FIRSTNAME] [LASTNAME], [EMAIL]"
 msgstr "Licence à [FIRSTNAME] [LASTNAME], [EMAIL]"
 
-#: waterwoo-pdf.php:447
+#: classes/wwpdf-settings.php:175
 msgid "Font face"
 msgstr "Corps de la police"
 
-#: waterwoo-pdf.php:448
+#: classes/wwpdf-settings.php:176
 msgid ""
 "Select a font for watermarks. M Sung will have limited Chinese characters, "
 "and Furat will have limited Arabic characters"
@@ -228,31 +265,31 @@ msgstr ""
 "Sélectionnez une police pour les filigranes. M Sung aura des caractères "
 "chinois limités, et Furat aura des caractères arabes limités"
 
-#: waterwoo-pdf.php:466
+#: classes/wwpdf-settings.php:195
 msgid "Font size"
 msgstr "Taille de police"
 
-#: waterwoo-pdf.php:467
+#: classes/wwpdf-settings.php:196
 msgid "Provide a number (suggested 10-20) for the footer watermark font size"
 msgstr ""
 "Fournir un certain nombre (suggérée 10-20) pour la taille de police de "
 "filigrane de pied de page"
 
-#: waterwoo-pdf.php:481
+#: classes/wwpdf-settings.php:210
 msgid "Watermark color"
 msgstr "Filigrane couleur"
 
-#: waterwoo-pdf.php:482
+#: classes/wwpdf-settings.php:211
 msgid "Color of the footer watermark. Default is black: <code>#000000</code>."
 msgstr ""
 "Couleur du tatouage pied de page. Valeur par défaut est noir : "
 "<code>#000000</code> ."
 
-#: waterwoo-pdf.php:491
+#: classes/wwpdf-settings.php:220
 msgid "Y Fine Tuning"
 msgstr "accord précis"
 
-#: waterwoo-pdf.php:492
+#: classes/wwpdf-settings.php:221
 msgid ""
 "Move the footer watermark up and down on the page by adjusting this number. "
 "Default is 260 millimeters (bottom of letter-sized page)."
@@ -260,11 +297,11 @@ msgstr ""
 "Le filigrane de pied de page monter et descendre sur la page en ajustant ce "
 "nombre. Valeur par défaut est 260 millimètres (bas de page format lettre)."
 
-#: waterwoo-pdf.php:506
+#: classes/wwpdf-settings.php:235
 msgid "Leave No Trace?"
 msgstr "Ne laisser aucune trace?"
 
-#: waterwoo-pdf.php:507
+#: classes/wwpdf-settings.php:236
 msgid ""
 "If this box is checked if/when you uninstall WaterWoo, all your WaterWoo "
 "settings will be deleted from your Wordpress database."
@@ -272,13 +309,48 @@ msgstr ""
 "Si cette case est cochée si/lorsque vous désinstallez WaterWoo, tous vos "
 "paramètres WaterWoo seront supprimés de votre base de données Wordpress."
 
+#: classes/wwpdf-settings.php:244
+msgid "Thank you!"
+msgstr "Merci!"
+
+#: classes/wwpdf-settings.php:246
+msgid ""
+"I've been working very hard on this <em>helpful and free</em> plugin for you "
+"since October 2014."
+msgstr ""
+"J'ai travaillé très dur sur ce plugin <em>utile et gratuit</em> pour vous "
+"depuis Octobre 2014."
+
+#: classes/wwpdf-settings.php:247
+#, php-format
+msgid ""
+"Please show the love: <a href=\"%s\" target=\"_blank\" rel=\"noopener"
+"\">leave a review</a>, <a href=\"%s\" target=\"_blank\" rel=\"noopener"
+"\">make a small donation</a>, or <a href=\"https://web.little-package.com/"
+"downloads/waterwoo-pdf-premium/\" target=\"_blank\" rel=\"noopener\">upgrade "
+"to premium</a> if you benefit from my work."
+msgstr ""
+"S'il vous plaît montrer l'amour: <a href=\"%s\" target=\"_blank\" rel="
+"\"noopener\">laisser un avis</a>, faire un petit <a href=\"%s\" target="
+"\"_blank\" rel=\"noopener\">don</a>, ou mise à niveau vers la <a href="
+"\"https://web.little-package.com/downloads/waterwoo-pdf-premium/\" target="
+"\"_blank\" rel=\"noopener\">prime</a> si vous bénéficiez de mon travail."
+
+#: waterwoo-pdf.php:103
+msgid "Cloning is forbidden."
+msgstr "Le clonage est interdit."
+
+#: waterwoo-pdf.php:110
+msgid "Unserializing instances of this class is forbidden."
+msgstr "La désérialisation des instances de cette classe est interdite."
+
 #. Plugin Name of the plugin/theme
 msgid "WaterWoo PDF"
-msgstr "WaterWoo PDF"
+msgstr ""
 
 #. Plugin URI of the plugin/theme
 msgid "https://wordpress.org/plugins/waterwoo-pdf/"
-msgstr "https://wordpress.org/plugins/waterwoo-pdf/"
+msgstr ""
 
 #. Description of the plugin/theme
 msgid "Custom watermark your PDFs upon WooCommerce sale."
@@ -286,11 +358,29 @@ msgstr "Custom filigrane à vos documents PDF sur WooCommerce vente."
 
 #. Author of the plugin/theme
 msgid "Little Package"
-msgstr "Little Package"
+msgstr ""
 
 #. Author URI of the plugin/theme
 msgid "https://web.little-package.com"
-msgstr "https://web.little-package.com/"
+msgstr ""
+
+#~ msgid "Upgrade to WaterWoo PDF Premium"
+#~ msgstr "Passage au WaterWoo PDF Prémium"
+
+#, php-format
+#~ msgid ""
+#~ "<p>If you like WaterWoo PDF, please consider <a href=\"%1$s\" target="
+#~ "\"_blank\" rel=\"noopener\">sending a donation</a> so I can continue "
+#~ "improving it. No funds? Maybe <a href=\"%2$s\" target=\"_blank\" rel="
+#~ "\"noopener\">write a kind review</a>.</p><p class=\"alignright\"><a href="
+#~ "\"%3$s\" target=\"_blank\">Hide This Notice</a></p>"
+#~ msgstr ""
+#~ "<p>Si vous aimez WaterWoo PDF, s'il vous plaît envisager <a href=\"%1$s\" "
+#~ "target=\"_blank\" rel=\"noopener\">d'envoyer un don</a> afin que je "
+#~ "puisse continuer à l'améliorer. Pas de fonds ? Peut-être <a href=\"%2$s\" "
+#~ "target=\"_blank\" rel=\"noopener\">écrire un avis aimable</a>.</p><p "
+#~ "class=\"alignright\"><a href=\"%3$s\" target=\"_blank\">Masquer cet avis</"
+#~ "a></p>"
 
 #, fuzzy, php-format
 #~ msgid ""

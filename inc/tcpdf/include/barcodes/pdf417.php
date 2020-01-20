@@ -46,7 +46,7 @@
 /**
  * @file
  * Class to create PDF417 barcode arrays for TCPDF class.
- * WaterWoo_PDF417 (ISO/IEC 15438:2006) is a 2-dimensional stacked bar code created by Symbol Technologies in 1991.
+ * PDF417 (ISO/IEC 15438:2006) is a 2-dimensional stacked bar code created by Symbol Technologies in 1991.
  * (requires PHP bcmath extension)
  * @package com.tecnick.tcpdf
  * @author Nicola Asuni
@@ -54,12 +54,12 @@
  */
 
 // definitions
-if (!defined('WaterWoo_PDF417DEFS')) {
+if (!defined('PDF417DEFS')) {
 
 	/**
 	 * Indicate that definitions for this class are set
 	 */
-	define('WaterWoo_PDF417DEFS', true);
+	define('PDF417DEFS', true);
 
 	// -----------------------------------------------------
 
@@ -81,16 +81,16 @@ if (!defined('WaterWoo_PDF417DEFS')) {
 } // end of definitions
 
 /**
- * @class WaterWoo_PDF417
- * Class to create WaterWoo_PDF417 barcode arrays for TCPDF class.
- * WaterWoo_PDF417 (ISO/IEC 15438:2006) is a 2-dimensional stacked bar code created by Symbol Technologies in 1991.
+ * @class PDF417
+ * Class to create PDF417 barcode arrays for TCPDF class.
+ * PDF417 (ISO/IEC 15438:2006) is a 2-dimensional stacked bar code created by Symbol Technologies in 1991.
  * @package com.tecnick.tcpdf
  * @author Nicola Asuni
  * @version 1.0.003
  */
-if ( ! class_exists( 'WaterWoo_PDF417' ) ) :
+if ( ! class_exists( 'PDF417' ) ) :
 
-class WaterWoo_PDF417 {
+class PDF417 {
 
 	/**
 	 * Barcode array to be returned which is readable by TCPDF.
@@ -522,8 +522,8 @@ class WaterWoo_PDF417 {
 
 	/**
 	 * This is the class constructor.
-	 * Creates a WaterWoo_PDF417 object
-	 * @param $code (string) code to represent using WaterWoo_PDF417
+	 * Creates a PDF417 object
+	 * @param $code (string) code to represent using PDF417
 	 * @param $ecl (int) error correction level (0-8); default -1 = automatic correction level
 	 * @param $aspectratio (float) the width to height of the symbol (excluding quiet zones)
 	 * @param $macro (array) information for macro block
@@ -1006,6 +1006,6 @@ class WaterWoo_PDF417 {
 		return $cw;
 	}
 
-} // end WaterWoo_PDF417 class
+} // end PDF417 class
 
 endif;
