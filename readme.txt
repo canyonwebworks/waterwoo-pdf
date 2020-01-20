@@ -53,7 +53,7 @@ WaterWoo PDF is a plugin that adds a watermark to every page of your sold PDF fi
 == Installation ==
 
 = Prerequisites =
-1. WordPress 4.4 or newer
+1. WordPress 4.9 or newer
 2. WooCommerce plugin version 2.6 and newer, and PDF products
 3. PHP version 5.6 or newer
 4. If you are selling large files or have high sales traffic, you may need to upgrade your hosting account. Do at least set your PHP memory limit high.
@@ -73,9 +73,10 @@ WaterWoo PDF is a plugin that adds a watermark to every page of your sold PDF fi
 == Frequently Asked Questions ==
 
 = It doesn't seem to work =
-1. Have you checked the box at the top of your settings page (Woocommerce -> Settings -> Watermark) so that watermarking is enabled?
-2. Have you entered your PDF file names correctly in the second field if you've entered any at all?
-3. Is your Y fine-tuning adjustment off the page? Read more below under "Why does the watermark go off the page, create blank pages?".
+1. Is WooCommerce installed, and do you have a PDF product in your shop to watermark?
+2. Have you checked the box at the top of your settings page (Woocommerce -> Settings -> Watermark) so that watermarking is enabled?
+3. Have you entered your PDF file names correctly in the second field if you've entered any at all?
+4. Is your Y fine-tuning adjustment off the page? Read more below under "Why does the watermark go off the page, create blank pages?".
 
 Please do get in touch with your issues via the Wordpress.org support forum or email ( web @ little-package .com ) before leaving negative feedback about this free plugin.
 
@@ -94,6 +95,8 @@ Your watermark text string is too big or long for the page, and goes off it! Try
 
 = Where do the watermarked files go? =
 They are generated with a unique name and stored in the same folder as your original Wordpress/Woo product media upload (usually wp-content/uploads/year/month/file). The unique name includes the order number and a time stamp. If your end user complains of not being able to access their custom PDF for some reason (most often after their max number of downloads is exceeded), you can find it in that folder, right alongside your original.
+
+However, if you are using Woo FORCED downloads, the files are automatically deleted after being delivered. If you don't like that behavior, you can change it with the 'wwpdf_do_cleanup' filter hook (set it to FALSE).
 
 = Will WaterWoo PDF watermark images? =
 WaterWoo PDF is intended to watermark PDF (.pdf) files. If you are specifically looking to watermark image files (.jpg, .jpeg, .gif, .png, .etc), you may want to look into a plugin such as [Image Watermark](http://wordpress.org/plugins/image-watermark/ "Image Watermark Plugin").
