@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: watermark, pdf, ebook, copyright, property, marca de agua, publishing, security
 Requires at least: 4.9
 Tested up to: 5.3.2
-Stable tag: 2.5
+Stable tag: 2.5.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -39,7 +39,7 @@ WaterWoo PDF is a plugin that adds a watermark to every page of your sold PDF fi
 * Line-wrapping, forced breaks with &lt;p&gt; and &lt;br /&gt; tags
 * Additional font (Deja Vu) adding more international character support
 * Additional fonts Furat (supports Arabic) and M Sung (supports Chinese)
-* Hook to add your own fonts
+* AJAX font uploader - use your own font for stamping. Also, hooks to further customize font use
 * Additional dynamic customer data input (business name, order paid date), hooks for adding even more
 * Hook to add 1D and 2D barcodes (including QR codes)
 * Begin watermark on selected page of PDF document (to avoid watermarking a cover page, for example)
@@ -268,6 +268,10 @@ No, sorry. This plugin is just for PDF files.
 * Added Deja Vu font, which has extensive international language character support
 * Added compatibility check - because folks really should be upgrading their servers before running e-commerce!
 * 'woocommerce_product_file_download_path' is a filter, not an action hook in classes/wwpdf-file-handler
+
+= 2.5.1 2020.2.10 = 
+* Testing to WC 3.9.1
+* Rephrase test for PDF in classes/wwpdf-file-handler.php - don't allow non-PDFs through watermarker
 
 == Upgrade Notice ==
 

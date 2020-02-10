@@ -30,7 +30,7 @@ if ( ! class_exists( 'WWPDF_File_Handler' ) ) {
             if ( "no" == get_option( 'wwpdf_enable', 'no' ) ) return $file_path;
             // PDF - watermarking - start by checking if it's even a PDF
             $file_extension = preg_replace( '/\?.*/', '', substr( strrchr( $file_path, '.' ), 1 ) );
-            if ( ! strtolower( $file_extension ) == 'pdf' ) return $file_path;
+            if ( 'pdf' !== strtolower( $file_extension ) ) return $file_path;
             // order ID is post ID for backend (admin) watermarking
             $order_id = is_admin() ? $_GET['post'] : wc_get_order_id_by_order_key( wc_clean( wp_unslash( $_GET['order'] ) ) );
             $order_key = wc_clean( isset( $_GET['key'] ) );
