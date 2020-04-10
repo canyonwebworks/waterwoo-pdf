@@ -3,8 +3,8 @@ Contributors: littlepackage
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=PB2CFX8H4V49L
 Tags: watermark, pdf, ebook, copyright, property, marca de agua, publishing, security
 Requires at least: 4.9
-Tested up to: 5.3.2
-Stable tag: 2.5.1
+Tested up to: 5.4
+Stable tag: 2.6
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -92,6 +92,8 @@ I recommend creating a coupon in your Woocommerce shop to allow 100% free purcha
 
 = Why does the watermark go off the page, create blank pages? =
 Your watermark text string is too big or long for the page, and goes off it! Try decreasing font size or using the Y fine tuners to move the watermark back onto the page. Try lowering your "y-axis" value. This number corresponds to how many *millimeters* you want the watermark moved down the page. For example, if your PDF page is 11 inches tall, your Y-axis setting should be a deal less than 279.4mm in order for a watermark to show. The built-in adjustments on the settings page ultimately allow for watermarking on all document sizes. You may need to edit your watermark if it is too verbose.
+
+New in version 2.6 you can use a negative integer value for your Y-tuner and measure up from the bottom of the page. This is especially helpful if your PDF has variable sized pages.
 
 = Where do the watermarked files go? =
 They are generated with a unique name and stored in the same folder as your original Wordpress/Woo product media upload (usually wp-content/uploads/year/month/file). The unique name includes the order number and a time stamp. If your end user complains of not being able to access their custom PDF for some reason (most often after their max number of downloads is exceeded), you can find it in that folder, right alongside your original.
@@ -272,6 +274,12 @@ No, sorry. This plugin is just for PDF files.
 = 2.5.1 2020.2.10 = 
 * Testing to WC 3.9.1
 * Rephrase test for PDF in classes/wwpdf-file-handler.php - don't allow non-PDFs through watermarker
+
+= 2.6 2020.4.9 = 
+* Feature - allow for watermark placement measured from bottom of PDF page by using negative integer for Y-tuner
+* Testing to WC 4.0.1
+* Testing to WP 5.4
+* Update .pot file
 
 == Upgrade Notice ==
 

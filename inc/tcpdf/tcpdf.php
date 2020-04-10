@@ -7649,7 +7649,9 @@ class LP_TCPDF {
 		
         if (isset($this->imagekeys)) {
             foreach($this->imagekeys as $file) {
-                @unlink($file);
+                if (strpos($file, K_PATH_CACHE) === 0) {
+                    @unlink($file);
+                }
             }
         }		    
 			
@@ -12135,8 +12137,11 @@ class LP_TCPDF {
 		} elseif ($x > $this->w) {
 			$x = $this->w;
 		}
-		$fixed = false;
-        if (!empty($page) AND (substr($page, 0, 1) == '*')) {
+        $fixed = false;
+        // 2.5.2
+        // if (!empty($page) AND (substr($page, 0, 1) == '*')) {
+		$pageAsString = (string) $page;
+		if ($pageAsString && $pageAsString[0] == '*') {		
 			$page = intval(substr($page, 1));
 			// this page number will not be changed when moving/add/deleting pages
 			$fixed = true;
@@ -15433,7 +15438,7 @@ class LP_TCPDF {
 		// save current graphic settings
 		$gvars = $this->getGraphicVars();
 		// create new barcode object
-		$barcodeobj = new TCPDF2DBarcode($code, $type);
+		$barcodeobj = new LP_TCPDF2DBarcode($code, $type);
 		$arrcode = $barcodeobj->getBarcodeArray();
 		if (($arrcode === false) OR empty($arrcode) OR !isset($arrcode['num_rows']) OR ($arrcode['num_rows'] == 0) OR !isset($arrcode['num_cols']) OR ($arrcode['num_cols'] == 0)) {
 			$this->Error('Error in 2D barcode string');

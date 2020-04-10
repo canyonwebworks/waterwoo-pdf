@@ -99,7 +99,7 @@ if ( ! class_exists( 'WWPDF_Settings' ) ) :
 					'<h3>' . __( 'About WaterWoo PDF', 'waterwoo-pdf' ) . '</h3>' .
 					'<p>' . __( 'Protect your intellectual property! WaterWoo PDF allows WooCommerce site administrators to apply custom watermarks to PDFs upon sale.' ). '</p>' . 
 					'<p>' . __( 'WaterWoo PDF is a plugin that adds a watermark to every page of your PDF file(s). The watermark is customizable with font face, font color, font size, placement, and text. Not only that, but since the watermark is added when the download button is clicked (either on the customer\'s order confirmation page or email), the watermark can include customer-specifc data such as the customer\'s first name, last name, and email. Your watermark is highly customizable and manipulatable.', 'waterwoo-pdf' ) . '</p>' .
-	                '<p>' . __( '<a href="https://web.little-package.com/downloads/waterwoo-pdf-premium/" target="_blank" rel="noopener">Consider upgrading to the Premium version</a> if you need more functionality. The premium version adds the ability to start watermarking on a specified page, password protect and copy/print/modify protect your document, a watermark overlay, HTML input, and UTF-8 and extended Unicode support for many more foreign language characters. Thanks again, and enjoy!', 'waterwoo-pdf' ) . '</p>'
+	                '<p>' . sprintf( __( '<a href="%s" target="_blank" rel="noopener">Consider upgrading to the Premium version</a> if you need more functionality. The premium version adds the ability to start watermarking on a specified page, password protect and copy/print/modify protect your document, a watermark overlay, HTML input, and UTF-8 and extended Unicode support for many more foreign language characters. Thanks again, and enjoy!', 'waterwoo-pdf' ), 'https://web.little-package.com/downloads/waterwoo-pdf-premium/' ) . '</p>'
 
 				) );
 
@@ -157,7 +157,6 @@ if ( ! class_exists( 'WWPDF_Settings' ) ) :
                         'title' 	=> __( 'File(s) to watermark', 'waterwoo-pdf' ), 
                         'desc' 		=> __( 'List file name(s) of PDF(s) to watermark, one per line, e.g., <code>upload.pdf</code> or <code>my_pdf.pdf</code> .<br />If left blank, WaterWoo PDF will watermark all PDFs sold through WooCommerce.', 'waterwoo-pdf' ), 
                         'default' 	=>  '',
-                        'css' 		=> 'min-width:600px',
                     ),
 
                     array(
@@ -166,7 +165,6 @@ if ( ! class_exists( 'WWPDF_Settings' ) ) :
                         'title' 	=> __( 'Custom text for footer watermark', 'waterwoo-pdf' ),
                         'desc' 		=> __( 'Shortcodes available, all caps, in brackets: <code>[FIRSTNAME]</code> <code>[LASTNAME]</code> <code>[EMAIL]</code> <code>[PHONE]</code> <code>[DATE]</code>', 'waterwoo-pdf' ),
                         'default' 	=> __( 'Licensed to [FIRSTNAME] [LASTNAME], [EMAIL]', 'waterwoo-pdf' ),
-                        'css' 		=> 'min-width:600px',
                     ),
     
                     array(	
@@ -175,7 +173,6 @@ if ( ! class_exists( 'WWPDF_Settings' ) ) :
                         'title' 	=> __( 'Font face', 'waterwoo-pdf' ),
                         'desc' 	    => __( 'Select a font for watermarks. M Sung will have limited Chinese characters, and Furat will have limited Arabic characters', 'waterwoo-pdf' ),
                         'default'	=> 'helvetica',
-                        'css' 		=> 'min-width:300px',
                         'class'		=> 'chosen_select',
                         'options' => array(
                                 'helvetica'             => 'Helvetica',
@@ -195,7 +192,6 @@ if ( ! class_exists( 'WWPDF_Settings' ) ) :
                         'title' 	=> __( 'Font size', 'waterwoo-pdf' ),
                         'desc' 		=> __( 'Provide a number (suggested 10-20) for the footer watermark font size', 'waterwoo-pdf' ),
                         'default' 	=> '12',
-                        'css' 		=> 'width:60px;',
                         'custom_attributes' => array(
                                         'min'   => 1,
                                         'max'   => 200,
@@ -210,7 +206,6 @@ if ( ! class_exists( 'WWPDF_Settings' ) ) :
                         'title' 	=> __( 'Watermark color', 'waterwoo-pdf' ),
                         'desc' 		=> __( 'Color of the footer watermark. Default is black: <code>#000000</code>.', 'waterwoo-pdf' ),
                         'default'	=> '#000000',
-                        'css' 		=> 'width:6em;',
                         'desc_tip' 	=> true,
                     ),
 
@@ -220,10 +215,8 @@ if ( ! class_exists( 'WWPDF_Settings' ) ) :
                         'title' 	=> __( 'Y Fine Tuning', 'waterwoo-pdf' ),
                         'desc' 	    => __( 'Move the footer watermark up and down on the page by adjusting this number. Default is 260 millimeters (bottom of letter-sized page).', 'waterwoo-pdf' ),
                         'default' 	=> '260',
-                        'css' 		=> 'width:60px;',
                         'custom_attributes' => array(
-                                        'min' 	=> 0,
-                                        'max'   => 1000,
+                                        'max'   => 2000,
                                         'step' 	=> 1,
                                     ),
                         'desc_tip' 	=> true,

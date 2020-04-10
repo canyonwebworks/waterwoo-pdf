@@ -75,19 +75,19 @@ if ( ! class_exists( 'WWPDF_Compatibility' ) ) :
             foreach ( $error as $error ) {
                 switch ($error) {
                     case 1: // WC enabled
-                        $message = '<div class="error"><p>' . sprintf(__('<strong>WaterWoo PDF</strong> requires WooCommerce to work. You can download WooCommerce %s.', 'waterwoo-pdf-premium'), '<a href="https://wordpress.org/plugins/woocommerce/" rel="noopener">' . __('here', 'waterwoo-pdf-premium') . '</a>') . '</p></div>';
+                        $message = '<div class="error"><p>' . sprintf( __('<strong>WaterWoo PDF</strong> requires WooCommerce to work. You can <a href="%s" target="_blank" rel="noopener">download WooCommerce here</a>.', 'waterwoo-pdf' ), 'https://wordpress.org/plugins/woocommerce/' ) . '</p></div>';
                         break;
                     case 2: // Download Handler
-                        $message = '<div class="error"><p>' . __('The <strong>WC_Download_Handler</strong> WooCommerce class is missing! It is required for WaterWoo to work. Perhaps your WooCommerce installation is corrupted?', 'waterwoo-pdf-premium' ) . '</p></div>';
+                        $message = '<div class="error"><p>' . __('The <strong>WC_Download_Handler</strong> WooCommerce class is missing! It is required for WaterWoo PDF to work. Perhaps your WooCommerce installation is corrupted?', 'waterwoo-pdf' ) . '</p></div>';
                         break;
                     case 3: // PHP version
-                        $message = '<div class="error"><p>' . sprintf(__('<strong>WaterWoo PDF</strong> supports PHP %s or later. Please update PHP on your server for better results.', 'waterwoo-pdf-premium'), WWPDF_MIN_PHP) . '</p></div>';
+                        $message = '<div class="error"><p>' . sprintf( __('<strong>WaterWoo PDF</strong> supports PHP %s or later. Please update PHP on your server for better results.', 'waterwoo-pdf' ), WWPDF_MIN_PHP ) . '</p></div>';
                         break;
                     case 4: // WP version
-                        $message = '<div class="error"><p>' . sprintf(__('<strong>WaterWoo PDF</strong> supports WordPress version %s or later. Please update WordPress to use this plugin.', 'waterwoo-pdf-premium'), WWPDF_MIN_WP) . '</p></div>';
+                        $message = '<div class="error"><p>' . sprintf( __('<strong>WaterWoo PDF</strong> supports WordPress version %s or later. Please update WordPress to use this plugin.', 'waterwoo-pdf' ), WWPDF_MIN_WP) . '</p></div>';
                         break;
                     case 5: // WC version
-                        $message = '<div class="error"><p>' . sprintf(__('Sorry, <strong>WaterWoo PDF</strong> supports WooCommerce version %s or newer, for security reasons.', 'waterwoo-pdf-premium'), WWPDF_MIN_WC ) . '</p></div>';
+                        $message = '<div class="error"><p>' . sprintf( __('Sorry, <strong>WaterWoo PDF</strong> supports WooCommerce version %s or newer, for security reasons.', 'waterwoo-pdf' ), WWPDF_MIN_WC ) . '</p></div>';
                         break;
                 }
                 echo $message;

@@ -52,7 +52,10 @@ if ( ! class_exists( 'WWPDF_Watermark' ) ) :
 				$size       = $this->pdf->getTemplateSize( $idx );
                 $size_arr   = array( $size['w'], $size['h'] );
                 $orient     = ( $size['w'] > $size['h'] ) ? 'L' : 'P'; 
-
+                if ( $footer_y < 0 ) { // for measuring from bottom of page
+                    // upper-left corner Y coordinate
+                    $footer_y = $size['h'] - abs( $footer_y );                        
+                }
 				$this->pdf->addPage( $orient, '', $meta );
 				$this->pdf->setPageFormatFromTemplatePage( $i, $orient, $size_arr );
                 $this->pdf->useTemplate( $idx );
