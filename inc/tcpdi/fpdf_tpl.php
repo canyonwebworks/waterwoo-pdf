@@ -20,78 +20,90 @@ if ( ! class_exists( 'LP_FPDF_TPL' ) ) :
 
     class LP_FPDF_TPL extends LP_FPDF { // (there is a bridge of LP_FPDF to LP_TCPDF_Child)
         /**
-         * Array of Tpl-Data
+         * Array of template data
+         *
          * @var array
          */
-        var $tpls = array();
+        protected $tpls = array();
 
         /**
          * Current Template-ID
+         *
          * @var int
          */
-        var $tpl = 0;
+        public $tpl = 0;
     
         /**
          * "In Template"-Flag
+         *   
          * @var boolean
          */
-        var $_intpl = false;
+        protected $_intpl = false;
     
         /**
-         * Nameprefix of Templates used in Resources-Dictonary
-         * @var string A String defining the Prefix used as Template-Object-Names. Have to beginn with an /
+         * Name prefix of templates used in Resources dictionary
+         * @var string A String defining the Prefix used as Template-Object-Names. Have to begin with an /
          */
-        var $tplprefix = "/TPL";
+        public $tplprefix = "/TPL";
 
         /**
          * Resources used By Templates and Pages
+         *
          * @var array
          */
-        var $_res = array();
+        protected $_res = array();
     
         /**
          * Last used Template data
          *
          * @var array
          */
-        var $lastUsedTemplateData = array();
+        public $lastUsedTemplateData = array();
  
-        /**
-         * Use a Template in current Page or other Template
+         /**
+         * Use a template in current page or other template.
          *
          * You can use a template in a page or in another template.
-         * You can give the used template a new size like you use the Image()-method.
-         * All parameters are optional. The width or height is calculated automaticaly
+         * You can give the used template a new size.
+         * All parameters are optional. The width or height is calculated automatically
          * if one is given. If no parameter is given the origin size as defined in
-         * beginTemplate() is used.
+         * {@link beginTemplate()} method is used.
+         *
          * The calculated or used width and height are returned as an array.
          *
-         * @param int $tplidx A valid template-Id
-         * @param int $_x The x-position
-         * @param int $_y The y-position
-         * @param int $_w The new width of the template
-         * @param int $_h The new height of the template
-         * @retrun array The height and width of the template
+         * @param int $tplIdx A valid template-id
+         * @param int $x The x-position
+         * @param int $y The y-position
+         * @param int $w The new width of the template
+         * @param int $h The new height of the template
+         * @return array The height and width of the template (array('w' => ..., 'h' => ...))
+         * @throws LogicException|InvalidArgumentException
          */
-        function useTemplate($tplidx, $_x = null, $_y = null, $_w = 0, $_h = 0) {
-            if ($this->page <= 0)
+        public function useTemplate($tplidx, $_x = null, $_y = null, $_w = 0, $_h = 0) 
+        {
+            if ($this->page <= 0) {
                 $this->Error('You have to add a page first!');
-        
-            if (!isset($this->tpls[$tplidx]))
+            }
+            
+            if (!isset($this->tpls[$tplidx])) {
                 $this->Error('Template does not exist!');
+            }
             
             if ($this->_intpl) {
                 $this->_res['tpl'][$this->tpl]['tpls'][$tplidx] =& $this->tpls[$tplidx];
             }
         
-            $tpl =& $this->tpls[$tplidx];
+            $tpl = $this->tpls[$tplidx];
             $w = $tpl['w'];
             $h = $tpl['h'];
         
-            if ($_x == null)
+            if ($_x == null) {
                 $_x = 0;
-            if ($_y == null)
+            }
+            
+            if ($_y == null) {
                 $_y = 0;
+            }
             
             $_x += $tpl['x'];
             $_y += $tpl['y'];
@@ -100,7 +112,7 @@ if ( ! class_exists( 'LP_FPDF_TPL' ) ) :
             $_w = $wh['w'];
             $_h = $wh['h'];
     
-            $tData = array(
+            $tplData = array(
                 'x' => $this->x,
                 'y' => $this->y,
                 'w' => $_w,
@@ -112,10 +124,12 @@ if ( ! class_exists( 'LP_FPDF_TPL' ) ) :
                 'lty' => ($this->h - $_y - $_h) - ($this->h - $h) * ($_h / $h)
             );
         
-            $this->_out(sprintf('q %.4F 0 0 %.4F %.4F %.4F cm', $tData['scaleX'], $tData['scaleY'], $tData['tx'] * $this->k, $tData['ty'] * $this->k)); // Translate 
+            $this->_out(sprintf('q %.4F 0 0 %.4F %.4F %.4F cm', 
+                $tplData['scaleX'], $tplData['scaleY'], $tplData['tx'] * $this->k, $tplData['ty'] * $this->k)
+            ); // Translate 
             $this->_out(sprintf('%s%d Do Q', $this->tplprefix, $tplidx));
 
-            $this->lastUsedTemplateData = $tData;
+            $this->lastUsedTemplateData = $tplData;
         
             return array('w' => $_w, 'h' => $_h);
         }
@@ -128,14 +142,14 @@ if ( ! class_exists( 'LP_FPDF_TPL' ) ) :
          * @param int $tplidx A valid template-Id
          * @param int $_w The width of the template
          * @param int $_h The height of the template
-         * @return array The height and width of the template
+         * @return array The height and width of the template (array('w' => ..., 'h' => ...))
          */
-        function getTemplateSize($tplidx, $_w = 0, $_h = 0) {
-            if (!isset($this->tpls[$tplidx])) {          
+        public function getTemplateSize($tplidx, $_w = 0, $_h = 0) 
+        {
+            if (!isset($this->tpls[$tplidx]))         
                 return false;
-            }
 
-            $tpl =& $this->tpls[$tplidx];
+            $tpl = $this->tpls[$tplidx];
             $w = $tpl['w'];
             $h = $tpl['h'];
         
@@ -155,12 +169,12 @@ if ( ! class_exists( 'LP_FPDF_TPL' ) ) :
         /**
          * Private Method that writes the form xobjects
          */
-        function _putformxobjects() {
+        protected function _putformxobjects() 
+        {
             $filter=($this->compress) ? '/Filter /FlateDecode ' : '';
             reset($this->tpls);
+            
             foreach($this->tpls AS $tplidx => $tpl) {
-
-                $p=($this->compress) ? gzcompress($tpl['buffer']) : $tpl['buffer'];
                 $this->_newobj();
                 $this->tpls[$tplidx]['n'] = $this->n;
                 $this->_out('<<'.$filter.'/Type /XObject');
@@ -184,59 +198,80 @@ if ( ! class_exists( 'LP_FPDF_TPL' ) ) :
                 }
             
                 $this->_out('/Resources ');
-
                 $this->_out('<</ProcSet [/PDF /Text /ImageB /ImageC /ImageI]');
-                if (isset($this->_res['tpl'][$tplidx]['fonts']) && count($this->_res['tpl'][$tplidx]['fonts'])) {
-                    $this->_out('/Font <<');
-                    foreach($this->_res['tpl'][$tplidx]['fonts'] as $font)
-                        $this->_out('/F' . $font['i'] . ' ' . $font['n'] . ' 0 R');
-                    $this->_out('>>');
-                }
-                if(isset($this->_res['tpl'][$tplidx]['images']) && count($this->_res['tpl'][$tplidx]['images']) || 
-                   isset($this->_res['tpl'][$tplidx]['tpls']) && count($this->_res['tpl'][$tplidx]['tpls']))
-                {
-                    $this->_out('/XObject <<');
-                    if (isset($this->_res['tpl'][$tplidx]['images']) && count($this->_res['tpl'][$tplidx]['images'])) {
-                        foreach($this->_res['tpl'][$tplidx]['images'] as $image)
-                            $this->_out('/I' . $image['i'] . ' ' . $image['n'] . ' 0 R');
+                
+                if (isset($this->_res['tpl'][$tplIdx])) {
+                    $res = $this->_res['tpl'][$tplIdx];
+                    if (isset($res['fonts']) && count($res['fonts'])) {
+                        $this->_out('/Font <<');
+                        
+                        foreach($res['fonts'] as $font) {
+                            $this->_out('/F' . $font['i'] . ' ' . $font['n'] . ' 0 R');
+                        }
+                        
+                        $this->_out('>>');
                     }
-                    if (isset($this->_res['tpl'][$tplidx]['tpls']) && count($this->_res['tpl'][$tplidx]['tpls'])) {
-                        foreach($this->_res['tpl'][$tplidx]['tpls'] as $i => $tpl)
-                            $this->_out($this->tplprefix . $i . ' ' . $tpl['n'] . ' 0 R');
+                    
+                    if(isset($res['images']) || isset($res['tpls'])) {
+                        $this->_out('/XObject <<');
+                        
+                        if (isset($res['images'])) {
+                            foreach($res['images'] as $image)
+                                $this->_out('/I' . $image['i'] . ' ' . $image['n'] . ' 0 R');
+                        }
+                        
+                        if (isset($res['tpls'])) {
+                            foreach($res['tpls'] as $i => $tpl)
+                                $this->_out($this->tplprefix . $i . ' ' . $tpl['n'] . ' 0 R');
+                        }
+                        
+                        $this->_out('>>');
                     }
-                    $this->_out('>>');
                 }
+                
                 $this->_out('>>');
             
-                $this->_out('/Length ' . strlen($p) . ' >>');
-                $this->_putstream($p);
+                $buffer = ($this->compress) ? gzcompress($tpl['buffer']) : $tpl['buffer'];
+                $this->_out('/Length ' . strlen($buffer) . ' >>');
+                $this->_putstream($buffer);
                 $this->_out('endobj');
             }
         }
     
         /**
-         * Overwritten to add _putformxobjects() after _putimages()
+         * Output images.
          *
+         * Overwritten to add {@link _putformxobjects()} after _putimages().
          */
-        function _putimages() {
+        public function _putimages() 
+        {
             parent::_putimages();
             $this->_putformxobjects();
         }
     
-        function _putxobjectdict() {
+        /**
+         * Writes the references of XObject resources to the document.
+         *
+         * Overwritten to add the the templates to the XObject resource dictionary.
+         */
+        public function _putxobjectdict() 
+        {
             parent::_putxobjectdict();
         
-            if (count($this->tpls)) {
-                foreach($this->tpls as $tplidx => $tpl) {
-                    $this->_out(sprintf('%s%d %d 0 R', $this->tplprefix, $tplidx, $tpl['n']));
-                }
+            foreach($this->tpls as $tplidx => $tpl) {
+                $this->_out(sprintf('%s%d %d 0 R', $this->tplprefix, $tplidx, $tpl['n']));
             }
         }
 
         /**
-         * Private Method
+         * Writes bytes to the resulting document.
+         *
+         * Overwritten to delegate the data to the template buffer.
+         *
+         * @param string $s
          */
-        function _out($s) {
+        public function _out($s) 
+        {
             if ($this->state == 2 && $this->_intpl) {
                 $this->tpls[$this->tpl]['buffer'] .= $s . "\n";
             } else {

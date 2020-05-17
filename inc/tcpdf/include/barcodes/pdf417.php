@@ -80,6 +80,8 @@ if (!defined('PDF417DEFS')) {
 
 } // end of definitions
 
+// #*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#
+
 /**
  * @class PDF417
  * Class to create PDF417 barcode arrays for TCPDF class.
@@ -588,12 +590,7 @@ class PDF417 {
 		// set error correction level
 		$ecl = $this->getErrorCorrectionLevel($ecl, $numcw);
 		// number of codewords for error correction
-//		$errsize = (2 << $ecl);
-        try {
-			$errsize = ( 2 << $ecl );
-		} catch( ArithmeticError $e) {
-			$errsize = 0;
-		}
+        $errsize = (2 << $ecl);
 		// calculate number of columns (number of codewords per row) and rows
 		$nce = ($numcw + $errsize + 1);
 		$cols = round((sqrt(4761 + (68 * $aspectratio * ROWHEIGHT * $nce)) - 69) / 34);
@@ -763,12 +760,7 @@ class PDF417 {
 		$maxecl = 8; // starting error level
 		$maxerrsize = (928 - $numcw); // available codewords for error
 		while ($maxecl > 0) {
-//			$errsize = (2 << $ecl);
-			try {
-				$errsize = ( 2 << $ecl );
-			} catch( ArithmeticError $e ) {
-				$errsize = 0;
-			}
+            $errsize = (2 << $ecl);
 			if ($maxerrsize >= $errsize) {
 				break;
 			}
@@ -778,9 +770,7 @@ class PDF417 {
 			$ecl = $maxecl;
 		}
  		return $ecl;
-		
 	}
-	
 
 	/**
 	 * Returns the error correction codewords
@@ -793,12 +783,7 @@ class PDF417 {
 		// get error correction coefficients
 		$ecc = $this->rsfactors[$ecl];
 		// number of error correction factors
-//		$eclsize = (2 << $ecl);
-		try {
-			$eclsize = ( 2 << $ecl );
-		} catch( ArithmeticError $e ) {
-			$eclsize = 0;
-		}
+        $eclsize = (2 << $ecl);
 		// maximum index for $rsfactors[$ecl]
 		$eclmaxid = ($eclsize - 1);
 		// initialize array of error correction codewords
@@ -895,7 +880,7 @@ class PDF417 {
 				$txtarr = array(); // array of characters and sub-mode switching characters
 				$codelen = strlen($code);
 				for ($i = 0; $i < $codelen; ++$i) {
-					$chval = ord($code{$i});
+					$chval = ord($code[$i]);
 					if (($k = array_search($chval, $this->textsubmodes[$submode])) !== false) {
 						// we are on the same sub-mode
 						$txtarr[] = $k;
@@ -905,7 +890,7 @@ class PDF417 {
 							// search new sub-mode
 							if (($s != $submode) AND (($k = array_search($chval, $this->textsubmodes[$s])) !== false)) {
 								// $s is the new submode
-								if (((($i + 1) == $codelen) OR ((($i + 1) < $codelen) AND (array_search(ord($code{($i + 1)}), $this->textsubmodes[$submode]) !== false))) AND (($s == 3) OR (($s == 0) AND ($submode == 1)))) {
+								if (((($i + 1) == $codelen) OR ((($i + 1) < $codelen) AND (array_search(ord($code[($i + 1)]), $this->textsubmodes[$submode]) !== false))) AND (($s == 3) OR (($s == 0) AND ($submode == 1)))) {
 									// shift (temporary change only for this char)
 									if ($s == 3) {
 										// shift to puntuaction
@@ -969,7 +954,7 @@ class PDF417 {
 						$cw = array_merge($cw, $cw6);
 					} else {
 						for ($i = 0; $i < $sublen; ++$i) {
-							$cw[] = ord($code{$i});
+							$cw[] = ord($code[$i]);
 						}
 					}
 					$code = $rest;

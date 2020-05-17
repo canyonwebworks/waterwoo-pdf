@@ -467,7 +467,7 @@ class LP_TCPDFBarcode {
 				} else {
 					$t = false; // space
 				}
-				$w = $chr[$char]{$j};
+				$w = $chr[$char][$j];
 				$bararray['bcode'][$k] = array('t' => $t, 'w' => $w, 'h' => 1, 'p' => 0);
 				$bararray['maxw'] += $w;
 				++$k;
@@ -1496,7 +1496,7 @@ class LP_TCPDFBarcode {
 		$w = 0;
 		for ($i = 0; $i < $clen; ++$i) {
 			$w += 1;
-            if (($i == ($clen - 1)) OR (($i < ($clen - 1)) AND ($seq[$i] != $seq[($i+1)]))) {
+            if (($i == ($clen - 1)) OR (($i < ($clen - 1)) AND ($seq[$i] != $seq[$i+1]))) {
 				if ($seq[$i] == '1') {
 					$t = true; // bar
 				} else {
@@ -2019,7 +2019,7 @@ class LP_TCPDFBarcode {
 		$bararray = array('code' => $code, 'maxw' => 0, 'maxh' => 2, 'bcode' => array());
 		$len = strlen($seq);
 		for ($i = 0; $i < $len; ++$i) {
-			switch ($seq{$i}) {
+			switch ($seq[$i]) {
 				case '1': {
 					$p = 1;
 					$h = 1;

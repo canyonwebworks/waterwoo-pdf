@@ -69,6 +69,9 @@
  */
 //define ('K_PATH_CACHE', '/tmp/');
 
+if (!defined('K_TCPDF_THROW_EXCEPTION_ERROR')) {
+    define ('K_TCPDF_THROW_EXCEPTION_ERROR', TRUE );
+}
 /**
  * Page format.
  */

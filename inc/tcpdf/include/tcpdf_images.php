@@ -163,14 +163,6 @@ class LP_TCPDF_IMAGES {
 	 */
 	public static function _parsejpeg($file) {
 		// check if is a local file
-		/*if (!@file_exists($file)) {
-			// try to encode spaces on filename
-			$tfile = str_replace(' ', '%20', $file);
-			if (@file_exists($tfile)) {
-				$file = $tfile;
-			}
-		} */
-		// above removed 2.7, following if{} added
 		if (!@LP_TCPDF_STATIC::file_exists($file)) {
 			return false;
 		}
@@ -321,8 +313,6 @@ class LP_TCPDF_IMAGES {
 					if ($n > 0) {
 						$trns = array();
 						for ($i = 0; $i < $n; ++ $i) {
-							// $trns[] = ord($t{$i});
-							// https://github.com/tecnickcom/TCPDF/commit/b0948269a689c5ab08c5b6e00066bf9c9e6a9838
 							$trns[] = ord($t[$i]);
 						}
 					}

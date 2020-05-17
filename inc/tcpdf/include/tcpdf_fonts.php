@@ -669,7 +669,6 @@ class LP_TCPDF_FONTS {
 								$offset += 2;
 							}
                             for ($k = 0; $k < $segCount - 1; ++$k) {
-//							for ($k = 0; $k < $segCount; ++$k) { //2.7
 								for ($c = $startCount[$k]; $c <= $endCount[$k]; ++$c) {
 									if ($idRangeOffset[$k] == 0) {
 										$g = ($idDelta[$k] + $c) % 65536;
@@ -1533,6 +1532,8 @@ class LP_TCPDF_FONTS {
 		return defined('K_PATH_FONTS') ? K_PATH_FONTS : '';
 	}
 
+
+
 	/**
 	 * Return font full path
 	 * @param $file (string) Font file name.
@@ -1545,13 +1546,10 @@ class LP_TCPDF_FONTS {
 	public static function getFontFullPath($file, $fontdir=false) {
 		$fontfile = '';
 		// search files on various directories
-//		if (($fontdir !== false) AND @file_exists($fontdir.$file)) { 2.7
 		if (($fontdir !== false) AND @LP_TCPDF_STATIC::file_exists($fontdir.$file)) {
     		$fontfile = $fontdir.$file;
-//		} elseif (@file_exists(self::_getfontpath().$file)) { 2.7
 		} elseif (@LP_TCPDF_STATIC::file_exists(self::_getfontpath().$file)) {
 			$fontfile = self::_getfontpath().$file;
-//		} elseif (@file_exists($file)) { 2.7
 		} elseif (@LP_TCPDF_STATIC::file_exists($file)) {
 			$fontfile = $file;
 		}
@@ -2001,7 +1999,6 @@ class LP_TCPDF_FONTS {
 	 * @public static
 	 */
 	public static function UTF8StringToArray($str, $isunicode=true, &$currentfont) {
-	
 		if ($isunicode) {
 			// requires PCRE unicode support turned on
             if ( version_compare( PHP_VERSION, '7.3.4', '<' ) ) {
@@ -2019,16 +2016,10 @@ class LP_TCPDF_FONTS {
 			}			
 			$carr = array_map(array( 'LP_TCPDF_FONTS', 'uniord' ), $chars ); // Converts UTF-8 character to integer value
 		} else {
-			$chars = str_split($str); // Converts a string to an array
-			$carr = array_map('ord', $chars); // Interprets the binary value of the first byte of string as an unsigned integer between 0 and 255
+			$chars = str_split($str);
+			$carr = array_map('ord', $chars);
 		}
-		
-		// added 2.9.2
-        if ( ! isset( $currentfont['subsetchars'] ) && ! is_array($carr) ) return $carr;
-
-        // https://github.com/tecnickcom/TCPDF/commit/a38e94f98f5620d9e40b9e081e210770e75e3a7d
-		// following if/else added WWPDF v2.7
-        if (is_array($currentfont['subsetchars']) && is_array($carr)) {
+        if ( is_array($currentfont['subsetchars']) && is_array($carr)) {
 			$currentfont['subsetchars'] += array_fill_keys($carr, true);
 		} else {
 			$currentfont['subsetchars'] = array_merge($currentfont['subsetchars'], $carr);

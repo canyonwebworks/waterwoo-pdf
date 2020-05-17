@@ -1,9 +1,9 @@
 <?php
 //============================================================+
 // File name   : TCPDF_STATIC.php
-// Version     : 1.1.3
+// Version     : 1.1.4
 // Begin       : 2002-08-03
-// Last Update : 2015-04-28
+// Last Update : 2019-11-01
 // Author      : Nicola Asuni - Tecnick.com LTD - www.tecnick.com - info@tecnick.com
 // License     : GNU-LGPL v3 (http://www.gnu.org/copyleft/lesser.html)
 // -------------------------------------------------------------------
@@ -58,8 +58,7 @@ class LP_TCPDF_STATIC {
 	 * Current TCPDF version.
 	 * @private static
 	 */
-    private static $tcpdf_version = '6.2.26';
-
+    private static $tcpdf_version = '6.3.5';
 
 	/**
 	 * String alias for total number of pages.
@@ -1866,7 +1865,6 @@ class LP_TCPDF_STATIC {
 	 */
 	public static function url_exists($url) {
 		$crs = curl_init();
-        // https://github.com/tecnickcom/TCPDF/pull/148/commits/a428c95eaf73f2f04f9214235fc9cd16d540c4ae
 	    // encode query params in URL to get right response form the server
 		$url = self::encodeUrlQuery($url);		
 		curl_setopt($crs, CURLOPT_URL, $url);
@@ -1894,10 +1892,10 @@ class LP_TCPDF_STATIC {
 	 * @since 6.3.3 (2019-11-01)
 	 * @public static
 	 */
-	public function encodeUrlQuery($url) {
+	public static function encodeUrlQuery($url) {
 		$urlData = parse_url($url);
 		if (isset($urlData['query']) && $urlData['query']) {
-			$urlQueryData = [];
+			$urlQueryData = array();
 			parse_str(urldecode($urlData['query']), $urlQueryData);
 			$updatedUrl = $urlData['scheme'] . '://' . $urlData['host'] . $urlData['path'] . '?' . http_build_query($urlQueryData);
 		} else {
@@ -1980,19 +1978,16 @@ class LP_TCPDF_STATIC {
 		    && !preg_match('%^//%', $file)
 		) {
 		    $urldata = @parse_url($_SERVER['SCRIPT_URI']);
-//		    return $urldata['scheme'].'://'.$urldata['host'].(($file[0] == '/') ? '' : '/').$file; // 2.7
             $alt[] = $urldata['scheme'].'://'.$urldata['host'].(($file[0] == '/') ? '' : '/').$file;
 		}
 		//
 		$alt = array_unique($alt);
 		foreach ($alt as $path) {
-		    // following if{} added 2.7
-		    if ( ! self::file_exists( $path ) ) {
-		        // https://github.com/tecnickcom/TCPDF/pull/110
+			if (!self::file_exists($path)) {
 				continue;
 			}
 			$ret = @file_get_contents($path);
-			if ($ret != false) {
+			if ( $ret != false ) {
 			    return $ret;
 			}
 			// try to use CURL for URLs
@@ -2023,8 +2018,6 @@ class LP_TCPDF_STATIC {
 		}
 		return false;
 	}
-
-    
 
 	/**
 	 * Get ULONG from string (Big Endian 32-bit unsigned integer).

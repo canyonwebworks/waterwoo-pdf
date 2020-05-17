@@ -3,8 +3,8 @@ Contributors: littlepackage
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=PB2CFX8H4V49L
 Tags: watermark, pdf, ebook, copyright, property, marca de agua, publishing, security
 Requires at least: 4.9
-Tested up to: 5.4
-Stable tag: 2.6
+Tested up to: 5.4.1
+Stable tag: 2.6.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -29,22 +29,21 @@ WaterWoo PDF is a plugin that adds a watermark to every page of your sold PDF fi
 
 [WaterWoo Premium](https://web.little-package.com/downloads/waterwoo-pdf-premium/ "WaterWoo PDF Premium Version") offers these helpful extra features in addition to free features:
 
+* Optionally password protect and/or encrypt PDF files
+* Keep original file name
 * Watermark all PDF files with same settings OR set individual watermarks per product or even per product variation!
 * Additional, rotatable watermark location - two watermark locations on one page!
 * Additional text formatting options, such as font color and style (bold, italics) 
 * Semi-opaque (transparent) watermarks
 * RTL (right to left) watermarking
 * Use of some HTML tags to style your output, including text-align CSS styling (right, center, left is default), links (&lt;a&gt;), bold (&lt;strong&gt;), italic (&lt;em&gt;)...
-* Preserves external embedded PDF links despite watermarking; internal links are not preserved (in development)
 * Line-wrapping, forced breaks with &lt;p&gt; and &lt;br /&gt; tags
-* Additional font (Deja Vu) adding more international character support
-* Additional fonts Furat (supports Arabic) and M Sung (supports Chinese)
+* Preserves external embedded PDF links despite watermarking; internal links are not preserved (research "WooStamper" for this feature)
 * AJAX font uploader - use your own font for stamping. Also, hooks to further customize font use
-* Additional dynamic customer data input (business name, order paid date), hooks for adding even more
+* Additional dynamic customer data input (business name, address, order paid date), hooks for adding even more
 * Hook to add 1D and 2D barcodes (including QR codes)
 * Begin watermark on selected page of PDF document (to avoid watermarking a cover page, for example)
 * Watermark every page, odd pages, or even pages
-* Optionally password protect and/or encrypt PDF files
 * Optionally prevent copying, annotating, or modifying of your PDF files
 * Test watermark and/or manually watermark a file on the fly, from the admin panel
 
@@ -63,7 +62,7 @@ WaterWoo PDF is a plugin that adds a watermark to every page of your sold PDF fi
 2. Activate the plugin through the "Plugins" menu in WordPress.
 3. Visit WooCommerce->Settings->Watermark tab to set your plugin preferences.
 4. **Please test your watermarking** by making mock purchases before going live to make sure it works and looks great!
-5.  Note: for this to work you need to have pretty URLs enabled from the WP settings. Otherwise a 404 error will be thrown.
+5.  Note: for this to work you might need to have pretty URLs enabled from the WP settings. Otherwise a 404 error will be thrown.
 
 = To remove plugin: =
 
@@ -280,6 +279,15 @@ No, sorry. This plugin is just for PDF files.
 * Testing to WC 4.0.1
 * Testing to WP 5.4
 * Update .pot file
+
+= 2.6.1 2020.5.16 = 
+* Tweak - use str_replace instead of preg_replace with shortcodes in classes/wwpdf-file-handler for speed
+* Tweak - use output buffering while processing PDF with TCPDI/TCPDF
+* Tweak - log potential errors to debug.log while showing customers simple (filterable) error message
+* Tweak - don't try to center watermark if using large font size
+* Update TCPDF library to version 6.3.2 for better compatibility with PHP 7
+* Testing to WC 4.1.0
+* Testing to WP 5.4.1
 
 == Upgrade Notice ==
 

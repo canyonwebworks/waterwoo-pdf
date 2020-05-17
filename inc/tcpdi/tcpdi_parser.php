@@ -791,8 +791,8 @@ if ( ! class_exists( 'lp_tcpdi_parser' ) ) :
             $objval = ''; // object value to be returned
             // skip initial white space chars: \x00 null (NUL), \x09 horizontal tab (HT), \x0A line feed (LF), \x0C form feed (FF), \x0D carriage return (CR), \x20 space (SP)
             // 2.2.2 to address https://github.com/SD-dthompson/tcpdi_parser/commit/fee436f3e9eaf1fd9aaffeb43cc2fec742b638be
-            // while ( strspn( $data{$offset}, "\x00\x09\x0a\x0c\x0d\x20" ) == 1 ) {
-            while ( strspn( $data{$offset}, "\x00\x09\x0a\x0c\x0d\x20" ) ) {
+            // while ( strspn( $data[$offset], "\x00\x09\x0a\x0c\x0d\x20" ) == 1 ) {
+            while ( strspn( $data[$offset], "\x00\x09\x0a\x0c\x0d\x20" ) ) {
                 $offset++;
             }
             // get first char
@@ -904,12 +904,12 @@ if ( ! class_exists( 'lp_tcpdi_parser' ) ) :
                 }
                 default: {
                     // lines from a patch by @granttrudel https://github.com/pauln/tcpdi/issues/10
-                    $frag = $data{$offset};
-                    if ( isset($data{$offset}) &&
-                        isset($data{$offset+1}) &&
-                        isset($data{$offset+2}) &&
-                        isset($data{$offset+3}) ) {
-                            $frag = $data{$offset} . @$data{$offset+1} . @$data{$offset+2} . @$data{$offset+3};
+                    $frag = $data[$offset];
+                    if ( isset($data[$offset]) &&
+                        isset($data[$offset+1]) &&
+                        isset($data[$offset+2]) &&
+                        isset($data[$offset+3]) ) {
+                            $frag = $data[$offset] . @$data[$offset+1] . @$data[$offset+2] . @$data[$offset+3];
                     }                
                     switch ($frag) {
                         case 'endo':
@@ -989,22 +989,22 @@ if ( ! class_exists( 'lp_tcpdi_parser' ) ) :
             $dict = '';
             $offset += 2;
             do {
-                if ($data{$offset} == '>' && $data{$offset+1} == '>') {
+                if ($data[$offset] == '>' && $data[$offset+1] == '>') {
                     $i -= 2;
                     $dict .= '>>';
                     $offset += 2;
-                } else if ($data{$offset} == '<' && $data{$offset+1} == '<') {
+                } else if ($data[$offset] == '<' && $data[$offset+1] == '<') {
                     $i += 2;
                     $dict .= '<<';
                     $offset += 2;
                 } else {
                     // 2.2.2
-                    if ( $data{$offset} == '<' ) {
+                    if ( $data[$offset] == '<' ) {
                         $i++;
-                    } else if ( $data{$offset} == '>' ) {
+                    } else if ( $data[$offset] == '>' ) {
                         $i--;
                     }
-                    $dict .= $data{$offset};
+                    $dict .= $data[$offset];
                     $offset++;
                 }
             } while ($i>0);
