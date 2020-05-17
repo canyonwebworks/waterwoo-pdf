@@ -105,6 +105,9 @@ WaterWoo PDF is intended to watermark PDF (.pdf) files. If you are specifically 
 = Does this work for ePub/Mobi files =
 No, sorry. This plugin is just for PDF files.
 
+= WaterWoo seems to break my PDF =
+WaterWoo PDF is a plugin which bridges WooCommerce and the open-source PDF-writing TCPDF library. WaterWoo functions by parsing/reading your PDF into memory the best it can, then adding a watermark to the PDF syntax and outputting a revised file. Between the reading and output, certain features may be lost and other features (interactive PDF elements like internal links and fillable forms) will be lost. This is a limitation of a third-party library and the wild-west nature of PDF syntax, and not the fault of WaterWoo. If you are serious about watermarking and/or encrypting complex PDF files, look into WooStamper.
+
 == Screenshots ==
 
 1. Screenshot of the settings page, as a Woocommerce settings tab.
