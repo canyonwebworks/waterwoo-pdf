@@ -4,7 +4,7 @@ defined( 'ABSPATH' ) || exit;
 // File name   : tcpdf.php
 // Version     : 6.3.2
 // Begin       : 2002-08-03
-// Last Update : 2019-09-20
+// Last Update : 2019-09-14
 // Author      : Nicola Asuni - Tecnick.com LTD - www.tecnick.com - info@tecnick.com
 // License     : GNU-LGPL v3 (http://www.gnu.org/copyleft/lesser.html)
 // -------------------------------------------------------------------
@@ -2910,7 +2910,7 @@ class LP_TCPDF {
     	if ( array_key_exists( 'keywords', $this->metadata ) ) {
 	        $this->keywords = $this->metadata['keywords'];
 	    }
-    	if ( array_key_exists( 'creationdate', $this->metadata ) ) {
+    	if ( array_key_exists( 'creationdate', $this->metadata ) ) { 	
 	        $this->creationdate = $this->metadata['creationdate'];
 	    }
     	if ( array_key_exists( 'producer', $this->metadata ) ) {

@@ -24,7 +24,6 @@ class LP_FPDF extends LP_TCPDF {}
 
 require_once('fpdf_tpl.php');
 require_once('tcpdi_parser.php');
-// require_once __DIR__ . '/../tcpdf/tcpdf_parser.php';
 
 if ( ! class_exists( 'LP_TCPDI' ) ) :
 
@@ -291,7 +290,7 @@ if ( ! class_exists( 'LP_TCPDI' ) ) :
             }
                        
             foreach ($boxes as $name => $box) {
-                if ($name{0} == '/') {
+                if ($name[0] == '/') {
                     $boxes[substr($name, 1)] = $box;
                     unset($boxes[$name]);
                 }
@@ -383,8 +382,6 @@ if ( ! class_exists( 'LP_TCPDI' ) ) :
          * @protected
          * @author Nicola Asuni
          * @since 5.0.010 (2010-05-17)
-
-         // waterwoo This runs rather than TCPDF _getannotsrefs()
          */
         protected function _getannotsrefs($n) {
 

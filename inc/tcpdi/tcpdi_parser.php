@@ -1359,7 +1359,7 @@ if ( ! class_exists( 'lp_tcpdi_parser' ) ) :
                     $annots = $this->_getPageAnnotations( $obj[1][1]['/Parent'] );
                 }
             }
-            if ( $annots[0] == PDF_TYPE_OBJREF ) { // 8
+            if ( is_array($annots) && $annots[0] == PDF_TYPE_OBJREF ) { // 8
                return $this->getObjectVal($annots);
             }
         
@@ -1536,7 +1536,7 @@ if ( ! class_exists( 'lp_tcpdi_parser' ) ) :
                     return false;
                 } else {
                     $res = $this->_getPageRotation($obj[1][1]['/Parent']);
-                    if ($res[0] == PDF_TYPE_OBJECT) {
+                    if (is_array($res) && $res[0] == PDF_TYPE_OBJECT) {
                         return $res[1];
                     }
                     return $res;

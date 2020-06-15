@@ -4,6 +4,9 @@ defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( 'WWPDF_Watermark' ) ) :
 
+    require_once WWPDF_PATH . 'inc/tcpdf/tcpdf.php';
+    require_once WWPDF_PATH . 'inc/tcpdi/tcpdi.php';
+
 	class WWPDF_Watermark {
 
 		public function __construct( $origfile, $newfile, $footer ) {
@@ -12,27 +15,11 @@ if ( ! class_exists( 'WWPDF_Watermark' ) ) :
 			$this->file = $origfile;
 			$this->newfile = $newfile;
 			$this->footer = $footer; 
-
-		}
-
-		public static function apply_and_spit( $origfile, $newfile, $footer ) {
-
-            ob_start();
-            /* 
-             * Include TCPDF & TCPDI
-             */
-            require_once WWPDF_PATH . 'inc/tcpdf/tcpdf.php';
-            require_once WWPDF_PATH . 'inc/tcpdi/tcpdi.php';
-            
-			$wm = new WWPDF_Watermark( $origfile, $newfile, $footer );
 			
-            if ( ! apply_filters( 'wwpdf_do_cleanup', true ) && file_exists( $wm->newfile ) ) {
-                // watermark file already exists, serve it.
-			} else {
-				$wm->do_watermark();
-			}
-            ob_end_clean();               
-            return $wm->newfile;
+			ob_start();
+			$this->do_watermark();
+			ob_end_clean();               
+            return $this->newfile;
 
 		}
 
@@ -47,7 +34,7 @@ if ( ! class_exists( 'WWPDF_Watermark' ) ) :
 			$footer_size = get_option( 'wwpdf_footer_size', 12 );
 			$string_width = $this->pdf->GetStringWidth( $this->footer, $font, '', $footer_size );
 	
-			for( $i = 1; $i <= $pagecount; $i++ ) {
+			for ( $i = 1; $i <= $pagecount; $i++ ) {
 			
                 if ( apply_filters( 'wwpdf_dont_watermark_this_page', FALSE, $i, $pagecount ) ) continue;
 
@@ -78,7 +65,9 @@ if ( ! class_exists( 'WWPDF_Watermark' ) ) :
 				$this->pdf->Write( 1, $this->footer );
 				
 			}
-					
+			
+            do_action( 'wwpdf_before_output', $this->pdf );
+			
 			$this->pdf->Output( $this->newfile, 'F' );
 
 		} // end function do_watermark

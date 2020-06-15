@@ -381,6 +381,7 @@ class LP_TCPDF_STATIC {
 	 * @public static
 	 */
 	public static function getTimestamp($date) {
+	    if ( ! is_array( $date ) ) return;
 		if (($date[0] == 'D') AND ($date[1] == ':')) {
 			// remove date prefix if present
 			$date = substr($date, 2);

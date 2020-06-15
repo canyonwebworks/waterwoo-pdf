@@ -72,10 +72,10 @@ if ( ! class_exists( 'LP_FPDF_TPL' ) ) :
          * The calculated or used width and height are returned as an array.
          *
          * @param int $tplIdx A valid template-id
-         * @param int $x The x-position
-         * @param int $y The y-position
-         * @param int $w The new width of the template
-         * @param int $h The new height of the template
+         * @param int $_x The x-position
+         * @param int $_y The y-position
+         * @param int $_w The new width of the template
+         * @param int $_h The new height of the template
          * @return array The height and width of the template (array('w' => ..., 'h' => ...))
          * @throws LogicException|InvalidArgumentException
          */

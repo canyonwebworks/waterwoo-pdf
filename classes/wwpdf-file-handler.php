@@ -64,7 +64,7 @@ if ( ! class_exists( 'WWPDF_File_Handler' ) ) {
     
                 // attempt to watermark using tcpdi/tcpdf
                 try {
-                    $this->watermarked_file = WWPDF_Watermark::apply_and_spit( $parsed_file_path['file_path'], $wwpdf_file_path, $footer_input );
+                    $this->watermarked_file = new WWPDF_Watermark( $parsed_file_path['file_path'], $wwpdf_file_path, $footer_input );
                 } catch ( Exception $e ) {
                     $error_message = $e->getMessage();
                     echo apply_filters( 'wwpdf_filter_exception_message', 'Unable to watermark this file for download. Please notify site administrator.', $error_message, $wwpdf_file_path );
@@ -73,7 +73,7 @@ if ( ! class_exists( 'WWPDF_File_Handler' ) ) {
                 }
              
                 // send watermarked file back to WooCommerce
-                $watermarked_file = str_replace( ABSPATH, '', $this->watermarked_file );
+                $watermarked_file = str_replace( ABSPATH, '', $this->watermarked_file->newfile );
                 return $watermarked_file;
                 
             }
@@ -96,7 +96,8 @@ if ( ! class_exists( 'WWPDF_File_Handler' ) ) {
             $paid_date      = $order_data['date_created']->date('Y-m-d H:i:s');
             $date_format    = get_option( 'date_format' );
             $paid_date      = date_i18n( $date_format, strtotime( $paid_date ) );
-            
+            $timestamp      = date_i18n( $date_format, current_time('timestamp') );
+    
             $footer_input   = get_option( 'wwpdf_footer_input', 'Licensed to [FIRSTNAME] [LASTNAME], [EMAIL]' );
             
             $shortcodes     = apply_filters( 'wwpdf_filter_shortcodes', 
@@ -106,6 +107,7 @@ if ( ! class_exists( 'WWPDF_File_Handler' ) ) {
                     '[EMAIL]' => $email,
                     '[PHONE]' => $phone,
                     '[DATE]' => $paid_date,
+                    '[TIMESTAMP]' => $timestamp,
                 )
             );        
            
@@ -154,7 +156,7 @@ if ( ! class_exists( 'WWPDF_File_Handler' ) ) {
 
             // force
             if ( get_option( 'woocommerce_file_download_method', 'force' ) == 'force' ) {
-                add_action( 'shutdown', array( $this, 'cleanup_file' ) );
+                add_action( 'shutdown', array( $this, 'cleanup_file' ) ); // this will not work every time because we cannot know download is complete before PHP shutdown
             // redirect or xsendfile
             } else {
                 // recommend setting up a cron job to remove watermarked files periodically,
