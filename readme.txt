@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: watermark, stamp, pdf, ebook, security, property
 Requires at least: 4.9
 Tested up to: 5.4.2
-Stable tag: 2.7
+Stable tag: 2.7.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -299,6 +299,9 @@ WaterWoo PDF is a plugin which bridges WooCommerce and the open-source PDF-writi
 * Feature - compatibility up to PHP 7.4.2
 * Testing to WC 4.2.0
 * Testing to WP 5.4.2
+
+= 2.7.1 2020.6.22
+* Fix - cleanup expecting file and finding object in classes/wwpdf-file-handler.php line 67
 
 == Upgrade Notice ==
 

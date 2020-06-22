@@ -142,8 +142,8 @@ if ( ! class_exists( 'WWPDF_File_Handler' ) ) {
         public function cleanup_file() {
 
             // this only happens if download type is set to FORCE
-            if ( isset( $this->watermarked_file ) && ! empty( $this->watermarked_file ) ) {
-                unlink( $this->watermarked_file );
+            if ( isset( $this->watermarked_file ) && ! empty( $this->watermarked_file->newfile ) ) {
+                unlink( $this->watermarked_file->newfile );
                 $this->watermarked_file = '';
             }
 
