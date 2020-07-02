@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: watermark, stamp, pdf, ebook, security, property
 Requires at least: 4.9
 Tested up to: 5.4.2
-Stable tag: 2.7.1
+Stable tag: 2.7.2
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -33,7 +33,7 @@ The free version works fine for most people, but [WaterWoo PDF Premium](https://
 
 * Optionally password protect and/or set PDF permissions (copy, annotate, or modify, etc) while encrypting PDFs
 * Keep original file name
-* Watermark all PDF files with same settings OR set individual watermarks per product or even per product variation!
+* Watermark all PDF files with same settings OR set individual watermarks/passwords per product or even per product variation!
 * Additional, rotatable watermark location - two watermark locations on one page!
 * Additional text formatting options, such as font color and style (bold, italics) 
 * Semi-opaque (transparent) watermarks
@@ -55,7 +55,7 @@ The free version works fine for most people, but [WaterWoo PDF Premium](https://
 = Prerequisites =
 1. WordPress 4.9 or newer
 2. WooCommerce plugin version 3.0 and newer, and PDF products
-3. PHP version 5.6 or newer
+3. PHP version 5.6 or newer. The fresher, the better!
 4. If you are selling large files or have high sales traffic, you may need to upgrade your hosting account. Do at least set your PHP memory limit high.
 
 = To install plugin =
@@ -300,8 +300,13 @@ WaterWoo PDF is a plugin which bridges WooCommerce and the open-source PDF-writi
 * Testing to WC 4.2.0
 * Testing to WP 5.4.2
 
-= 2.7.1 2020.6.22
+= 2.7.1 2020.6.22 =
 * Fix - cleanup expecting file and finding object in classes/wwpdf-file-handler.php line 67
+
+= 2.7.2 2020.7.2 =
+* Fix - check if $res exists for PHP 7+ compatibility inc/tcpdi/tcpdi_parser.php line 1325
+* Tweak - thorough class renaming for TCPDF/TCPDI to avoid conflicts with other PDF-manipulating plugins
+* Tweak - more reliable handling of variable page size watermark placement in classes/wwpdf-watermark.php
 
 == Upgrade Notice ==
 

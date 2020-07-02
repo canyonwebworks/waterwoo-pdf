@@ -8,10 +8,12 @@ if ( ! class_exists( 'WWPDF_Watermark' ) ) :
     require_once WWPDF_PATH . 'inc/tcpdi/tcpdi.php';
 
 	class WWPDF_Watermark {
+	
+        var $size           = '';
 
 		public function __construct( $origfile, $newfile, $footer ) {
 
-            $this->pdf = new LP_TCPDI();
+            $this->pdf = new WaterWoo_TCPDI();
 			$this->file = $origfile;
 			$this->newfile = $newfile;
 			$this->footer = $footer; 
@@ -38,28 +40,19 @@ if ( ! class_exists( 'WWPDF_Watermark' ) ) :
 			
                 if ( apply_filters( 'wwpdf_dont_watermark_this_page', FALSE, $i, $pagecount ) ) continue;
 
-				$idx        = $this->pdf->importPage( $i );
-                $meta       = $this->pdf->getMetaData();
+                $this->setup_page( $i ); // $i is page number
 
-				$size       = $this->pdf->getTemplateSize( $idx );
-                $size_arr   = array( $size['w'], $size['h'] );
-                $orient     = ( $size['w'] > $size['h'] ) ? 'L' : 'P'; 
                 if ( $footer_y < 0 ) { // for measuring from bottom of page
                     // upper-left corner Y coordinate
                     $footer_y = $size['h'] - abs( $footer_y );                        
                 }
-				$this->pdf->addPage( $orient, '', $meta );
-				$this->pdf->setPageFormatFromTemplatePage( $i, $orient, $size_arr );
-                $this->pdf->useTemplate( $idx );
-                $this->pdf->importAnnotations( $idx );
                 $this->pdf->SetFont( $font, '', $footer_size );
 				$this->pdf->SetMargins( 0, 0 );
-                $this->pdf->SetAutoPageBreak( true, 0 );
                 $this->pdf->SetTextColor( $rgb_array[0], $rgb_array[1], $rgb_array[2] );
-                if ( $string_width > $size['w'] ) {
-                    $footer_x = apply_filters( 'wwpdf_footer_x_abcissa', 0, $size['w'] );
+                if ( $string_width > $this->size['w'] ) {
+                    $footer_x = apply_filters( 'wwpdf_footer_x_abcissa', 0, $this->size['w'] );
                 } else {
-                    $footer_x = ( $size['w'] / 2 ) - ( $this->pdf->GetStringWidth( $this->footer ) / 2 );
+                    $footer_x = ( $this->size['w'] / 2 ) - ( $this->pdf->GetStringWidth( $this->footer ) / 2 );
                 }
                 $this->pdf->SetXY( $footer_x, $footer_y );
 				$this->pdf->Write( 1, $this->footer );
@@ -71,6 +64,22 @@ if ( ! class_exists( 'WWPDF_Watermark' ) ) :
 			$this->pdf->Output( $this->newfile, 'F' );
 
 		} // end function do_watermark
+
+        public function setup_page( $page ) {
+
+            $idx            = $this->pdf->importPage( $page, '/BleedBox' );
+            $meta           = $this->pdf->getMetaData();
+            $this->size     = $this->pdf->getTemplateSize( $idx );
+            $size_array     = array( $this->size['w'], $this->size['h'] );
+            $orientation    = ( $this->size['w'] > $this->size['h'] ) ? 'L' : 'P'; 
+
+            $this->pdf->SetAutoPageBreak( true, 0 );
+            $this->pdf->AddPage( $orientation, '', $meta );
+            $this->pdf->setPageFormatFromTemplatePage( $page, $orientation, $size_array );
+            $this->pdf->useTemplate( $idx );
+            $this->pdf->importAnnotations( $page );
+
+        }
 
 		protected function hex2rgb( $hex ) {
 			$hex = str_replace( "#", "", $hex );

@@ -48,9 +48,9 @@
  * @author Nicola Asuni
  */
 
-if ( ! class_exists( 'LP_TCPDF2DBarcode' ) ) :
+if ( ! class_exists( 'WaterWoo_TCPDF2DBarcode' ) ) :
 
-class LP_TCPDF2DBarcode {
+class WaterWoo_TCPDF2DBarcode {
 
 	/**
 	 * Array representation of barcode.

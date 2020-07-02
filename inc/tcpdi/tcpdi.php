@@ -20,14 +20,14 @@
 defined( 'ABSPATH' ) || exit;
 
 // Dummy shim to allow unmodified use of fpdf_tpl
-class LP_FPDF extends LP_TCPDF {}
+class WaterWoo_FPDF extends WaterWoo_TCPDF {}
 
 require_once('fpdf_tpl.php');
 require_once('tcpdi_parser.php');
 
-if ( ! class_exists( 'LP_TCPDI' ) ) :
+if ( ! class_exists( 'WaterWoo_TCPDI' ) ) :
 
-    class LP_TCPDI extends LP_FPDF_TPL {
+    class WaterWoo_TCPDI extends WaterWoo_FPDF_TPL {
         /**
          * Actual filename
          * @var string
@@ -109,7 +109,7 @@ if ( ! class_exists( 'LP_TCPDI' ) ) :
         function _getPdfParser( $filename ) {
 
             $data = file_get_contents( $filename );
-            return new lp_tcpdi_parser( $data, $filename );
+            return new WaterWoo_tcpdi_parser( $data, $filename );
             
         }
 
@@ -313,7 +313,7 @@ if ( ! class_exists( 'LP_TCPDI' ) ) :
     
         /* Wrapper for AddTOC() which tracks TOC position to offset annotations later */
         function AddTOC($page='', $numbersfont='', $filler='.', $toc_name='TOC', $style='', $color=array(0,0,0)) {
-            if (!LP_TCPDF_STATIC::empty_string($page)) {
+            if (!WaterWoo_TCPDF_STATIC::empty_string($page)) {
                 $this->_TOCpagenum = $page;
             } else {
                 $this->_TOCpagenum = $this->page;
@@ -629,7 +629,7 @@ if ( ! class_exists( 'LP_TCPDI' ) ) :
                     if ($this->encrypted) {
                         $value[1] = $this->_unescape($value[1]);
                         $value[1] = $this->_encrypt_data($this->_current_obj_id, $value[1]);
-                        $value[1] = LP_TCPDF_STATIC::_escape($value[1]);
+                        $value[1] = WaterWoo_TCPDF_STATIC::_escape($value[1]);
                     }
                     break;
 

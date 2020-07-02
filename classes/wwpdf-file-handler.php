@@ -155,7 +155,7 @@ if ( ! class_exists( 'WWPDF_File_Handler' ) ) {
         private function do_cleanup() {
 
             // force
-            if ( get_option( 'woocommerce_file_download_method', 'force' ) == 'force' ) {
+            if ( get_option( 'woocommerce_file_download_method' ) == 'force' ) {
                 add_action( 'shutdown', array( $this, 'cleanup_file' ) ); // this will not work every time because we cannot know download is complete before PHP shutdown
             // redirect or xsendfile
             } else {

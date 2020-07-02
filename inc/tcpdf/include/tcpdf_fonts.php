@@ -45,9 +45,9 @@
  * @version 1.1.0
  * @author Nicola Asuni - info@tecnick.com
  */
-if ( ! class_exists( 'LP_TCPDF_FONTS' ) ) :
+if ( ! class_exists( 'WaterWoo_TCPDF_FONTS' ) ) :
 
-class LP_TCPDF_FONTS {
+class WaterWoo_TCPDF_FONTS {
 
 	/**
 	 * Static cache used for speed up uniord performances
@@ -72,7 +72,7 @@ class LP_TCPDF_FONTS {
 	 * @public static
 	 */
 	public static function addTTFfont($fontfile, $fonttype='', $enc='', $flags=32, $outpath='', $platid=3, $encid=1, $addcbbox=false, $link=false) {
-        if (!LP_TCPDF_STATIC::file_exists($fontfile)) {
+        if (!WaterWoo_TCPDF_STATIC::file_exists($fontfile)) {
 			// Could not find file
 			return false;
 		}
@@ -98,7 +98,7 @@ class LP_TCPDF_FONTS {
 		}
 		// check if this font already exist
 //		if (@file_exists($outpath.$font_name.'.php')) { // 2.7
-		if (@LP_TCPDF_STATIC::file_exists($outpath.$font_name.'.php')) {
+		if (@WaterWoo_TCPDF_STATIC::file_exists($outpath.$font_name.'.php')) {
 			// this font already exist (delete it from fonts folder to rebuild it)
 			return $font_name;
 		}
@@ -109,7 +109,7 @@ class LP_TCPDF_FONTS {
 		$fmetric['originalsize'] = strlen($font);
 		// autodetect font type
 		if (empty($fonttype)) {
-			if (LP_TCPDF_STATIC::_getULONG($font, 0) == 0x10000) {
+			if (WaterWoo_TCPDF_STATIC::_getULONG($font, 0) == 0x10000) {
 				// True Type (Unicode or not)
 				$fonttype = 'TrueTypeUnicode';
 			} elseif (substr($font, 0, 4) == 'OTTO') {
@@ -151,10 +151,10 @@ class LP_TCPDF_FONTS {
 		$fmetric['enc'] = preg_replace('/[^A-Za-z0-9_\-]/', '', $enc);
 		$fmetric['diff'] = '';
 		if (($fmetric['type'] == 'TrueType') OR ($fmetric['type'] == 'Type1')) {
-			if (!empty($enc) AND ($enc != 'cp1252') AND isset(TCPDF_FONT_DATA::$encmap[$enc])) {
+			if (!empty($enc) AND ($enc != 'cp1252') AND isset(WaterWoo_TCPDF_FONT_DATA::$encmap[$enc])) {
 				// build differences from reference encoding
-				$enc_ref = TCPDF_FONT_DATA::$encmap['cp1252'];
-				$enc_target = TCPDF_FONT_DATA::$encmap[$enc];
+				$enc_ref = WaterWoo_TCPDF_FONT_DATA::$encmap['cp1252'];
+				$enc_target = WaterWoo_TCPDF_FONT_DATA::$encmap[$enc];
 				$last = 0;
 				for ($i = 32; $i <= 255; ++$i) {
 					if ($enc_target[$i] != $enc_ref[$i]) {
@@ -189,7 +189,7 @@ class LP_TCPDF_FONTS {
 			$data .= $encrypted;
 			// store compressed font
 			$fmetric['file'] .= '.z';
-			$fp = LP_TCPDF_STATIC::fopenLocal($outpath.$fmetric['file'], 'wb');
+			$fp = WaterWoo_TCPDF_STATIC::fopenLocal($outpath.$fmetric['file'], 'wb');
 			fwrite($fp, gzcompress($data));
 			fclose($fp);
 			// get font info
@@ -277,8 +277,8 @@ class LP_TCPDF_FONTS {
 			// get charstring data
 			$eplain = substr($eplain, (strpos($eplain, '/CharStrings') + 1));
 			preg_match_all('#/([A-Za-z0-9\.]*)[\s][0-9]+[\s]RD[\s](.*)[\s]ND#sU', $eplain, $matches, PREG_SET_ORDER);
-			if (!empty($enc) AND isset(TCPDF_FONT_DATA::$encmap[$enc])) {
-				$enc_map = TCPDF_FONT_DATA::$encmap[$enc];
+			if (!empty($enc) AND isset(WaterWoo_TCPDF_FONT_DATA::$encmap[$enc])) {
+				$enc_map = WaterWoo_TCPDF_FONT_DATA::$encmap[$enc];
 			} else {
 				$enc_map = false;
 			}
@@ -358,7 +358,7 @@ class LP_TCPDF_FONTS {
 		} else {
 			// ---------- TRUE TYPE ----------
 			$offset = 0; // offset position of the font data
-			if (LP_TCPDF_STATIC::_getULONG($font, $offset) != 0x10000) {
+			if (WaterWoo_TCPDF_STATIC::_getULONG($font, $offset) != 0x10000) {
 				// sfnt version must be 0x00010000 for TrueType version 1.0.
 				return false;
 			}
@@ -369,14 +369,14 @@ class LP_TCPDF_FONTS {
 				} else {
 					// store compressed font
 					$fmetric['file'] .= '.z';
-					$fp = LP_TCPDF_STATIC::fopenLocal($outpath.$fmetric['file'], 'wb');
+					$fp = WaterWoo_TCPDF_STATIC::fopenLocal($outpath.$fmetric['file'], 'wb');
 					fwrite($fp, gzcompress($font));
 					fclose($fp);
 				}
 			}
 			$offset += 4;
 			// get number of tables
-			$numTables = LP_TCPDF_STATIC::_getUSHORT($font, $offset);
+			$numTables = WaterWoo_TCPDF_STATIC::_getUSHORT($font, $offset);
 			$offset += 2;
 			// skip searchRange, entrySelector and rangeShift
 			$offset += 6;
@@ -388,37 +388,37 @@ class LP_TCPDF_FONTS {
 				$tag = substr($font, $offset, 4);
 				$offset += 4;
 				$table[$tag] = array();
-				$table[$tag]['checkSum'] = LP_TCPDF_STATIC::_getULONG($font, $offset);
+				$table[$tag]['checkSum'] = WaterWoo_TCPDF_STATIC::_getULONG($font, $offset);
 				$offset += 4;
-				$table[$tag]['offset'] = LP_TCPDF_STATIC::_getULONG($font, $offset);
+				$table[$tag]['offset'] = WaterWoo_TCPDF_STATIC::_getULONG($font, $offset);
 				$offset += 4;
-				$table[$tag]['length'] = LP_TCPDF_STATIC::_getULONG($font, $offset);
+				$table[$tag]['length'] = WaterWoo_TCPDF_STATIC::_getULONG($font, $offset);
 				$offset += 4;
 			}
 			// check magicNumber
 			$offset = $table['head']['offset'] + 12;
-			if (LP_TCPDF_STATIC::_getULONG($font, $offset) != 0x5F0F3CF5) {
+			if (WaterWoo_TCPDF_STATIC::_getULONG($font, $offset) != 0x5F0F3CF5) {
 				// magicNumber must be 0x5F0F3CF5
 				return false;
 			}
 			$offset += 4;
 			$offset += 2; // skip flags
 			// get FUnits
-			$fmetric['unitsPerEm'] = LP_TCPDF_STATIC::_getUSHORT($font, $offset);
+			$fmetric['unitsPerEm'] = WaterWoo_TCPDF_STATIC::_getUSHORT($font, $offset);
 			$offset += 2;
 			// units ratio constant
 			$urk = (1000 / $fmetric['unitsPerEm']);
 			$offset += 16; // skip created, modified
-			$xMin = round(LP_TCPDF_STATIC::_getFWORD($font, $offset) * $urk);
+			$xMin = round(WaterWoo_TCPDF_STATIC::_getFWORD($font, $offset) * $urk);
 			$offset += 2;
-			$yMin = round(LP_TCPDF_STATIC::_getFWORD($font, $offset) * $urk);
+			$yMin = round(WaterWoo_TCPDF_STATIC::_getFWORD($font, $offset) * $urk);
 			$offset += 2;
-			$xMax = round(LP_TCPDF_STATIC::_getFWORD($font, $offset) * $urk);
+			$xMax = round(WaterWoo_TCPDF_STATIC::_getFWORD($font, $offset) * $urk);
 			$offset += 2;
-			$yMax = round(LP_TCPDF_STATIC::_getFWORD($font, $offset) * $urk);
+			$yMax = round(WaterWoo_TCPDF_STATIC::_getFWORD($font, $offset) * $urk);
 			$offset += 2;
 			$fmetric['bbox'] = ''.$xMin.' '.$yMin.' '.$xMax.' '.$yMax.'';
-			$macStyle = LP_TCPDF_STATIC::_getUSHORT($font, $offset);
+			$macStyle = WaterWoo_TCPDF_STATIC::_getUSHORT($font, $offset);
 			$offset += 2;
 			// PDF font flags
 			$fmetric['Flags'] = $flags;
@@ -428,7 +428,7 @@ class LP_TCPDF_FONTS {
 			}
 			// get offset mode (indexToLocFormat : 0 = short, 1 = long)
 			$offset = $table['head']['offset'] + 50;
-			$short_offset = (LP_TCPDF_STATIC::_getSHORT($font, $offset) == 0);
+			$short_offset = (WaterWoo_TCPDF_STATIC::_getSHORT($font, $offset) == 0);
 			$offset += 2;
 			// get the offsets to the locations of the glyphs in the font, relative to the beginning of the glyphData table
 			$indexToLoc = array();
@@ -437,7 +437,7 @@ class LP_TCPDF_FONTS {
 				// short version
 				$tot_num_glyphs = floor($table['loca']['length'] / 2); // numGlyphs + 1
 				for ($i = 0; $i < $tot_num_glyphs; ++$i) {
-					$indexToLoc[$i] = LP_TCPDF_STATIC::_getUSHORT($font, $offset) * 2;
+					$indexToLoc[$i] = WaterWoo_TCPDF_STATIC::_getUSHORT($font, $offset) * 2;
 					if (isset($indexToLoc[($i - 1)]) && ($indexToLoc[$i] == $indexToLoc[($i - 1)])) {
 						// the last glyph didn't have an outline
 						unset($indexToLoc[($i - 1)]);
@@ -448,7 +448,7 @@ class LP_TCPDF_FONTS {
 				// long version
 				$tot_num_glyphs = floor($table['loca']['length'] / 4); // numGlyphs + 1
 				for ($i = 0; $i < $tot_num_glyphs; ++$i) {
-					$indexToLoc[$i] = LP_TCPDF_STATIC::_getULONG($font, $offset);
+					$indexToLoc[$i] = WaterWoo_TCPDF_STATIC::_getULONG($font, $offset);
 					if (isset($indexToLoc[($i - 1)]) && ($indexToLoc[$i] == $indexToLoc[($i - 1)])) {
 						// the last glyph didn't have an outline
 						unset($indexToLoc[($i - 1)]);
@@ -458,31 +458,31 @@ class LP_TCPDF_FONTS {
 			}
 			// get glyphs indexes of chars from cmap table
 			$offset = $table['cmap']['offset'] + 2;
-			$numEncodingTables = LP_TCPDF_STATIC::_getUSHORT($font, $offset);
+			$numEncodingTables = WaterWoo_TCPDF_STATIC::_getUSHORT($font, $offset);
 			$offset += 2;
 			$encodingTables = array();
 			for ($i = 0; $i < $numEncodingTables; ++$i) {
-				$encodingTables[$i]['platformID'] = LP_TCPDF_STATIC::_getUSHORT($font, $offset);
+				$encodingTables[$i]['platformID'] = WaterWoo_TCPDF_STATIC::_getUSHORT($font, $offset);
 				$offset += 2;
-				$encodingTables[$i]['encodingID'] = LP_TCPDF_STATIC::_getUSHORT($font, $offset);
+				$encodingTables[$i]['encodingID'] = WaterWoo_TCPDF_STATIC::_getUSHORT($font, $offset);
 				$offset += 2;
-				$encodingTables[$i]['offset'] = LP_TCPDF_STATIC::_getULONG($font, $offset);
+				$encodingTables[$i]['offset'] = WaterWoo_TCPDF_STATIC::_getULONG($font, $offset);
 				$offset += 4;
 			}
 			// ---------- get os/2 metrics ----------
 			$offset = $table['OS/2']['offset'];
 			$offset += 2; // skip version
 			// xAvgCharWidth
-			$fmetric['AvgWidth'] = round(LP_TCPDF_STATIC::_getFWORD($font, $offset) * $urk);
+			$fmetric['AvgWidth'] = round(WaterWoo_TCPDF_STATIC::_getFWORD($font, $offset) * $urk);
 			$offset += 2;
 			// usWeightClass
-			$usWeightClass = round(LP_TCPDF_STATIC::_getUFWORD($font, $offset) * $urk);
+			$usWeightClass = round(WaterWoo_TCPDF_STATIC::_getUFWORD($font, $offset) * $urk);
 			// estimate StemV and StemH (400 = usWeightClass for Normal - Regular font)
 			$fmetric['StemV'] = round((70 * $usWeightClass) / 400);
 			$fmetric['StemH'] = round((30 * $usWeightClass) / 400);
 			$offset += 2;
 			$offset += 2; // usWidthClass
-			$fsType = LP_TCPDF_STATIC::_getSHORT($font, $offset);
+			$fsType = WaterWoo_TCPDF_STATIC::_getSHORT($font, $offset);
 			$offset += 2;
 			if ($fsType == 2) {
 				// This Font cannot be modified, embedded or exchanged in any manner without first obtaining permission of the legal owner.
@@ -493,22 +493,22 @@ class LP_TCPDF_FONTS {
 			$offset = $table['name']['offset'];
 			$offset += 2; // skip Format selector (=0).
 			// Number of NameRecords that follow n.
-			$numNameRecords = LP_TCPDF_STATIC::_getUSHORT($font, $offset);
+			$numNameRecords = WaterWoo_TCPDF_STATIC::_getUSHORT($font, $offset);
 			$offset += 2;
 			// Offset to start of string storage (from start of table).
-			$stringStorageOffset = LP_TCPDF_STATIC::_getUSHORT($font, $offset);
+			$stringStorageOffset = WaterWoo_TCPDF_STATIC::_getUSHORT($font, $offset);
 			$offset += 2;
 			for ($i = 0; $i < $numNameRecords; ++$i) {
 				$offset += 6; // skip Platform ID, Platform-specific encoding ID, Language ID.
 				// Name ID.
-				$nameID = LP_TCPDF_STATIC::_getUSHORT($font, $offset);
+				$nameID = WaterWoo_TCPDF_STATIC::_getUSHORT($font, $offset);
 				$offset += 2;
 				if ($nameID == 6) {
 					// String length (in bytes).
-					$stringLength = LP_TCPDF_STATIC::_getUSHORT($font, $offset);
+					$stringLength = WaterWoo_TCPDF_STATIC::_getUSHORT($font, $offset);
 					$offset += 2;
 					// String offset from start of storage area (in bytes).
-					$stringOffset = LP_TCPDF_STATIC::_getUSHORT($font, $offset);
+					$stringOffset = WaterWoo_TCPDF_STATIC::_getUSHORT($font, $offset);
 					$offset += 2;
 					$offset = ($table['name']['offset'] + $stringStorageOffset + $stringOffset);
 					$fmetric['name'] = substr($font, $offset, $stringLength);
@@ -524,13 +524,13 @@ class LP_TCPDF_FONTS {
 			// ---------- get post data ----------
 			$offset = $table['post']['offset'];
 			$offset += 4; // skip Format Type
-			$fmetric['italicAngle'] = LP_TCPDF_STATIC::_getFIXED($font, $offset);
+			$fmetric['italicAngle'] = WaterWoo_TCPDF_STATIC::_getFIXED($font, $offset);
 			$offset += 4;
-			$fmetric['underlinePosition'] = round(LP_TCPDF_STATIC::_getFWORD($font, $offset) * $urk);
+			$fmetric['underlinePosition'] = round(WaterWoo_TCPDF_STATIC::_getFWORD($font, $offset) * $urk);
 			$offset += 2;
-			$fmetric['underlineThickness'] = round(LP_TCPDF_STATIC::_getFWORD($font, $offset) * $urk);
+			$fmetric['underlineThickness'] = round(WaterWoo_TCPDF_STATIC::_getFWORD($font, $offset) * $urk);
 			$offset += 2;
-			$isFixedPitch = (LP_TCPDF_STATIC::_getULONG($font, $offset) == 0) ? false : true;
+			$isFixedPitch = (WaterWoo_TCPDF_STATIC::_getULONG($font, $offset) == 0) ? false : true;
 			$offset += 2;
 			if ($isFixedPitch) {
 				$fmetric['Flags'] |= 1;
@@ -539,38 +539,38 @@ class LP_TCPDF_FONTS {
 			$offset = $table['hhea']['offset'];
 			$offset += 4; // skip Table version number
 			// Ascender
-			$fmetric['Ascent'] = round(LP_TCPDF_STATIC::_getFWORD($font, $offset) * $urk);
+			$fmetric['Ascent'] = round(WaterWoo_TCPDF_STATIC::_getFWORD($font, $offset) * $urk);
 			$offset += 2;
 			// Descender
-			$fmetric['Descent'] = round(LP_TCPDF_STATIC::_getFWORD($font, $offset) * $urk);
+			$fmetric['Descent'] = round(WaterWoo_TCPDF_STATIC::_getFWORD($font, $offset) * $urk);
 			$offset += 2;
 			// LineGap
-			$fmetric['Leading'] = round(LP_TCPDF_STATIC::_getFWORD($font, $offset) * $urk);
+			$fmetric['Leading'] = round(WaterWoo_TCPDF_STATIC::_getFWORD($font, $offset) * $urk);
 			$offset += 2;
 			// advanceWidthMax
-			$fmetric['MaxWidth'] = round(LP_TCPDF_STATIC::_getUFWORD($font, $offset) * $urk);
+			$fmetric['MaxWidth'] = round(WaterWoo_TCPDF_STATIC::_getUFWORD($font, $offset) * $urk);
 			$offset += 2;
 			$offset += 22; // skip some values
 			// get the number of hMetric entries in hmtx table
-			$numberOfHMetrics = LP_TCPDF_STATIC::_getUSHORT($font, $offset);
+			$numberOfHMetrics = WaterWoo_TCPDF_STATIC::_getUSHORT($font, $offset);
 			// ---------- get maxp data ----------
 			$offset = $table['maxp']['offset'];
 			$offset += 4; // skip Table version number
 			// get the the number of glyphs in the font.
-			$numGlyphs = LP_TCPDF_STATIC::_getUSHORT($font, $offset);
+			$numGlyphs = WaterWoo_TCPDF_STATIC::_getUSHORT($font, $offset);
 			// ---------- get CIDToGIDMap ----------
 			$ctg = array();
 			foreach ($encodingTables as $enctable) {
 				// get only specified Platform ID and Encoding ID
 				if (($enctable['platformID'] == $platid) AND ($enctable['encodingID'] == $encid)) {
 					$offset = $table['cmap']['offset'] + $enctable['offset'];
-					$format = LP_TCPDF_STATIC::_getUSHORT($font, $offset);
+					$format = WaterWoo_TCPDF_STATIC::_getUSHORT($font, $offset);
 					$offset += 2;
 					switch ($format) {
 						case 0: { // Format 0: Byte encoding table
 							$offset += 4; // skip length and version/language
 							for ($c = 0; $c < 256; ++$c) {
-								$g = LP_TCPDF_STATIC::_getBYTE($font, $offset);
+								$g = WaterWoo_TCPDF_STATIC::_getBYTE($font, $offset);
 								$ctg[$c] = $g;
 								++$offset;
 							}
@@ -581,7 +581,7 @@ class LP_TCPDF_FONTS {
 							$numSubHeaders = 0;
 							for ($i = 0; $i < 256; ++$i) {
 								// Array that maps high bytes to subHeaders: value is subHeader index * 8.
-								$subHeaderKeys[$i] = (LP_TCPDF_STATIC::_getUSHORT($font, $offset) / 8);
+								$subHeaderKeys[$i] = (WaterWoo_TCPDF_STATIC::_getUSHORT($font, $offset) / 8);
 								$offset += 2;
 								if ($numSubHeaders < $subHeaderKeys[$i]) {
 									$numSubHeaders = $subHeaderKeys[$i];
@@ -593,20 +593,20 @@ class LP_TCPDF_FONTS {
 							$subHeaders = array();
 							$numGlyphIndexArray = 0;
 							for ($k = 0; $k < $numSubHeaders; ++$k) {
-								$subHeaders[$k]['firstCode'] = LP_TCPDF_STATIC::_getUSHORT($font, $offset);
+								$subHeaders[$k]['firstCode'] = WaterWoo_TCPDF_STATIC::_getUSHORT($font, $offset);
 								$offset += 2;
-								$subHeaders[$k]['entryCount'] = LP_TCPDF_STATIC::_getUSHORT($font, $offset);
+								$subHeaders[$k]['entryCount'] = WaterWoo_TCPDF_STATIC::_getUSHORT($font, $offset);
 								$offset += 2;
-								$subHeaders[$k]['idDelta'] = LP_TCPDF_STATIC::_getUSHORT($font, $offset);
+								$subHeaders[$k]['idDelta'] = WaterWoo_TCPDF_STATIC::_getUSHORT($font, $offset);
 								$offset += 2;
-								$subHeaders[$k]['idRangeOffset'] = LP_TCPDF_STATIC::_getUSHORT($font, $offset);
+								$subHeaders[$k]['idRangeOffset'] = WaterWoo_TCPDF_STATIC::_getUSHORT($font, $offset);
 								$offset += 2;
 								$subHeaders[$k]['idRangeOffset'] -= (2 + (($numSubHeaders - $k - 1) * 8));
 								$subHeaders[$k]['idRangeOffset'] /= 2;
 								$numGlyphIndexArray += $subHeaders[$k]['entryCount'];
 							}
 							for ($k = 0; $k < $numGlyphIndexArray; ++$k) {
-								$glyphIndexArray[$k] = LP_TCPDF_STATIC::_getUSHORT($font, $offset);
+								$glyphIndexArray[$k] = WaterWoo_TCPDF_STATIC::_getUSHORT($font, $offset);
 								$offset += 2;
 							}
 							for ($i = 0; $i < 256; ++$i) {
@@ -635,37 +635,37 @@ class LP_TCPDF_FONTS {
 							break;
 						}
 						case 4: { // Format 4: Segment mapping to delta values
-							$length = LP_TCPDF_STATIC::_getUSHORT($font, $offset);
+							$length = WaterWoo_TCPDF_STATIC::_getUSHORT($font, $offset);
 							$offset += 2;
 							$offset += 2; // skip version/language
-							$segCount = floor(LP_TCPDF_STATIC::_getUSHORT($font, $offset) / 2);
+							$segCount = floor(WaterWoo_TCPDF_STATIC::_getUSHORT($font, $offset) / 2);
 							$offset += 2;
 							$offset += 6; // skip searchRange, entrySelector, rangeShift
 							$endCount = array(); // array of end character codes for each segment
 							for ($k = 0; $k < $segCount; ++$k) {
-								$endCount[$k] = LP_TCPDF_STATIC::_getUSHORT($font, $offset);
+								$endCount[$k] = WaterWoo_TCPDF_STATIC::_getUSHORT($font, $offset);
 								$offset += 2;
 							}
 							$offset += 2; // skip reservedPad
 							$startCount = array(); // array of start character codes for each segment
 							for ($k = 0; $k < $segCount; ++$k) {
-								$startCount[$k] = LP_TCPDF_STATIC::_getUSHORT($font, $offset);
+								$startCount[$k] = WaterWoo_TCPDF_STATIC::_getUSHORT($font, $offset);
 								$offset += 2;
 							}
 							$idDelta = array(); // delta for all character codes in segment
 							for ($k = 0; $k < $segCount; ++$k) {
-								$idDelta[$k] = LP_TCPDF_STATIC::_getUSHORT($font, $offset);
+								$idDelta[$k] = WaterWoo_TCPDF_STATIC::_getUSHORT($font, $offset);
 								$offset += 2;
 							}
 							$idRangeOffset = array(); // Offsets into glyphIdArray or 0
 							for ($k = 0; $k < $segCount; ++$k) {
-								$idRangeOffset[$k] = LP_TCPDF_STATIC::_getUSHORT($font, $offset);
+								$idRangeOffset[$k] = WaterWoo_TCPDF_STATIC::_getUSHORT($font, $offset);
 								$offset += 2;
 							}
 							$gidlen = (floor($length / 2) - 8 - (4 * $segCount));
 							$glyphIdArray = array(); // glyph index array
 							for ($k = 0; $k < $gidlen; ++$k) {
-								$glyphIdArray[$k] = LP_TCPDF_STATIC::_getUSHORT($font, $offset);
+								$glyphIdArray[$k] = WaterWoo_TCPDF_STATIC::_getUSHORT($font, $offset);
 								$offset += 2;
 							}
                             for ($k = 0; $k < $segCount - 1; ++$k) {
@@ -686,13 +686,13 @@ class LP_TCPDF_FONTS {
 						}
 						case 6: { // Format 6: Trimmed table mapping
 							$offset += 4; // skip length and version/language
-							$firstCode = LP_TCPDF_STATIC::_getUSHORT($font, $offset);
+							$firstCode = WaterWoo_TCPDF_STATIC::_getUSHORT($font, $offset);
 							$offset += 2;
-							$entryCount = LP_TCPDF_STATIC::_getUSHORT($font, $offset);
+							$entryCount = WaterWoo_TCPDF_STATIC::_getUSHORT($font, $offset);
 							$offset += 2;
 							for ($k = 0; $k < $entryCount; ++$k) {
 								$c = ($k + $firstCode);
-								$g = LP_TCPDF_STATIC::_getUSHORT($font, $offset);
+								$g = WaterWoo_TCPDF_STATIC::_getUSHORT($font, $offset);
 								$offset += 2;
 								$ctg[$c] = $g;
 							}
@@ -701,17 +701,17 @@ class LP_TCPDF_FONTS {
 						case 8: { // Format 8: Mixed 16-bit and 32-bit coverage
 							$offset += 10; // skip reserved, length and version/language
 							for ($k = 0; $k < 8192; ++$k) {
-								$is32[$k] = LP_TCPDF_STATIC::_getBYTE($font, $offset);
+								$is32[$k] = WaterWoo_TCPDF_STATIC::_getBYTE($font, $offset);
 								++$offset;
 							}
-							$nGroups = LP_TCPDF_STATIC::_getULONG($font, $offset);
+							$nGroups = WaterWoo_TCPDF_STATIC::_getULONG($font, $offset);
 							$offset += 4;
 							for ($i = 0; $i < $nGroups; ++$i) {
-								$startCharCode = LP_TCPDF_STATIC::_getULONG($font, $offset);
+								$startCharCode = WaterWoo_TCPDF_STATIC::_getULONG($font, $offset);
 								$offset += 4;
-								$endCharCode = LP_TCPDF_STATIC::_getULONG($font, $offset);
+								$endCharCode = WaterWoo_TCPDF_STATIC::_getULONG($font, $offset);
 								$offset += 4;
-								$startGlyphID = LP_TCPDF_STATIC::_getULONG($font, $offset);
+								$startGlyphID = WaterWoo_TCPDF_STATIC::_getULONG($font, $offset);
 								$offset += 4;
 								for ($k = $startCharCode; $k <= $endCharCode; ++$k) {
 									$is32idx = floor($c / 8);
@@ -732,13 +732,13 @@ class LP_TCPDF_FONTS {
 						}
 						case 10: { // Format 10: Trimmed array
 							$offset += 10; // skip reserved, length and version/language
-							$startCharCode = LP_TCPDF_STATIC::_getULONG($font, $offset);
+							$startCharCode = WaterWoo_TCPDF_STATIC::_getULONG($font, $offset);
 							$offset += 4;
-							$numChars = LP_TCPDF_STATIC::_getULONG($font, $offset);
+							$numChars = WaterWoo_TCPDF_STATIC::_getULONG($font, $offset);
 							$offset += 4;
 							for ($k = 0; $k < $numChars; ++$k) {
 								$c = ($k + $startCharCode);
-								$g = LP_TCPDF_STATIC::_getUSHORT($font, $offset);
+								$g = WaterWoo_TCPDF_STATIC::_getUSHORT($font, $offset);
 								$ctg[$c] = $g;
 								$offset += 2;
 							}
@@ -746,14 +746,14 @@ class LP_TCPDF_FONTS {
 						}
 						case 12: { // Format 12: Segmented coverage
 							$offset += 10; // skip length and version/language
-							$nGroups = LP_TCPDF_STATIC::_getULONG($font, $offset);
+							$nGroups = WaterWoo_TCPDF_STATIC::_getULONG($font, $offset);
 							$offset += 4;
 							for ($k = 0; $k < $nGroups; ++$k) {
-								$startCharCode = LP_TCPDF_STATIC::_getULONG($font, $offset);
+								$startCharCode = WaterWoo_TCPDF_STATIC::_getULONG($font, $offset);
 								$offset += 4;
-								$endCharCode = LP_TCPDF_STATIC::_getULONG($font, $offset);
+								$endCharCode = WaterWoo_TCPDF_STATIC::_getULONG($font, $offset);
 								$offset += 4;
-								$startGlyphCode = LP_TCPDF_STATIC::_getULONG($font, $offset);
+								$startGlyphCode = WaterWoo_TCPDF_STATIC::_getULONG($font, $offset);
 								$offset += 4;
 								for ($c = $startCharCode; $c <= $endCharCode; ++$c) {
 									$ctg[$c] = $startGlyphCode;
@@ -778,23 +778,23 @@ class LP_TCPDF_FONTS {
 			}
 			// get xHeight (height of x)
 			$offset = ($table['glyf']['offset'] + $indexToLoc[$ctg[120]] + 4);
-			$yMin = LP_TCPDF_STATIC::_getFWORD($font, $offset);
+			$yMin = WaterWoo_TCPDF_STATIC::_getFWORD($font, $offset);
 			$offset += 4;
-			$yMax = LP_TCPDF_STATIC::_getFWORD($font, $offset);
+			$yMax = WaterWoo_TCPDF_STATIC::_getFWORD($font, $offset);
 			$offset += 2;
 			$fmetric['XHeight'] = round(($yMax - $yMin) * $urk);
 			// get CapHeight (height of H)
 			$offset = ($table['glyf']['offset'] + $indexToLoc[$ctg[72]] + 4);
-			$yMin = LP_TCPDF_STATIC::_getFWORD($font, $offset);
+			$yMin = WaterWoo_TCPDF_STATIC::_getFWORD($font, $offset);
 			$offset += 4;
-			$yMax = LP_TCPDF_STATIC::_getFWORD($font, $offset);
+			$yMax = WaterWoo_TCPDF_STATIC::_getFWORD($font, $offset);
 			$offset += 2;
 			$fmetric['CapHeight'] = round(($yMax - $yMin) * $urk);
 			// ceate widths array
 			$cw = array();
 			$offset = $table['hmtx']['offset'];
 			for ($i = 0 ; $i < $numberOfHMetrics; ++$i) {
-				$cw[$i] = round(LP_TCPDF_STATIC::_getUFWORD($font, $offset) * $urk);
+				$cw[$i] = round(WaterWoo_TCPDF_STATIC::_getUFWORD($font, $offset) * $urk);
 				$offset += 4; // skip lsb
 			}
 			if ($numberOfHMetrics < $numGlyphs) {
@@ -811,10 +811,10 @@ class LP_TCPDF_FONTS {
 					}
 					if ($addcbbox AND isset($indexToLoc[$ctg[$cid]])) {
 						$offset = ($table['glyf']['offset'] + $indexToLoc[$ctg[$cid]]);
-						$xMin = round(LP_TCPDF_STATIC::_getFWORD($font, $offset + 2) * $urk);
-						$yMin = round(LP_TCPDF_STATIC::_getFWORD($font, $offset + 4) * $urk);
-						$xMax = round(LP_TCPDF_STATIC::_getFWORD($font, $offset + 6) * $urk);
-						$yMax = round(LP_TCPDF_STATIC::_getFWORD($font, $offset + 8) * $urk);
+						$xMin = round(WaterWoo_TCPDF_STATIC::_getFWORD($font, $offset + 2) * $urk);
+						$yMin = round(WaterWoo_TCPDF_STATIC::_getFWORD($font, $offset + 4) * $urk);
+						$xMax = round(WaterWoo_TCPDF_STATIC::_getFWORD($font, $offset + 6) * $urk);
+						$yMax = round(WaterWoo_TCPDF_STATIC::_getFWORD($font, $offset + 8) * $urk);
 						$fmetric['cbbox'] .= ','.$cid.'=>array('.$xMin.','.$yMin.','.$xMax.','.$yMax.')';
 					}
 				}
@@ -888,7 +888,7 @@ class LP_TCPDF_FONTS {
 					$cidtogidmap = self::updateCIDtoGIDmap($cidtogidmap, $cid, $ctg[$cid]);
 				}
 				// store compressed CIDToGIDMap
-				$fp = LP_TCPDF_STATIC::fopenLocal($outpath.$fmetric['ctg'], 'wb');
+				$fp = WaterWoo_TCPDF_STATIC::fopenLocal($outpath.$fmetric['ctg'], 'wb');
 				fwrite($fp, gzcompress($cidtogidmap));
 				fclose($fp);
 			}
@@ -914,7 +914,7 @@ class LP_TCPDF_FONTS {
 		$pfile .= '$cw=array('.substr($fmetric['cw'], 1).');'."\n";
 		$pfile .= '// --- EOF ---'."\n";
 		// store file
-		$fp = LP_TCPDF_STATIC::fopenLocal($outpath.$font_name.'.php', 'w');
+		$fp = WaterWoo_TCPDF_STATIC::fopenLocal($outpath.$font_name.'.php', 'w');
 		fwrite($fp, $pfile);
 		fclose($fp);
 		// return TCPDF font name
@@ -955,13 +955,13 @@ class LP_TCPDF_FONTS {
 	public static function _getTrueTypeFontSubset($font, $subsetchars) {
 		ksort($subsetchars);
 		$offset = 0; // offset position of the font data
-		if (LP_TCPDF_STATIC::_getULONG($font, $offset) != 0x10000) {
+		if (WaterWoo_TCPDF_STATIC::_getULONG($font, $offset) != 0x10000) {
 			// sfnt version must be 0x00010000 for TrueType version 1.0.
 			return $font;
 		}
 		$offset += 4;
 		// get number of tables
-		$numTables = LP_TCPDF_STATIC::_getUSHORT($font, $offset);
+		$numTables = WaterWoo_TCPDF_STATIC::_getUSHORT($font, $offset);
 		$offset += 2;
 		// skip searchRange, entrySelector and rangeShift
 		$offset += 6;
@@ -973,23 +973,23 @@ class LP_TCPDF_FONTS {
 			$tag = substr($font, $offset, 4);
 			$offset += 4;
 			$table[$tag] = array();
-			$table[$tag]['checkSum'] = LP_TCPDF_STATIC::_getULONG($font, $offset);
+			$table[$tag]['checkSum'] = WaterWoo_TCPDF_STATIC::_getULONG($font, $offset);
 			$offset += 4;
-			$table[$tag]['offset'] = LP_TCPDF_STATIC::_getULONG($font, $offset);
+			$table[$tag]['offset'] = WaterWoo_TCPDF_STATIC::_getULONG($font, $offset);
 			$offset += 4;
-			$table[$tag]['length'] = LP_TCPDF_STATIC::_getULONG($font, $offset);
+			$table[$tag]['length'] = WaterWoo_TCPDF_STATIC::_getULONG($font, $offset);
 			$offset += 4;
 		}
 		// check magicNumber
 		$offset = $table['head']['offset'] + 12;
-		if (LP_TCPDF_STATIC::_getULONG($font, $offset) != 0x5F0F3CF5) {
+		if (WaterWoo_TCPDF_STATIC::_getULONG($font, $offset) != 0x5F0F3CF5) {
 			// magicNumber must be 0x5F0F3CF5
 			return $font;
 		}
 		$offset += 4;
 		// get offset mode (indexToLocFormat : 0 = short, 1 = long)
 		$offset = $table['head']['offset'] + 50;
-		$short_offset = (LP_TCPDF_STATIC::_getSHORT($font, $offset) == 0);
+		$short_offset = (WaterWoo_TCPDF_STATIC::_getSHORT($font, $offset) == 0);
 		$offset += 2;
 		// get the offsets to the locations of the glyphs in the font, relative to the beginning of the glyphData table
 		$indexToLoc = array();
@@ -998,14 +998,14 @@ class LP_TCPDF_FONTS {
 			// short version
 			$tot_num_glyphs = floor($table['loca']['length'] / 2); // numGlyphs + 1
 			for ($i = 0; $i < $tot_num_glyphs; ++$i) {
-				$indexToLoc[$i] = LP_TCPDF_STATIC::_getUSHORT($font, $offset) * 2;
+				$indexToLoc[$i] = WaterWoo_TCPDF_STATIC::_getUSHORT($font, $offset) * 2;
 				$offset += 2;
 			}
 		} else {
 			// long version
 			$tot_num_glyphs = ($table['loca']['length'] / 4); // numGlyphs + 1
 			for ($i = 0; $i < $tot_num_glyphs; ++$i) {
-				$indexToLoc[$i] = LP_TCPDF_STATIC::_getULONG($font, $offset);
+				$indexToLoc[$i] = WaterWoo_TCPDF_STATIC::_getULONG($font, $offset);
 				$offset += 4;
 			}
 		}
@@ -1013,28 +1013,28 @@ class LP_TCPDF_FONTS {
 		$subsetglyphs = array(); // glyph IDs on key
 		$subsetglyphs[0] = true; // character codes that do not correspond to any glyph in the font should be mapped to glyph index 0
 		$offset = $table['cmap']['offset'] + 2;
-		$numEncodingTables = LP_TCPDF_STATIC::_getUSHORT($font, $offset);
+		$numEncodingTables = WaterWoo_TCPDF_STATIC::_getUSHORT($font, $offset);
 		$offset += 2;
 		$encodingTables = array();
 		for ($i = 0; $i < $numEncodingTables; ++$i) {
-			$encodingTables[$i]['platformID'] = LP_TCPDF_STATIC::_getUSHORT($font, $offset);
+			$encodingTables[$i]['platformID'] = WaterWoo_TCPDF_STATIC::_getUSHORT($font, $offset);
 			$offset += 2;
-			$encodingTables[$i]['encodingID'] = LP_TCPDF_STATIC::_getUSHORT($font, $offset);
+			$encodingTables[$i]['encodingID'] = WaterWoo_TCPDF_STATIC::_getUSHORT($font, $offset);
 			$offset += 2;
-			$encodingTables[$i]['offset'] = LP_TCPDF_STATIC::_getULONG($font, $offset);
+			$encodingTables[$i]['offset'] = WaterWoo_TCPDF_STATIC::_getULONG($font, $offset);
 			$offset += 4;
 		}
 		foreach ($encodingTables as $enctable) {
 			// get all platforms and encodings
 			$offset = $table['cmap']['offset'] + $enctable['offset'];
-			$format = LP_TCPDF_STATIC::_getUSHORT($font, $offset);
+			$format = WaterWoo_TCPDF_STATIC::_getUSHORT($font, $offset);
 			$offset += 2;
 			switch ($format) {
 				case 0: { // Format 0: Byte encoding table
 					$offset += 4; // skip length and version/language
 					for ($c = 0; $c < 256; ++$c) {
 						if (isset($subsetchars[$c])) {
-							$g = LP_TCPDF_STATIC::_getBYTE($font, $offset);
+							$g = WaterWoo_TCPDF_STATIC::_getBYTE($font, $offset);
 							$subsetglyphs[$g] = true;
 						}
 						++$offset;
@@ -1046,7 +1046,7 @@ class LP_TCPDF_FONTS {
 					$numSubHeaders = 0;
 					for ($i = 0; $i < 256; ++$i) {
 						// Array that maps high bytes to subHeaders: value is subHeader index * 8.
-						$subHeaderKeys[$i] = (LP_TCPDF_STATIC::_getUSHORT($font, $offset) / 8);
+						$subHeaderKeys[$i] = (WaterWoo_TCPDF_STATIC::_getUSHORT($font, $offset) / 8);
 						$offset += 2;
 						if ($numSubHeaders < $subHeaderKeys[$i]) {
 							$numSubHeaders = $subHeaderKeys[$i];
@@ -1058,20 +1058,20 @@ class LP_TCPDF_FONTS {
 					$subHeaders = array();
 					$numGlyphIndexArray = 0;
 					for ($k = 0; $k < $numSubHeaders; ++$k) {
-						$subHeaders[$k]['firstCode'] = LP_TCPDF_STATIC::_getUSHORT($font, $offset);
+						$subHeaders[$k]['firstCode'] = WaterWoo_TCPDF_STATIC::_getUSHORT($font, $offset);
 						$offset += 2;
-						$subHeaders[$k]['entryCount'] = LP_TCPDF_STATIC::_getUSHORT($font, $offset);
+						$subHeaders[$k]['entryCount'] = WaterWoo_TCPDF_STATIC::_getUSHORT($font, $offset);
 						$offset += 2;
-						$subHeaders[$k]['idDelta'] = LP_TCPDF_STATIC::_getUSHORT($font, $offset);
+						$subHeaders[$k]['idDelta'] = WaterWoo_TCPDF_STATIC::_getUSHORT($font, $offset);
 						$offset += 2;
-						$subHeaders[$k]['idRangeOffset'] = LP_TCPDF_STATIC::_getUSHORT($font, $offset);
+						$subHeaders[$k]['idRangeOffset'] = WaterWoo_TCPDF_STATIC::_getUSHORT($font, $offset);
 						$offset += 2;
 						$subHeaders[$k]['idRangeOffset'] -= (2 + (($numSubHeaders - $k - 1) * 8));
 						$subHeaders[$k]['idRangeOffset'] /= 2;
 						$numGlyphIndexArray += $subHeaders[$k]['entryCount'];
 					}
 					for ($k = 0; $k < $numGlyphIndexArray; ++$k) {
-						$glyphIndexArray[$k] = LP_TCPDF_STATIC::_getUSHORT($font, $offset);
+						$glyphIndexArray[$k] = WaterWoo_TCPDF_STATIC::_getUSHORT($font, $offset);
 						$offset += 2;
 					}
 					for ($i = 0; $i < 256; ++$i) {
@@ -1104,37 +1104,37 @@ class LP_TCPDF_FONTS {
 					break;
 				}
 				case 4: { // Format 4: Segment mapping to delta values
-					$length = LP_TCPDF_STATIC::_getUSHORT($font, $offset);
+					$length = WaterWoo_TCPDF_STATIC::_getUSHORT($font, $offset);
 					$offset += 2;
 					$offset += 2; // skip version/language
-					$segCount = floor(LP_TCPDF_STATIC::_getUSHORT($font, $offset) / 2);
+					$segCount = floor(WaterWoo_TCPDF_STATIC::_getUSHORT($font, $offset) / 2);
 					$offset += 2;
 					$offset += 6; // skip searchRange, entrySelector, rangeShift
 					$endCount = array(); // array of end character codes for each segment
 					for ($k = 0; $k < $segCount; ++$k) {
-						$endCount[$k] = LP_TCPDF_STATIC::_getUSHORT($font, $offset);
+						$endCount[$k] = WaterWoo_TCPDF_STATIC::_getUSHORT($font, $offset);
 						$offset += 2;
 					}
 					$offset += 2; // skip reservedPad
 					$startCount = array(); // array of start character codes for each segment
 					for ($k = 0; $k < $segCount; ++$k) {
-						$startCount[$k] = LP_TCPDF_STATIC::_getUSHORT($font, $offset);
+						$startCount[$k] = WaterWoo_TCPDF_STATIC::_getUSHORT($font, $offset);
 						$offset += 2;
 					}
 					$idDelta = array(); // delta for all character codes in segment
 					for ($k = 0; $k < $segCount; ++$k) {
-						$idDelta[$k] = LP_TCPDF_STATIC::_getUSHORT($font, $offset);
+						$idDelta[$k] = WaterWoo_TCPDF_STATIC::_getUSHORT($font, $offset);
 						$offset += 2;
 					}
 					$idRangeOffset = array(); // Offsets into glyphIdArray or 0
 					for ($k = 0; $k < $segCount; ++$k) {
-						$idRangeOffset[$k] = LP_TCPDF_STATIC::_getUSHORT($font, $offset);
+						$idRangeOffset[$k] = WaterWoo_TCPDF_STATIC::_getUSHORT($font, $offset);
 						$offset += 2;
 					}
 					$gidlen = (floor($length / 2) - 8 - (4 * $segCount));
 					$glyphIdArray = array(); // glyph index array
 					for ($k = 0; $k < $gidlen; ++$k) {
-						$glyphIdArray[$k] = LP_TCPDF_STATIC::_getUSHORT($font, $offset);
+						$glyphIdArray[$k] = WaterWoo_TCPDF_STATIC::_getUSHORT($font, $offset);
 						$offset += 2;
 					}
 					for ($k = 0; $k < $segCount; ++$k) {
@@ -1157,14 +1157,14 @@ class LP_TCPDF_FONTS {
 				}
 				case 6: { // Format 6: Trimmed table mapping
 					$offset += 4; // skip length and version/language
-					$firstCode = LP_TCPDF_STATIC::_getUSHORT($font, $offset);
+					$firstCode = WaterWoo_TCPDF_STATIC::_getUSHORT($font, $offset);
 					$offset += 2;
-					$entryCount = LP_TCPDF_STATIC::_getUSHORT($font, $offset);
+					$entryCount = WaterWoo_TCPDF_STATIC::_getUSHORT($font, $offset);
 					$offset += 2;
 					for ($k = 0; $k < $entryCount; ++$k) {
 						$c = ($k + $firstCode);
 						if (isset($subsetchars[$c])) {
-							$g = LP_TCPDF_STATIC::_getUSHORT($font, $offset);
+							$g = WaterWoo_TCPDF_STATIC::_getUSHORT($font, $offset);
 							$subsetglyphs[$g] = true;
 						}
 						$offset += 2;
@@ -1174,17 +1174,17 @@ class LP_TCPDF_FONTS {
 				case 8: { // Format 8: Mixed 16-bit and 32-bit coverage
 					$offset += 10; // skip reserved, length and version/language
 					for ($k = 0; $k < 8192; ++$k) {
-						$is32[$k] = LP_TCPDF_STATIC::_getBYTE($font, $offset);
+						$is32[$k] = WaterWoo_TCPDF_STATIC::_getBYTE($font, $offset);
 						++$offset;
 					}
-					$nGroups = LP_TCPDF_STATIC::_getULONG($font, $offset);
+					$nGroups = WaterWoo_TCPDF_STATIC::_getULONG($font, $offset);
 					$offset += 4;
 					for ($i = 0; $i < $nGroups; ++$i) {
-						$startCharCode = LP_TCPDF_STATIC::_getULONG($font, $offset);
+						$startCharCode = WaterWoo_TCPDF_STATIC::_getULONG($font, $offset);
 						$offset += 4;
-						$endCharCode = LP_TCPDF_STATIC::_getULONG($font, $offset);
+						$endCharCode = WaterWoo_TCPDF_STATIC::_getULONG($font, $offset);
 						$offset += 4;
-						$startGlyphID = LP_TCPDF_STATIC::_getULONG($font, $offset);
+						$startGlyphID = WaterWoo_TCPDF_STATIC::_getULONG($font, $offset);
 						$offset += 4;
 						for ($k = $startCharCode; $k <= $endCharCode; ++$k) {
 							$is32idx = floor($c / 8);
@@ -1207,14 +1207,14 @@ class LP_TCPDF_FONTS {
 				}
 				case 10: { // Format 10: Trimmed array
 					$offset += 10; // skip reserved, length and version/language
-					$startCharCode = LP_TCPDF_STATIC::_getULONG($font, $offset);
+					$startCharCode = WaterWoo_TCPDF_STATIC::_getULONG($font, $offset);
 					$offset += 4;
-					$numChars = LP_TCPDF_STATIC::_getULONG($font, $offset);
+					$numChars = WaterWoo_TCPDF_STATIC::_getULONG($font, $offset);
 					$offset += 4;
 					for ($k = 0; $k < $numChars; ++$k) {
 						$c = ($k + $startCharCode);
 						if (isset($subsetchars[$c])) {
-							$g = LP_TCPDF_STATIC::_getUSHORT($font, $offset);
+							$g = WaterWoo_TCPDF_STATIC::_getUSHORT($font, $offset);
 							$subsetglyphs[$g] = true;
 						}
 						$offset += 2;
@@ -1223,14 +1223,14 @@ class LP_TCPDF_FONTS {
 				}
 				case 12: { // Format 12: Segmented coverage
 					$offset += 10; // skip length and version/language
-					$nGroups = LP_TCPDF_STATIC::_getULONG($font, $offset);
+					$nGroups = WaterWoo_TCPDF_STATIC::_getULONG($font, $offset);
 					$offset += 4;
 					for ($k = 0; $k < $nGroups; ++$k) {
-						$startCharCode = LP_TCPDF_STATIC::_getULONG($font, $offset);
+						$startCharCode = WaterWoo_TCPDF_STATIC::_getULONG($font, $offset);
 						$offset += 4;
-						$endCharCode = LP_TCPDF_STATIC::_getULONG($font, $offset);
+						$endCharCode = WaterWoo_TCPDF_STATIC::_getULONG($font, $offset);
 						$offset += 4;
-						$startGlyphCode = LP_TCPDF_STATIC::_getULONG($font, $offset);
+						$startGlyphCode = WaterWoo_TCPDF_STATIC::_getULONG($font, $offset);
 						$offset += 4;
 						for ($c = $startCharCode; $c <= $endCharCode; ++$c) {
 							if (isset($subsetchars[$c])) {
@@ -1259,14 +1259,14 @@ class LP_TCPDF_FONTS {
 			foreach ($sga as $key => $val) {
 				if (isset($indexToLoc[$key])) {
 					$offset = ($table['glyf']['offset'] + $indexToLoc[$key]);
-					$numberOfContours = LP_TCPDF_STATIC::_getSHORT($font, $offset);
+					$numberOfContours = WaterWoo_TCPDF_STATIC::_getSHORT($font, $offset);
 					$offset += 2;
 					if ($numberOfContours < 0) { // composite glyph
 						$offset += 8; // skip xMin, yMin, xMax, yMax
 						do {
-							$flags = LP_TCPDF_STATIC::_getUSHORT($font, $offset);
+							$flags = WaterWoo_TCPDF_STATIC::_getUSHORT($font, $offset);
 							$offset += 2;
-							$glyphIndex = LP_TCPDF_STATIC::_getUSHORT($font, $offset);
+							$glyphIndex = WaterWoo_TCPDF_STATIC::_getUSHORT($font, $offset);
 							$offset += 2;
 							if (!isset($subsetglyphs[$glyphIndex])) {
 								// add missing glyphs
@@ -1546,11 +1546,11 @@ class LP_TCPDF_FONTS {
 	public static function getFontFullPath($file, $fontdir=false) {
 		$fontfile = '';
 		// search files on various directories
-		if (($fontdir !== false) AND @LP_TCPDF_STATIC::file_exists($fontdir.$file)) {
+		if (($fontdir !== false) AND @WaterWoo_TCPDF_STATIC::file_exists($fontdir.$file)) {
     		$fontfile = $fontdir.$file;
-		} elseif (@LP_TCPDF_STATIC::file_exists(self::_getfontpath().$file)) {
+		} elseif (@WaterWoo_TCPDF_STATIC::file_exists(self::_getfontpath().$file)) {
 			$fontfile = self::_getfontpath().$file;
-		} elseif (@LP_TCPDF_STATIC::file_exists($file)) {
+		} elseif (@WaterWoo_TCPDF_STATIC::file_exists($file)) {
 			$fontfile = $file;
 		}
 		return $fontfile;
@@ -1781,9 +1781,9 @@ class LP_TCPDF_FONTS {
 	 */
 	public static function UTF8ArrayToUniArray($ta, $isunicode=true) {
 		if ($isunicode) {
-			return array_map(array('LP_TCPDF_FONTS', 'unichrUnicode'), $ta);
+			return array_map(array('WaterWoo_TCPDF_FONTS', 'unichrUnicode'), $ta);
 		}
-		return array_map(array('LP_TCPDF_FONTS', 'unichrASCII'), $ta);
+		return array_map(array('WaterWoo_TCPDF_FONTS', 'unichrASCII'), $ta);
 	}
 
 	/**
@@ -1845,9 +1845,9 @@ class LP_TCPDF_FONTS {
 		foreach ($unicode as $char) {
 			if ($char < 256) {
 				$outarr[] = $char;
-			} elseif (array_key_exists($char, TCPDF_FONT_DATA::$uni_utf8tolatin)) {
+			} elseif (array_key_exists($char, WaterWoo_TCPDF_FONT_DATA::$uni_utf8tolatin)) {
 				// map from UTF-8
-				$outarr[] = TCPDF_FONT_DATA::$uni_utf8tolatin[$char];
+				$outarr[] = WaterWoo_TCPDF_FONT_DATA::$uni_utf8tolatin[$char];
 			} elseif ($char == 0xFFFD) {
 				// skip
 			} else {
@@ -1870,9 +1870,9 @@ class LP_TCPDF_FONTS {
 		foreach ($unicode as $char) {
 			if ($char < 256) {
 				$outstr .= chr($char);
-			} elseif (array_key_exists($char, TCPDF_FONT_DATA::$uni_utf8tolatin)) {
+			} elseif (array_key_exists($char, WaterWoo_TCPDF_FONT_DATA::$uni_utf8tolatin)) {
 				// map from UTF-8
-				$outstr .= chr(TCPDF_FONT_DATA::$uni_utf8tolatin[$char]);
+				$outstr .= chr(WaterWoo_TCPDF_FONT_DATA::$uni_utf8tolatin[$char]);
 			} elseif ($char == 0xFFFD) {
 				// skip
 			} else {
@@ -2003,10 +2003,10 @@ class LP_TCPDF_FONTS {
 		if ($isunicode) {
 			// requires PCRE unicode support turned on
             if ( version_compare( PHP_VERSION, '7.3.4', '<' ) ) {
-                $chars = LP_TCPDF_STATIC::pregSplit( '//', 'u', $str, -1, PREG_SPLIT_NO_EMPTY ); // this was needed for PHP 5.2, added 2.9.2
+                $chars = WaterWoo_TCPDF_STATIC::pregSplit( '//', 'u', $str, -1, PREG_SPLIT_NO_EMPTY ); // this was needed for PHP 5.2, added 2.9.2
                 if ( empty( $chars ) ) {
                     $str = iconv( "UTF-8", "UTF-8//IGNORE", $str );
-                    $chars = LP_TCPDF_STATIC::pregSplit( '//', 'u', $str, -1, PREG_SPLIT_NO_EMPTY );
+                    $chars = WaterWoo_TCPDF_STATIC::pregSplit( '//', 'u', $str, -1, PREG_SPLIT_NO_EMPTY );
 			    }
 			} else {
 			    $chars = preg_split( '//u', $str, -1, PREG_SPLIT_NO_EMPTY );
@@ -2015,7 +2015,7 @@ class LP_TCPDF_FONTS {
                     $chars = preg_split( '//u', $str, -1, PREG_SPLIT_NO_EMPTY );
 			    }
 			}
-            $carr = array_map(array( 'LP_TCPDF_FONTS', 'uniord' ), $chars ); // Converts UTF-8 character to integer value
+            $carr = array_map(array( 'WaterWoo_TCPDF_FONTS', 'uniord' ), $chars ); // Converts UTF-8 character to integer value
 		} else {
 			$chars = str_split($str);
 			$carr = array_map('ord', $chars);
@@ -2111,18 +2111,18 @@ class LP_TCPDF_FONTS {
 		$pel = 0;
 		// max level
 		$maxlevel = 0;
-		if (LP_TCPDF_STATIC::empty_string($str)) {
+		if (WaterWoo_TCPDF_STATIC::empty_string($str)) {
 			// create string from array
 			$str = self::UTF8ArrSubString($ta, '', '', $isunicode);
 		}
 		// check if string contains arabic text
-		if (preg_match(TCPDF_FONT_DATA::$uni_RE_PATTERN_ARABIC, $str)) {
+		if (preg_match(WaterWoo_TCPDF_FONT_DATA::$uni_RE_PATTERN_ARABIC, $str)) {
 			$arabic = true;
 		} else {
 			$arabic = false;
 		}
 		// check if string contains RTL text
-		if (!($forcertl OR $arabic OR preg_match(TCPDF_FONT_DATA::$uni_RE_PATTERN_RTL, $str))) {
+		if (!($forcertl OR $arabic OR preg_match(WaterWoo_TCPDF_FONT_DATA::$uni_RE_PATTERN_RTL, $str))) {
 			return $ta;
 		}
 
@@ -2137,7 +2137,7 @@ class LP_TCPDF_FONTS {
 			// P2. In each paragraph, find the first character of type L, AL, or R.
 			// P3. If a character is found in P2 and it is of type AL or R, then set the paragraph embedding level to one; otherwise, set it to zero.
 			for ($i=0; $i < $numchars; ++$i) {
-				$type = TCPDF_FONT_DATA::$uni_type[$ta[$i]];
+				$type = WaterWoo_TCPDF_FONT_DATA::$uni_type[$ta[$i]];
 				if ($type == 'L') {
 					$pel = 0;
 					break;
@@ -2163,62 +2163,62 @@ class LP_TCPDF_FONTS {
 		// X1. Begin by setting the current embedding level to the paragraph embedding level. Set the directional override status to neutral. Process each character iteratively, applying rules X2 through X9. Only embedding levels from 0 to 61 are valid in this phase.
 		// In the resolution of levels in rules I1 and I2, the maximum embedding level of 62 can be reached.
 		for ($i=0; $i < $numchars; ++$i) {
-			if ($ta[$i] == TCPDF_FONT_DATA::$uni_RLE) {
+			if ($ta[$i] == WaterWoo_TCPDF_FONT_DATA::$uni_RLE) {
 				// X2. With each RLE, compute the least greater odd embedding level.
 				//	a. If this new level would be valid, then this embedding code is valid. Remember (push) the current embedding level and override status. Reset the current level to this new level, and reset the override status to neutral.
 				//	b. If the new level would not be valid, then this code is invalid. Do not change the current level or override status.
 				$next_level = $cel + ($cel % 2) + 1;
 				if ($next_level < 62) {
-					$remember[] = array('num' => TCPDF_FONT_DATA::$uni_RLE, 'cel' => $cel, 'dos' => $dos);
+					$remember[] = array('num' => WaterWoo_TCPDF_FONT_DATA::$uni_RLE, 'cel' => $cel, 'dos' => $dos);
 					$cel = $next_level;
 					$dos = 'N';
 					$sor = $eor;
 					$eor = $cel % 2 ? 'R' : 'L';
 				}
-			} elseif ($ta[$i] == TCPDF_FONT_DATA::$uni_LRE) {
+			} elseif ($ta[$i] == WaterWoo_TCPDF_FONT_DATA::$uni_LRE) {
 				// X3. With each LRE, compute the least greater even embedding level.
 				//	a. If this new level would be valid, then this embedding code is valid. Remember (push) the current embedding level and override status. Reset the current level to this new level, and reset the override status to neutral.
 				//	b. If the new level would not be valid, then this code is invalid. Do not change the current level or override status.
 				$next_level = $cel + 2 - ($cel % 2);
 				if ( $next_level < 62 ) {
-					$remember[] = array('num' => TCPDF_FONT_DATA::$uni_LRE, 'cel' => $cel, 'dos' => $dos);
+					$remember[] = array('num' => WaterWoo_TCPDF_FONT_DATA::$uni_LRE, 'cel' => $cel, 'dos' => $dos);
 					$cel = $next_level;
 					$dos = 'N';
 					$sor = $eor;
 					$eor = $cel % 2 ? 'R' : 'L';
 				}
-			} elseif ($ta[$i] == TCPDF_FONT_DATA::$uni_RLO) {
+			} elseif ($ta[$i] == WaterWoo_TCPDF_FONT_DATA::$uni_RLO) {
 				// X4. With each RLO, compute the least greater odd embedding level.
 				//	a. If this new level would be valid, then this embedding code is valid. Remember (push) the current embedding level and override status. Reset the current level to this new level, and reset the override status to right-to-left.
 				//	b. If the new level would not be valid, then this code is invalid. Do not change the current level or override status.
 				$next_level = $cel + ($cel % 2) + 1;
 				if ($next_level < 62) {
-					$remember[] = array('num' => TCPDF_FONT_DATA::$uni_RLO, 'cel' => $cel, 'dos' => $dos);
+					$remember[] = array('num' => WaterWoo_TCPDF_FONT_DATA::$uni_RLO, 'cel' => $cel, 'dos' => $dos);
 					$cel = $next_level;
 					$dos = 'R';
 					$sor = $eor;
 					$eor = $cel % 2 ? 'R' : 'L';
 				}
-			} elseif ($ta[$i] == TCPDF_FONT_DATA::$uni_LRO) {
+			} elseif ($ta[$i] == WaterWoo_TCPDF_FONT_DATA::$uni_LRO) {
 				// X5. With each LRO, compute the least greater even embedding level.
 				//	a. If this new level would be valid, then this embedding code is valid. Remember (push) the current embedding level and override status. Reset the current level to this new level, and reset the override status to left-to-right.
 				//	b. If the new level would not be valid, then this code is invalid. Do not change the current level or override status.
 				$next_level = $cel + 2 - ($cel % 2);
 				if ( $next_level < 62 ) {
-					$remember[] = array('num' => TCPDF_FONT_DATA::$uni_LRO, 'cel' => $cel, 'dos' => $dos);
+					$remember[] = array('num' => WaterWoo_TCPDF_FONT_DATA::$uni_LRO, 'cel' => $cel, 'dos' => $dos);
 					$cel = $next_level;
 					$dos = 'L';
 					$sor = $eor;
 					$eor = $cel % 2 ? 'R' : 'L';
 				}
-			} elseif ($ta[$i] == TCPDF_FONT_DATA::$uni_PDF) {
+			} elseif ($ta[$i] == WaterWoo_TCPDF_FONT_DATA::$uni_PDF) {
 				// X7. With each PDF, determine the matching embedding or override code. If there was a valid matching code, restore (pop) the last remembered (pushed) embedding level and directional override.
 				if (count($remember)) {
 					$last = count($remember ) - 1;
-					if (($remember[$last]['num'] == TCPDF_FONT_DATA::$uni_RLE) OR
-						($remember[$last]['num'] == TCPDF_FONT_DATA::$uni_LRE) OR
-						($remember[$last]['num'] == TCPDF_FONT_DATA::$uni_RLO) OR
-						($remember[$last]['num'] == TCPDF_FONT_DATA::$uni_LRO)) {
+					if (($remember[$last]['num'] == WaterWoo_TCPDF_FONT_DATA::$uni_RLE) OR
+						($remember[$last]['num'] == WaterWoo_TCPDF_FONT_DATA::$uni_LRE) OR
+						($remember[$last]['num'] == WaterWoo_TCPDF_FONT_DATA::$uni_RLO) OR
+						($remember[$last]['num'] == WaterWoo_TCPDF_FONT_DATA::$uni_LRO)) {
 						$match = array_pop($remember);
 						$cel = $match['cel'];
 						$dos = $match['dos'];
@@ -2226,19 +2226,19 @@ class LP_TCPDF_FONTS {
 						$eor = ($cel > $match['cel'] ? $cel : $match['cel']) % 2 ? 'R' : 'L';
 					}
 				}
-			} elseif (($ta[$i] != TCPDF_FONT_DATA::$uni_RLE) AND
-							 ($ta[$i] != TCPDF_FONT_DATA::$uni_LRE) AND
-							 ($ta[$i] != TCPDF_FONT_DATA::$uni_RLO) AND
-							 ($ta[$i] != TCPDF_FONT_DATA::$uni_LRO) AND
-							 ($ta[$i] != TCPDF_FONT_DATA::$uni_PDF)) {
+			} elseif (($ta[$i] != WaterWoo_TCPDF_FONT_DATA::$uni_RLE) AND
+							 ($ta[$i] != WaterWoo_TCPDF_FONT_DATA::$uni_LRE) AND
+							 ($ta[$i] != WaterWoo_TCPDF_FONT_DATA::$uni_RLO) AND
+							 ($ta[$i] != WaterWoo_TCPDF_FONT_DATA::$uni_LRO) AND
+							 ($ta[$i] != WaterWoo_TCPDF_FONT_DATA::$uni_PDF)) {
 				// X6. For all types besides RLE, LRE, RLO, LRO, and PDF:
 				//	a. Set the level of the current character to the current embedding level.
 				//	b. Whenever the directional override status is not neutral, reset the current character type to the directional override status.
 				if ($dos != 'N') {
 					$chardir = $dos;
 				} else {
-					if (isset(TCPDF_FONT_DATA::$uni_type[$ta[$i]])) {
-						$chardir = TCPDF_FONT_DATA::$uni_type[$ta[$i]];
+					if (isset(WaterWoo_TCPDF_FONT_DATA::$uni_type[$ta[$i]])) {
+						$chardir = WaterWoo_TCPDF_FONT_DATA::$uni_type[$ta[$i]];
 					} else {
 						$chardir = 'L';
 					}
@@ -2491,7 +2491,7 @@ class LP_TCPDF_FONTS {
 			$charAL = array();
 			$x = 0;
 			for ($i=0; $i < $numchars; ++$i) {
-				if ((TCPDF_FONT_DATA::$uni_type[$chardata[$i]['char']] == 'AL') OR ($chardata[$i]['char'] == 32) OR ($chardata[$i]['char'] == 8204)) {
+				if ((WaterWoo_TCPDF_FONT_DATA::$uni_type[$chardata[$i]['char']] == 'AL') OR ($chardata[$i]['char'] == 32) OR ($chardata[$i]['char'] == 8204)) {
 					$charAL[$x] = $chardata[$i];
 					$charAL[$x]['i'] = $i;
 					$chardata[$i]['x'] = $x;
@@ -2511,7 +2511,7 @@ class LP_TCPDF_FONTS {
 				} else {
 					$nextchar = false;
 				}
-				if (TCPDF_FONT_DATA::$uni_type[$thischar['char']] == 'AL') {
+				if (WaterWoo_TCPDF_FONT_DATA::$uni_type[$thischar['char']] == 'AL') {
 					$x = $thischar['x'];
 					if ($x > 0) {
 						$prevchar = $charAL[($x-1)];
@@ -2525,7 +2525,7 @@ class LP_TCPDF_FONTS {
 					}
 					// if laa letter
 					if (($prevchar !== false) AND ($prevchar['char'] == 1604) AND (in_array($thischar['char'], $alfletter))) {
-						$arabicarr = TCPDF_FONT_DATA::$uni_laa_array;
+						$arabicarr = WaterWoo_TCPDF_FONT_DATA::$uni_laa_array;
 						$laaletter = true;
 						if ($x > 1) {
 							$prevchar = $charAL[($x-2)];
@@ -2533,12 +2533,12 @@ class LP_TCPDF_FONTS {
 							$prevchar = false;
 						}
 					} else {
-						$arabicarr = TCPDF_FONT_DATA::$uni_arabicsubst;
+						$arabicarr = WaterWoo_TCPDF_FONT_DATA::$uni_arabicsubst;
 						$laaletter = false;
 					}
 					if (($prevchar !== false) AND ($nextchar !== false) AND
-						((TCPDF_FONT_DATA::$uni_type[$prevchar['char']] == 'AL') OR (TCPDF_FONT_DATA::$uni_type[$prevchar['char']] == 'NSM')) AND
-						((TCPDF_FONT_DATA::$uni_type[$nextchar['char']] == 'AL') OR (TCPDF_FONT_DATA::$uni_type[$nextchar['char']] == 'NSM')) AND
+						((WaterWoo_TCPDF_FONT_DATA::$uni_type[$prevchar['char']] == 'AL') OR (WaterWoo_TCPDF_FONT_DATA::$uni_type[$prevchar['char']] == 'NSM')) AND
+						((WaterWoo_TCPDF_FONT_DATA::$uni_type[$nextchar['char']] == 'AL') OR (WaterWoo_TCPDF_FONT_DATA::$uni_type[$nextchar['char']] == 'NSM')) AND
 						($prevchar['type'] == $thischar['type']) AND
 						($nextchar['type'] == $thischar['type']) AND
 						($nextchar['char'] != 1567)) {
@@ -2554,7 +2554,7 @@ class LP_TCPDF_FONTS {
 							}
 						}
 					} elseif (($nextchar !== false) AND
-						((TCPDF_FONT_DATA::$uni_type[$nextchar['char']] == 'AL') OR (TCPDF_FONT_DATA::$uni_type[$nextchar['char']] == 'NSM')) AND
+						((WaterWoo_TCPDF_FONT_DATA::$uni_type[$nextchar['char']] == 'AL') OR (WaterWoo_TCPDF_FONT_DATA::$uni_type[$nextchar['char']] == 'NSM')) AND
 						($nextchar['type'] == $thischar['type']) AND
 						($nextchar['char'] != 1567)) {
 						if (isset($arabicarr[$chardata[$i]['char']][2])) {
@@ -2562,7 +2562,7 @@ class LP_TCPDF_FONTS {
 							$chardata2[$i]['char'] = $arabicarr[$thischar['char']][2];
 						}
 					} elseif ((($prevchar !== false) AND
-						((TCPDF_FONT_DATA::$uni_type[$prevchar['char']] == 'AL') OR (TCPDF_FONT_DATA::$uni_type[$prevchar['char']] == 'NSM')) AND
+						((WaterWoo_TCPDF_FONT_DATA::$uni_type[$prevchar['char']] == 'AL') OR (WaterWoo_TCPDF_FONT_DATA::$uni_type[$prevchar['char']] == 'NSM')) AND
 						($prevchar['type'] == $thischar['type'])) OR
 						(($nextchar !== false) AND ($nextchar['char'] == 1567))) {
 						// final
@@ -2603,11 +2603,11 @@ class LP_TCPDF_FONTS {
 			 * Putting the combining mark and shadda in the same glyph allows us to avoid the two marks overlapping each other in an illegible manner.
 			 */
 			for ($i = 0; $i < ($numchars-1); ++$i) {
-				if (($chardata2[$i]['char'] == 1617) AND (isset(TCPDF_FONT_DATA::$uni_diacritics[($chardata2[$i+1]['char'])]))) {
+				if (($chardata2[$i]['char'] == 1617) AND (isset(WaterWoo_TCPDF_FONT_DATA::$uni_diacritics[($chardata2[$i+1]['char'])]))) {
 					// check if the subtitution font is defined on current font
-					if (isset($currentfont['cw'][(TCPDF_FONT_DATA::$uni_diacritics[($chardata2[$i+1]['char'])])])) {
+					if (isset($currentfont['cw'][(WaterWoo_TCPDF_FONT_DATA::$uni_diacritics[($chardata2[$i+1]['char'])])])) {
 						$chardata2[$i]['char'] = false;
-						$chardata2[$i+1]['char'] = TCPDF_FONT_DATA::$uni_diacritics[($chardata2[$i+1]['char'])];
+						$chardata2[$i+1]['char'] = WaterWoo_TCPDF_FONT_DATA::$uni_diacritics[($chardata2[$i+1]['char'])];
 					}
 				}
 			}
@@ -2633,9 +2633,9 @@ class LP_TCPDF_FONTS {
 			for ($i=0; $i < $numchars; ++$i) {
 				if ($chardata[$i]['level'] >= $j) {
 					$onlevel = true;
-					if (isset(TCPDF_FONT_DATA::$uni_mirror[$chardata[$i]['char']])) {
+					if (isset(WaterWoo_TCPDF_FONT_DATA::$uni_mirror[$chardata[$i]['char']])) {
 						// L4. A character is depicted by a mirrored glyph if and only if (a) the resolved directionality of that character is R, and (b) the Bidi_Mirrored property value of that character is true.
-						$chardata[$i]['char'] = TCPDF_FONT_DATA::$uni_mirror[$chardata[$i]['char']];
+						$chardata[$i]['char'] = WaterWoo_TCPDF_FONT_DATA::$uni_mirror[$chardata[$i]['char']];
 					}
 					$revarr[] = $chardata[$i];
 				} else {

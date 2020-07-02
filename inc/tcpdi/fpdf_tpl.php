@@ -16,9 +16,9 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 //
-if ( ! class_exists( 'LP_FPDF_TPL' ) ) :
+if ( ! class_exists( 'WaterWoo_FPDF_TPL' ) ) :
 
-    class LP_FPDF_TPL extends LP_FPDF { // (there is a bridge of LP_FPDF to LP_TCPDF_Child)
+    class WaterWoo_FPDF_TPL extends WaterWoo_FPDF {
         /**
          * Array of template data
          *
