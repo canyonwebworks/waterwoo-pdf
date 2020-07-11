@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: watermark, stamp, pdf, ebook, security, property
 Requires at least: 4.9
 Tested up to: 5.4.2
-Stable tag: 2.7.2
+Stable tag: 2.7.3
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
