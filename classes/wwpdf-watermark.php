@@ -44,7 +44,7 @@ if ( ! class_exists( 'WWPDF_Watermark' ) ) :
 
                 if ( $footer_y < 0 ) { // for measuring from bottom of page
                     // upper-left corner Y coordinate
-                    $footer_y = $size['h'] - abs( $footer_y );                        
+                    $footer_y = $this->size['h'] - abs( $footer_y );                        
                 }
                 $this->pdf->SetFont( $font, '', $footer_size );
 				$this->pdf->SetMargins( 0, 0 );

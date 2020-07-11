@@ -308,6 +308,15 @@ WaterWoo PDF is a plugin which bridges WooCommerce and the open-source PDF-writi
 * Tweak - thorough class renaming for TCPDF/TCPDI to avoid conflicts with other PDF-manipulating plugins
 * Tweak - more reliable handling of variable page size watermark placement in classes/wwpdf-watermark.php
 
+= 2.7.3 2020.7.11 =
+* Fix - property $size not correctly defined in classes/wwpdf-watermark.php line 47
+* Tweak - don't attempt to remove ABSPATH from watermarked file path before returning to WC in classes/wwpdf-file-handler.php
+* Tweak - filters 'wwpdf_filter_file_list', 'wwpdf_filter_file_path' and 'wwpdf_filter_watermarked_file' added in classes/wwpdf-file-handler.php
+* Tweak - use order ID instead of order key for unique file naming, order ID now before time()
+* Tweak - use new WC filter 'woocommerce_download_product_filepath' for Woo 4.0+ users
+* Tweak - enforce use of Woo 3.0+
+* Testing with WooCommerce version 4.3 
+
 == Upgrade Notice ==
 
 = 1.0.2 =
