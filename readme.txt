@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: watermark, stamp, pdf, ebook, security, property
 Requires at least: 4.9
 Tested up to: 5.4.2
-Stable tag: 2.7.3
+Stable tag: 2.7.4
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -316,6 +316,9 @@ WaterWoo PDF is a plugin which bridges WooCommerce and the open-source PDF-writi
 * Tweak - use new WC filter 'woocommerce_download_product_filepath' for Woo 4.0+ users
 * Tweak - enforce use of Woo 3.0+
 * Testing with WooCommerce version 4.3 
+
+= 2.7.4 2020.7.12 =
+* Fix - Account for PDFs not stored in the /wp-content directory
 
 == Upgrade Notice ==
 
