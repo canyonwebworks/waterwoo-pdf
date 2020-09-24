@@ -452,7 +452,7 @@ class WaterWoo_TCPDF_COLORS {
 		}
 		if (!in_array($color, self::$jscolor)) {
 			// default transparent color
-			$color = $jscolor[0];
+			$color = self::$jscolor[0];
 		}
 		return 'color.'.$color;
 	}

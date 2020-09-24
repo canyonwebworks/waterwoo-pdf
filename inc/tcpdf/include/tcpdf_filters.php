@@ -372,7 +372,6 @@ class WaterWoo_TCPDF_FILTERS {
 	public static function decodeFilterFlateDecode($data) {
 	
         if (self::extensionLoaded()) {
-
             $oData = $data;
             // initialize string to return
             // $decoded = @gzuncompress($data);

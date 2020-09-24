@@ -64,26 +64,31 @@ if ( ! class_exists( 'WWPDF_File_Handler' ) ) {
                 // set up watermark content according to admin settings
                 $product_id = $product->get_id();
                 $content = $this->wwpdf_setup_watermark( $email, $product_id, $order_id );  
-                          
-                // adjust output file name/path
-                $outside = FALSE;
-			    $path = str_replace( WP_CONTENT_URL, WP_CONTENT_DIR, $file_path );  
-			    
-			    if ( FALSE !== strpos( $path, 'http' ) ) {
-                    $parsed_file_path   = WC_Download_Handler::parse_file_path( $file_path );             
-                    $path = $parsed_file_path['file_path'];
-                    $outside = TRUE;
-			    } 
-			          
+                         
+                // get a relative file path ready for WaterWoo
+                if ( FALSE !== strpos( $file_path, 'http' ) ) { // URL path to file
+			        $file_path = str_replace( WP_CONTENT_URL, WP_CONTENT_DIR, $file_path );  
+                    $abs_path_used = FALSE;
+			    } else { // maybe absolute path to file
+                    $minus_abs_path = str_replace( ABSPATH, '', $file_path ); 
+                    if ( $file_path != $minus_abs_path ) {
+                        $abs_path_used = TRUE;
+                        $file_path = $minus_abs_path;
+                    }
+                }
+                $parsed_file_path   = WC_Download_Handler::parse_file_path( $file_path );             
+                $path = $parsed_file_path['file_path'];
+               
+                // create a unique file name for the new watermarked file
                 $time = time();
                 $watermarked_path = str_replace( '.pdf', '', $path ) . '_' . $order_id . '_' . $time . '.pdf';
                 $watermarked_path = apply_filters( 'wwpdf_filter_file_path', $watermarked_path, $email, $order, $product, $download, $time );
     
-                // attempt to watermark using tcpdi/tcpdf
+                // attempt to watermark using TCPDI/TCPDF
                 try {
                     $this->watermarked_file = new WWPDF_Watermark( $path, $watermarked_path, $content );
                 } catch ( Exception $e ) {
-                    $error_message = $e->getMessage();
+                   $error_message = $e->getMessage();
                     echo apply_filters( 'wwpdf_filter_exception_message', 'Unable to watermark this file for download. Please notify site administrator.', $error_message, $path );
                     error_log( $error_message );
                     if ( apply_filters( 'wwpdf_serve_unwatermarked_file', FALSE ) ) {
@@ -91,13 +96,13 @@ if ( ! class_exists( 'WWPDF_File_Handler' ) ) {
                     } else {
                         return;
                     }
-                }
+                }                
                 
-                if ( ! $outside ) {
+                if ( ! $abs_path_used ) {
        			    $watermarked_file = str_replace( WP_CONTENT_DIR, WP_CONTENT_URL, $this->watermarked_file->newfile );
-                } else {
+       		    } else {
        			    $watermarked_file = $this->watermarked_file->newfile;
-                }
+                } 
 
                 // send watermarked file back to WooCommerce
                 return apply_filters( 'wwpdf_filter_watermarked_file', $watermarked_file, $email, $order, $product, $download );

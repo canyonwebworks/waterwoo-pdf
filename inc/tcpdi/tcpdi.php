@@ -220,7 +220,7 @@ if ( ! class_exists( 'WaterWoo_TCPDI' ) ) :
         public function getMetaData() {
         
             $metadata = $this->current_parser->_getMetaData();
-            if ( ! is_array( $metadata ) ) return;
+            if (!is_array($metadata)) return;
             foreach ( $metadata[1][1] as $key => $value ) {
 
                 if ( stripos( $key, 'Author' ) !== FALSE ) {

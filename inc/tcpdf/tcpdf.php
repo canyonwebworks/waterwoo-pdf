@@ -4123,6 +4123,9 @@ class WaterWoo_TCPDF {
 				$fontfile = WaterWoo_TCPDF_FONTS::getFontFullPath($tmp_fontfile, $fontdir);
 			}
 		}
+        $originalsize = null;
+		$size1 = null;
+		$size2 = null;
 		// include font file
 		if (!WaterWoo_TCPDF_STATIC::empty_string($fontfile) AND (@WaterWoo_TCPDF_STATIC::file_exists($fontfile))) {
 			include($fontfile);
@@ -4794,10 +4797,10 @@ class WaterWoo_TCPDF {
 
 	/**
 	 * Add page if needed.
-	 * @param $h (float) Cell height. Default value: 0.
-	 * @param $y (mixed) starting y position, leave empty for current position.
+	 * @param $h float|int Cell height. Default value: 0.
+	 * @param $y int|string starting y position, leave empty for current position.
 	 * @param $addpage (boolean) if true add a page, otherwise only return the true/false state
-	 * @return boolean true in case of page break, false otherwise.
+	 * @return bool true in case of page break, false otherwise.
 	 * @since 3.2.000 (2008-07-01)
 	 * @protected
 	 */
@@ -7330,7 +7333,7 @@ class WaterWoo_TCPDF {
 	 * Moves the current abscissa back to the left margin and sets the ordinate.
 	 * If the passed value is negative, it is relative to the bottom of the page.
 	 * @param $y (float) The value of the ordinate in user units.
-	 * @param $resetx (bool) if true (default) reset the X position.
+	 * @param $resetx (boolean) if true (default) reset the X position.
 	 * @param $rtloff (boolean) if true always uses the page top-left corner as origin of axis.
 	 * @public
 	 * @since 1.0
@@ -7632,8 +7635,9 @@ class WaterWoo_TCPDF {
             self::$cleaned_ids[$this->file_id] = true;
 			// remove all temporary files
 			if ($handle = @opendir(K_PATH_CACHE)) {
-				while ( false !== ( $file_name = readdir( $handle ) ) ) {
-					if (strpos($file_name, '__tcpdf_'.$this->file_id.'_') === 0) {
+                // https://github.com/tecnickcom/TCPDF/pull/265/commits/227cb08f3137ba699b3f64d5b0a8add19018bf1c
+                while ( false !== ( $file_name = readdir( $handle ) ) ) {
+                    if (strpos($file_name, '__tcpdf_'.$this->file_id.'_') === 0 && file_exists(K_PATH_CACHE.$file_name)) {
 						unlink(K_PATH_CACHE.$file_name);
 					}
 				}
@@ -7641,8 +7645,9 @@ class WaterWoo_TCPDF {
 			}
             if (isset($this->imagekeys)) {
 				foreach($this->imagekeys as $file) {
-					if (strpos($file, K_PATH_CACHE) === 0) {
-						@unlink($file);
+					// https://github.com/tecnickcom/TCPDF/pull/265/commits/227cb08f3137ba699b3f64d5b0a8add19018bf1c
+                    if (strpos($file, K_PATH_CACHE) === 0 && file_exists($file)) {
+						unlink($file);
 					}
 				}
 			}			
@@ -9741,7 +9746,7 @@ class WaterWoo_TCPDF {
 				}
 				$out .= ' >> >>';
 			}
-			$font = $this->getFontBuffer('helvetica');
+            $font = $this->getFontBuffer(defined('PDF_FONT_NAME_MAIN')?PDF_FONT_NAME_MAIN:'helvetica');
 			$out .= ' /DA (/F'.$font['i'].' 0 Tf 0 g)';
 			$out .= ' /Q '.(($this->rtl)?'2':'0');
 			//$out .= ' /XFA ';
@@ -14516,7 +14521,7 @@ class WaterWoo_TCPDF {
 	 * @since 3.1.000 (2008-06-09)
 	 * @protected
 	 */
-	function _putshaders() {
+	public function _putshaders() {
 		if ($this->pdfa_mode) {
 			return;
 		}
@@ -15395,7 +15400,7 @@ class WaterWoo_TCPDF {
 			$this->y = $y + $vpadding + $barh;
 			$cellpadding = $this->cell_padding;
 			$this->SetCellPadding(0);
-			$this->Cell($txtwidth, '', $label, 0, 0, 'C', false, '', $style['stretchtext'], false, 'T', 'T');
+			$this->Cell($txtwidth, 0, $label, 0, 0, 'C', false, '', $style['stretchtext'], false, 'T', 'T');
 			$this->cell_padding = $cellpadding;
 		}
 		// restore original direction
@@ -22095,20 +22100,22 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 		// creates a new XML parser to be used by the other XML functions
 		$this->parser = xml_parser_create('UTF-8');
 		// the following function allows to use parser inside object
-		xml_set_object($this->parser, $this);
+		xml_set_object($parser, $this);
 		// disable case-folding for this XML parser
-		xml_parser_set_option($this->parser, XML_OPTION_CASE_FOLDING, 0);
+		xml_parser_set_option($parser, XML_OPTION_CASE_FOLDING, 0);
 		// sets the element handler functions for the XML parser
-		xml_set_element_handler($this->parser, 'startSVGElementHandler', 'endSVGElementHandler');
+		xml_set_element_handler($parser, 'startSVGElementHandler', 'endSVGElementHandler');
 		// sets the character data handler function for the XML parser
-		xml_set_character_data_handler($this->parser, 'segSVGContentHandler');
+		xml_set_character_data_handler($parser, 'segSVGContentHandler');
 		// start parsing an XML document
-		if (!xml_parse($this->parser, $svgdata)) {
-			$error_message = sprintf('SVG Error: %s at line %d', xml_error_string(xml_get_error_code($this->parser)), xml_get_current_line_number($this->parser));
+		if (!xml_parse($parser, $svgdata)) {
+			$error_message = sprintf('SVG Error: %s at line %d', xml_error_string(xml_get_error_code($parser)), xml_get_current_line_number($parser));
 			$this->Error($error_message);
 		}
 		// free this XML parser
-		xml_parser_free($this->parser);
+		xml_parser_free($parser);
+		unset($parser);
+		
 		// restore previous graphic state
 		$this->_out($this->epsmarker.'Q');
 		// restore graphic vars

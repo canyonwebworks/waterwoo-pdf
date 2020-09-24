@@ -1,16 +1,18 @@
 === WaterWoo PDF Plugin ===
 Contributors: littlepackage
-Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=PB2CFX8H4V49L
+Donate link: https://www.buymeacoffee.com/littlepackage
 Tags: watermark, stamp, pdf, ebook, security, property
 Requires at least: 4.9
-Tested up to: 5.4.2
-Stable tag: 2.7.4
+Tested up to: 5.5
+Stable tag: 2.7.5
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
 Protect your intellectual property! WaterWoo PDF allows WooCommerce site administrators to apply custom watermarks to PDFs upon sale.
 
 == Description ==
+Protect your intellectual property! WaterWoo PDF allows WooCommerce site administrators to apply custom watermarks to PDFs upon sale.
+
 WaterWoo PDF is a plugin that adds a watermark to every page of your sold PDF file(s). The watermark is customizable with font face, font color, font size, placement, and text. Not only that, but since the watermark is added when the download button is clicked (either on the customer's order confirmation page or email), the watermark can include customer-specific data such as the customer's first name, last name, and email. Your watermark is highly customizable and manipulatable, practically magic!
 
 **Please note** you must have WooCommerce plugin installed and activated for this plugin to work. This plugin watermarks WooCommerce PDF products.
@@ -23,7 +25,7 @@ If have a Wordpress site and need to watermark PDFs, but do not have WooCommerce
 * Files do not need to be in a specific directory
 * Super customizable placement: watermark can be moved all over the page, allowing for different paper sizes (such as letter, A4, legal, etc)
 * Watermark is applied to **all** pages of **every** PDF purchased
-* Watermarks upon click of either the customer's order confirmation page link or email order confirmation link
+* Watermarks upon click of either the customer's order confirmation page link, email order confirmation link, or My Account page download links
 * Dynamic customer data inputs (customer first name, last name, email, order paid date, and phone)
 * Choice of font face, color, size and placement (horizontal line of text anywhere on the page).
 
@@ -319,6 +321,11 @@ WaterWoo PDF is a plugin which bridges WooCommerce and the open-source PDF-writi
 
 = 2.7.4 2020.7.12 =
 * Fix - Account for PDFs not stored in the /wp-content directory
+
+= 2.7.5 2020.09.24 =
+* Fix - Better accommodate files listed in Woo by absolute path
+* Tweak - Minor updates to TCPDF for PHP 7+ compatibility
+* Testing with WooCommerce version 4.5 
 
 == Upgrade Notice ==
 

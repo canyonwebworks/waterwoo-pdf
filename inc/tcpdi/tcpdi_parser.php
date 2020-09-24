@@ -194,7 +194,7 @@ if ( ! class_exists( 'WaterWoo_tcpdi_parser' ) ) :
          * @public
          * @since 1.0.000 (2011-05-24)
          */
-        public function __construct( $data, $uniqueid, $cfg = array() ) {
+        public function __construct( $data, $uniqueid, $cfg = array() ) {       
             if ( empty( $data ) ) {
                 $this->Error('PDF data was not read, either because the file doesn\'t exist, is corrupted, or transfer timed out.');
             }
@@ -246,8 +246,7 @@ if ( ! class_exists( 'WaterWoo_tcpdi_parser' ) ) :
             $this->readPages();
   
         }
-        
-    
+         
         public function _getMetaData() {
             $metadata = $this->getObjectVal($this->xref['trailer'][1]['/Info']);
             return $metadata;
@@ -938,7 +937,8 @@ if ( ! class_exists( 'WaterWoo_tcpdi_parser' ) ) :
                             $offset += 5;
                             $objval = false;
                             break;
-                        // dirty fix. address 'ndst' from certain Distiller PDFs created with PScript5.dll - WaterWoo WWPDF                      case 'ndst':
+                        // Little Package dirty fix. address 'ndst' from certain Distiller PDFs created with PScript5.dll
+                        case 'ndst':
                         case 'ends':
                             // end stream object
                             $objtype = 'endstream';
@@ -1359,7 +1359,7 @@ if ( ! class_exists( 'WaterWoo_tcpdi_parser' ) ) :
                     $annots = $this->_getPageAnnotations( $obj[1][1]['/Parent'] );
                 }
             }
-            if ( is_array($annots) && $annots[0] == PDF_TYPE_OBJREF ) { // 8
+            if ( isset( $annots[0] ) && $annots[0] == PDF_TYPE_OBJREF ) { // 8
                return $this->getObjectVal($annots);
             }
         

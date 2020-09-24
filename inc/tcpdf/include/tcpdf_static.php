@@ -1,7 +1,7 @@
 <?php
 //============================================================+
 // File name   : TCPDF_STATIC.php
-// Version     : 1.1.4
+// Version     : 1.1.3
 // Begin       : 2002-08-03
 // Last Update : 2019-11-01
 // Author      : Nicola Asuni - Tecnick.com LTD - www.tecnick.com - info@tecnick.com
@@ -58,7 +58,7 @@ class WaterWoo_TCPDF_STATIC {
 	 * Current TCPDF version.
 	 * @private static
 	 */
-    private static $tcpdf_version = '6.3.5';
+    private static $tcpdf_version = '6.2.26';
 
 	/**
 	 * String alias for total number of pages.
@@ -425,7 +425,7 @@ class WaterWoo_TCPDF_STATIC {
 	}
 
 	/**
-	 * Encrypts a string using MD5 and returns it's value as a binary string.
+	 * Encrypts a string using MD5 and returns its value as a binary string.
 	 * @param $str (string) input string
 	 * @return String MD5 encrypted binary string
 	 * @since 2.0.000 (2008-01-02)
@@ -538,6 +538,7 @@ class WaterWoo_TCPDF_STATIC {
 	 * @public static
 	 */
 	public static function getUserPermissionCode($permissions, $mode=0) {
+
 		$options = array(
 			'owner' => 2, // bit 2 -- inverted logic: cleared by default
 			'print' => 4, // bit 3
@@ -1917,6 +1918,9 @@ class WaterWoo_TCPDF_STATIC {
 		if (preg_match('|^https?://|', $filename) == 1) {
 			return self::url_exists($filename);
 		}
+		if(stripos($filename,'data:')===0) {
+            return true;
+        }
 		if (strpos($filename, '://')) {
 			return false; // only support http and https wrappers for security reasons
 		}
@@ -1984,11 +1988,11 @@ class WaterWoo_TCPDF_STATIC {
 		//
 		$alt = array_unique($alt);
 		foreach ($alt as $path) {
-			if (!self::file_exists($path)) {
+			if ( ! self::file_exists( $path ) ) {
 				continue;
 			}
 			$ret = @file_get_contents($path);
-			if ( $ret != false ) {
+			if ($ret != false) {
 			    return $ret;
 			}
 			// try to use CURL for URLs
@@ -2019,6 +2023,8 @@ class WaterWoo_TCPDF_STATIC {
 		}
 		return false;
 	}
+
+
 
 	/**
 	 * Get ULONG from string (Big Endian 32-bit unsigned integer).

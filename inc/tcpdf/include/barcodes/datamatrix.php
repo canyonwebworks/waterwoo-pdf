@@ -55,9 +55,6 @@ if (!defined('DATAMATRIXDEFS')) {
 
 } // end of custom definitions
 
-// #*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#
-
-
 /**
 * ASCII encoding: ASCII character 0 to 127 (1 byte per CW)
 */

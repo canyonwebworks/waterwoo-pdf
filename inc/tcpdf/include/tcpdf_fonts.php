@@ -1992,30 +1992,30 @@ class WaterWoo_TCPDF_FONTS {
 	 * Converts UTF-8 strings to codepoints array.<br>
 	 * Invalid byte sequences will be replaced with 0xFFFD (replacement character)<br>
 	 * @param $str (string) string to process.
-	 * @param $isunicode (boolean) True when the documetn is in Unicode mode, false otherwise.
+	 * @param $isunicode (boolean) True when the document is in Unicode mode, false otherwise.
 	 * @param $currentfont (array) Reference to current font array.
 	 * @return array containing codepoints (UTF-8 characters values)
 	 * @author Nicola Asuni
 	 * @public static
 	 */
-	public static function UTF8StringToArray($str, $isunicode=true, &$currentfont) {
+	public static function UTF8StringToArray($str, $isunicode, &$currentfont) {
         $chars = array();
 		if ($isunicode) {
 			// requires PCRE unicode support turned on
             if ( version_compare( PHP_VERSION, '7.3.4', '<' ) ) {
                 $chars = WaterWoo_TCPDF_STATIC::pregSplit( '//', 'u', $str, -1, PREG_SPLIT_NO_EMPTY ); // this was needed for PHP 5.2, added 2.9.2
-                if ( empty( $chars ) ) {
+                if ( is_null( $chars ) ) {
                     $str = iconv( "UTF-8", "UTF-8//IGNORE", $str );
                     $chars = WaterWoo_TCPDF_STATIC::pregSplit( '//', 'u', $str, -1, PREG_SPLIT_NO_EMPTY );
 			    }
 			} else {
 			    $chars = preg_split( '//u', $str, -1, PREG_SPLIT_NO_EMPTY );
-                if ( empty( $chars ) ) {
+                if ( is_null( $chars ) || ! $chars ) {
                     $str = iconv( "UTF-8", "UTF-8//IGNORE", $str );
                     $chars = preg_split( '//u', $str, -1, PREG_SPLIT_NO_EMPTY );
 			    }
 			}
-            $carr = array_map(array( 'WaterWoo_TCPDF_FONTS', 'uniord' ), $chars ); // Converts UTF-8 character to integer value
+            $carr = array_map(array( 'WaterWoo_TCPDF_FONTS', 'uniord' ), (array) $chars ); // Converts UTF-8 character to integer value
 		} else {
 			$chars = str_split($str);
 			$carr = array_map('ord', $chars);
