@@ -4,7 +4,7 @@ Donate link: https://www.buymeacoffee.com/littlepackage
 Tags: watermark, stamp, pdf, ebook, security, property
 Requires at least: 4.9
 Tested up to: 5.5
-Stable tag: 2.7.5
+Stable tag: 2.7.6
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -114,6 +114,41 @@ WaterWoo PDF is a plugin which bridges WooCommerce and the open-source PDF-writi
 == Screenshots ==
 
 1. Screenshot of the settings page, as a Woocommerce settings tab.
+
+== Upgrade Notice ==
+
+= 1.0.2 =
+* Support for landscape orientation
+
+= 1.0.4 = 
+* Support for odd-sized PDFs
+
+= 1.0.5 = 
+* UTF font encoding
+* Support for redirect downloads (as long as file is in wp-content folder)
+* Better watermark centering on page
+
+= 1.0.9 = 
+* WC 2.3 ready
+* added phone number shortcode
+
+= 1.0.10 = 
+* added order paid date shortcode: [DATE]
+
+= 1.1 = 
+* Update required to function with WooCommerce 2.4 and Wordpress 4.3!
+
+= 1.2 = 
+* Update to fix watermark not showing over PDF images/vectors
+
+= 2.0 = 
+* Support for WooCommerce versions older than 2.4 removed for security reasons. Please update your WooCommerce installation to the newest version before using WaterWoo.
+
+= 2.3 =
+* Version 2.3 is potentially (unlikely) a breaking update as the FPDI/FPDF libraries were updated
+
+= 2.4.2 = 
+* Adjustments in Y-positioning (distance down the page) of the watermark since version 2.4 may cause blank pages or changes in watermark positioning. Please review your watermark settings to be sure they are where you like them.
 
 == Changelog ==
 
@@ -327,37 +362,5 @@ WaterWoo PDF is a plugin which bridges WooCommerce and the open-source PDF-writi
 * Tweak - Minor updates to TCPDF for PHP 7+ compatibility
 * Testing with WooCommerce version 4.5 
 
-== Upgrade Notice ==
-
-= 1.0.2 =
-* Support for landscape orientation
-
-= 1.0.4 = 
-* Support for odd-sized PDFs
-
-= 1.0.5 = 
-* UTF font encoding
-* Support for redirect downloads (as long as file is in wp-content folder)
-* Better watermark centering on page
-
-= 1.0.9 = 
-* WC 2.3 ready
-* added phone number shortcode
-
-= 1.0.10 = 
-* added order paid date shortcode: [DATE]
-
-= 1.1 = 
-* Update required to function with WooCommerce 2.4 and Wordpress 4.3!
-
-= 1.2 = 
-* Update to fix watermark not showing over PDF images/vectors
-
-= 2.0 = 
-* Support for WooCommerce versions older than 2.4 removed for security reasons. Please update your WooCommerce installation to the newest version before using WaterWoo.
-
-= 2.3 =
-* Version 2.3 is potentially (unlikely) a breaking update as the FPDI/FPDF libraries were updated
-
-= 2.4.2 = 
-* Adjustments in Y-positioning (distance down the page) of the watermark since version 2.4 may cause blank pages or changes in watermark positioning. Please review your watermark settings to be sure they are where you like them.
+= 2.7.6 2020.09.29 =
+* Deal with file paths same way with new Woo filter as with old in classes/wwpdf-file-handler.php

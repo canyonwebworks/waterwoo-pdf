@@ -16,7 +16,7 @@ if ( ! class_exists( 'WWPDF_File_Handler' ) ) {
             $this->watermarked_file = '';
     
             // filter the file download path
-            if ( version_compare( WC_VERSION, 4.0, '>=' ) ) { // "upgraded" filter
+            if ( version_compare( WC_VERSION, 4.0, '>=' ) ) { // "upgraded" filter (more parameters)
                 add_filter( 'woocommerce_download_product_filepath', array( $this, 'pdf_filepath' ), 50, 5 );
             } else {
                 add_filter( 'woocommerce_product_file_download_path', array( $this, 'pdf_file_download_path' ), 50, 3 );
@@ -34,7 +34,7 @@ if ( ! class_exists( 'WWPDF_File_Handler' ) ) {
          *
          * @since 2.7.3
     	 * @throws Exception if watermarking fails in WWPDF_Watermark
-         * @param string $file_path
+         * @param string $file_path - has already perhaps been filtered by 'woocommerce_product_file_download_path'
          * @param string $email
          * @param object $order
          * @param object $product
@@ -51,9 +51,14 @@ if ( ! class_exists( 'WWPDF_File_Handler' ) ) {
             if ( 'pdf' !== strtolower( $file_extension ) ) return $file_path;
             
             $order_id = $order->get_id();
+            $query_string = FALSE;
             
             // get requested PDF and compare to admin designated PDFs
             $requested_file     = basename( $file_path );
+            if ( FALSE !== strpos( $requested_file, '?' ) ) {
+                $requested_file = substr( $requested_file, 0, strpos( $requested_file, '?' ) );
+                $query_string = TRUE;
+            }
             $wwpdf_files        = get_option( 'wwpdf_files', '' );
             $wwpdf_file_list    = array_filter( array_map( 'trim', explode( PHP_EOL, $wwpdf_files ) ) );
             $wwpdf_file_list    = apply_filters( 'wwpdf_filter_file_list', $wwpdf_file_list, $email, $order );
@@ -65,20 +70,9 @@ if ( ! class_exists( 'WWPDF_File_Handler' ) ) {
                 $product_id = $product->get_id();
                 $content = $this->wwpdf_setup_watermark( $email, $product_id, $order_id );  
                          
-                // get a relative file path ready for WaterWoo
-                if ( FALSE !== strpos( $file_path, 'http' ) ) { // URL path to file
-			        $file_path = str_replace( WP_CONTENT_URL, WP_CONTENT_DIR, $file_path );  
-                    $abs_path_used = FALSE;
-			    } else { // maybe absolute path to file
-                    $minus_abs_path = str_replace( ABSPATH, '', $file_path ); 
-                    if ( $file_path != $minus_abs_path ) {
-                        $abs_path_used = TRUE;
-                        $file_path = $minus_abs_path;
-                    }
-                }
-                $parsed_file_path   = WC_Download_Handler::parse_file_path( $file_path );             
+                $parsed_file_path = WC_Download_Handler::parse_file_path( $file_path );
                 $path = $parsed_file_path['file_path'];
-               
+                
                 // create a unique file name for the new watermarked file
                 $time = time();
                 $watermarked_path = str_replace( '.pdf', '', $path ) . '_' . $order_id . '_' . $time . '.pdf';
@@ -97,12 +91,7 @@ if ( ! class_exists( 'WWPDF_File_Handler' ) ) {
                         return;
                     }
                 }                
-                
-                if ( ! $abs_path_used ) {
-       			    $watermarked_file = str_replace( WP_CONTENT_DIR, WP_CONTENT_URL, $this->watermarked_file->newfile );
-       		    } else {
-       			    $watermarked_file = $this->watermarked_file->newfile;
-                } 
+                $watermarked_file = $this->watermarked_file->newfile;
 
                 // send watermarked file back to WooCommerce
                 return apply_filters( 'wwpdf_filter_watermarked_file', $watermarked_file, $email, $order, $product, $download );
