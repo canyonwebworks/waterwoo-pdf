@@ -2004,13 +2004,13 @@ class WaterWoo_TCPDF_FONTS {
 			// requires PCRE unicode support turned on
             if ( version_compare( PHP_VERSION, '7.3.4', '<' ) ) {
                 $chars = WaterWoo_TCPDF_STATIC::pregSplit( '//', 'u', $str, -1, PREG_SPLIT_NO_EMPTY ); // this was needed for PHP 5.2, added 2.9.2
-                if ( is_null( $chars ) ) {
+                if ( empty( $chars ) ) {
                     $str = iconv( "UTF-8", "UTF-8//IGNORE", $str );
                     $chars = WaterWoo_TCPDF_STATIC::pregSplit( '//', 'u', $str, -1, PREG_SPLIT_NO_EMPTY );
 			    }
 			} else {
 			    $chars = preg_split( '//u', $str, -1, PREG_SPLIT_NO_EMPTY );
-                if ( is_null( $chars ) || ! $chars ) {
+                if ( empty( $chars ) ) {
                     $str = iconv( "UTF-8", "UTF-8//IGNORE", $str );
                     $chars = preg_split( '//u', $str, -1, PREG_SPLIT_NO_EMPTY );
 			    }

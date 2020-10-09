@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WaterWoo PDF\n"
-"POT-Creation-Date: 2020-04-09 17:25-0700\n"
-"PO-Revision-Date: 2020-04-09 17:25-0700\n"
+"POT-Creation-Date: 2020-10-08 20:31-0700\n"
+"PO-Revision-Date: 2020-10-08 20:31-0700\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en\n"
@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.2.4\n"
+"X-Generator: Poedit 2.3.1\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-WPHeader: waterwoo-pdf.php\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -55,9 +55,14 @@ msgid ""
 "newer, for security reasons."
 msgstr ""
 
-#: classes/wwpdf-file-handler.php:62
+#: classes/wwpdf-file-handler.php:75
+msgid "The free version of WaterWoo cannot serve PDFs from remote servers."
+msgstr ""
+
+#: classes/wwpdf-file-handler.php:76
 msgid ""
-"Unable to watermark this file for download. Please notify site administrator."
+"Try uploading your PDF product to this domain using the native WooCommerce "
+"file uploader."
 msgstr ""
 
 #: classes/wwpdf-settings.php:47

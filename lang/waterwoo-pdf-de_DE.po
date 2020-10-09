@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WaterWoo PDF\n"
-"POT-Creation-Date: 2020-01-20 09:58-0800\n"
-"PO-Revision-Date: 2020-01-20 09:58-0800\n"
+"POT-Creation-Date: 2020-10-08 20:32-0700\n"
+"PO-Revision-Date: 2020-10-08 20:32-0700\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de_DE\n"
@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.2.4\n"
+"X-Generator: Poedit 2.3.1\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-WPHeader: waterwoo-pdf.php\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -21,22 +21,26 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
 #: classes/wwpdf-compatibility.php:78
-#, php-format
+#, fuzzy, php-format
+#| msgid ""
+#| "<strong>WaterWoo PDF</strong> requires WooCommerce to work. You can "
+#| "download WooCommerce %s."
 msgid ""
-"<strong>WaterWoo PDF</strong> requires WooCommerce to work. You can download "
-"WooCommerce %s."
+"<strong>WaterWoo PDF</strong> requires WooCommerce to work. You can <a href="
+"\"%s\" target=\"_blank\" rel=\"noopener\">download WooCommerce here</a>."
 msgstr ""
 "<strong>WaterWoo PDF</strong> erfordert WooCommerce zu arbeiten. Sie können "
 "WooCommerce %s herunterladen."
 
-#: classes/wwpdf-compatibility.php:78
-msgid "here"
-msgstr "hier"
-
 #: classes/wwpdf-compatibility.php:81
+#, fuzzy
+#| msgid ""
+#| "The <strong>WC_Download_Handler</strong> WooCommerce class is missing! It "
+#| "is required for WaterWoo to work. Perhaps your WooCommerce installation "
+#| "is corrupted?"
 msgid ""
 "The <strong>WC_Download_Handler</strong> WooCommerce class is missing! It is "
-"required for WaterWoo to work. Perhaps your WooCommerce installation is "
+"required for WaterWoo PDF to work. Perhaps your WooCommerce installation is "
 "corrupted?"
 msgstr ""
 "Die <strong>WC_Download_Handler</strong> WooCommerce-Klasse fehlt! Es ist "
@@ -70,12 +74,15 @@ msgstr ""
 "<strong>WaterWoo PDF</strong> unterstützt aus Sicherheitsgründen die "
 "WooCommerce-Version %s oder neuer."
 
-#: classes/wwpdf-file-handler.php:62
-msgid ""
-"Unable to watermark this file for download. Please notify site administrator."
+#: classes/wwpdf-file-handler.php:75
+msgid "The free version of WaterWoo cannot serve PDFs from remote servers."
 msgstr ""
-"Diese Datei kann nicht zum Download mit Wasserzeichen markiert werden. "
-"Benachrichtigen Sie den Siteadministrator."
+
+#: classes/wwpdf-file-handler.php:76
+msgid ""
+"Try uploading your PDF product to this domain using the native WooCommerce "
+"file uploader."
+msgstr ""
 
 #: classes/wwpdf-settings.php:47
 msgid "FAQ"
@@ -134,13 +141,21 @@ msgstr ""
 "manipulatable."
 
 #: classes/wwpdf-settings.php:102
+#, fuzzy, php-format
+#| msgid ""
+#| "<a href=\"https://web.little-package.com/downloads/waterwoo-pdf-premium/"
+#| "\" target=\"_blank\" rel=\"noopener\">Consider upgrading to the Premium "
+#| "version</a> if you need more functionality. The premium version adds the "
+#| "ability to start watermarking on a specified page, password protect and "
+#| "copy/print/modify protect your document, a watermark overlay, HTML input, "
+#| "and UTF-8 and extended Unicode support for many more foreign language "
+#| "characters. Thanks again, and enjoy!"
 msgid ""
-"<a href=\"https://web.little-package.com/downloads/waterwoo-pdf-premium/\" "
-"target=\"_blank\" rel=\"noopener\">Consider upgrading to the Premium "
-"version</a> if you need more functionality. The premium version adds the "
-"ability to start watermarking on a specified page, password protect and copy/"
-"print/modify protect your document, a watermark overlay, HTML input, and "
-"UTF-8 and extended Unicode support for many more foreign language "
+"<a href=\"%s\" target=\"_blank\" rel=\"noopener\">Consider upgrading to the "
+"Premium version</a> if you need more functionality. The premium version adds "
+"the ability to start watermarking on a specified page, password protect and "
+"copy/print/modify protect your document, a watermark overlay, HTML input, "
+"and UTF-8 and extended Unicode support for many more foreign language "
 "characters. Thanks again, and enjoy!"
 msgstr ""
 "<a href=\"https://web.little-package.com/downloads/waterwoo-pdf-premium/\" "
@@ -236,11 +251,11 @@ msgstr ""
 "<code>upload.pdf</code> oder <code>my_pdf.pdf</code> .<br>Wenn leer, wird "
 "WaterWoo PDF alle PDFs über WooCommerce verkauft Wasserzeichen."
 
-#: classes/wwpdf-settings.php:166
+#: classes/wwpdf-settings.php:165
 msgid "Custom text for footer watermark"
 msgstr "Benutzerdefinierter Text für Fußzeile Wasserzeichen"
 
-#: classes/wwpdf-settings.php:167
+#: classes/wwpdf-settings.php:166
 msgid ""
 "Shortcodes available, all caps, in brackets: <code>[FIRSTNAME]</code> "
 "<code>[LASTNAME]</code> <code>[EMAIL]</code> <code>[PHONE]</code> "
@@ -250,15 +265,15 @@ msgstr ""
 "code> <code>[LASTNAME]</code> <code>[EMAIL]</code> <code>[PHONE]</"
 "code><code>[DATE]</code>"
 
-#: classes/wwpdf-settings.php:168
+#: classes/wwpdf-settings.php:167
 msgid "Licensed to [FIRSTNAME] [LASTNAME], [EMAIL]"
 msgstr "Lizenziert an [FIRSTNAME] [LASTNAME], [EMAIL]"
 
-#: classes/wwpdf-settings.php:175
+#: classes/wwpdf-settings.php:173
 msgid "Font face"
 msgstr "Schriftart"
 
-#: classes/wwpdf-settings.php:176
+#: classes/wwpdf-settings.php:174
 msgid ""
 "Select a font for watermarks. M Sung will have limited Chinese characters, "
 "and Furat will have limited Arabic characters"
@@ -267,31 +282,31 @@ msgstr ""
 "chinesische Schriftzeichen haben, und Furat wird begrenzte arabische Zeichen "
 "haben"
 
-#: classes/wwpdf-settings.php:195
+#: classes/wwpdf-settings.php:192
 msgid "Font size"
 msgstr "Schriftgröße"
 
-#: classes/wwpdf-settings.php:196
+#: classes/wwpdf-settings.php:193
 msgid "Provide a number (suggested 10-20) for the footer watermark font size"
 msgstr ""
 "Bieten Sie eine Reihe (vorgeschlagene 10-20) für die Fußzeile Wasserzeichen-"
 "Schriftgröße"
 
-#: classes/wwpdf-settings.php:210
+#: classes/wwpdf-settings.php:206
 msgid "Watermark color"
 msgstr "Wasserzeichen-Farbe"
 
-#: classes/wwpdf-settings.php:211
+#: classes/wwpdf-settings.php:207
 msgid "Color of the footer watermark. Default is black: <code>#000000</code>."
 msgstr ""
 "Die Farbe des Wasserzeichens Fußzeile. Standard ist schwarz: <code>#000000</"
 "code> ."
 
-#: classes/wwpdf-settings.php:220
+#: classes/wwpdf-settings.php:215
 msgid "Y Fine Tuning"
 msgstr "Y-Feineinstellung"
 
-#: classes/wwpdf-settings.php:221
+#: classes/wwpdf-settings.php:216
 msgid ""
 "Move the footer watermark up and down on the page by adjusting this number. "
 "Default is 260 millimeters (bottom of letter-sized page)."
@@ -300,11 +315,11 @@ msgstr ""
 "unten, indem Sie diese Zahl anpassen. Der Standardwert ist 260 Millimeter "
 "(unten auf der Seite im Letter-Format)."
 
-#: classes/wwpdf-settings.php:235
+#: classes/wwpdf-settings.php:228
 msgid "Leave No Trace?"
 msgstr "Allen Daten entfernen?"
 
-#: classes/wwpdf-settings.php:236
+#: classes/wwpdf-settings.php:229
 msgid ""
 "If this box is checked if/when you uninstall WaterWoo, all your WaterWoo "
 "settings will be deleted from your Wordpress database."
@@ -313,11 +328,11 @@ msgstr ""
 "deinstallieren, werden alle WaterWoo-Einstellungen aus Ihrer Wordpress-"
 "Datenbank gelöscht."
 
-#: classes/wwpdf-settings.php:244
+#: classes/wwpdf-settings.php:237
 msgid "Thank you!"
 msgstr "Danke!"
 
-#: classes/wwpdf-settings.php:246
+#: classes/wwpdf-settings.php:239
 msgid ""
 "I've been working very hard on this <em>helpful and free</em> plugin for you "
 "since October 2014."
@@ -325,7 +340,7 @@ msgstr ""
 "Ich arbeite sehr hart an diesem <em>hilfreichen und kostenlosen</em> Plugin "
 "für Sie seit Oktober 2014."
 
-#: classes/wwpdf-settings.php:247
+#: classes/wwpdf-settings.php:240
 #, php-format
 msgid ""
 "Please show the love: <a href=\"%s\" target=\"_blank\" rel=\"noopener"
@@ -368,6 +383,16 @@ msgstr ""
 #. Author URI of the plugin/theme
 msgid "https://web.little-package.com"
 msgstr ""
+
+#~ msgid "here"
+#~ msgstr "hier"
+
+#~ msgid ""
+#~ "Unable to watermark this file for download. Please notify site "
+#~ "administrator."
+#~ msgstr ""
+#~ "Diese Datei kann nicht zum Download mit Wasserzeichen markiert werden. "
+#~ "Benachrichtigen Sie den Siteadministrator."
 
 #~ msgid "Upgrade to WaterWoo PDF Premium"
 #~ msgstr "Upgrade auf Premium WaterWoo PDF"

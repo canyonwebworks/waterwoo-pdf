@@ -9,7 +9,7 @@ if ( ! class_exists( 'WWPDF_Watermark' ) ) :
 
 	class WWPDF_Watermark {
 	
-        var $size           = '';
+        var $size = '';
 
 		public function __construct( $origfile, $newfile, $footer ) {
 
@@ -27,7 +27,7 @@ if ( ! class_exists( 'WWPDF_Watermark' ) ) :
 
 		public function do_watermark() {
 
-			$pagecount = $this->pdf->setSourceFile( $this->file );		
+			$pagecount = $this->pdf->setSourceFile( $this->file );	
 			$footer_y = get_option( 'wwpdf_footer_y', 260 );
 			$footer_color = $this->hex2rgb( get_option( 'wwpdf_footer_color', '#000000' ) );
 			$rgb_array = explode( ",", $footer_color );

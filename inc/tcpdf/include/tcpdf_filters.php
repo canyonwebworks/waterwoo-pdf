@@ -517,7 +517,7 @@ class WaterWoo_TCPDF_FILTERS {
 	 * @public static
 	 */
 	public static function Error($msg) {
-		throw new Exception( 'TCPDF_FILTERS ERROR: ' . $msg );
+		throw new Exception( 'WaterWoo (TCPDF_FILTERS) ERROR: ' . $msg );
 	}
 
 } // END OF TCPDF_FILTERS CLASS

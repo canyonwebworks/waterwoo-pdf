@@ -323,8 +323,14 @@ if ( ! class_exists( 'WaterWoo_tcpdi_parser' ) ) :
          *
          */
         function readPages() {
+
+            if ($this->xref['trailer'][1]['/Root'][0] != PDF_TYPE_OBJREF) {
+                $this->Error('Root element must be indirect reference type. In other words, your PDF syntax is goofy.');
+            }
+        
             $params = $this->getObjectVal($this->xref['trailer'][1]['/Root']);
             $objref = null;
+            
             foreach ($params[1][1] as $k=>$v) {
                 if ($k == '/Pages') {
                     $objref = $v;
@@ -554,6 +560,10 @@ if ( ! class_exists( 'WaterWoo_tcpdi_parser' ) ) :
             }
             $valid_crs = false;
             $sarr = $xrefcrs[0][1];
+            if (!is_array($sarr)) {
+                $sarr=array($sarr);
+            }
+            // array_keys() expects parameter 1 to be array, string given            
             $keys = array_keys($sarr);
             $columns = 1; // Default as per PDF 32000-1:2008.
             $predictor = 1; // Default as per PDF 32000-1:2008.
@@ -1398,7 +1408,7 @@ if ( ! class_exists( 'WaterWoo_tcpdi_parser' ) ) :
 
             if ($content_ref[0] == PDF_TYPE_OBJREF) {
                 $content = $this->getObjectVal($content_ref);
-                if ($content[1][0] == PDF_TYPE_ARRAY) {
+                if ($content[1][0] == PDF_TYPE_ARRAY) { // TODO: PHP 7.4
                     $contents = $this->_getPageContent($content[1]);
                 } else {
                     $contents[] = $content;
@@ -1551,7 +1561,11 @@ if ( ! class_exists( 'WaterWoo_tcpdi_parser' ) ) :
          * @since 1.0.000 (2011-05-23)
          */
         public function Error($msg) {
-            throw new Exception( 'TCPDF_PARSER ERROR: ' . $msg );
+            if (defined('K_TCPDF_THROW_EXCEPTION_ERROR') AND !K_TCPDF_THROW_EXCEPTION_ERROR) {
+                die('<strong>WaterWoo (TCPDI_PARSER) ERROR: </strong>'.$msg);
+            } else {
+                throw new Exception('WaterWoo (TCPDI_PARSER) ERROR: '.$msg);
+            }
         }
 
     } // END OF littlep_tcpdi_parser CLASS

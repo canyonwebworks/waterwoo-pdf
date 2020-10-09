@@ -1,0 +1,95 @@
+Archived WaterWoo PDF changelog for pre-2.0 versions
+
+= 1.2.8, 2018.04.09 =
+* Give unique FPDF, etc. classes a unique name and check for existence before using
+* Woocommerce version check support
+
+= 1.2.7, 2017.12.31 =
+* Woocommerce version check support
+
+= 1.2.6, 2017.7.24 =
+* Remove INI directive 'safe_mode' (removed with PHP version 5.4)
+* More checks before use of set_magic_quotes_runtime() (removed with PHP version 5.4)
+
+= 1.2.5, 2017.3.16 =
+* WC 2.7 ready
+* Hook into 'woocommerce_product_file_download_path' for download manipulation - for WC 2.4+ users
+* Updates to readme.txt to reflect changes in Premium version, FAQ, copyright
+* Remove SQL caching from watermarking queries
+
+= 1.2.4, 2016.6.29 =
+* Compatibility with WC v.2.6.1
+* Updated internal links to premium version of plugin
+
+= 1.2.3, 2016.6.6 =
+* Checks for Wordpress 4.5.2
+* Remove file path from error message
+
+= 1.2.2, 2016.2.2 =
+* Checks for Wordpress 4.4.1
+* Fix for legacy version of WooCommerce < 2.3
+
+= 1.2.1, 2015.12.12 =
+* Checks for Wordpress 4.4 
+* Small language updates - French (FR/CA), Spanish (ES/MX) and German(DE)
+
+= 1.2, 2015.10.25 =
+* Watermarking over PDF images/embedded vectors
+
+= 1.1, 2015.9.8 =
+* Fixes for WoocCommerce 2.4
+* Support added for more page/paper sizes
+* Date i18n and by WP date setting format
+
+= 1.0.14, 2015.8.14 =
+* minor error fixes
+* Fixes for Wordpress 4.3
+
+= 1.0.13, 10/Mar/2015 =
+* author domain name change
+* streamlining of FPDI process
+
+= 1.0.12, 25/Feb/2015 = 
+* further fix to woo-includes / Woo Dependencies
+
+= 1.0.11, 24/Feb/2015 = 
+* fix to woo-includes / Woo Dependencies
+
+= 1.0.10, 17/Feb/2015 = 
+* WC 2.3.4 update
+* added order paid date shortcode: [DATE]
+
+= 1.0.9, 5/Feb/2015 =
+* WC 2.3 ready
+* added phone number shortcode
+* tidied folder structure
+
+= 1.0.8, 27/Jan/2015 =
+* Fix default option variable names
+
+= 1.0.7, 26/Jan/2015 =
+* Missing folder replaced
+
+= 1.0.6, 26/Jan/2015 =
+* Readme updates
+* Implemented woo-includes to determine if Woo is active
+* Fixed link to settings from plugin page
+* Tidy "inc/class_wwpdf_watermark.php"
+
+= 1.0.5, 2014.12.29 = 
+* Clean up code in waterwoo-pdf.php class_wwpdf_system_check.php and class_wwpdf_download_product.php
+* UTF font encoding
+* Support for redirect downloads (as long as file is in wp-content folder)
+* Better watermark centering on page
+
+= 1.0.4, 2014.12.16 = 
+* Support for odd-sized PDFs
+
+= 1.0.3, 2014.11.30 = 
+* Fixed 4 PHP warnings
+
+= 1.0.2, 2014.10.26 =
+* Support for landscape orientation
+
+= 1.0, 2014.10.23 =
+* Initial release

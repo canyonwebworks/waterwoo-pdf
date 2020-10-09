@@ -2984,9 +2984,9 @@ class WaterWoo_TCPDF {
 		// unset all class variables
 		$this->_destroy(true);
         if (defined('K_TCPDF_THROW_EXCEPTION_ERROR') AND !K_TCPDF_THROW_EXCEPTION_ERROR) {
-			die('<strong>TCPDF ERROR: </strong>'.$msg);
+			die('<strong>WaterWoo (TCPDF) ERROR: </strong>'.$msg);
 		} else {
-			throw new Exception('TCPDF ERROR: '.$msg);
+			throw new Exception('WaterWoo (TCPDF) ERROR: '.$msg);
 		}	
 	}
 
@@ -7647,7 +7647,7 @@ class WaterWoo_TCPDF {
 				foreach($this->imagekeys as $file) {
 					// https://github.com/tecnickcom/TCPDF/pull/265/commits/227cb08f3137ba699b3f64d5b0a8add19018bf1c
                     if (strpos($file, K_PATH_CACHE) === 0 && file_exists($file)) {
-						unlink($file);
+						@unlink($file);
 					}
 				}
 			}			

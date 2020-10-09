@@ -71,6 +71,15 @@ if ( ! class_exists( 'WWPDF_File_Handler' ) ) {
                 $content = $this->wwpdf_setup_watermark( $email, $product_id, $order_id );  
                          
                 $parsed_file_path = WC_Download_Handler::parse_file_path( $file_path );
+                if ( $parsed_file_path['remote_file'] === TRUE ) {
+                    echo __( 'The free version of WaterWoo cannot serve PDFs from remote servers.', 'waterwoo-pdf' ) . '<br />' 
+                        . __( 'Try uploading your PDF product to this domain using the native WooCommerce file uploader.', 'waterwoo-pdf' ); 
+                    if ( apply_filters( 'wwpdf_serve_unwatermarked_file', FALSE ) ) {
+                        return $file_path;
+                    } else {
+                        return;
+                    }
+                } 
                 $path = $parsed_file_path['file_path'];
                 
                 // create a unique file name for the new watermarked file
@@ -82,7 +91,7 @@ if ( ! class_exists( 'WWPDF_File_Handler' ) ) {
                 try {
                     $this->watermarked_file = new WWPDF_Watermark( $path, $watermarked_path, $content );
                 } catch ( Exception $e ) {
-                   $error_message = $e->getMessage();
+                    $error_message = $e->getMessage();
                     echo apply_filters( 'wwpdf_filter_exception_message', 'Unable to watermark this file for download. Please notify site administrator.', $error_message, $path );
                     error_log( $error_message );
                     if ( apply_filters( 'wwpdf_serve_unwatermarked_file', FALSE ) ) {
