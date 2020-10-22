@@ -563,7 +563,6 @@ if ( ! class_exists( 'WaterWoo_tcpdi_parser' ) ) :
             if (!is_array($sarr)) {
                 $sarr=array($sarr);
             }
-            // array_keys() expects parameter 1 to be array, string given            
             $keys = array_keys($sarr);
             $columns = 1; // Default as per PDF 32000-1:2008.
             $predictor = 1; // Default as per PDF 32000-1:2008.

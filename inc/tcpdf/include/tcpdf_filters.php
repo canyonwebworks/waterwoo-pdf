@@ -375,22 +375,22 @@ class WaterWoo_TCPDF_FILTERS {
             $oData = $data;
             // initialize string to return
             // $decoded = @gzuncompress($data);
-            $data = @((\strlen($data) > 0) ? \gzuncompress($data) : '');
+            $data = @((strlen($data) > 0) ? gzuncompress($data) : '');
             if ($data === false) {
                 // Try this fallback
                 $tries = 1;
                 while ($tries < 10 && ($data === false || \strlen($data) < (\strlen($oData) - $tries - 1))) {
-                    $data = @(\gzinflate(\substr($oData, $tries)));
+                    $data = @(gzinflate(substr($oData, $tries)));
                     $tries++;
                 }
                 if ($data === false) {
                     // let's try if the checksum is CRC32
                     $fh = fopen('php://temp', 'w+b');
-                    \fwrite($fh, "\x1f\x8b\x08\x00\x00\x00\x00\x00" . $oData);
-                    \stream_filter_append($fh, 'zlib.inflate', \STREAM_FILTER_READ, ['window' => 30]);
-                    \fseek($fh, 0);
-                    $data = \stream_get_contents($fh);
-                    \fclose($fh);
+                    fwrite($fh, "\x1f\x8b\x08\x00\x00\x00\x00\x00" . $oData);
+                    stream_filter_append($fh, 'zlib.inflate', STREAM_FILTER_READ, ['window' => 30]);
+                    fseek($fh, 0);
+                    $data = stream_get_contents($fh);
+                    fclose($fh);
                 }
                 if (!$data) {
                     self::Error('decodeFilterFlateDecode: Error while decompressing stream.');

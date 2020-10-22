@@ -4,7 +4,8 @@ Donate link: https://www.buymeacoffee.com/littlepackage
 Tags: watermark, stamp, pdf, ebook, security, property
 Requires at least: 4.9
 Tested up to: 5.5
-Stable tag: 2.7.7
+Requires PHP: 5.6
+Stable tag: 2.7.8
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -50,7 +51,7 @@ The free version works fine for most people, but [WaterWoo PDF Premium](https://
 * Watermark every page, odd pages, or even pages
 * Test watermark and/or manually watermark a file on the fly, from the admin panel
 
-[Check out the full-featured version of this plugin](https://web.little-package.com/downloads/waterwoo-pdf-premium/ "WaterWoo PDF Premium Version")!
+[Check out the full-featured version of this plugin](https://web.little-package.com/downloads/waterwoo-pdf-premium/ "WaterWoo PDF Premium Version")! WaterWoo is the only watermarker for Wordpress which includes necessary libraries (so you don't have to ask your host to load them), is compatible with PHP 7, and watermarks ALL versions of PDFs (not just older versions).
 
 == Installation ==
 
@@ -141,6 +142,10 @@ If you do not know how to edit your functions.php file, you can use the Code Sni
 * Support for WooCommerce versions older than 2.4 removed for security reasons. Please update your WooCommerce installation to the newest version before using WaterWoo.
 
 == Changelog ==
+
+= 2.7.8 - 21/0ct/2020 =
+* Testing with WooCommerce version 4.6
+* Minor changes to readme.txt
 
 = 2.7.7 - 8/0ct/2020 =
 * Error logging for if (corrupted) PDF /Root not found - helpful feedback for a delivery failure
