@@ -57,16 +57,16 @@ class WaterWoo_TCPDF_FONTS {
 
 	/**
 	 * Convert and add the selected TrueType or Type1 font to the fonts folder (that must be writeable).
-	 * @param $fontfile (string) Font file (full path).
-	 * @param $fonttype (string) Font type. Leave empty for autodetect mode. Valid values are: TrueTypeUnicode, TrueType, Type1, CID0JP = CID-0 Japanese, CID0KR = CID-0 Korean, CID0CS = CID-0 Chinese Simplified, CID0CT = CID-0 Chinese Traditional.
-	 * @param $enc (string) Name of the encoding table to use. Leave empty for default mode. Omit this parameter for TrueType Unicode and symbolic fonts like Symbol or ZapfDingBats.
-	 * @param $flags (int) Unsigned 32-bit integer containing flags specifying various characteristics of the font (PDF32000:2008 - 9.8.2 Font Descriptor Flags): +1 for fixed font; +4 for symbol or +32 for non-symbol; +64 for italic. Fixed and Italic mode are generally autodetected so you have to set it to 32 = non-symbolic font (default) or 4 = symbolic font.
-	 * @param $outpath (string) Output path for generated font files (must be writeable by the web server). Leave empty for default font folder.
-	 * @param $platid (int) Platform ID for CMAP table to extract (when building a Unicode font for Windows this value should be 3, for Macintosh should be 1).
-	 * @param $encid (int) Encoding ID for CMAP table to extract (when building a Unicode font for Windows this value should be 1, for Macintosh should be 0). When Platform ID is 3, legal values for Encoding ID are: 0=Symbol, 1=Unicode, 2=ShiftJIS, 3=PRC, 4=Big5, 5=Wansung, 6=Johab, 7=Reserved, 8=Reserved, 9=Reserved, 10=UCS-4.
-	 * @param $addcbbox (boolean) If true includes the character bounding box information on the php font file.
-	 * @param $link (boolean) If true link to system font instead of copying the font data (not transportable) - Note: do not work with Type1 fonts.
-	 * @return (string) TCPDF font name or boolean false in case of error.
+	 * @param string $fontfile Font file (full path).
+	 * @param string $fonttype Font type. Leave empty for autodetect mode. Valid values are: TrueTypeUnicode, TrueType, Type1, CID0JP = CID-0 Japanese, CID0KR = CID-0 Korean, CID0CS = CID-0 Chinese Simplified, CID0CT = CID-0 Chinese Traditional.
+	 * @param string $enc Name of the encoding table to use. Leave empty for default mode. Omit this parameter for TrueType Unicode and symbolic fonts like Symbol or ZapfDingBats.
+	 * @param int $flags Unsigned 32-bit integer containing flags specifying various characteristics of the font (PDF32000:2008 - 9.8.2 Font Descriptor Flags): +1 for fixed font; +4 for symbol or +32 for non-symbol; +64 for italic. Fixed and Italic mode are generally autodetected so you have to set it to 32 = non-symbolic font (default) or 4 = symbolic font.
+	 * @param string $outpath Output path for generated font files (must be writeable by the web server). Leave empty for default font folder.
+	 * @param int $platid Platform ID for CMAP table to extract (when building a Unicode font for Windows this value should be 3, for Macintosh should be 1).
+	 * @param int $encid Encoding ID for CMAP table to extract (when building a Unicode font for Windows this value should be 1, for Macintosh should be 0). When Platform ID is 3, legal values for Encoding ID are: 0=Symbol, 1=Unicode, 2=ShiftJIS, 3=PRC, 4=Big5, 5=Wansung, 6=Johab, 7=Reserved, 8=Reserved, 9=Reserved, 10=UCS-4.
+	 * @param boolean $addcbbox If true includes the character bounding box information on the php font file.
+	 * @param boolean $link If true link to system font instead of copying the font data (not transportable) - Note: do not work with Type1 fonts.
+	 * @return string|boolean TCPDF font name or boolean false in case of error.
 	 * @author Nicola Asuni
 	 * @since 5.9.123 (2010-09-30)
 	 * @public static
@@ -945,9 +945,9 @@ class WaterWoo_TCPDF_FONTS {
 
 	/**
 	 * Returns a subset of the TrueType font data without the unused glyphs.
-	 * @param $font (string) TrueType font data.
-	 * @param $subsetchars (array) Array of used characters (the glyphs to keep).
-	 * @return (string) A subset of TrueType font data without the unused glyphs.
+	 * @param string $font TrueType font data.
+	 * @param array $subsetchars Array of used characters (the glyphs to keep).
+	 * @return string A subset of TrueType font data without the unused glyphs.
 	 * @author Nicola Asuni
 	 * @since 5.2.000 (2010-06-02)
 	 * @public static
@@ -1390,9 +1390,9 @@ class WaterWoo_TCPDF_FONTS {
 
 	/**
 	 * Outputs font widths
-	 * @param $font (array) font data
-	 * @param $cidoffset (int) offset for CID values
-	 * @return PDF command string for font widths
+	 * @param array $font font data
+	 * @param integer $cidoffset offset for CID values
+	 * @return string  PDF command string for font widths
 	 * @author Nicola Asuni
 	 * @since 4.4.000 (2008-12-07)
 	 * @public static
@@ -1501,7 +1501,7 @@ class WaterWoo_TCPDF_FONTS {
 	 * @param $map (string) CIDToGIDMap.
 	 * @param $cid (int) CID value.
 	 * @param $gid (int) GID value.
-	 * @return (string) CIDToGIDMap.
+	 * @return string CIDToGIDMap.
 	 * @author Nicola Asuni
 	 * @since 5.9.123 (2011-09-29)
 	 * @public static
@@ -1572,7 +1572,8 @@ class WaterWoo_TCPDF_FONTS {
 				$size = ($refsize - 4);
 				break;
 			}
-			case 'x-small': {
+            case 'smaller':
+            case 'x-small': {
 				$size = ($refsize - 3);
 				break;
 			}
@@ -1596,11 +1597,7 @@ class WaterWoo_TCPDF_FONTS {
 				$size = ($refsize + 6);
 				break;
 			}
-			case 'smaller': {
-				$size = ($refsize - 3);
-				break;
-			}
-			case 'larger': {
+            case 'larger': {
 				$size = ($refsize + 3);
 				break;
 			}
@@ -1660,9 +1657,9 @@ class WaterWoo_TCPDF_FONTS {
 
 	/**
 	 * Returns the unicode caracter specified by the value
-	 * @param $c (int) UTF-8 value
-	 * @param $unicode (boolean) True if we are in unicode mode, false otherwise.
-	 * @return Returns the specified character.
+	 * @param integer $c UTF-8 value
+	 * @param boolean $unicode True if we are in unicode mode, false otherwise.
+	 * @return string Returns the specified character.
 	 * @since 2.3.000 (2008-03-05)
 	 * @public static
 	 */
@@ -1690,7 +1687,7 @@ class WaterWoo_TCPDF_FONTS {
 	/**
 	 * Returns the unicode caracter specified by UTF-8 value
 	 * @param $c (int) UTF-8 value
-	 * @return Returns the specified character.
+	 * @return string Returns the specified character.
 	 * @public static
 	 */
 	public static function unichrUnicode($c) {
@@ -1700,7 +1697,7 @@ class WaterWoo_TCPDF_FONTS {
 	/**
 	 * Returns the unicode caracter specified by ASCII value
 	 * @param $c (int) UTF-8 value
-	 * @return Returns the specified character.
+	 * @return string Returns the specified character.
 	 * @public static
 	 */
 	public static function unichrASCII($c) {
@@ -1775,7 +1772,7 @@ class WaterWoo_TCPDF_FONTS {
 	 * Convert an array of UTF8 values to array of unicode characters
 	 * @param $ta (array) The input array of UTF8 values.
 	 * @param $isunicode (boolean) True for Unicode mode, false otherwise.
-	 * @return Return array of unicode characters
+	 * @return array Return array of unicode characters
 	 * @since 4.5.037 (2009-04-07)
 	 * @public static
 	 */
@@ -1788,11 +1785,11 @@ class WaterWoo_TCPDF_FONTS {
 
 	/**
 	 * Extract a slice of the $strarr array and return it as string.
-	 * @param $strarr (string) The input array of characters.
-	 * @param $start (int) the starting element of $strarr.
-	 * @param $end (int) first element that will not be returned.
-	 * @param $unicode (boolean) True if we are in unicode mode, false otherwise.
-	 * @return Return part of a string
+	 * @param array $strarr The input array of characters.
+	 * @param int $start the starting element of $strarr.
+	 * @param int $end first element that will not be returned.
+	 * @param boolean $unicode True if we are in unicode mode, false otherwise.
+	 * @return string Return part of a string
 	 * @public static
 	 */
 	public static function UTF8ArrSubString($strarr, $start='', $end='', $unicode=true) {
@@ -1811,10 +1808,10 @@ class WaterWoo_TCPDF_FONTS {
 
 	/**
 	 * Extract a slice of the $uniarr array and return it as string.
-	 * @param $uniarr (string) The input array of characters.
-	 * @param $start (int) the starting element of $strarr.
-	 * @param $end (int) first element that will not be returned.
-	 * @return Return part of a string
+	 * @param array $uniarr The input array of characters.
+	 * @param int $start the starting element of $strarr.
+	 * @param int $end first element that will not be returned.
+	 * @return string Return part of a string
 	 * @since 4.5.037 (2009-04-07)
 	 * @public static
 	 */
@@ -1860,7 +1857,7 @@ class WaterWoo_TCPDF_FONTS {
 	/**
 	 * Converts UTF-8 characters array to array of Latin1 string<br>
 	 * @param $unicode (array) array containing UTF-8 unicode values
-	 * @return array
+	 * @return string
 	 * @author Nicola Asuni
 	 * @since 4.8.023 (2010-01-15)
 	 * @public static

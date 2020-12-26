@@ -244,7 +244,7 @@ class WaterWoo_TCPDF_COLORS {
 	 * Return the Spot color array.
 	 * @param $name (string) Name of the spot color.
 	 * @param $spotc (array) Reference to an array of spot colors.
-	 * @return (array) Spot color array or false if not defined.
+	 * @return array|boolean Spot color array or false if not defined.
 	 * @since 5.9.125 (2011-10-03)
 	 * @public static
 	 */
@@ -277,7 +277,7 @@ class WaterWoo_TCPDF_COLORS {
 		$color = strtolower($color);
 		// check for javascript color array syntax
 		if (strpos($color, '[') !== false) {
-			if (preg_match('/[\[][\"\'](t|g|rgb|cmyk)[\"\'][\,]?([0-9\.]*)[\,]?([0-9\.]*)[\,]?([0-9\.]*)[\,]?([0-9\.]*)[\]]/', $color, $m) > 0) {
+			if (preg_match('/[\[][\"\'](t|g|rgb|cmyk)[\"\'][,]?([0-9\.]*)[,]?([0-9\.]*)[\,]?([0-9\.]*)[,]?([0-9\.]*)[\]]/', $color, $m) > 0) {
 				$returncolor = array();
 				switch ($m[1]) {
 					case 'cmyk': {
@@ -410,8 +410,8 @@ class WaterWoo_TCPDF_COLORS {
 
 	/**
 	 * Convert a color array into a string representation.
-	 * @param $c (array) Array of colors.
-	 * @return (string) The color array representation.
+	 * @param array $c Array of colors.
+	 * @return string The color array representation.
 	 * @since 5.9.137 (2011-12-01)
 	 * @public static
 	 */
@@ -442,6 +442,7 @@ class WaterWoo_TCPDF_COLORS {
 	/**
 	 * Convert color to javascript color.
 	 * @param $color (string) color name or "#RRGGBB"
+     * @return string
 	 * @protected
 	 * @since 2.1.002 (2008-02-12)
 	 * @public static

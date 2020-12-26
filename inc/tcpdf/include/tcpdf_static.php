@@ -113,7 +113,7 @@ class WaterWoo_TCPDF_STATIC {
 
 	/**
 	 * Return the current TCPDF version.
-	 * @return TCPDF version string
+	 * @return string TCPDF version string
 	 * @since 5.9.012 (2010-11-10)
 	 * @public static
 	 */
@@ -131,38 +131,7 @@ class WaterWoo_TCPDF_STATIC {
 		return "\x54\x43\x50\x44\x46\x20".self::getTCPDFVersion()."\x20\x28\x68\x74\x74\x70\x3a\x2f\x2f\x77\x77\x77\x2e\x74\x63\x70\x64\x66\x2e\x6f\x72\x67\x29";
 	}
 
-	/**
-	 * Sets the current active configuration setting of magic_quotes_runtime (if the set_magic_quotes_runtime function exist)
-	 * @param $mqr (boolean) FALSE for off, TRUE for on.
-	 * @since 4.6.025 (2009-08-17)
-	 * @public static
-	 */
-	public static function set_mqr($mqr) {
-		if (!defined('PHP_VERSION_ID')) {
-			$version = PHP_VERSION;
-			define('PHP_VERSION_ID', (($version[0] * 10000) + ($version[2] * 100) + $version[4]));
-		}
-		if (PHP_VERSION_ID < 50300) {
-			@set_magic_quotes_runtime($mqr);
-		}
-	}
 
-	/**
-	 * Gets the current active configuration setting of magic_quotes_runtime (if the get_magic_quotes_runtime function exist)
-	 * @return Returns 0 if magic quotes runtime is off or get_magic_quotes_runtime doesn't exist, 1 otherwise.
-	 * @since 4.6.025 (2009-08-17)
-	 * @public static
-	 */
-	public static function get_mqr() {
-		if (!defined('PHP_VERSION_ID')) {
-			$version = PHP_VERSION;
-			define('PHP_VERSION_ID', (($version[0] * 10000) + ($version[2] * 100) + $version[4]));
-		}
-		if (PHP_VERSION_ID < 50300) {
-			return @get_magic_quotes_runtime();
-		}
-		return 0;
-	}
 
 	/**
 	 * Check if the URL exist.
@@ -207,7 +176,7 @@ class WaterWoo_TCPDF_STATIC {
 	 * @param $brd (mixed) Indicates if borders must be drawn around the cell block. The value can be a number:<ul><li>0: no border (default)</li><li>1: frame</li></ul>or a string containing some or all of the following characters (in any order):<ul><li>L: left</li><li>T: top</li><li>R: right</li><li>B: bottom</li></ul> or an array of line styles for each border group: array('LTRB' => array('width' => 2, 'cap' => 'butt', 'join' => 'miter', 'dash' => 0, 'color' => array(0, 0, 0)))
 	 * @param $position (string) multicell position: 'start', 'middle', 'end'
 	 * @param $opencell (boolean) True when the cell is left open at the page bottom, false otherwise.
-	 * @return border mode array
+	 * @return array border mode
 	 * @since 4.4.002 (2008-12-09)
 	 * @public static
 	 */
@@ -313,7 +282,7 @@ class WaterWoo_TCPDF_STATIC {
 	/**
 	* Escape some special characters (&lt; &gt; &amp;) for XML output.
 	* @param $str (string) Input string to convert.
-	* @return converted string
+	* @return string converted string
 	* @since 5.9.121 (2011-09-28)
 	 * @public static
 	 */
@@ -326,7 +295,7 @@ class WaterWoo_TCPDF_STATIC {
 	/**
 	 * Creates a copy of a class object
 	 * @param $object (object) class object to be cloned
-	 * @return cloned object
+	 * @return object cloned object
 	 * @since 4.5.029 (2009-03-19)
 	 * @public static
 	 */
@@ -358,7 +327,7 @@ class WaterWoo_TCPDF_STATIC {
 	 * @param $page (string) Page content.
 	 * @param $replace (array) Array of replacements (array keys are replacement strings, values are alias arrays).
 	 * @param $diff (int) If passed, this will be set to the total char number difference between alias and replacements.
-	 * @return replaced page content and updated $diff parameter as array.
+	 * @return array replaced page content and updated $diff parameter as array.
 	 * @public static
 	 */
 	public static function replacePageNumAliases($page, $replace, $diff=0) {
@@ -376,7 +345,7 @@ class WaterWoo_TCPDF_STATIC {
 	/**
 	 * Returns timestamp in seconds from formatted date-time.
 	 * @param $date (string) Formatted date-time.
-	 * @return int seconds.
+	 * @return int|void seconds.
 	 * @since 5.9.152 (2012-03-23)
 	 * @public static
 	 */
@@ -531,8 +500,9 @@ class WaterWoo_TCPDF_STATIC {
 
 	/**
 	 * Return the permission code used on encryption (P value).
-	 * @param $permissions (Array) the set of permissions (specify the ones you want to block).
-	 * @param $mode (int) encryption strength: 0 = RC4 40 bit; 1 = RC4 128 bit; 2 = AES 128 bit; 3 = AES 256 bit.
+	 * @param array $permissions the set of permissions (specify the ones you want to block).
+	 * @param int $mode encryption strength: 0 = RC4 40 bit; 1 = RC4 128 bit; 2 = AES 128 bit; 3 = AES 256 bit.
+     * @return integer
 	 * @since 5.0.005 (2010-05-12)
 	 * @author Nicola Asuni
 	 * @public static
@@ -591,8 +561,8 @@ class WaterWoo_TCPDF_STATIC {
 
 	/**
 	 * Convert string to hexadecimal string (byte string)
-	 * @param $s (string) string to convert
-	 * @return byte string
+	 * @param string $s string to convert
+	 * @return string byte
 	 * @since 5.0.010 (2010-05-17)
 	 * @author Nicola Asuni
 	 * @public static
@@ -626,7 +596,7 @@ class WaterWoo_TCPDF_STATIC {
 	/**
 	 * Encode a name object.
 	 * @param $name (string) Name object to encode.
-	 * @return (string) Encoded name object.
+	 * @return string Encoded name object.
 	 * @author Nicola Asuni
 	 * @since 5.9.097 (2011-06-23)
 	 * @public static
@@ -1017,7 +987,8 @@ class WaterWoo_TCPDF_STATIC {
 	/**
 	 * Format the page numbers.
 	 * This method can be overriden for custom formats.
-	 * @param $num (int) page number
+	 * @param int $num page number
+     * @return float
 	 * @since 4.2.005 (2008-11-06)
 	 * @public static
 	 */
@@ -1028,7 +999,8 @@ class WaterWoo_TCPDF_STATIC {
 	/**
 	 * Format the page numbers on the Table Of Content.
 	 * This method can be overriden for custom formats.
-	 * @param $num (int) page number
+	 * @param int $num page number
+     * @return float
 	 * @since 4.5.001 (2009-01-04)
 	 * @see addTOC(), addHTMLTOC()
 	 * @public static
@@ -1040,7 +1012,7 @@ class WaterWoo_TCPDF_STATIC {
 	/**
 	 * Extracts the CSS properties from a CSS string.
 	 * @param $cssdata (string) string containing CSS definitions.
-	 * @return An array where the keys are the CSS selectors and the values are the CSS properties.
+	 * @return array An array where the keys are the CSS selectors and the values are the CSS properties.
 	 * @author Nicola Asuni
 	 * @since 5.1.000 (2010-05-25)
 	 * @public static
@@ -1116,7 +1088,7 @@ class WaterWoo_TCPDF_STATIC {
 			$b = intval(preg_match_all('/[\#]/', $selector, $matches)); // number of ID attributes
 			$c = intval(preg_match_all('/[\[\.]/', $selector, $matches)); // number of other attributes
 			$c += intval(preg_match_all('/[\:]link|visited|hover|active|focus|target|lang|enabled|disabled|checked|indeterminate|root|nth|first|last|only|empty|contains|not/i', $selector, $matches)); // number of pseudo-classes
-			$d = intval(preg_match_all('/[\>\+\~\s]{1}[a-zA-Z0-9]+/', ' '.$selector, $matches)); // number of element names
+			$d = intval(preg_match_all('/[>\+\~\s]{1}[a-zA-Z0-9]+/', ' '.$selector, $matches)); // number of element names
 			$d += intval(preg_match_all('/[\:][\:]/', $selector, $matches)); // number of pseudo-elements
 			$specificity = $a.$b.$c.$d;
 			// add specificity to the beginning of the selector
@@ -1188,8 +1160,8 @@ class WaterWoo_TCPDF_STATIC {
 		// fix some self-closing tags
 		$html = str_replace('<br>', '<br />', $html);
 		// remove some empty tag blocks
-		$html = preg_replace('/<div([^\>]*)><\/div>/', '', $html);
-		$html = preg_replace('/<p([^\>]*)><\/p>/', '', $html);
+		$html = preg_replace('/<div([^>]*)><\/div>/', '', $html);
+		$html = preg_replace('/<p([^>]*)><\/p>/', '', $html);
 		if ($tagvs !== '') {
 			// set vertical space for some XHTML tags
 			$tagvspaces = $tagvs;
@@ -1218,9 +1190,9 @@ class WaterWoo_TCPDF_STATIC {
 		if (isset($dom[$key]['attribute']['id']) AND !empty($dom[$key]['attribute']['id'])) {
 			$id = strtolower($dom[$key]['attribute']['id']);
 		}
-		$selector = preg_replace('/([\>\+\~\s]{1})([\.]{1})([^\>\+\~\s]*)/si', '\\1*.\\3', $selector);
+		$selector = preg_replace('/([\>\+\~\s]{1})([\.]{1})([^>\+\~\s]*)/si', '\\1*.\\3', $selector);
 		$matches = array();
-		if (preg_match_all('/([\>\+\~\s]{1})([a-zA-Z0-9\*]+)([^\>\+\~\s]*)/si', $selector, $matches, PREG_PATTERN_ORDER | PREG_OFFSET_CAPTURE) > 0) {
+		if (preg_match_all('/([>\+\~\s]{1})([a-zA-Z0-9\*]+)([^>\+\~\s]*)/si', $selector, $matches, PREG_PATTERN_ORDER | PREG_OFFSET_CAPTURE) > 0) {
 			$parentop = array_pop($matches[1]);
 			$operator = $parentop[0];
 			$offset = $parentop[1];
@@ -1299,13 +1271,13 @@ class WaterWoo_TCPDF_STATIC {
 							break;
 						}
 						case ':': { // pseudo-class or pseudo-element
-							if ($attrib[1] == ':') { // pseudo-element
+							// if ($attrib[1] == ':') { // pseudo-element
 								// pseudo-elements are not supported!
 								// (::first-line, ::first-letter, ::before, ::after)
-							} else { // pseudo-class
+							// } else { // pseudo-class
 								// pseudo-classes are not supported!
 								// (:root, :nth-child(n), :nth-last-child(n), :nth-of-type(n), :nth-last-of-type(n), :first-child, :last-child, :first-of-type, :last-of-type, :only-child, :only-of-type, :empty, :link, :visited, :active, :hover, :focus, :target, :lang(fr), :enabled, :disabled, :checked)
-							}
+							// }
 							break;
 						}
 					} // end of switch
@@ -1505,7 +1477,7 @@ class WaterWoo_TCPDF_STATIC {
 	 * @param $haystack (string) The string to search in.
 	 * @param $needle (string) substring to search.
 	 * @param $offset (int) May be specified to begin searching an arbitrary number of characters into the string.
-	 * @return Returns the position where the needle exists. Returns FALSE if the needle was not found.
+	 * @return string|boolean Returns the position where the needle exists. Returns FALSE if the needle was not found.
 	 * @since 4.8.038 (2010-03-13)
 	 * @public static
 	 */
@@ -1518,7 +1490,7 @@ class WaterWoo_TCPDF_STATIC {
 
 	/**
 	 * Returns an array of hyphenation patterns.
-	 * @param $file (string) TEX file containing hypenation patterns. TEX pattrns can be downloaded from http://www.ctan.org/tex-archive/language/hyph-utf8/tex/generic/hyph-utf8/patterns/
+	 * @param string $file TEX file containing hypenation patterns. TEX pattrns can be downloaded from http://www.ctan.org/tex-archive/language/hyph-utf8/tex/generic/hyph-utf8/patterns/
 	 * @return array of hyphenation patterns
 	 * @author Nicola Asuni
 	 * @since 4.9.012 (2010-04-12)
@@ -1528,7 +1500,6 @@ class WaterWoo_TCPDF_STATIC {
 		// TEX patterns are available at:
 		// http://www.ctan.org/tex-archive/language/hyph-utf8/tex/generic/hyph-utf8/patterns/
 		$data = file_get_contents($file);
-		$patterns = array();
 		// remove comments
 		$data = preg_replace('/\%[^\n]*/', '', $data);
 		// extract the patterns part
@@ -1551,7 +1522,7 @@ class WaterWoo_TCPDF_STATIC {
 
 	/**
 	 * Get the Path-Painting Operators.
-	 * @param $style (string) Style of rendering. Possible values are:
+	 * @param string $style Style of rendering. Possible values are:
 	 * <ul>
 	 *   <li>S or D: Stroke the path.</li>
 	 *   <li>s or d: Close and stroke the path.</li>
@@ -1565,13 +1536,13 @@ class WaterWoo_TCPDF_STATIC {
 	 *   <li>CEO: Clipping mode using the nonzero winding number rule to determine which regions lie inside the clipping path</li>
 	 *   <li>n: End the path object without filling or stroking it.</li>
 	 * </ul>
-	 * @param $default (string) default style
+	 * @param string $default default style
+     * @return string
 	 * @author Nicola Asuni
 	 * @since 5.0.000 (2010-04-30)
 	 * @public static
 	 */
 	public static function getPathPaintOperator($style, $default='S') {
-		$op = '';
 		switch($style) {
 			case 'S':
 			case 'D': {
@@ -1644,7 +1615,7 @@ class WaterWoo_TCPDF_STATIC {
 	 * Get the product of two SVG tranformation matrices
 	 * @param $ta (array) first SVG tranformation matrix
 	 * @param $tb (array) second SVG tranformation matrix
-	 * @return transformation array
+	 * @return array transformation array
 	 * @author Nicola Asuni
 	 * @since 5.0.000 (2010-05-02)
 	 * @public static
@@ -1761,6 +1732,7 @@ class WaterWoo_TCPDF_STATIC {
 	 * @param $y1 (int) Y coordinate of first vector point
 	 * @param $x2 (int) X coordinate of second vector point
 	 * @param $y2 (int) Y coordinate of second vector point
+     * @return int|float
 	 * @author Nicola Asuni
 	 * @since 5.0.000 (2010-05-04)
 	 * @public static
@@ -1815,12 +1787,12 @@ class WaterWoo_TCPDF_STATIC {
 	/**
 	 * Split string by a regular expression.
 	 * This is a wrapper for the preg_split function to avoid the bug: https://bugs.php.net/bug.php?id=45850
-	 * @param $pattern (string) The regular expression pattern to search for without the modifiers, as a string.
-	 * @param $modifiers (string) The modifiers part of the pattern,
-	 * @param $subject (string) The input string.
-	 * @param $limit (int) If specified, then only substrings up to limit are returned with the rest of the string being placed in the last substring. A limit of -1, 0 or NULL means "no limit" and, as is standard across PHP, you can use NULL to skip to the flags parameter.
-	 * @param $flags (int) The flags as specified on the preg_split PHP function.
-	 * @return Returns an array containing substrings of subject split along boundaries matched by pattern.modifier
+	 * @param string $pattern The regular expression pattern to search for without the modifiers, as a string.
+	 * @param string $modifiers The modifiers part of the pattern,
+	 * @param string $subject The input string.
+	 * @param int $limit If specified, then only substrings up to limit are returned with the rest of the string being placed in the last substring. A limit of -1, 0 or NULL means "no limit" and, as is standard across PHP, you can use NULL to skip to the flags parameter.
+	 * @param int $flags The flags as specified on the preg_split PHP function.
+	 * @return array Returns an array containing substrings of subject split along boundaries matched by pattern.modifier
 	 * @author Nicola Asuni
 	 * @since 6.0.023
 	 * @public static
@@ -1845,9 +1817,9 @@ class WaterWoo_TCPDF_STATIC {
 
 	/**
 	 * Wrapper to use fopen only with local files
-	 * @param filename (string) Name of the file to open
-	 * @param $mode (string) 
-	 * @return Returns a file pointer resource on success, or FALSE on error.  
+	 * @param string filename Name of the file to open
+	 * @param string $mode
+	 * @return string|boolean Returns a file pointer resource on success, or FALSE on error.
 	 * @public static
 	 */
 	public static function fopenLocal($filename, $mode) {
@@ -1861,8 +1833,8 @@ class WaterWoo_TCPDF_STATIC {
 
 	/**
 	 * Check if the URL exist.
-	 * @param url (string) URL to check.
-	 * @return Returns TRUE if the URL exists; FALSE otherwise.
+	 * @param string url URL to check.
+	 * @return boolean Returns TRUE if the URL exists; FALSE otherwise.
 	 * @public static
 	 */
 	public static function url_exists($url) {
@@ -1910,8 +1882,8 @@ class WaterWoo_TCPDF_STATIC {
 	 * Wrapper for file_exists.
 	 * Checks whether a file or directory exists.
 	 * Only allows some protocols and local files.
-	 * @param filename (string) Path to the file or directory. 
-	 * @return Returns TRUE if the file or directory specified by filename exists; FALSE otherwise.  
+	 * @param string filename  Path to the file or directory.
+	 * @return boolean Returns TRUE if the file or directory specified by filename exists; FALSE otherwise.
 	 * @public static
 	 */
 	public static function file_exists($filename) {
@@ -1931,7 +1903,7 @@ class WaterWoo_TCPDF_STATIC {
 	 * Reads entire file into a string.
 	 * The file can be also an URL.
 	 * @param $file (string) Name of the file or URL to read.
-	 * @return The function returns the read data or FALSE on failure. 
+	 * @return string|boolean The function returns the read data or FALSE on failure.
 	 * @author Nicola Asuni
 	 * @since 6.0.025
 	 * @public static
@@ -2003,7 +1975,6 @@ class WaterWoo_TCPDF_STATIC {
 				// try to get remote file data using cURL
 				$crs = curl_init();
 				curl_setopt($crs, CURLOPT_URL, $path);
-				curl_setopt($crs, CURLOPT_BINARYTRANSFER, true);
 				curl_setopt($crs, CURLOPT_FAILONERROR, true);
 				curl_setopt($crs, CURLOPT_RETURNTRANSFER, true);
 				if ((ini_get('open_basedir') == '') && (!ini_get('safe_mode'))) {
@@ -2095,8 +2066,7 @@ class WaterWoo_TCPDF_STATIC {
 	 * @public static
 	 */
 	public static function _getUFWORD($str, $offset) {
-		$v = self::_getUSHORT($str, $offset);
-		return $v;
+		return self::_getUSHORT($str, $offset);
 	}
 
 	/**
@@ -2113,8 +2083,7 @@ class WaterWoo_TCPDF_STATIC {
 		$m = self::_getFWORD($str, $offset);
 		// fraction
 		$f = self::_getUSHORT($str, ($offset + 2));
-		$v = floatval(''.$m.'.'.$f.'');
-		return $v;
+		return floatval(''.$m.'.'.$f.'');
 	}
 
 	/**
@@ -2134,8 +2103,8 @@ class WaterWoo_TCPDF_STATIC {
 	 * Binary-safe and URL-safe file read.
 	 * Reads up to length bytes from the file pointer referenced by handle. Reading stops as soon as one of the following conditions is met: length bytes have been read; EOF (end of file) is reached.
 	 * @param $handle (resource)
-	 * @param $length (int)
-	 * @return Returns the read string or FALSE in case of error.
+	 * @param int $length
+	 * @return string|boolean Returns the read string or FALSE in case of error.
 	 * @author Nicola Asuni
 	 * @since 4.5.027 (2009-03-16)
 	 * @public static
@@ -2154,8 +2123,8 @@ class WaterWoo_TCPDF_STATIC {
 
 	/**
 	 * Read a 4-byte (32 bit) integer from file.
-	 * @param $f (string) file name.
-	 * @return 4-byte integer
+	 * @param resource $f file name.
+	 * @return integer 4-byte integer
 	 * @public static
 	 */
 	public static function _freadint($f) {
@@ -2546,7 +2515,7 @@ class WaterWoo_TCPDF_STATIC {
 	 * @param $points (boolean) If true uses user units as unit of measure, otherwise uses PDF points.
 	 * @param $k (float) Scale factor (number of points in user unit).
 	 * @param $pagedim (array) Array of page dimensions.
-	 * @return pagedim array of page dimensions.
+	 * @return array|void pagedim  of page dimensions.
 	 * @since 5.0.010 (2010-05-17)
 	 * @public static
 	 */
@@ -2570,9 +2539,9 @@ class WaterWoo_TCPDF_STATIC {
 
 	/**
 	 * Swap X and Y coordinates of page boxes (change page boxes orientation).
-	 * @param $page (int) page number
-	 * @param $pagedim (array) Array of page dimensions.
-	 * @return pagedim array of page dimensions.
+	 * @param int $page page number
+	 * @param array $pagedim Array of page dimensions.
+	 * @return array pagedim of page dimensions.
 	 * @since 5.0.010 (2010-05-17)
 	 * @public static
 	 */
@@ -2593,8 +2562,8 @@ class WaterWoo_TCPDF_STATIC {
 
 	/**
 	 * Get the canonical page layout mode.
-	 * @param $layout (string) The page layout. Possible values are:<ul><li>SinglePage Display one page at a time</li><li>OneColumn Display the pages in one column</li><li>TwoColumnLeft Display the pages in two columns, with odd-numbered pages on the left</li><li>TwoColumnRight Display the pages in two columns, with odd-numbered pages on the right</li><li>TwoPageLeft (PDF 1.5) Display the pages two at a time, with odd-numbered pages on the left</li><li>TwoPageRight (PDF 1.5) Display the pages two at a time, with odd-numbered pages on the right</li></ul>
-	 * @return (string) Canonical page layout name.
+	 * @param string $layout The page layout. Possible values are:<ul><li>SinglePage Display one page at a time</li><li>OneColumn Display the pages in one column</li><li>TwoColumnLeft Display the pages in two columns, with odd-numbered pages on the left</li><li>TwoColumnRight Display the pages in two columns, with odd-numbered pages on the right</li><li>TwoPageLeft (PDF 1.5) Display the pages two at a time, with odd-numbered pages on the left</li><li>TwoPageRight (PDF 1.5) Display the pages two at a time, with odd-numbered pages on the right</li></ul>
+	 * @return string Canonical page layout name.
 	 * @public static
 	 */
 	public static function getPageLayoutMode($layout='SinglePage') {
@@ -2636,8 +2605,8 @@ class WaterWoo_TCPDF_STATIC {
 
 	/**
 	 * Get the canonical page layout mode.
-	 * @param $mode (string) A name object specifying how the document should be displayed when opened:<ul><li>UseNone Neither document outline nor thumbnail images visible</li><li>UseOutlines Document outline visible</li><li>UseThumbs Thumbnail images visible</li><li>FullScreen Full-screen mode, with no menu bar, window controls, or any other window visible</li><li>UseOC (PDF 1.5) Optional content group panel visible</li><li>UseAttachments (PDF 1.6) Attachments panel visible</li></ul>
-	 * @return (string) Canonical page mode name.
+	 * @param string $mode A name object specifying how the document should be displayed when opened:<ul><li>UseNone Neither document outline nor thumbnail images visible</li><li>UseOutlines Document outline visible</li><li>UseThumbs Thumbnail images visible</li><li>FullScreen Full-screen mode, with no menu bar, window controls, or any other window visible</li><li>UseOC (PDF 1.5) Optional content group panel visible</li><li>UseAttachments (PDF 1.6) Attachments panel visible</li></ul>
+	 * @return string Canonical page mode name.
 	 * @public static
 	 */
 	public static function getPageMode($mode='UseNone') {

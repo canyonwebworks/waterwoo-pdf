@@ -190,7 +190,10 @@ if ( ! class_exists( 'WaterWoo_tcpdi_parser' ) ) :
 
         /**
          * Parse a PDF document and return an array of objects.
-         * @param $data (string) PDF data to parse.
+         *
+         * @param string $data PDF data to parse.
+         * @param string $uniqueid Unique parser ID
+         * @param array $cfg Array of configuration parameters
          * @public
          * @since 1.0.000 (2011-05-24)
          */
@@ -251,28 +254,6 @@ if ( ! class_exists( 'WaterWoo_tcpdi_parser' ) ) :
             $metadata = $this->getObjectVal($this->xref['trailer'][1]['/Info']);
             return $metadata;
         }
-        
-        private function pdfDecTxt($txt) {
-            $len = strlen($txt);
-            $out = '';
-            $i = 0;
-            while ($i<$len) {
-                if ($txt[$i] == '\\')
-                {
-                    $out .= chr(octdec(substr($txt, $i+1, 3)));
-                    $i += 4;			
-                } else {
-                    $out .= $txt[$i];
-                    $i++;
-                }
-            }
-            if ($out[0] == chr(254)) {
-                $enc = 'UTF-16';
-            } else {
-                $enc = mb_detect_encoding($out);
-            }
-            return iconv($enc, 'UTF-8', $out);
-        }
 
         /**
          * Clean up when done, to free memory etc
@@ -296,7 +277,7 @@ if ( ! class_exists( 'WaterWoo_tcpdi_parser' ) ) :
 
         /**
          * Return an array of parsed PDF document objects.
-         * @return (array) Array of parsed PDF document objects.
+         * @return array Array of parsed PDF document objects.
          * @public
          * @since 1.0.000 (2011-06-26)
          */
@@ -365,6 +346,7 @@ if ( ! class_exists( 'WaterWoo_tcpdi_parser' ) ) :
         /**
          * Read a single /Page element, recursing through /Kids if necessary
          *
+         * @param array $page
          */
         private function readPage($page) {
             if (isset($page[1][1]['/Kids'])) {
@@ -391,7 +373,7 @@ if ( ! class_exists( 'WaterWoo_tcpdi_parser' ) ) :
          * Get Cross-Reference (xref) table and trailer data from PDF document data.
          * @param $offset (int) xref offset (if known).
          * @param $xref (array) previous xref array (if any).
-         * @return Array containing xref and trailer data.
+         * @return array containing xref and trailer data.
          * @protected
          * @since 1.0.000 (2011-05-24)
          */
@@ -441,7 +423,7 @@ if ( ! class_exists( 'WaterWoo_tcpdi_parser' ) ) :
          * Decode the Cross-Reference section
          * @param $startxref (int) Offset at which the xref section starts.
          * @param $xref (array) Previous xref array (if any).
-         * @return Array containing xref and trailer data.
+         * @return array containing xref and trailer data.
          * @protected
          * @since 1.0.000 (2011-06-20)
          */
@@ -533,7 +515,7 @@ if ( ! class_exists( 'WaterWoo_tcpdi_parser' ) ) :
          * Decode the Cross-Reference Stream section
          * @param $startxref (int) Offset at which the xref section starts.
          * @param $xref (array) Previous xref array (if any).
-         * @return Array containing xref and trailer data.
+         * @return array containing xref and trailer data.
          * @protected
          * @since 1.0.003 (2013-03-16)
          */
@@ -703,7 +685,7 @@ if ( ! class_exists( 'WaterWoo_tcpdi_parser' ) ) :
                 foreach ($ddata as $k => $row) {
                     // initialize new row
                     $sdata[$k] = array(0, 0, 0);
-                    if ($wb[0] == 0) {
+                    if (isset($wb)&&$wb[0] == 0) {
                         // default type field
                         $sdata[$k][0] = 1;
                     }
@@ -768,7 +750,7 @@ if ( ! class_exists( 'WaterWoo_tcpdi_parser' ) ) :
          * Get raw stream data
          * @param $offset (int) Stream offset.
          * @param $length (int) Stream length.
-         * @return string Steam content
+         * @return array|string Steam content
          * @protected
          */
         protected function getRawStream($offset, $length) {
@@ -1039,7 +1021,7 @@ if ( ! class_exists( 'WaterWoo_tcpdi_parser' ) ) :
          * @param $obj_ref (string) Object number and generation number separated by underscore character.
          * @param $offset (int) Object offset.
          * @param $decoding (boolean) If true decode streams.
-         * @return array containing object data.
+         * @return void|array containing object data.
          * @protected
          * @since 1.0.000 (2011-05-24)
          */
@@ -1124,7 +1106,7 @@ if ( ! class_exists( 'WaterWoo_tcpdi_parser' ) ) :
                     $objs = $streaminfo[0];
                     if (!isset($this->objstreams[$objs[0]][$objs[1]])) {
                         // Fetch and decode object stream
-                        $offset = $this->findObjectOffset($objs);;
+                        $offset = $this->findObjectOffset($objs);
                         $objstream = $this->getObjectVal(array(PDF_TYPE_OBJREF, $objs[0], $objs[1]));
                         $decoded = $this->decodeStream($objstream[1][1], $objstream[2][1]);
                         $this->objstreams[$objs[0]][$objs[1]] = $decoded[0]; // Store just the data, in case we need more from this objstream
@@ -1150,6 +1132,8 @@ if ( ! class_exists( 'WaterWoo_tcpdi_parser' ) ) :
         /**
          * Extract object stream to find out what it contains.
          *
+         * @param array $key
+         * @return void
          */
         function extractObjectStream($key) {
             $objref = array(PDF_TYPE_OBJREF, $key[0], $key[1]);
@@ -1312,6 +1296,7 @@ if ( ! class_exists( 'WaterWoo_tcpdi_parser' ) ) :
          * Get page-resources from /Page
          *
          * @param array $obj Array of pdf-data
+         * @return array
          */
         private function _getPageResources ($obj) { // $obj = /Page
             $obj = $this->getObjectVal($obj);
@@ -1462,7 +1447,7 @@ if ( ! class_exists( 'WaterWoo_tcpdi_parser' ) ) :
          * @param array $page a /Page
          * @param string $box_index Type of Box @see $availableBoxes
          * @param float Scale factor from user space units to points
-         * @return array
+         * @return boolean|array
          */
         public function getPageBox($page, $box_index, $k) {
             $page = $this->getObjectVal($page);
@@ -1508,6 +1493,7 @@ if ( ! class_exists( 'WaterWoo_tcpdi_parser' ) ) :
          * Get all boxes from /Page
          *
          * @param array a /Page
+         * @param float $k
          * @return array
          */
         private function _getPageBoxes($page, $k) {

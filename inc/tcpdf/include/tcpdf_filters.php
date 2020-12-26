@@ -62,7 +62,7 @@ class WaterWoo_TCPDF_FILTERS {
 
 	/**
 	 * Get a list of available decoding filters.
-	 * @return (array) Array of available filter decoders.
+	 * @return array Array of available filter decoders.
 	 * @since 1.0.000 (2011-05-23)
 	 * @public static
 	 */
@@ -72,9 +72,9 @@ class WaterWoo_TCPDF_FILTERS {
 
 	/**
 	 * Decode data using the specified filter type.
-	 * @param $filter (string) Filter name.
-	 * @param $data (string) Data to decode.
-	 * @return Decoded data string.
+	 * @param string $filter Filter name.
+	 * @param string $data Data to decode.
+	 * @return string Decoded data string.
 	 * @since 1.0.000 (2011-05-23)
 	 * @public static
 	 */
@@ -82,47 +82,36 @@ class WaterWoo_TCPDF_FILTERS {
 		switch ($filter) {
 			case 'ASCIIHexDecode': {
 				return self::decodeFilterASCIIHexDecode($data);
-				break;
 			}
 			case 'ASCII85Decode': {
 				return self::decodeFilterASCII85Decode($data);
-				break;
 			}
 			case 'LZWDecode': {
 				return self::decodeFilterLZWDecode($data);
-				break;
 			}
 			case 'FlateDecode': {
 				return self::decodeFilterFlateDecode($data);
-				break;
 			}
 			case 'RunLengthDecode': {
 				return self::decodeFilterRunLengthDecode($data);
-				break;
 			}
 			case 'CCITTFaxDecode': {
 				return self::decodeFilterCCITTFaxDecode($data);
-				break;
 			}
 			case 'JBIG2Decode': {
 				return self::decodeFilterJBIG2Decode($data);
-				break;
 			}
 			case 'DCTDecode': {
 				return self::decodeFilterDCTDecode($data);
-				break;
 			}
 			case 'JPXDecode': {
 				return self::decodeFilterJPXDecode($data);
-				break;
 			}
 			case 'Crypt': {
 				return self::decodeFilterCrypt($data);
-				break;
 			}
 			default: {
 				return self::decodeFilterStandard($data);
-				break;
 			}
 		}
 	}
@@ -132,8 +121,8 @@ class WaterWoo_TCPDF_FILTERS {
 	/**
 	 * Standard
 	 * Default decoding filter (leaves data unchanged).
-	 * @param $data (string) Data to decode.
-	 * @return Decoded data string.
+	 * @param string $data Data to decode.
+	 * @return string Decoded data string.
 	 * @since 1.0.000 (2011-05-23)
 	 * @public static
 	 */
@@ -144,14 +133,12 @@ class WaterWoo_TCPDF_FILTERS {
 	/**
 	 * ASCIIHexDecode
 	 * Decodes data encoded in an ASCII hexadecimal representation, reproducing the original binary data.
-	 * @param $data (string) Data to decode.
-	 * @return Decoded data string.
+	 * @param string $data Data to decode.
+	 * @return string Decoded data string.
 	 * @since 1.0.000 (2011-05-23)
 	 * @public static
 	 */
 	public static function decodeFilterASCIIHexDecode($data) {
-		// initialize string to return
-		$decoded = '';
 		// all white-space characters shall be ignored
 		$data = preg_replace('/[\s]/', '', $data);
 		// check for EOD character: GREATER-THAN SIGN (3Eh)
@@ -177,15 +164,14 @@ class WaterWoo_TCPDF_FILTERS {
 			self::Error('decodeFilterASCIIHexDecode: invalid code');
 		}
 		// get one byte of binary data for each pair of ASCII hexadecimal digits
-		$decoded = pack('H*', $data);
-		return $decoded;
+		return pack('H*', $data);
 	}
 
 	/**
 	 * ASCII85Decode
 	 * Decodes data encoded in an ASCII base-85 representation, reproducing the original binary data.
-	 * @param $data (string) Data to decode.
-	 * @return Decoded data string.
+	 * @param string $data Data to decode.
+	 * @return string Decoded data string.
 	 * @since 1.0.000 (2011-05-23)
 	 * @public static
 	 */
@@ -217,7 +203,7 @@ class WaterWoo_TCPDF_FILTERS {
 		$group_pos = 0;
 		$tuple = 0;
 		$pow85 = array((85*85*85*85), (85*85*85), (85*85), 85, 1);
-		$last_pos = ($data_length - 1);
+		// $last_pos = ($data_length - 1);
 		// for each byte
 		for ($i = 0; $i < $data_length; ++$i) {
 			// get char value
@@ -268,8 +254,8 @@ class WaterWoo_TCPDF_FILTERS {
 	/**
 	 * LZWDecode
 	 * Decompresses data encoded using the LZW (Lempel-Ziv-Welch) adaptive compression method, reproducing the original text or binary data.
-	 * @param $data (string) Data to decode.
-	 * @return Decoded data string.
+	 * @param string $data Data to decode.
+	 * @return string Decoded data string.
 	 * @since 1.0.000 (2011-05-23)
 	 * @public static
 	 */
@@ -358,14 +344,14 @@ class WaterWoo_TCPDF_FILTERS {
      * @internal
      */
     public static function extensionLoaded() {
-        return \extension_loaded('zlib');
+        return extension_loaded('zlib');
     }
     
 	/**
 	 * FlateDecode
 	 * Decompresses data encoded using the zlib/deflate compression method, reproducing the original text or binary data.
-	 * @param $data (string) Data to decode.
-	 * @return Decoded data string.
+	 * @param string $data Data to decode.
+	 * @return string Decoded data string.
 	 * @since 1.0.000 (2011-05-23)
 	 * @public static
 	 */
@@ -379,7 +365,7 @@ class WaterWoo_TCPDF_FILTERS {
             if ($data === false) {
                 // Try this fallback
                 $tries = 1;
-                while ($tries < 10 && ($data === false || \strlen($data) < (\strlen($oData) - $tries - 1))) {
+                while ($tries < 10 && ($data === false || strlen($data) < (strlen($oData) - $tries - 1))) {
                     $data = @(gzinflate(substr($oData, $tries)));
                     $tries++;
                 }
@@ -407,6 +393,7 @@ class WaterWoo_TCPDF_FILTERS {
 	 * RunLengthDecode
 	 * Decompresses data encoded using a byte-oriented run-length encoding algorithm.
 	 * @param $data (string) Data to decode.
+     * @return string
 	 * @since 1.0.000 (2011-05-23)
 	 * @public static
 	 */
@@ -446,66 +433,61 @@ class WaterWoo_TCPDF_FILTERS {
 	/**
 	 * CCITTFaxDecode (NOT IMPLEMETED - RETURN AN EXCEPTION)
 	 * Decompresses data encoded using the CCITT facsimile standard, reproducing the original data (typically monochrome image data at 1 bit per pixel).
-	 * @param $data (string) Data to decode.
-	 * @return Decoded data string.
+	 * @param string $data Data to decode.
+	 * @return void|string Decoded data string.
 	 * @since 1.0.000 (2011-05-23)
 	 * @public static
 	 */
 	public static function decodeFilterCCITTFaxDecode($data) {
 		self::Error('~decodeFilterCCITTFaxDecode: this method has not been yet implemented');
-		//return $data;
 	}
 
 	/**
 	 * JBIG2Decode (NOT IMPLEMETED - RETURN AN EXCEPTION)
 	 * Decompresses data encoded using the JBIG2 standard, reproducing the original monochrome (1 bit per pixel) image data (or an approximation of that data).
-	 * @param $data (string) Data to decode.
-	 * @return Decoded data string.
+	 * @param string $data Data to decode.
+	 * @return string Decoded data string.
 	 * @since 1.0.000 (2011-05-23)
 	 * @public static
 	 */
 	public static function decodeFilterJBIG2Decode($data) {
 		self::Error('~decodeFilterJBIG2Decode: this method has not been yet implemented');
-		//return $data;
 	}
 
 	/**
 	 * DCTDecode (NOT IMPLEMETED - RETURN AN EXCEPTION)
 	 * Decompresses data encoded using a DCT (discrete cosine transform) technique based on the JPEG standard, reproducing image sample data that approximates the original data.
-	 * @param $data (string) Data to decode.
-	 * @return Decoded data string.
+	 * @param string $data Data to decode.
+	 * @return string Decoded data string.
 	 * @since 1.0.000 (2011-05-23)
 	 * @public static
 	 */
 	public static function decodeFilterDCTDecode($data) {
 		self::Error('~decodeFilterDCTDecode: this method has not been yet implemented');
-		//return $data;
 	}
 
 	/**
 	 * JPXDecode (NOT IMPLEMETED - RETURN AN EXCEPTION)
 	 * Decompresses data encoded using the wavelet-based JPEG2000 standard, reproducing the original image data.
-	 * @param $data (string) Data to decode.
-	 * @return Decoded data string.
+	 * @param string $data Data to decode.
+	 * @return string Decoded data string.
 	 * @since 1.0.000 (2011-05-23)
 	 * @public static
 	 */
 	public static function decodeFilterJPXDecode($data) {
 		self::Error('~decodeFilterJPXDecode: this method has not been yet implemented');
-		//return $data;
 	}
 
 	/**
 	 * Crypt (NOT IMPLEMETED - RETURN AN EXCEPTION)
 	 * Decrypts data encrypted by a security handler, reproducing the data as it was before encryption.
-	 * @param $data (string) Data to decode.
-	 * @return Decoded data string.
+	 * @param string $data Data to decode.
+	 * @return string Decoded data string.
 	 * @since 1.0.000 (2011-05-23)
 	 * @public static
 	 */
 	public static function decodeFilterCrypt($data) {
 		self::Error('~decodeFilterCrypt: this method has not been yet implemented');
-		//return $data;
 	}
 
 	// --- END FILTERS SECTION -------------------------------------------------

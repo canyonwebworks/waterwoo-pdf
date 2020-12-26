@@ -71,7 +71,7 @@ if ( ! class_exists( 'WaterWoo_FPDF_TPL' ) ) :
          *
          * The calculated or used width and height are returned as an array.
          *
-         * @param int $tplIdx A valid template-id
+         * @param int $tplidx A valid template-id
          * @param int $_x The x-position
          * @param int $_y The y-position
          * @param int $_w The new width of the template
@@ -142,7 +142,7 @@ if ( ! class_exists( 'WaterWoo_FPDF_TPL' ) ) :
          * @param int $tplidx A valid template-Id
          * @param int $_w The width of the template
          * @param int $_h The height of the template
-         * @return array The height and width of the template (array('w' => ..., 'h' => ...))
+         * @return boolean|array The height and width of the template (array('w' => ..., 'h' => ...))
          */
         public function getTemplateSize($tplidx, $_w = 0, $_h = 0) 
         {
@@ -200,8 +200,8 @@ if ( ! class_exists( 'WaterWoo_FPDF_TPL' ) ) :
                 $this->_out('/Resources ');
                 $this->_out('<</ProcSet [/PDF /Text /ImageB /ImageC /ImageI]');
                 
-                if (isset($this->_res['tpl'][$tplIdx])) {
-                    $res = $this->_res['tpl'][$tplIdx];
+                if (isset($this->_res['tpl'][$tplidx])) {
+                    $res = $this->_res['tpl'][$tplidx];
                     if (isset($res['fonts']) && count($res['fonts'])) {
                         $this->_out('/Font <<');
                         
@@ -221,8 +221,8 @@ if ( ! class_exists( 'WaterWoo_FPDF_TPL' ) ) :
                         }
                         
                         if (isset($res['tpls'])) {
-                            foreach($res['tpls'] as $i => $tpl)
-                                $this->_out($this->tplprefix . $i . ' ' . $tpl['n'] . ' 0 R');
+                            foreach($res['tpls'] as $i => $tpll)
+                                $this->_out($this->tplprefix . $i . ' ' . $tpll['n'] . ' 0 R');
                         }
                         
                         $this->_out('>>');

@@ -22,8 +22,6 @@ if ( ! class_exists( 'WWPDF_Compatibility' ) ) :
 		/**
 		 * Autoloader constructor
 		 *
-		 * @param string $prefix
-		 * @param string $abspath
 		 */
 		public function __construct() {
 		
@@ -67,12 +65,11 @@ if ( ! class_exists( 'WWPDF_Compatibility' ) ) :
         
         public function admin_notices(  ) {
         
-            $error = array();
-            $error = $this->error;
+            $errors = $this->error;
         
-            if ( empty( $error ) || ( defined( 'DISABLE_NAG_NOTICES' ) && DISABLE_NAG_NOTICES === TRUE ) ) return; 
+            if ( empty( $errors ) || ( defined( 'DISABLE_NAG_NOTICES' ) && DISABLE_NAG_NOTICES === TRUE ) ) return;
 
-            foreach ( $error as $error ) {
+            foreach ( $errors as $error ) {
                 switch ($error) {
                     case 1: // WC enabled
                         $message = '<div class="error"><p>' . sprintf( __('<strong>WaterWoo PDF</strong> requires WooCommerce to work. You can <a href="%s" target="_blank" rel="noopener">download WooCommerce here</a>.', 'waterwoo-pdf' ), 'https://wordpress.org/plugins/woocommerce/' ) . '</p></div>';
@@ -90,7 +87,9 @@ if ( ! class_exists( 'WWPDF_Compatibility' ) ) :
                         $message = '<div class="error"><p>' . sprintf( __('Sorry, <strong>WaterWoo PDF</strong> supports WooCommerce version %s or newer, for security reasons.', 'waterwoo-pdf' ), WWPDF_MIN_WC ) . '</p></div>';
                         break;
                 }
-                echo $message;
+                if ( isset( $message ) ) {
+                    echo $message;
+                }
             }
         
         }

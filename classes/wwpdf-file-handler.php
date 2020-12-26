@@ -39,7 +39,7 @@ if ( ! class_exists( 'WWPDF_File_Handler' ) ) {
          * @param object $order
          * @param object $product
          * @param object $download
-         * @return string $file_path
+         * @return void|string $file_path
          */ 
         public function pdf_filepath( $file_path, $email, $order, $product, $download ) {
         
@@ -51,13 +51,11 @@ if ( ! class_exists( 'WWPDF_File_Handler' ) ) {
             if ( 'pdf' !== strtolower( $file_extension ) ) return $file_path;
             
             $order_id = $order->get_id();
-            $query_string = FALSE;
-            
+
             // get requested PDF and compare to admin designated PDFs
             $requested_file     = basename( $file_path );
             if ( FALSE !== strpos( $requested_file, '?' ) ) {
                 $requested_file = substr( $requested_file, 0, strpos( $requested_file, '?' ) );
-                $query_string = TRUE;
             }
             $wwpdf_files        = get_option( 'wwpdf_files', '' );
             $wwpdf_file_list    = array_filter( array_map( 'trim', explode( PHP_EOL, $wwpdf_files ) ) );
@@ -113,10 +111,10 @@ if ( ! class_exists( 'WWPDF_File_Handler' ) ) {
         /**
          * Old method for WC < 4.0, filters file path to add watermark via TCPDI/TCPDF
          *
-         * @param str   $file_path
-         * @param obj   $product
+         * @param string   $file_path
+         * @param object   $product
          * @param int   $download_id
-         * @return str $file_path
+         * @return void|string $file_path
          */    
         public function pdf_file_download_path( $file_path, $product, $download_id ) {
 

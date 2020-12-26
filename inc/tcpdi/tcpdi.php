@@ -104,7 +104,7 @@ if ( ! class_exists( 'WaterWoo_TCPDI' ) ) :
          * Returns a PDF parser object
          *
          * @param string $filename
-         * @return fpdi_pdf_parser
+         * @return WaterWoo_tcpdi_parser
          */
         function _getPdfParser( $filename ) {
 
@@ -125,7 +125,8 @@ if ( ! class_exists( 'WaterWoo_TCPDI' ) ) :
         /**
          * Set the PDF version
          *
-         * @return string
+         * @param string $version
+         * @return void
          */
         function setPDFVersion($version = '1.3') {
             $this->PDFVersion = $version;
@@ -134,8 +135,10 @@ if ( ! class_exists( 'WaterWoo_TCPDI' ) ) :
         /**
          * Import a page
          *
-         * @param int $pageno pagenumber
-         * @return int Index of imported page - to use with fpdf_tpl::useTemplate()
+         * @param int $pageno Page number
+         * @param string $boxName
+         * @return void|int Index of imported page - to use with fpdf_tpl::useTemplate()
+         * @throws Exception
          */
         function importPage($pageno, $boxName = '/CropBox') {
 
@@ -217,10 +220,17 @@ if ( ! class_exists( 'WaterWoo_TCPDI' ) ) :
             return $this->tpl;
         }
 
+        /**
+         * Get PDF Meta Dataa
+         *
+         * @return string|array
+         */
         public function getMetaData() {
         
             $metadata = $this->current_parser->_getMetaData();
-            if (!is_array($metadata)) return;
+            if (!is_array($metadata)) {
+                return '';
+            }
             foreach ( $metadata[1][1] as $key => $value ) {
 
                 if ( stripos( $key, 'Author' ) !== FALSE ) {
@@ -489,6 +499,8 @@ if ( ! class_exists( 'WaterWoo_TCPDI' ) ) :
 
         /**
          * Private Method that writes the form xobjects
+         *
+         * @return void
          */
         function _putformxobjects() {
             $filter=($this->compress) ? '/Filter /FlateDecode ' : '';
@@ -575,8 +587,9 @@ if ( ! class_exists( 'WaterWoo_TCPDI' ) ) :
                                 $this->_out('/I' . $image['i'] . ' ' . $image['n'] . ' 0 R');
                         }
                         if (isset($this->_res['tpl'][$tplidx]['tpls']) && count($this->_res['tpl'][$tplidx]['tpls'])) {
-                            foreach($this->_res['tpl'][$tplidx]['tpls'] as $i => $tpl)
-                                $this->_out($this->tplprefix . $i . ' ' . $tpl['n'] . ' 0 R');
+                            foreach($this->_res['tpl'][$tplidx]['tpls'] as $i => $tpll) {
+                                $this->_out($this->tplprefix . $i . ' ' . $tpll['n'] . ' 0 R');
+                            }
                         }
                         $this->_out('>>');
                     }
@@ -601,6 +614,10 @@ if ( ! class_exists( 'WaterWoo_TCPDI' ) ) :
 
         /**
          * Rewritten to handle existing own defined objects
+         *
+         * @param boolean $obj_id
+         * @param boolean $onlynewobj
+         * @return int
          */
         function _newobj($obj_id = false, $onlynewobj = false) {
             if (!$obj_id) {
@@ -745,6 +762,8 @@ if ( ! class_exists( 'WaterWoo_TCPDI' ) ) :
 
         /**
          * Modified so not each call will add a newline to the output.
+         *
+         * @param bool|null|string $s
          */
         function _straightOut($s) {
             if ($this->state == 2) {

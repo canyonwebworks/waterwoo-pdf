@@ -9,8 +9,6 @@ if ( ! class_exists( 'WWPDF_Autoloader' ) ) :
 		/**
 		 * Autoloader constructor
 		 *
-		 * @param string $prefix
-		 * @param string $abspath
 		 */
 		public function __construct() {
 			spl_autoload_register( array( $this, 'autoloader' ) );
