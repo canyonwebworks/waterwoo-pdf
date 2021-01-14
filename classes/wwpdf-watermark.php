@@ -46,6 +46,9 @@ if ( ! class_exists( 'WWPDF_Watermark' ) ) :
                     // upper-left corner Y coordinate
                     $footer_y = $this->size['h'] - abs( $footer_y );                        
                 }
+                if ( $footer_y > 0 && $footer_y >= $this->size['h'] ) {
+                    $footer_y = -10;
+                }
                 $this->pdf->SetFont( $font, '', $footer_size );
 				$this->pdf->SetMargins( 0, 0 );
                 $this->pdf->SetTextColor( $rgb_array[0], $rgb_array[1], $rgb_array[2] );
@@ -55,7 +58,9 @@ if ( ! class_exists( 'WWPDF_Watermark' ) ) :
                     $footer_x = ( $this->size['w'] / 2 ) - ( $this->pdf->GetStringWidth( $this->footer ) / 2 );
                 }
                 $this->pdf->SetXY( $footer_x, $footer_y );
+                do_action( 'wwpdf_before_write', $this->pdf );
 				$this->pdf->Write( 1, $this->footer );
+                do_action( 'wwpdf_after_write', $this->pdf );
 				
 			}
 			

@@ -213,7 +213,7 @@ if ( ! class_exists( 'WWPDF_Settings' ) ) :
                         'id' 		=> 'wwpdf_footer_y',
                         'type' 		=> 'number',
                         'title' 	=> __( 'Y Fine Tuning', 'waterwoo-pdf' ),
-                        'desc' 	    => __( 'Move the footer watermark up and down on the page by adjusting this number. Default is 260 millimeters (bottom of letter-sized page).', 'waterwoo-pdf' ),
+                        'desc' 	    => __( 'In millimeters. Move the footer watermark up and down on the page by adjusting this number. Default is 260 millimeters (bottom of letter-sized page). If this number is longer/higher than the length/height of your PDF, it will default back to -10 (10 millimeters from the bottom of the page). Account for the height of your font/text!', 'waterwoo-pdf' ),
                         'default' 	=> '260',
                         'custom_attributes' => array(
                                         'max'   => 2000,

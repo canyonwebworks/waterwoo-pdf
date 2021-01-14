@@ -1,6 +1,6 @@
 === WaterWoo PDF Plugin ===
 Contributors: littlepackage
-Donate link: https://www.buymeacoffee.com/littlepackage
+Donate link: https://ko-fi.com/littlepackage
 Tags: watermark, stamp, pdf, ebook, security, property
 Requires at least: 4.9
 Tested up to: 5.6
@@ -142,6 +142,10 @@ If you do not know how to edit your functions.php file, you can use the Code Sni
 * Support for WooCommerce versions older than 2.4 removed for security reasons. Please update your WooCommerce installation to the newest version before using WaterWoo.
 
 == Changelog ==
+
+= 2.7.10 - 13/Jan/2020 =
+* Testing with WooCommerce version 4.9
+* Tweak - Catch for when users have Y-axis taller than the page - use -10mm and help prevent blank pages (will catch egregious instances)
 
 = 2.7.9 - 26/Dec/2020 =
 * Testing with WP version 5.6 & WooCommerce version 4.8

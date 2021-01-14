@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WaterWoo PDF\n"
-"POT-Creation-Date: 2020-10-08 20:32-0700\n"
-"PO-Revision-Date: 2020-10-08 20:32-0700\n"
+"POT-Creation-Date: 2021-01-13 17:09-0800\n"
+"PO-Revision-Date: 2021-01-13 17:09-0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es\n"
@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.3.1\n"
+"X-Generator: Poedit 2.4.2\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-WPHeader: waterwoo-pdf.php\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -20,34 +20,27 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
-#: classes/wwpdf-compatibility.php:78
-#, fuzzy, php-format
-#| msgid ""
-#| "<strong>WaterWoo PDF</strong> requires WooCommerce to work. You can "
-#| "download WooCommerce %s."
+#: classes/wwpdf-compatibility.php:75
+#, php-format
 msgid ""
 "<strong>WaterWoo PDF</strong> requires WooCommerce to work. You can <a href="
 "\"%s\" target=\"_blank\" rel=\"noopener\">download WooCommerce here</a>."
 msgstr ""
-"<strong>WaterWoo PDF</strong> requiere WooCommerce para trabajar. Puedes "
-"descargar WooCommerce %s."
+"<strong>WaterWoo PDF</strong> requiere WooCommerce para trabajar. Puedes <a "
+"href=\"%s\" target=\"_blank\" rel=\"noopener\">descargar WooCommerce aquí</"
+"a>."
 
-#: classes/wwpdf-compatibility.php:81
-#, fuzzy
-#| msgid ""
-#| "The <strong>WC_Download_Handler</strong> WooCommerce class is missing! It "
-#| "is required for WaterWoo to work. Perhaps your WooCommerce installation "
-#| "is corrupted?"
+#: classes/wwpdf-compatibility.php:78
 msgid ""
 "The <strong>WC_Download_Handler</strong> WooCommerce class is missing! It is "
 "required for WaterWoo PDF to work. Perhaps your WooCommerce installation is "
 "corrupted?"
 msgstr ""
-"¡Falta la clase <strong>WC_Download_Handler</strong> WooCommerce! Se "
-"requiere para que WaterWoo funcione. ¿Quizás tu instalación de WooCommerce "
-"está dañada?"
+"¡Falta la clase <strong>WC_Download_Handler</strong> WooCommerce! Es "
+"necesario para que WaterWoo PDF funcione. ¿Quizás tu instalación de "
+"WooCommerce está dañada?"
 
-#: classes/wwpdf-compatibility.php:84
+#: classes/wwpdf-compatibility.php:81
 #, php-format
 msgid ""
 "<strong>WaterWoo PDF</strong> supports PHP %s or later. Please update PHP on "
@@ -56,7 +49,7 @@ msgstr ""
 "<strong>WaterWoo PDF</strong> es compatible con PHP %s o posterior. "
 "Actualice PHP en su servidor para obtener mejores resultados."
 
-#: classes/wwpdf-compatibility.php:87
+#: classes/wwpdf-compatibility.php:84
 #, php-format
 msgid ""
 "<strong>WaterWoo PDF</strong> supports WordPress version %s or later. Please "
@@ -65,7 +58,7 @@ msgstr ""
 "<strong>WaterWoo PDF</strong> es compatible con la versión de WordPress %s o "
 "posterior. Por favor, actualice WordPress para usar este plugin."
 
-#: classes/wwpdf-compatibility.php:90
+#: classes/wwpdf-compatibility.php:87
 #, php-format
 msgid ""
 "Sorry, <strong>WaterWoo PDF</strong> supports WooCommerce version %s or "
@@ -74,15 +67,19 @@ msgstr ""
 "Lo sentimos, <strong>WaterWoo PDF</strong> es compatible con WooCommerce "
 "versión %s o posterior, por razones de seguridad."
 
-#: classes/wwpdf-file-handler.php:75
+#: classes/wwpdf-file-handler.php:73
 msgid "The free version of WaterWoo cannot serve PDFs from remote servers."
 msgstr ""
+"La versión gratuita de WaterWoo no puede servir archivos PDF desde "
+"servidores remotos."
 
-#: classes/wwpdf-file-handler.php:76
+#: classes/wwpdf-file-handler.php:74
 msgid ""
 "Try uploading your PDF product to this domain using the native WooCommerce "
 "file uploader."
 msgstr ""
+"Prueba a subir tu producto PDF a este dominio usando el cargador de archivos "
+"nativo de WooCommerce."
 
 #: classes/wwpdf-settings.php:47
 msgid "FAQ"
@@ -141,15 +138,7 @@ msgstr ""
 "personalizable y manipulable."
 
 #: classes/wwpdf-settings.php:102
-#, fuzzy, php-format
-#| msgid ""
-#| "<a href=\"https://web.little-package.com/downloads/waterwoo-pdf-premium/"
-#| "\" target=\"_blank\" rel=\"noopener\">Consider upgrading to the Premium "
-#| "version</a> if you need more functionality. The premium version adds the "
-#| "ability to start watermarking on a specified page, password protect and "
-#| "copy/print/modify protect your document, a watermark overlay, HTML input, "
-#| "and UTF-8 and extended Unicode support for many more foreign language "
-#| "characters. Thanks again, and enjoy!"
+#, php-format
 msgid ""
 "<a href=\"%s\" target=\"_blank\" rel=\"noopener\">Consider upgrading to the "
 "Premium version</a> if you need more functionality. The premium version adds "
@@ -158,14 +147,13 @@ msgid ""
 "and UTF-8 and extended Unicode support for many more foreign language "
 "characters. Thanks again, and enjoy!"
 msgstr ""
-"<a href=\"https://web.little-package.com/downloads/waterwoo-pdf-premium/\" "
-"target=\"_blank\" rel=\"noopener\">Considere la posibilidad de actualizar a "
-"la versión Premium</a> si necesita más funcionalidad. La versión premium "
-"añade la capacidad de comenzar la marca de agua en una página especificada, "
-"proteger con contraseña y copiar/imprimir/modificar proteger su documento, "
-"una superposición de marca de agua, entrada HTML y compatibilidad con UTF-8 "
-"y Unicode extendido para muchos más caracteres de idioma extranjero. Gracias "
-"de nuevo, y disfrutar!"
+"<a href=\"%s\" target=\"_blank\" rel=\"noopener\">Considere la posibilidad "
+"de actualizar a la versión Premium</a> si necesita más funcionalidad. La "
+"versión premium añade la capacidad de iniciar la marca de agua en una página "
+"especificada, proteger con contraseña y copiar/ imprimir / modificar "
+"proteger su documento, una superposición de marca de agua, entrada HTML y "
+"UTF-8 y compatibilidad Unicode extendida para muchos más caracteres de "
+"idioma extranjero. Gracias de nuevo, y disfrutar!"
 
 #: classes/wwpdf-settings.php:108
 msgid "For more information:"
@@ -306,12 +294,18 @@ msgstr "sintonía fina"
 
 #: classes/wwpdf-settings.php:216
 msgid ""
-"Move the footer watermark up and down on the page by adjusting this number. "
-"Default is 260 millimeters (bottom of letter-sized page)."
+"In millimeters. Move the footer watermark up and down on the page by "
+"adjusting this number. Default is 260 millimeters (bottom of letter-sized "
+"page). If this number is longer/higher than the length/height of your PDF, "
+"it will default back to -10 (10 millimeters from the bottom of the page). "
+"Account for the height of your font/text!"
 msgstr ""
-"Mover arriba y abajo la marca de agua de pie de página en la página mediante "
-"el ajuste de este número. Por defecto es de 260 milímetros (parte inferior "
-"de página tamaño carta)."
+"En milímetros. Mueva la marca de agua del pie de página hacia arriba y hacia "
+"abajo en la página ajustando este número. El valor predeterminado es 260 "
+"milímetros (parte inferior de la página del tamaño de una letra). Si este "
+"número es más largo/más alto que la longitud/altura de su PDF, el valor "
+"predeterminado volverá a -10 (10 milímetros desde la parte inferior de la "
+"página). ¡Cuenta la altura de tu fuente/texto!"
 
 #: classes/wwpdf-settings.php:228
 msgid "Leave No Trace?"
@@ -379,6 +373,14 @@ msgstr ""
 #. Author URI of the plugin/theme
 msgid "https://web.little-package.com"
 msgstr ""
+
+#~ msgid ""
+#~ "Move the footer watermark up and down on the page by adjusting this "
+#~ "number. Default is 260 millimeters (bottom of letter-sized page)."
+#~ msgstr ""
+#~ "Mover arriba y abajo la marca de agua de pie de página en la página "
+#~ "mediante el ajuste de este número. Por defecto es de 260 milímetros "
+#~ "(parte inferior de página tamaño carta)."
 
 #~ msgid "here"
 #~ msgstr "aquí"
