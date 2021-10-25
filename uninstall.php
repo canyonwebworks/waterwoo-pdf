@@ -41,7 +41,7 @@ class WWPDF_Uninstall {
 	 */
 	function uninstall() {
 
-		if ( get_option( 'wwpdf_delete_checkbox' ) !== 'yes' ) return;
+		if ( 'yes' !== get_option( 'wwpdf_delete_checkbox' ) ) return;
 
         global $current_user;
         $user_id = $current_user->ID;

@@ -1,11 +1,11 @@
 === WaterWoo PDF Plugin ===
 Contributors: littlepackage
-Donate link: https://ko-fi.com/littlepackage
+Donate link: https://paypal.me/littlepackage
 Tags: watermark, stamp, pdf, ebook, security, property
-Requires at least: 4.9
-Tested up to: 5.6
-Requires PHP: 5.6
-Stable tag: 2.7.10
+Requires at least: 5.3
+Tested up to: 5.8
+Requires PHP: 7.0
+Stable tag: 2.7.11
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -16,7 +16,9 @@ Protect your intellectual property! WaterWoo PDF allows WooCommerce site adminis
 
 WaterWoo PDF is a plugin that adds a watermark to every page of your sold PDF file(s). The watermark is customizable with font face, font color, font size, placement, and text. Not only that, but since the watermark is added when the download button is clicked (either on the customer's order confirmation page or email), the watermark can include customer-specific data such as the customer's first name, last name, and email. Your watermark is highly customizable and manipulatable, practically magic!
 
-**Please note** you must have WooCommerce plugin installed and activated for this plugin to work. This plugin watermarks WooCommerce PDF products.
+Upon WooCommerce purchase download link, WaterWoo uses the open source TCPDI and TCPDF libraries to customize your PDF. This process isn't fool-proof, but works well in many cases. You may encounter problems if your PDF is malformed (bad PDF syntax), encrypted, web-optimized, linearized, or if your server cannot handle the memory load of PDF processing. 
+
+**Please note** you must have WooCommerce plugin installed and activated for this plugin to work. This plugin watermarks WooCommerce PDF products when downloaded.
 
 If have a Wordpress site and need to watermark PDFs, but do not have WooCommerce, [check out WP TCPDF Bridge](https://web.little-package.com/downloads/wp-tcpdf-bridge/ "WP TCPDF Bridge").
 
@@ -57,8 +59,8 @@ The free version works fine for many people, but [WaterWoo PDF Premium](https://
 
 = Prerequisites =
 1. WordPress 4.9 or newer
-2. WooCommerce plugin version 3.0 and newer, and PDF products
-3. PHP version 5.6 or newer. The fresher, the better!
+2. WooCommerce plugin version 4.0 and newer, and PDF products
+3. PHP version 7.0 or newer. The fresher, the better!
 4. If you are selling large files or have high sales traffic, you may need to upgrade your hosting account. Do at least set your PHP memory limit high.
 
 = To install plugin =
@@ -81,6 +83,7 @@ The free version works fine for many people, but [WaterWoo PDF Premium](https://
 3. Have you entered your PDF file names correctly in the second field if you've entered any at all?
 4. Is your Y fine-tuning adjustment off the page? Read more below under "Why does the watermark go off the page, create blank pages?".
 5. Check your WP debug logs (link to instructions below). If logs suggest your PDF is "goofy" or "template does not exist," try using Apple Preview application to resave your PDF by clicking "Export as PDF" in the menu. Preview might fix bad PDF syntax and allow your PDF to be processed for watermarking.
+6. It may also help to increase your PHP time limit and memory limits if they are set low.
 
 Please do get in touch with your issues via the Wordpress.org support forum before leaving negative feedback about this free plugin.
 
@@ -103,7 +106,7 @@ Maybe create a coupon in your Woocommerce shop to allow 100% free purchases. Don
 = Why does the watermark go off the page, create blank pages? =
 Your watermark text string is too big or long for the page, and goes off it! Try decreasing font size or using the Y fine tuners to move the watermark back onto the page. Try lowering your "y-axis" value. This number corresponds to how many *millimeters* you want the watermark moved down the page. For example, if your PDF page is 11 inches tall, your Y-axis setting should be a deal less than 279.4mm in order for a watermark to show. The built-in adjustments on the settings page ultimately allow for watermarking on all document sizes. You may need to edit your watermark if it is too verbose.
 
-New in version 2.6 you can use a negative integer value for your Y-tuner and measure up from the bottom of the page. This is especially helpful if your PDF has variable sized pages.
+You can use a negative integer value for your Y-tuner and measure up from the bottom of the page. This is especially helpful if your PDF has variable sized pages.
 
 = Where do the watermarked files go? =
 They are generated with a unique name and stored in the same folder as your original Wordpress/Woo product media upload (usually wp-content/uploads/year/month/file). The unique name includes the order number and a time stamp. If your end user complains of not being able to access their custom PDF for some reason (most often after their max number of downloads is exceeded), you can find it in that folder, right alongside your original.
@@ -117,7 +120,7 @@ WaterWoo PDF is intended to watermark PDF (.pdf) files. If you are specifically 
 No, sorry. This plugin is just for PDF files.
 
 = WaterWoo seems to break my PDF =
-WaterWoo PDF is a plugin which bridges WooCommerce and the open-source PDF reading TCPDI and PDF writing TCPDF library. WaterWoo functions by parsing/reading your PDF into memory the best it can, then adding a watermark to the PDF syntax and outputting a revised file. Between the reading and output, certain features may be lost and other features (interactive PDF elements like internal links and fillable forms) will be lost. This is a limitation of a third-party library and the wild-west nature of PDF syntax, and not the fault of WaterWoo. If you are serious about watermarking and/or encrypting complex PDF files, look into WooStamper. Ultimately, WaterWoo PDF is best for simple, smaller-sized PDFs.
+WaterWoo PDF is a plugin which bridges WooCommerce and the open-source PDF reading TCPDI and PDF writing TCPDF library. WaterWoo functions by parsing/reading your PDF into memory the best it can, then adding a watermark to the PDF syntax and outputting a revised file. Between the reading and output, certain features may be lost and other features (interactive PDF elements like internal links and fillable forms) will be lost. This is a limitation of a third-party library and the wild-west nature of PDF syntax, and not the fault of WaterWoo. If you are serious about watermarking and/or encrypting complex PDF files, [consider purchasing WooStamper](https://web.little-package.com/downloads/woostamper-pdf/ "WooStamper PDF Plugin"). Ultimately, WaterWoo PDF is best for simple, smaller-sized PDFs.
 
 = Is there a fallback in case watermarking fails? =
 Yes, you can serve the file untouched if watermarking fails, and avoid any error messages, by using the following filter code in your (child) theme functions.php file:
@@ -141,21 +144,32 @@ If you do not know how to edit your functions.php file, you can use the Code Sni
 = 2.0 = 
 * Support for WooCommerce versions older than 2.4 removed for security reasons. Please update your WooCommerce installation to the newest version before using WaterWoo.
 
+= 2.7.11 = 
+* Support for WooCommerce versions older than 4.0 will be removed from WaterWoo soon for security reasons. Update WooCommerce if you haven't already!
+
 == Changelog ==
 
-= 2.7.10 - 13/Jan/2020 =
+= 2.7.11 - 25 October 2021 =
+* Update TCPDF to version 6.4.2
+* Discontinue use of DIRECTORY_SEPARATOR constant
+* Use wp_normalize_path() method for PDF paths if manipulated - for Windows users
+* Add page number parameter to 'wwpdf_before_write' and wwpdf_after_write' hooks
+* Testing with Wordpress 5.8 and WooCommerce 5.7+
+* WooCommerce requires PHP 7.0, and so as a technicality, so does WaterWoo
+
+= 2.7.10 - 13 January 2020 =
 * Testing with WooCommerce version 4.9
 * Tweak - Catch for when users have Y-axis taller than the page - use -10mm and help prevent blank pages (will catch egregious instances)
 
-= 2.7.9 - 26/Dec/2020 =
+= 2.7.9 - 26 December 2020 =
 * Testing with WP version 5.6 & WooCommerce version 4.8
 * Minor code tidying in TCPDI & TCPDF
 
-= 2.7.8 - 21/0ct/2020 =
+= 2.7.8 - 21 0ctober 2020 =
 * Testing with WooCommerce version 4.6
 * Minor changes to readme.txt
 
-= 2.7.7 - 8/0ct/2020 =
+= 2.7.7 - 8 0ctober 2020 =
 * Error logging for if (corrupted) PDF /Root not found - helpful feedback for a delivery failure
 * More descriptive error source added to error log lines for easier tracing
 * Clear on-screen error feedback with instructions for folks trying to watermark remotely-hosted PDFs
@@ -163,18 +177,18 @@ If you do not know how to edit your functions.php file, you can use the Code Sni
 * Fallback instructions added to readme.txt
 * Update language files
 
-= 2.7.6 - 29/Sep/2020 =
+= 2.7.6 - 29 September 2020 =
 * Deal with file paths same way with new Woo filter as with old in classes/wwpdf-file-handler.php
 
-= 2.7.5 - 24/Sep/2020 =
+= 2.7.5 - 24 September 2020 =
 * Fix - Better accommodate files listed in Woo by absolute path
 * Tweak - Minor updates to TCPDF for PHP 7+ compatibility
 * Testing with WooCommerce version 4.5 
 
-= 2.7.4 - 12/Jul/2020 =
+= 2.7.4 - 12 July 2020 =
 * Fix - Account for PDFs not stored in the /wp-content directory
 
-= 2.7.3 - 11/Jul/2020 =
+= 2.7.3 - 11 July 2020 =
 * Fix - property $size not correctly defined in classes/wwpdf-watermark.php line 47
 * Tweak - don't attempt to remove ABSPATH from watermarked file path before returning to WC in classes/wwpdf-file-handler.php
 * Tweak - filters 'wwpdf_filter_file_list', 'wwpdf_filter_file_path' and 'wwpdf_filter_watermarked_file' added in classes/wwpdf-file-handler.php
@@ -183,22 +197,22 @@ If you do not know how to edit your functions.php file, you can use the Code Sni
 * Tweak - enforce use of Woo 3.0+
 * Testing with WooCommerce version 4.3 
 
-= 2.7.2 - 2/Jul/2020 =
+= 2.7.2 - 2 July 2020 =
 * Fix - check if $res exists for PHP 7+ compatibility inc/tcpdi/tcpdi_parser.php line 1325
 * Tweak - thorough class renaming for TCPDF/TCPDI to avoid conflicts with other PDF-manipulating plugins
 * Tweak - more reliable handling of variable page size watermark placement in classes/wwpdf-watermark.php
 
-= 2.7.1 - 22/Jun/2020 =
+= 2.7.1 - 22 June 2020 =
 * Fix - cleanup expecting file and finding object in classes/wwpdf-file-handler.php line 67
 
-= 2.7 - 15/Jun/2020 =
+= 2.7 - 15 June 2020 =
 * Feature - [TIMESTAMP] shortcode watermarks date file was downloaded/marked (use [DATE] for sold date)
 * Feature - 'wwpdf_before_output' action hook for folks wanting to get entrepreneuring with TCPDF
 * Feature - compatibility up to PHP 7.4.2
 * Testing to WC 4.2.0
 * Testing to WP 5.4.2
 
-= 2.6.1 - 16/May/2020 = 
+= 2.6.1 - 16 May 2020 = 
 * Tweak - use str_replace instead of preg_replace with shortcodes in classes/wwpdf-file-handler for speed
 * Tweak - use output buffering while processing PDF with TCPDI/TCPDF
 * Tweak - log potential errors to debug.log while showing customers simple (filterable) error message
@@ -207,23 +221,23 @@ If you do not know how to edit your functions.php file, you can use the Code Sni
 * Testing to WC 4.1.0
 * Testing to WP 5.4.1
 
-= 2.6 - 9/Apr/2020 = 
+= 2.6 - 9 April 2020 = 
 * Feature - allow for watermark placement measured from bottom of PDF page by using negative integer for Y-tuner
 * Testing to WC 4.0.1
 * Testing to WP 5.4
 * Update .pot file
 
-= 2.5.1 - 10/Feb/2020 = 
+= 2.5.1 - 10 February 2020 = 
 * Testing to WC 3.9.1
 * Rephrase test for PDF in classes/wwpdf-file-handler.php - don't allow non-PDFs through watermarker
 
-= 2.5 - 20/Jan/2020 = 
+= 2.5 - 20 January 2020 = 
 * Improve autoloader, performance improvements
 * Added Deja Vu font, which has extensive international language character support
 * Added compatibility check - because folks really should be upgrading their servers before running e-commerce!
 * 'woocommerce_product_file_download_path' is a filter, not an action hook in classes/wwpdf-file-handler
 
-= 2.4.6 - 8/Jan/2020 = 
+= 2.4.6 - 8 January 2020 = 
 * Required WP version moved from 4.4 to 4.9
 * Class naming and checks to prevent conflicts with other plugins using TCPDI/TCPDF
 * Update Flate filter
@@ -235,51 +249,5 @@ If you do not know how to edit your functions.php file, you can use the Code Sni
 * Testing with WooCommerce 3.8
 * Update language files
 * Tweak - allow font sizes down to 1pt in settings (previously 6pt)
-
-= 2.4.4 - 18/Aug/2019 = 
-* Fix for settings not updating, fire settings hooks earlier in waterwoo-pdf.php
-* Links to waterwoo official website updated, and with noopener rel tags
-* Testing with WooCommerce 3.7
-* Minimum requirements for PHP, Wordpress, and WooCommerce updated
-
-= 2.4.3 = 
-* Tweak - /inc/tcpdi/tcpdi_parser.php property getXrefData() - runs 4-5x faster
-* Importannotations() in order to allow preserving of many (external) URL links in PDF
-
-= 2.4.2 - 11/Jul/2019 = 
-* Retain special UTF-8 characters while watermarking
-
-= 2.4.1 - 10/Jul/2019 = 
-* TCPDF properties SetAutoPageBreak and SetMargins used to remove margins on Text Cell for more accurate watermark Y positioning
-* Extra fonts removed to slim down plugin folder size
-* WooCommerce testing compatibility with version 2.6.5
-
-= 2.4 - 6/Jul/2019 =
-* Use TCPDI/TCPDF libraries in favor of FPDI/FPDF in order to offer watermarking for ALL version PDFs
-* WP/WooCommerce compatibility version updated
-
-= 2.3 - 13/Dec/2018 =
-* Improved error handling for FPDI limitations
-* File cleanup improvement
-* FPDI and FPDF updated to most recent available versions with performance enhancements
-* WP/WooCommerce compatibility version updated
-* DB cleanup option added for uninstall events
-
-= 2.2 - 8/Aug/2018 =
-* Filter hook 'wwpdf_add_custom_font' added to /classes/class-wwpdf-watermark.php
-* Language file updates
-* Convert non-printable Unicode characters into the "equivalent" ASCII 
-* Notice to customers placed in settings to clarify free plugin limitations
-
-= 2.1 - 20/Jun/2018 =
-* SQL calls removed from /classes/class-wwpdf-file-handler.php
-* Filter hooks added to /classes/class-wwpdf-file-handler.php: 'wwpdf_filter_footer' to filter footer watermark input; 'wwpdf_font_decode' & 'wwpdf_out_charset' filters to allow character encoding manipulation
-* Minor readability improvement to settings page
-* Remove PHP each() from FPDI to get ready for PHP 7.2
-* Fix so download link in Woo order management screen is watermarked
-
-= 2.0 - 30/May/2018 =
-* Drop support for versions of WooCommerce older than 2.4 (released 8/10/2015)
-* Fix missing HTTP vars in wwpdf_file_handler and waterwoo-pdf.php
 
 Older changes are found <a href="https://plugins.svn.wordpress.org/waterwoo-pdf/trunk/changelog.txt">in the changelog.txt file in the plugin directory.</a>

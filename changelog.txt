@@ -1,4 +1,50 @@
-Archived WaterWoo PDF changelog for pre-2.0 versions
+Archived WaterWoo PDF changelog for pre-2.4 versions
+
+= 2.4.4 - 18/Aug/2019 = 
+* Fix for settings not updating, fire settings hooks earlier in waterwoo-pdf.php
+* Links to waterwoo official website updated, and with noopener rel tags
+* Testing with WooCommerce 3.7
+* Minimum requirements for PHP, Wordpress, and WooCommerce updated
+
+= 2.4.3 = 
+* Tweak - /inc/tcpdi/tcpdi_parser.php property getXrefData() - runs 4-5x faster
+* Importannotations() in order to allow preserving of many (external) URL links in PDF
+
+= 2.4.2 - 11/Jul/2019 = 
+* Retain special UTF-8 characters while watermarking
+
+= 2.4.1 - 10/Jul/2019 = 
+* TCPDF properties SetAutoPageBreak and SetMargins used to remove margins on Text Cell for more accurate watermark Y positioning
+* Extra fonts removed to slim down plugin folder size
+* WooCommerce testing compatibility with version 2.6.5
+
+= 2.4 - 6/Jul/2019 =
+* Use TCPDI/TCPDF libraries in favor of FPDI/FPDF in order to offer watermarking for ALL version PDFs
+* WP/WooCommerce compatibility version updated
+
+= 2.3 - 13/Dec/2018 =
+* Improved error handling for FPDI limitations
+* File cleanup improvement
+* FPDI and FPDF updated to most recent available versions with performance enhancements
+* WP/WooCommerce compatibility version updated
+* DB cleanup option added for uninstall events
+
+= 2.2 - 8/Aug/2018 =
+* Filter hook 'wwpdf_add_custom_font' added to /classes/class-wwpdf-watermark.php
+* Language file updates
+* Convert non-printable Unicode characters into the "equivalent" ASCII 
+* Notice to customers placed in settings to clarify free plugin limitations
+
+= 2.1 - 20/Jun/2018 =
+* SQL calls removed from /classes/class-wwpdf-file-handler.php
+* Filter hooks added to /classes/class-wwpdf-file-handler.php: 'wwpdf_filter_footer' to filter footer watermark input; 'wwpdf_font_decode' & 'wwpdf_out_charset' filters to allow character encoding manipulation
+* Minor readability improvement to settings page
+* Remove PHP each() from FPDI to get ready for PHP 7.2
+* Fix so download link in Woo order management screen is watermarked
+
+= 2.0 - 30/May/2018 =
+* Drop support for versions of WooCommerce older than 2.4 (released 8/10/2015)
+* Fix missing HTTP vars in wwpdf_file_handler and waterwoo-pdf.php
 
 = 1.2.8, 2018.04.09 =
 * Give unique FPDF, etc. classes a unique name and check for existence before using

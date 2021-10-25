@@ -242,9 +242,9 @@ class WaterWoo_TCPDF_COLORS {
 
 	/**
 	 * Return the Spot color array.
-	 * @param $name (string) Name of the spot color.
-	 * @param $spotc (array) Reference to an array of spot colors.
-	 * @return array|boolean Spot color array or false if not defined.
+	 * @param string $name Name of the spot color.
+	 * @param array $spotc Reference to an array of spot colors.
+	 * @return array|false Spot color array or false if not defined.
 	 * @since 5.9.125 (2011-10-03)
 	 * @public static
 	 */
@@ -266,10 +266,10 @@ class WaterWoo_TCPDF_COLORS {
 
 	/**
 	 * Returns an array (RGB or CMYK) from an html color name, or a six-digit (i.e. #3FE5AA), or three-digit (i.e. #7FF) hexadecimal color, or a javascript color array, or javascript color name.
-	 * @param $hcolor (string) HTML color.
-	 * @param $spotc (array) Reference to an array of spot colors.
-	 * @param $defcol (array) Color to return in case of error.
-	 * @return array RGB or CMYK color, or false in case of error.
+	 * @param string $hcolor HTML color.
+	 * @param array $spotc Reference to an array of spot colors.
+	 * @param array $defcol Color to return in case of error.
+	 * @return array|false RGB or CMYK color, or false in case of error.
 	 * @public static
 	 */
 	public static function convertHTMLColorToDec($hcolor, &$spotc, $defcol=array('R'=>128,'G'=>128,'B'=>128)) {
@@ -277,7 +277,7 @@ class WaterWoo_TCPDF_COLORS {
 		$color = strtolower($color);
 		// check for javascript color array syntax
 		if (strpos($color, '[') !== false) {
-			if (preg_match('/[\[][\"\'](t|g|rgb|cmyk)[\"\'][,]?([0-9\.]*)[,]?([0-9\.]*)[\,]?([0-9\.]*)[,]?([0-9\.]*)[\]]/', $color, $m) > 0) {
+			if (preg_match('/[\[][\"\'](t|g|rgb|cmyk)[\"\'][\,]?([0-9\.]*)[\,]?([0-9\.]*)[\,]?([0-9\.]*)[\,]?([0-9\.]*)[\]]/', $color, $m) > 0) {
 				$returncolor = array();
 				switch ($m[1]) {
 					case 'cmyk': {
@@ -441,8 +441,7 @@ class WaterWoo_TCPDF_COLORS {
 
 	/**
 	 * Convert color to javascript color.
-	 * @param $color (string) color name or "#RRGGBB"
-     * @return string
+	 * @param string $color color name or "#RRGGBB"
 	 * @protected
 	 * @since 2.1.002 (2008-02-12)
 	 * @public static

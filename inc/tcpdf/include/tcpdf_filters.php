@@ -392,8 +392,7 @@ class WaterWoo_TCPDF_FILTERS {
 	/**
 	 * RunLengthDecode
 	 * Decompresses data encoded using a byte-oriented run-length encoding algorithm.
-	 * @param $data (string) Data to decode.
-     * @return string
+	 * @param string $data Data to decode.
 	 * @since 1.0.000 (2011-05-23)
 	 * @public static
 	 */
@@ -434,7 +433,7 @@ class WaterWoo_TCPDF_FILTERS {
 	 * CCITTFaxDecode (NOT IMPLEMETED - RETURN AN EXCEPTION)
 	 * Decompresses data encoded using the CCITT facsimile standard, reproducing the original data (typically monochrome image data at 1 bit per pixel).
 	 * @param string $data Data to decode.
-	 * @return void|string Decoded data string.
+	 * @return string Decoded data string.
 	 * @since 1.0.000 (2011-05-23)
 	 * @public static
 	 */
@@ -494,7 +493,7 @@ class WaterWoo_TCPDF_FILTERS {
 
 	/**
 	 * Throw an exception.
-	 * @param $msg (string) The error message
+	 * @param string $msg The error message
 	 * @since 1.0.000 (2011-05-23)
 	 * @public static
 	 */

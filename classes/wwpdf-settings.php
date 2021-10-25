@@ -137,7 +137,7 @@ if ( ! class_exists( 'WWPDF_Settings' ) ) :
                         'id' 		=> 'wwpdf_options',
                         'type' 		=> 'title',
                         'title' 	=> __( 'WaterWoo Options', 'waterwoo-pdf' ),
-                        'desc' 	    => __( '<strong>Note:</strong> This free watermarking plugin is rudimentary.', 'waterwoo-pdf' ) .
+                        'desc' 	    => __( '<strong>Note:</strong> This free watermarking plugin is rudimentary and may not work on every PDF. Test before going live!', 'waterwoo-pdf' ) .
                                         __( '<p><a href="https://web.little-package.com/downloads/waterwoo-pdf-premium/" target="_blank" rel="noopener">Purchase the premium version of WaterWoo PDF</a> if you want: extended <strong>shortcodes</strong>, including order number, quantity sold and future dates;<br />', 'waterwoo-pdf' ) . 
                                         __( '<strong>opacity</strong> control; custom <strong>fonts</strong>, extended characters & RTL; <strong>barcodes</strong> and QR codes; <strong>password</strong> protection & permissions control;<br />', 'waterwoo-pdf' ) . 
                                         __( 'backend <strong>test watermarking</strong> of PDFs on-the-fly; <strong>per-product</strong> and variable product watermarking; <strong>Dropbox & S3</strong> support; compatibility with <strong>Free Downloads WooCommerce</strong>; AND MORE!</p>', 'waterwoo-pdf' ), 
@@ -157,6 +157,7 @@ if ( ! class_exists( 'WWPDF_Settings' ) ) :
                         'title' 	=> __( 'File(s) to watermark', 'waterwoo-pdf' ), 
                         'desc' 		=> __( 'List file name(s) of PDF(s) to watermark, one per line, e.g., <code>upload.pdf</code> or <code>my_pdf.pdf</code> .<br />If left blank, WaterWoo PDF will watermark all PDFs sold through WooCommerce.', 'waterwoo-pdf' ), 
                         'default' 	=>  '',
+						'css'       => 'min-height: 82px;',
                     ),
 
                     array(
@@ -165,6 +166,8 @@ if ( ! class_exists( 'WWPDF_Settings' ) ) :
                         'title' 	=> __( 'Custom text for footer watermark', 'waterwoo-pdf' ),
                         'desc' 		=> __( 'Shortcodes available, all caps, in brackets: <code>[FIRSTNAME]</code> <code>[LASTNAME]</code> <code>[EMAIL]</code> <code>[PHONE]</code> <code>[DATE]</code>', 'waterwoo-pdf' ),
                         'default' 	=> __( 'Licensed to [FIRSTNAME] [LASTNAME], [EMAIL]', 'waterwoo-pdf' ),
+                        'class'		=> 'wide-input',
+						'css'       => 'min-height: 82px;',
                     ),
     
                     array(	

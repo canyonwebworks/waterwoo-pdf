@@ -58,9 +58,9 @@ if ( ! class_exists( 'WWPDF_Watermark' ) ) :
                     $footer_x = ( $this->size['w'] / 2 ) - ( $this->pdf->GetStringWidth( $this->footer ) / 2 );
                 }
                 $this->pdf->SetXY( $footer_x, $footer_y );
-                do_action( 'wwpdf_before_write', $this->pdf );
+                do_action( 'wwpdf_before_write', $this->pdf, $i );
 				$this->pdf->Write( 1, $this->footer );
-                do_action( 'wwpdf_after_write', $this->pdf );
+                do_action( 'wwpdf_after_write', $this->pdf, $i );
 				
 			}
 			

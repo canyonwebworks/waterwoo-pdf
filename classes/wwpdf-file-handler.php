@@ -70,16 +70,21 @@ if ( ! class_exists( 'WWPDF_File_Handler' ) ) {
                          
                 $parsed_file_path = WC_Download_Handler::parse_file_path( $file_path );
                 if ( $parsed_file_path['remote_file'] === TRUE ) {
-                    echo __( 'The free version of WaterWoo cannot serve PDFs from remote servers.', 'waterwoo-pdf' ) . '<br />' 
-                        . __( 'Try uploading your PDF product to this domain using the native WooCommerce file uploader.', 'waterwoo-pdf' ); 
-                    if ( apply_filters( 'wwpdf_serve_unwatermarked_file', FALSE ) ) {
+					if ( apply_filters( 'wwpdf_serve_unwatermarked_file', FALSE ) ) {
                         return $file_path;
                     } else {
-                        return;
+						echo __( 'The free version of WaterWoo cannot serve PDFs from remote servers.', 'waterwoo-pdf' ) . '<br />' 
+                 	 	. __( 'Try uploading your PDF product to this domain using the native WooCommerce file uploader.', 'waterwoo-pdf' ); 
+						// sabotage file path access
+						return '';
                     }
                 } 
+
                 $path = $parsed_file_path['file_path'];
-                
+				if ( function_exists( 'wp_normalize_path' ) ) {
+                	$path = wp_normalize_path( $path );
+                }
+
                 // create a unique file name for the new watermarked file
                 $time = time();
                 $watermarked_path = str_replace( '.pdf', '', $path ) . '_' . $order_id . '_' . $time . '.pdf';
@@ -95,7 +100,7 @@ if ( ! class_exists( 'WWPDF_File_Handler' ) ) {
                     if ( apply_filters( 'wwpdf_serve_unwatermarked_file', FALSE ) ) {
                         return $file_path;
                     } else {
-                        return;
+                        return '';
                     }
                 }                
                 $watermarked_file = $this->watermarked_file->newfile;

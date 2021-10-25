@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: WaterWoo PDF\n"
-"POT-Creation-Date: 2021-01-13 17:07-0800\n"
+"POT-Creation-Date: 2021-09-30 14:42-0700\n"
 "PO-Revision-Date: 2015-12-12 14:59-0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -138,7 +138,9 @@ msgid "WaterWoo Options"
 msgstr ""
 
 #: classes/wwpdf-settings.php:140
-msgid "<strong>Note:</strong> This free watermarking plugin is rudimentary."
+msgid ""
+"<strong>Note:</strong> This free watermarking plugin is rudimentary and may not work on "
+"every PDF. Test before going live!"
 msgstr ""
 
 #: classes/wwpdf-settings.php:141

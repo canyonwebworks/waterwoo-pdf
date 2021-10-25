@@ -61,7 +61,7 @@ if ( ! class_exists( 'WWPDF_Autoloader' ) ) :
 		 * @return string
 		 */
 		protected function get_classes_directory() {
-			return dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'classes' . DIRECTORY_SEPARATOR;
+			return dirname( __FILE__ ) . '/' . 'classes' . '/';
 		}
 
 	}
