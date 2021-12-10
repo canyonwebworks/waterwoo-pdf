@@ -1,4 +1,4 @@
-<?php
+<?php defined( 'ABSPATH' ) || exit;
 
 if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) { // If uninstall not called from WordPress exit
 	exit();
@@ -43,27 +43,27 @@ class WWPDF_Uninstall {
 
 		if ( 'yes' !== get_option( 'wwpdf_delete_checkbox' ) ) return;
 
-        global $current_user;
-        $user_id = $current_user->ID;
-        
-        delete_user_meta( $user_id, 'wwpdf_ignore_notice' );
-        for( $i = 2; $i <= 14; $i++ ) {
-            delete_user_meta( $user_id, 'wwpdf_ignore_notice' . $i );
-        }		
+		global $current_user;
+		$user_id = $current_user->ID;
+
+		delete_user_meta( $user_id, 'wwpdf_ignore_notice' );
+		for( $i = 2; $i <= 14; $i++ ) {
+			delete_user_meta( $user_id, 'wwpdf_ignore_notice' . $i );
+		}
 		
-        foreach ( array(
-            'wwpdf_enable',
-            'wwpdf_font',
-            'wwpdf_footer_input',
-            'wwpdf_footer_color',
-            'wwpdf_footer_size',
-            'wwpdf_footer_finetune_Y',
-            'wwpdf_delete_checkbox', // BYE BYE!
-        ) as $option) {
-                delete_option( $option );
-        }
+		foreach ( array(
+			'wwpdf_enable',
+			'wwpdf_font',
+			'wwpdf_footer_input',
+			'wwpdf_footer_color',
+			'wwpdf_footer_size',
+			'wwpdf_footer_finetune_Y',
+			'wwpdf_delete_checkbox', // BYE BYE!
+		) as $option) {
+				delete_option( $option );
+		}
 
 	}
-	
-}		
+
+}
 new WWPDF_Uninstall();

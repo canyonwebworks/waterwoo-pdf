@@ -5,7 +5,7 @@ Tags: watermark, stamp, pdf, ebook, security, property
 Requires at least: 5.3
 Tested up to: 5.8
 Requires PHP: 7.0
-Stable tag: 2.7.11
+Stable tag: 2.7.12
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -38,6 +38,8 @@ The free version works fine for many people, but [WaterWoo PDF Premium](https://
 
 * Optionally password protect and/or set PDF permissions (copy, annotate, or modify, etc) while encrypting PDFs
 * Keep original file name
+* Begin watermark on selected page of PDF document (to avoid watermarking a cover page, for example), and/or select end page
+* Watermark every page, odd pages, or even pages
 * Watermark all PDF files with same settings OR set individual watermarks/passwords per product or even per product variation!
 * Additional, rotatable watermark location - two watermark locations on one page!
 * Additional text formatting options, such as font color and style (bold, italics) 
@@ -49,8 +51,6 @@ The free version works fine for many people, but [WaterWoo PDF Premium](https://
 * AJAX font uploader - use your own font for stamping. Also, hooks to further customize font use
 * Additional dynamic customer data input (business name, address, order number, product name, quantity of product), hooks for adding even more
 * Filter hooks to add 1D and 2D barcodes (including QR codes)
-* Begin watermark on selected page of PDF document (to avoid watermarking a cover page, for example), and/or select end page
-* Watermark every page, odd pages, or even pages
 * Test watermark and/or manually watermark a file on the fly, from the admin panel
 
 [Check out the full-featured version of this plugin](https://web.little-package.com/downloads/waterwoo-pdf-premium/ "WaterWoo PDF Premium Version")! WaterWoo is the only watermarker for Wordpress which includes necessary libraries (so you don't have to ask your host to load them), is compatible with PHP 7, and watermarks ALL versions of PDFs (not just older versions).
@@ -135,19 +135,14 @@ If you do not know how to edit your functions.php file, you can use the Code Sni
 
 == Upgrade Notice ==
 
-= 2.4.2 = 
-* Adjustments in Y-positioning (distance down the page) of the watermark since version 2.4 may cause blank pages or changes in watermark positioning. Please review your watermark settings to be sure they are where you like them.
-
-= 2.3 =
-* Version 2.3 is potentially (unlikely) a breaking update as the FPDI/FPDF libraries were updated
-
-= 2.0 = 
-* Support for WooCommerce versions older than 2.4 removed for security reasons. Please update your WooCommerce installation to the newest version before using WaterWoo.
-
-= 2.7.11 = 
-* Support for WooCommerce versions older than 4.0 will be removed from WaterWoo soon for security reasons. Update WooCommerce if you haven't already!
+= 2.7.12 = 
+* Support for WooCommerce versions older than 4.0 has been removed from WaterWoo for security reasons.
 
 == Changelog ==
+
+= 2.7.12 - 10 December 2021 =
+* Testing with WooCommerce 5.9
+* Require WooCommerce version >4.0
 
 = 2.7.11 - 25 October 2021 =
 * Update TCPDF to version 6.4.2

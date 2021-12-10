@@ -1,6 +1,4 @@
-<?php
-
-defined( 'ABSPATH' ) || exit;
+<?php defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( 'WWPDF_Autoloader' ) ) :
 
@@ -13,7 +11,7 @@ if ( ! class_exists( 'WWPDF_Autoloader' ) ) :
 		public function __construct() {
 			spl_autoload_register( array( $this, 'autoloader' ) );
 		}
-			
+
 		/**
 		 * Autoloader
 		 *
@@ -29,7 +27,7 @@ if ( ! class_exists( 'WWPDF_Autoloader' ) ) :
 				require_once $path;
 			}
 		}
-				
+
 		/**
 		 * Does class belong to plugin (includes 'WWPDF'?)
 		 *
@@ -41,7 +39,7 @@ if ( ! class_exists( 'WWPDF_Autoloader' ) ) :
 			if ( 0 !== strpos( $class_name, 'WWPDF' ) ) {
 				return false;
 			}
-			return true;	
+			return true;
 		}
 
 		/**
@@ -67,4 +65,3 @@ if ( ! class_exists( 'WWPDF_Autoloader' ) ) :
 	}
 
 endif;
-		
