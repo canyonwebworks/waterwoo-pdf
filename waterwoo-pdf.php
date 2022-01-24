@@ -3,12 +3,12 @@
  * Plugin Name: WaterWoo PDF
  * Plugin URI: https://wordpress.org/plugins/waterwoo-pdf/
  * Description: Custom watermark your PDFs upon WooCommerce sale.
- * Version: 2.7.12
+ * Version: 2.7.14
  * Author: Little Package
  * Author URI: https://web.little-package.com
  * Donate link: https://paypal.me/littlepackage
  * WC requires at least: 4.0
- * WC tested up to: 5.9
+ * WC tested up to: 6.0
  *
  * License: GPLv3 or later
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -16,7 +16,7 @@
  * Text Domain: waterwoo-pdf
  * Domain path: /lang
  *
- * Copyright 2013-2021 Little Package
+ * Copyright 2013-2022 Little Package
  *		
  *		This file is part of WaterWoo PDF, a plugin for WordPress. If
  *		it benefits you, please "buy me a coffee"
@@ -48,13 +48,13 @@ defined( 'ABSPATH' ) || exit;
 if ( ! class_exists( 'WaterWooPDF' ) ) {
 
 	if ( ! defined( 'WWPDF_VERSION' ) ) {
-		define( 'WWPDF_VERSION', '2.7.12' );
+		define( 'WWPDF_VERSION', '2.7.14' );
 	}
 	if ( ! defined( 'WWPDF_MIN_PHP' ) ) {
 		define( 'WWPDF_MIN_PHP', '7.0' );
 	}
 	if ( ! defined( 'WWPDF_MIN_WP' ) ) {
-		define( 'WWPDF_MIN_WP', '4.9' );
+		define( 'WWPDF_MIN_WP', '5.4' );
 	}
 	if ( ! defined( 'WWPDF_MIN_WC' ) ) {
 		define( 'WWPDF_MIN_WC', '4.0' );
@@ -78,7 +78,6 @@ if ( ! class_exists( 'WaterWooPDF' ) ) {
 		}
 
 		private $compatible;
-		public $settings;
 
 		/**
 		 * Constructor
@@ -106,7 +105,7 @@ if ( ! class_exists( 'WaterWooPDF' ) ) {
 
 		/**
 		 * Unserializing instances of this class is forbidden.
-		 */		
+		 */
 		public function __wakeup() {
 			_doing_it_wrong( __FUNCTION__, __( 'Unserializing instances of this class is forbidden.', 'woocommerce' ), WWPDF_VERSION );
 		}

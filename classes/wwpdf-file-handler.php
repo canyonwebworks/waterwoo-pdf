@@ -13,12 +13,8 @@ if ( ! class_exists( 'WWPDF_File_Handler' ) ) {
 
 			$this->watermarked_file = '';
 
-			// filter the file download path
-			if ( version_compare( WC_VERSION, 4.0, '>=' ) ) { // "upgraded" filter (more parameters)
-				add_filter( 'woocommerce_download_product_filepath', array( $this, 'pdf_filepath' ), 50, 5 );
-			} else {
-				add_filter( 'woocommerce_product_file_download_path', array( $this, 'pdf_file_download_path' ), 50, 3 );
-			}
+			// Filter the file download path
+			add_filter( 'woocommerce_download_product_filepath', array( $this, 'pdf_filepath' ), 50, 5 );
 
 			if ( apply_filters( 'wwpdf_do_cleanup', true ) ) {
 				$this->do_cleanup();
@@ -42,7 +38,9 @@ if ( ! class_exists( 'WWPDF_File_Handler' ) ) {
 		public function pdf_filepath( $file_path, $email, $order, $product, $download ) {
 
 			// Is the WaterWoo plugin enabled?
-			if ( "no" == get_option( 'wwpdf_enable', 'no' ) ) return $file_path;
+			if ( "no" === get_option( 'wwpdf_enable', 'no' ) ) return $file_path;
+			
+			if ( apply_filters( 'wwpdf_skip_watermarking', false, $file_path, $email, $order, $product, $download ) ) return $file_path;
 			
 			// PDF - watermarking - start by checking if it's even a PDF
 			$file_extension = preg_replace( '/\?.*/', '', substr( strrchr( $file_path, '.' ), 1 ) );
@@ -55,7 +53,7 @@ if ( ! class_exists( 'WWPDF_File_Handler' ) ) {
 			if ( FALSE !== strpos( $requested_file, '?' ) ) {
 				$requested_file = substr( $requested_file, 0, strpos( $requested_file, '?' ) );
 			}
-			$wwpdf_files		= get_option( 'wwpdf_files', '' );
+			$wwpdf_files		= sanitize_textarea_field( get_option( 'wwpdf_files', '' ) );
 			$wwpdf_file_list	= array_filter( array_map( 'trim', explode( PHP_EOL, $wwpdf_files ) ) );
 			$wwpdf_file_list	= apply_filters( 'wwpdf_filter_file_list', $wwpdf_file_list, $email, $order );
 
@@ -95,7 +93,7 @@ if ( ! class_exists( 'WWPDF_File_Handler' ) ) {
 					$error_message = $e->getMessage();
 					echo apply_filters( 'wwpdf_filter_exception_message', 'Unable to watermark this file for download. Please notify site administrator.', $error_message, $path );
 					error_log( $error_message );
-					if ( apply_filters( 'wwpdf_serve_unwatermarked_file', false ) ) {
+					if ( apply_filters( 'wwpdf_serve_unwatermarked_file', false, $file_path ) ) {
 						return $file_path;
 					} else {
 						return '';
@@ -114,71 +112,6 @@ if ( ! class_exists( 'WWPDF_File_Handler' ) ) {
 			}
 			return $file_path;
 		
-		}
-
-		/**
-		 * Old method for WC < 4.0, filters file path to add watermark via TCPDI/TCPDF
-		 *
-		 * @param string   $file_path
-		 * @param object   $product
-		 * @param int   $download_id
-		 * @return void|string $file_path
-		 */
-		public function pdf_file_download_path( $file_path, $product, $download_id ) {
-
-			// Is the WaterWoo plugin enabled?
-			if ( "no" == get_option( 'wwpdf_enable', 'no' ) ) return $file_path;
-			
-			// PDF - watermarking - start by checking if it's even a PDF
-			$file_extension = preg_replace( '/\?.*/', '', substr( strrchr( $file_path, '.' ), 1 ) );
-			if ( 'pdf' !== strtolower( $file_extension ) ) return $file_path;
-
-			// order ID is post ID for backend (admin) watermarking
-			$order_id = is_admin() ? $_GET['post'] : wc_get_order_id_by_order_key( wc_clean( wp_unslash( $_GET['order'] ) ) );
-			$order_key = wc_clean( isset( $_GET['key'] ) );
-
-			// get order email address, if available
-			if ( isset( $_GET['email'] ) ) {
-				$email = wp_unslash( $_GET['email'] );
-			} else {
-				// Get email address from order to verify hash.
-				$order = wc_get_order( $order_id );
-				$email = is_a( $order, 'WC_Order' ) ? $order->get_billing_email() : '';
-			}
-
-			// get requested PDF and compare to admin designated PDFs
-			$file_req			= basename( $file_path );
-			$wwpdf_files		= get_option( 'wwpdf_files', '' );
-			$wwpdf_file_list	= array_filter( array_map( 'trim', explode( PHP_EOL, $wwpdf_files ) ) );
-
-			// Watermark desired files only
-			if ( in_array( $file_req, $wwpdf_file_list ) || $wwpdf_files == '' ) {
-
-				// set up watermark content according to admin settings
-				$product_id = $product->get_id();
-				$footer_input = $this->wwpdf_setup_watermark( $email, $product_id, $order_id ); 
-						 
-				// adjust output file name/path
-				$parsed_file_path = WC_Download_Handler::parse_file_path( $file_path );
-				$wwpdf_file_path = str_replace( '.pdf', '', $parsed_file_path['file_path'] ) . '_' . time() . '_' . $order_key . '.pdf';
-
-				// attempt to watermark using tcpdi/tcpdf
-				try {
-					$this->watermarked_file = new WWPDF_Watermark( $parsed_file_path['file_path'], $wwpdf_file_path, $footer_input );
-				} catch ( Exception $e ) {
-					$error_message = $e->getMessage();
-					echo apply_filters( 'wwpdf_filter_exception_message', 'Unable to watermark this file for download. Please notify site administrator.', $error_message, $wwpdf_file_path );
-					error_log( $error_message );
-					return;
-				}
-
-				// send watermarked file back to WooCommerce
-				// $watermarked_file = str_replace( ABSPATH, '', $this->watermarked_file->newfile );
-				return $this->watermarked_file->newfile;
-				
-			}
-			return $file_path;
-
 		}
 
 		/**
@@ -202,7 +135,7 @@ if ( ! class_exists( 'WWPDF_File_Handler' ) ) {
 			$paid_date		= date_i18n( $date_format, strtotime( $paid_date ) );
 			$timestamp		= date_i18n( $date_format, current_time('timestamp') );
 
-			$content		= get_option( 'wwpdf_footer_input', 'Licensed to [FIRSTNAME] [LASTNAME], [EMAIL]' );
+			$content		= sanitize_text_field( get_option( 'wwpdf_footer_input', 'Licensed to [FIRSTNAME] [LASTNAME], [EMAIL]' ) );
 			
 			$shortcodes		= apply_filters( 'wwpdf_filter_shortcodes',
 				array(
@@ -262,7 +195,7 @@ if ( ! class_exists( 'WWPDF_File_Handler' ) ) {
 		private function do_cleanup() {
 
 			// force
-			if ( get_option( 'woocommerce_file_download_method' ) == 'force' ) {
+			if ( 'force' === get_option( 'woocommerce_file_download_method' ) ) {
 				add_action( 'shutdown', array( $this, 'cleanup_file' ) ); // this will not work every time because we cannot know download is complete before PHP shutdown
 			// redirect or xsendfile
 			} else {

@@ -221,7 +221,7 @@ if ( ! class_exists( 'WaterWoo_TCPDI' ) ) :
         }
 
         /**
-         * Get PDF Meta Dataa
+         * Get PDF Meta Data
          *
          * @return string|array
          */
@@ -249,7 +249,8 @@ if ( ! class_exists( 'WaterWoo_TCPDI' ) ) :
                     $meta_array['title'] = $value[1];
                 }
                 if ( stripos( $key, 'CreationDate' ) !== FALSE ) {
-                    $meta_array['creationdate'] = $value[1];
+error_log( 'value: ' . print_r( $value, true) );
+					$meta_array['creationdate'] = $value[1];
                 }
                 if ( stripos( $key, 'Producer' ) !== FALSE && apply_filters( 'wwpdf_overwrite_producer', FALSE ) ) {
                     $meta_array['producer'] = $value[1];

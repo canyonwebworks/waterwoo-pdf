@@ -2,10 +2,10 @@
 Contributors: littlepackage
 Donate link: https://paypal.me/littlepackage
 Tags: watermark, stamp, pdf, ebook, security, property
-Requires at least: 5.3
-Tested up to: 5.8
+Requires at least: 5.4
+Tested up to: 5.8.3
 Requires PHP: 7.0
-Stable tag: 2.7.12
+Stable tag: 2.7.14
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -139,6 +139,14 @@ If you do not know how to edit your functions.php file, you can use the Code Sni
 * Support for WooCommerce versions older than 4.0 has been removed from WaterWoo for security reasons.
 
 == Changelog ==
+
+= 2.7.14 - 24 January 2022 =
+* Testing with WP 5.8.3
+* Recommend minimum WP version 5.4
+
+= 2.7.13 - 24 December 2021 =
+* Testing with WooCommerce 6.0
+* Add `wwpdf_skip_watermarking` filter hook with ample parameters to decde whether to continue with watermarking on per-file (or per customer, etc) basis
 
 = 2.7.12 - 10 December 2021 =
 * Testing with WooCommerce 5.9

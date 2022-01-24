@@ -25,15 +25,15 @@ if ( ! class_exists( 'WWPDF_Watermark' ) ) :
 
 		public function do_watermark() {
 		
-			// If you want to do a whole lot more with TCPDF, buy the premium version of WaterWoo!
+			// If you want to do a whole lot more with TCPDF, get the premium version of WaterWoo!
 			// This is BASIC, if not CRUDE
 			$pagecount = $this->pdf->setSourceFile( $this->file );
-			$footer_y = get_option( 'wwpdf_footer_y', 260 );
-			$footer_color = $this->hex2rgb( get_option( 'wwpdf_footer_color', '#000000' ) );
+			$footer_y = sanitize_text_field( get_option( 'wwpdf_footer_y', 260 ) );
+			$footer_color = $this->hex2rgb( sanitize_text_field( get_option( 'wwpdf_footer_color', '#000000' ) ) );
 			$rgb_array = explode( ",", $footer_color );
 			$font = sanitize_text_field( get_option( 'wwpdf_font', 'helvetica' ) );
 			$font = apply_filters( 'wwpdf_add_custom_font', $font );
-			$footer_size = (int) get_option( 'wwpdf_footer_size', 12 );
+			$footer_size = absint( sanitize_text_field( get_option( 'wwpdf_footer_size', 12 ) ) );
 			$string_width = $this->pdf->GetStringWidth( $this->footer, $font, '', $footer_size );
 
 			for ( $i = 1; $i <= $pagecount; $i++ ) {

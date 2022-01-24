@@ -1846,12 +1846,12 @@ class WaterWoo_TCPDF {
 	 */
 	protected $gdgammacache = array();
 
-    /**
-     * Cache array for file content
-     * @protected
-     * @var array
-     * @since 6.3.5 (2020-09-28)
-     */
+	/**
+	 * Cache array for file content
+	 * @protected
+	 * @var array
+	 * @since 6.3.5 (2020-09-28)
+	 */
 	protected $fileContentCache = array();
 
 	/**
@@ -2930,31 +2930,36 @@ class WaterWoo_TCPDF {
 	public function SetDocInfoUnicode($unicode=true) {
 		$this->docinfounicode = $unicode ? true : false;
 	}
-	
+
 	public function addMetaData() {
 
-        if ( array_key_exists( 'title', $this->metadata ) ) {
-	        $this->title = $this->metadata['title'];
-	    }
-    	if ( array_key_exists( 'author', $this->metadata ) ) {
-	        $this->author = $this->metadata['author'];
-	    }
-    	if ( array_key_exists( 'creator', $this->metadata ) ) {
-	        $this->creator = $this->metadata['creator'];
-	    }
-    	if ( array_key_exists( 'subject', $this->metadata ) ) {
-	        $this->subject = $this->metadata['subject'];
-	    }
-    	if ( array_key_exists( 'keywords', $this->metadata ) ) {
-	        $this->keywords = $this->metadata['keywords'];
-	    }
-    	if ( array_key_exists( 'creationdate', $this->metadata ) ) { 	
-	        $this->creationdate = $this->metadata['creationdate'];
-	    }
-    	if ( array_key_exists( 'producer', $this->metadata ) ) {
-	        $this->producer = $this->metadata['producer'];
-	    }
-    	    		
+		if ( array_key_exists( 'title', $this->metadata ) ) {
+			$this->title = $this->metadata['title'];
+		}
+		if ( array_key_exists( 'author', $this->metadata ) ) {
+			$this->author = $this->metadata['author'];
+		}
+		if ( array_key_exists( 'creator', $this->metadata ) ) {
+			$this->creator = $this->metadata['creator'];
+		}
+		if ( array_key_exists( 'subject', $this->metadata ) ) {
+			$this->subject = $this->metadata['subject'];
+		}
+		if ( array_key_exists( 'keywords', $this->metadata ) ) {
+			$this->keywords = $this->metadata['keywords'];
+		}
+		if ( array_key_exists( 'creationdate', $this->metadata ) ) {
+			if ( is_string( $this->metadata['creationdate'] )
+				&& 'D' === ( $this->metadata['creationdate'][0] )
+				&& ( ':' === $this->metadata['creationdate'][1] )
+			) {
+				$this->creationdate = $this->metadata['creationdate'];
+			}
+		}
+		if ( array_key_exists( 'producer', $this->metadata ) ) {
+			$this->producer = $this->metadata['producer'];
+		}
+
 	}
 
 	/**
@@ -3033,7 +3038,7 @@ class WaterWoo_TCPDF {
 	public function Error($msg) {
 		// unset all class variables
 		$this->_destroy(true);
-        if (defined('K_TCPDF_THROW_EXCEPTION_ERROR') AND !K_TCPDF_THROW_EXCEPTION_ERROR) {
+		if (defined('K_TCPDF_THROW_EXCEPTION_ERROR') AND !K_TCPDF_THROW_EXCEPTION_ERROR) {
 			die('<strong>WaterWoo (TCPDF) ERROR: </strong>'.$msg);
 		} else {
 			throw new Exception('WaterWoo (TCPDF) ERROR: '.$msg);
@@ -3223,9 +3228,9 @@ class WaterWoo_TCPDF {
 			$this->original_rMargin = $this->rMargin;
 		}
 		if ( ! empty( $meta ) ) {
-    		$this->metadata = $meta;
-    		$this->addMetaData();
-    	}
+			$this->metadata = $meta;
+			$this->addMetaData();
+		}
 		// terminate previous page
 		$this->endPage();
 		// start new page
@@ -4171,7 +4176,7 @@ class WaterWoo_TCPDF {
 				$fontfile = WaterWoo_TCPDF_FONTS::getFontFullPath($tmp_fontfile, $fontdir);
 			}
 		}
-        $originalsize = null;
+		$originalsize = null;
 		$size1 = null;
 		$size2 = null;
 		// include font file
@@ -4714,7 +4719,7 @@ class WaterWoo_TCPDF {
 			$this->PageAnnots[$page] = array();
 		}
 		$this->PageAnnots[$page][] = array('n' => ++$this->n, 'x' => $x, 'y' => $y, 'w' => $w, 'h' => $h, 'txt' => $text, 'opt' => $opt, 'numspaces' => $spaces);
-        if (!$this->pdfa_mode || ($this->pdfa_mode && $this->pdfa_version == 3)) {
+		if (!$this->pdfa_mode || ($this->pdfa_mode && $this->pdfa_version == 3)) {
 			if ((($opt['Subtype'] == 'FileAttachment') OR ($opt['Subtype'] == 'Sound')) AND (!WaterWoo_TCPDF_STATIC::empty_string($opt['FS']))
 				AND (@WaterWoo_TCPDF_STATIC::file_exists($opt['FS']) OR WaterWoo_TCPDF_STATIC::isValidURL($opt['FS']))
 				AND (!isset($this->embeddedfiles[basename($opt['FS'])]))) {
@@ -5364,8 +5369,8 @@ class WaterWoo_TCPDF {
 							// justification shift
 							$arr_keys = array_keys($uniarr, 32); // 3.0
 							if ( is_array( $arr_keys ) ) {
-    							$xshift += (count($arr_keys) * $spw);
-    						}
+								$xshift += (count($arr_keys) * $spw);
+							}
 						}
 						$xshift += $this->GetArrStringWidth($uniarr); // + shift justification
 					} else {
@@ -6227,8 +6232,8 @@ class WaterWoo_TCPDF {
 		array_walk($chrw, array($this, 'getRawCharWidth'));
 //		$maxchwidth = max($chrw);
 		if ( is_array( $chrw ) ) { // 3.0
-		    if ( 0 < count( $chrw ) ) {
-			    $maxchwidth = max($chrw);
+			if ( 0 < count( $chrw ) ) {
+				$maxchwidth = max($chrw);
 			}
 		}
 		// get array of chars
@@ -6754,11 +6759,11 @@ class WaterWoo_TCPDF {
 		$exurl = ''; // external streams
 		$imsize = FALSE;
 
-        // Make sure the file variable is not empty or null because accessing $file[0] later
-        // results in error when running PHP 7.4
-        if (empty($file)) {
-            return false;
-        }
+		// Make sure the file variable is not empty or null because accessing $file[0] later
+		// results in error when running PHP 7.4
+		if (empty($file)) {
+			return false;
+		}
 		// check if we are passing an image as file or string
 		if ($file[0] === '@') {
 			// image from string
@@ -6945,7 +6950,7 @@ class WaterWoo_TCPDF {
 			// GD image handler function
 			$gdfunction = 'imagecreatefrom'.$type;
 			$info = false;
-    		if ((method_exists('WaterWoo_TCPDF_IMAGES', $mtd)) AND (!($resize AND (function_exists($gdfunction) OR extension_loaded('imagick'))))) {
+			if ((method_exists('WaterWoo_TCPDF_IMAGES', $mtd)) AND (!($resize AND (function_exists($gdfunction) OR extension_loaded('imagick'))))) {
 				// TCPDF image functions				
 				$info = WaterWoo_TCPDF_IMAGES::$mtd($file);
 				if (($ismask === false) AND ($imgmask === false) AND (strpos($file, '__tcpdf_'.$this->file_id.'_imgmask_') === FALSE)
@@ -7265,10 +7270,10 @@ class WaterWoo_TCPDF {
 			// correct gamma
 			$this->gdgammacache['#'.$c] = (pow(($this->gdgammacache['#'.$c] / 255), 2.2) * 255);
 			// store the latest values on cache to improve performances
-            if ( count( $this->gdgammacache ) > 8 ) {
-                // remove one element from the cache array
-                array_shift( $this->gdgammacache );
-            }
+			if ( count( $this->gdgammacache ) > 8 ) {
+				// remove one element from the cache array
+				array_shift( $this->gdgammacache );
+			}
 		}
 		return $this->gdgammacache['#'.$c];
 	}
@@ -7681,9 +7686,9 @@ class WaterWoo_TCPDF {
 			self::$cleaned_ids[$this->file_id] = true;
 			// remove all temporary files
 			if ($handle = @opendir(K_PATH_CACHE)) {
-                // https://github.com/tecnickcom/TCPDF/pull/265/commits/227cb08f3137ba699b3f64d5b0a8add19018bf1c
-                while ( false !== ( $file_name = readdir( $handle ) ) ) {
-                    if (strpos($file_name, '__tcpdf_'.$this->file_id.'_') === 0 && file_exists(K_PATH_CACHE.$file_name)) {
+				// https://github.com/tecnickcom/TCPDF/pull/265/commits/227cb08f3137ba699b3f64d5b0a8add19018bf1c
+				while ( false !== ( $file_name = readdir( $handle ) ) ) {
+					if (strpos($file_name, '__tcpdf_'.$this->file_id.'_') === 0 && file_exists(K_PATH_CACHE.$file_name)) {
 						unlink(K_PATH_CACHE.$file_name);
 					}
 				}
@@ -7692,7 +7697,7 @@ class WaterWoo_TCPDF {
 			if (isset($this->imagekeys)) {
 				foreach($this->imagekeys as $file) {
 					// https://github.com/tecnickcom/TCPDF/pull/265/commits/227cb08f3137ba699b3f64d5b0a8add19018bf1c
-                    if (strpos($file, K_PATH_CACHE) === 0 && file_exists($file)) {
+					if (strpos($file, K_PATH_CACHE) === 0 && file_exists($file)) {
 						@unlink($file);
 					}
 				}
@@ -8326,7 +8331,7 @@ class WaterWoo_TCPDF {
 								} else {
 									$parsedUrl = parse_url($pl['txt']);
 									// if (empty($parsedUrl['scheme']) AND (strtolower(substr($parsedUrl['path'], -4)) == '.pdf')) {
-                                    if (empty($parsedUrl['scheme']) AND (!empty($parsedUrl['path']) && strtolower(substr($parsedUrl['path'], -4)) == '.pdf')) {
+									if (empty($parsedUrl['scheme']) AND (!empty($parsedUrl['path']) && strtolower(substr($parsedUrl['path'], -4)) == '.pdf')) {
 										// relative link to a PDF file
 										$dest = '[0 /Fit]'; // default page 0
 										if (!empty($parsedUrl['fragment'])) {
@@ -9421,31 +9426,31 @@ class WaterWoo_TCPDF {
 		}
 		// The date and time the document was created, in human-readable form (improved with WaterWoo 2.7)
 		if ( ! empty( $this->creationdate ) ) {		
-            $out .= ' /CreationDate ' . $this->_datestring( 0, WaterWoo_TCPDF_STATIC::getTimestamp($this->creationdate) );
-            if ( empty( $this->producer ) ) {
-                // restore previous isunicode value
-	    	    $this->isunicode = $prev_isunicode;
-	    	}
+			$out .= ' /CreationDate ' . $this->_datestring( 0, WaterWoo_TCPDF_STATIC::getTimestamp($this->creationdate) );
+			if ( empty( $this->producer ) ) {
+				// restore previous isunicode value
+				$this->isunicode = $prev_isunicode;
+			}
 		}
 		// default producer, bool hook 'wwpdf_overwrite_producer' available
 		if ( ! empty( $this->producer ) ) {
-            $out .= ' /Producer ' . $this->_textstring( $this->producer, $oid );
-            // restore previous isunicode value
-	    	$this->isunicode = $prev_isunicode;
+			$out .= ' /Producer ' . $this->_textstring( $this->producer, $oid );
+			// restore previous isunicode value
+			$this->isunicode = $prev_isunicode;
 		}
 		if ( empty( $this->creationdate ) ) {
 			// restore previous isunicode value
-		    $this->isunicode = $prev_isunicode;
-            $out .= ' /CreationDate ' . $this->_datestring(0, $this->doc_creation_timestamp);
-        }
+			$this->isunicode = $prev_isunicode;
+			$out .= ' /CreationDate ' . $this->_datestring(0, $this->doc_creation_timestamp);
+		}
 		// TCPDF as producer
 		if ( empty( $this->producer ) ) {
 			if ( empty( $this->creationdate ) ) {
-			    // restore previous isunicode value
-		        $this->isunicode = $prev_isunicode;
-            }
-		    $out .= ' /Producer ' . $this->_textstring(WaterWoo_TCPDF_STATIC::getTCPDFProducer(), $oid);		
-        }
+				// restore previous isunicode value
+				$this->isunicode = $prev_isunicode;
+			}
+			$out .= ' /Producer ' . $this->_textstring(WaterWoo_TCPDF_STATIC::getTCPDFProducer(), $oid);
+		}
 
 		// The date and time the document was most recently modified, in human-readable form
 		$out .= ' /ModDate '.$this->_datestring(0, $this->doc_modification_timestamp);
@@ -9521,10 +9526,10 @@ class WaterWoo_TCPDF {
 		$xmp .= "\t\t".'</rdf:Description>'."\n";
 		// convert doc creation date format (modified for WaterWoo 2.7)
 		if ( ! empty( $this->creationdate ) ) {	
-		    $dcdate = WaterWoo_TCPDF_STATIC::getFormattedDate( WaterWoo_TCPDF_STATIC::getTimestamp($this->creationdate) );
+			$dcdate = WaterWoo_TCPDF_STATIC::getFormattedDate( WaterWoo_TCPDF_STATIC::getTimestamp($this->creationdate) );
 		} else {
-            $dcdate = WaterWoo_TCPDF_STATIC::getFormattedDate($this->doc_creation_timestamp);
-        }
+			$dcdate = WaterWoo_TCPDF_STATIC::getFormattedDate($this->doc_creation_timestamp);
+		}
 		$doccreationdate = substr($dcdate, 0, 4).'-'.substr($dcdate, 4, 2).'-'.substr($dcdate, 6, 2);
 		$doccreationdate .= 'T'.substr($dcdate, 8, 2).':'.substr($dcdate, 10, 2).':'.substr($dcdate, 12, 2);
 		$doccreationdate .= substr($dcdate, 14, 3).':'.substr($dcdate, 18, 2);
@@ -9552,7 +9557,7 @@ class WaterWoo_TCPDF {
 		$xmp .= "\t\t".'</rdf:Description>'."\n";
 		if ($this->pdfa_mode) {
 			$xmp .= "\t\t".'<rdf:Description rdf:about="" xmlns:pdfaid="http://www.aiim.org/pdfa/ns/id/">'."\n";
-            $xmp .= "\t\t\t".'<pdfaid:part>'.$this->pdfa_version.'</pdfaid:part>'."\n";
+			$xmp .= "\t\t\t".'<pdfaid:part>'.$this->pdfa_version.'</pdfaid:part>'."\n";
 			$xmp .= "\t\t\t".'<pdfaid:conformance>B</pdfaid:conformance>'."\n";
 			$xmp .= "\t\t".'</rdf:Description>'."\n";
 		}
@@ -9564,16 +9569,16 @@ class WaterWoo_TCPDF {
 		$xmp .= "\t\t\t\t\t\t".'<pdfaSchema:namespaceURI>http://ns.adobe.com/pdf/1.3/</pdfaSchema:namespaceURI>'."\n";
 		$xmp .= "\t\t\t\t\t\t".'<pdfaSchema:prefix>pdf</pdfaSchema:prefix>'."\n";
 		$xmp .= "\t\t\t\t\t\t".'<pdfaSchema:schema>Adobe PDF Schema</pdfaSchema:schema>'."\n";
-        $xmp .= "\t\t\t\t\t\t".'<pdfaSchema:property>'."\n";
-        $xmp .= "\t\t\t\t\t\t\t".'<rdf:Seq>'."\n";
-        $xmp .= "\t\t\t\t\t\t\t\t".'<rdf:li rdf:parseType="Resource">'."\n";
-        $xmp .= "\t\t\t\t\t\t\t\t\t".'<pdfaProperty:category>internal</pdfaProperty:category>'."\n";
-        $xmp .= "\t\t\t\t\t\t\t\t\t".'<pdfaProperty:description>Adobe PDF Schema</pdfaProperty:description>'."\n";
-        $xmp .= "\t\t\t\t\t\t\t\t\t".'<pdfaProperty:name>InstanceID</pdfaProperty:name>'."\n";
-        $xmp .= "\t\t\t\t\t\t\t\t\t".'<pdfaProperty:valueType>URI</pdfaProperty:valueType>'."\n";
-        $xmp .= "\t\t\t\t\t\t\t\t".'</rdf:li>'."\n";
-        $xmp .= "\t\t\t\t\t\t\t".'</rdf:Seq>'."\n";
-        $xmp .= "\t\t\t\t\t\t".'</pdfaSchema:property>'."\n";		
+		$xmp .= "\t\t\t\t\t\t".'<pdfaSchema:property>'."\n";
+		$xmp .= "\t\t\t\t\t\t\t".'<rdf:Seq>'."\n";
+		$xmp .= "\t\t\t\t\t\t\t\t".'<rdf:li rdf:parseType="Resource">'."\n";
+		$xmp .= "\t\t\t\t\t\t\t\t\t".'<pdfaProperty:category>internal</pdfaProperty:category>'."\n";
+		$xmp .= "\t\t\t\t\t\t\t\t\t".'<pdfaProperty:description>Adobe PDF Schema</pdfaProperty:description>'."\n";
+		$xmp .= "\t\t\t\t\t\t\t\t\t".'<pdfaProperty:name>InstanceID</pdfaProperty:name>'."\n";
+		$xmp .= "\t\t\t\t\t\t\t\t\t".'<pdfaProperty:valueType>URI</pdfaProperty:valueType>'."\n";
+		$xmp .= "\t\t\t\t\t\t\t\t".'</rdf:li>'."\n";
+		$xmp .= "\t\t\t\t\t\t\t".'</rdf:Seq>'."\n";
+		$xmp .= "\t\t\t\t\t\t".'</pdfaSchema:property>'."\n";
 		$xmp .= "\t\t\t\t\t".'</rdf:li>'."\n";
 		$xmp .= "\t\t\t\t\t".'<rdf:li rdf:parseType="Resource">'."\n";
 		$xmp .= "\t\t\t\t\t\t".'<pdfaSchema:namespaceURI>http://ns.adobe.com/xap/1.0/mm/</pdfaSchema:namespaceURI>'."\n";
@@ -9793,7 +9798,7 @@ class WaterWoo_TCPDF {
 				}
 				$out .= ' >> >>';
 			}
-            $font = $this->getFontBuffer(defined('PDF_FONT_NAME_MAIN')?PDF_FONT_NAME_MAIN:'helvetica');
+			$font = $this->getFontBuffer(defined('PDF_FONT_NAME_MAIN')?PDF_FONT_NAME_MAIN:'helvetica');
 			$out .= ' /DA (/F'.$font['i'].' 0 Tf 0 g)';
 			$out .= ' /Q '.(($this->rtl)?'2':'0');
 			//$out .= ' /XFA ';
@@ -12214,9 +12219,9 @@ class WaterWoo_TCPDF {
 		} elseif ($x > $this->w) {
 			$x = $this->w;
 		}
-        $fixed = false;
-        // 2.5.2
-        // if (!empty($page) AND (substr($page, 0, 1) == '*')) {
+		$fixed = false;
+		// 2.5.2
+		// if (!empty($page) AND (substr($page, 0, 1) == '*')) {
 		$pageAsString = (string) $page;
 		if ($pageAsString && $pageAsString[0] == '*') {		
 			$page = intval(substr($page, 1));
@@ -13990,9 +13995,9 @@ class WaterWoo_TCPDF {
 			// PDF/A-1 mode
 			$this->PDFVersion = '1.4';
 		} elseif ($this->pdfa_mode && $this->pdfa_version >= 2 ) {
-            // PDF/A-2 mode
-            $this->PDFVersion = '1.7';
-        } else {
+			// PDF/A-2 mode
+			$this->PDFVersion = '1.7';
+		} else {
 			$this->PDFVersion = $version;
 		}
 	}
@@ -17691,7 +17696,7 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 					$loop = 0;
 					// add the positive font spacing of the last character (if any)
 					 if ($this->font_spacing > 0) {
-					 	if ($this->rtl) {
+						if ($this->rtl) {
 							$this->x -= $this->font_spacing;
 						} else {
 							$this->x += $this->font_spacing;
@@ -18030,29 +18035,29 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 				$this->SetLineWidth($hrHeight);
 
 				$lineStyle = array();
-                    		if (isset($tag['fgcolor'])) {
-		                        $lineStyle['color'] = $tag['fgcolor'];
-                    		}
+							if (isset($tag['fgcolor'])) {
+								$lineStyle['color'] = $tag['fgcolor'];
+							}
 
-                    		if (isset($tag['fgcolor'])) {
-                        		$lineStyle['color'] = $tag['fgcolor'];
-                    		}
+							if (isset($tag['fgcolor'])) {
+								$lineStyle['color'] = $tag['fgcolor'];
+							}
 
-                    		if (isset($tag['style']['cap'])) {
-                        		$lineStyle['cap'] = $tag['style']['cap'];
-                    		}
+							if (isset($tag['style']['cap'])) {
+								$lineStyle['cap'] = $tag['style']['cap'];
+							}
 
-                    		if (isset($tag['style']['join'])) {
-                        		$lineStyle['join'] = $tag['style']['join'];
-                    		}
+							if (isset($tag['style']['join'])) {
+								$lineStyle['join'] = $tag['style']['join'];
+							}
 
-                    		if (isset($tag['style']['dash'])) {
-                        		$lineStyle['dash'] = $tag['style']['dash'];
-                    		}
+							if (isset($tag['style']['dash'])) {
+								$lineStyle['dash'] = $tag['style']['dash'];
+							}
 
-                    		if (isset($tag['style']['phase'])) {
-                        		$lineStyle['phase'] = $tag['style']['phase'];
-                    		}
+							if (isset($tag['style']['phase'])) {
+								$lineStyle['phase'] = $tag['style']['phase'];
+							}
 
 				$lineStyle = array_filter($lineStyle);
 
@@ -18077,10 +18082,10 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 					$imgsrc = '@'.base64_decode(substr($imgsrc, 1));
 					$type = '';
 				} elseif ( $this->allowLocalFiles && substr($imgsrc, 0, 7) === 'file://') {
-                    // get image type from a local file path
-                    $imgsrc = substr($imgsrc, 7);
-                    $type = WaterWoo_TCPDF_IMAGES::getImageFileType($imgsrc);
-                } else {
+					// get image type from a local file path
+					$imgsrc = substr($imgsrc, 7);
+					$type = WaterWoo_TCPDF_IMAGES::getImageFileType($imgsrc);
+				} else {
 					if (($imgsrc[0] === '/') AND !empty($_SERVER['DOCUMENT_ROOT']) AND ($_SERVER['DOCUMENT_ROOT'] != '/')) {
 						// fix image path
 						$findroot = strpos($imgsrc, $_SERVER['DOCUMENT_ROOT']);
@@ -23271,7 +23276,7 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 			case 'stop': {
 				// gradient stops
 				if (substr($attribs['offset'], -1) == '%') {
-                    $offset = floatval(substr($attribs['offset'], 0, -1)) / 100;
+					$offset = floatval(substr($attribs['offset'], 0, -1)) / 100;
 				} else {
 					$offset = floatval($attribs['offset']);
 					if ($offset > 1) {
@@ -23781,32 +23786,32 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 
 	// --- END SVG METHODS -----------------------------------------------------
 
-    /**
-     * Keeps files in memory, so it doesn't need to downloaded everytime in a loop
-     * @param string $file
-     * @return string
-     */
-    protected function getCachedFileContents($file)
-    {
-        if (!isset($this->fileContentCache[$file])) {
-            $this->fileContentCache[$file] = TCPDF_STATIC::fileGetContents($file);
-        }
-        return $this->fileContentCache[$file];
-    }
+	/**
+	 * Keeps files in memory, so it doesn't need to downloaded everytime in a loop
+	 * @param string $file
+	 * @return string
+	 */
+	protected function getCachedFileContents($file)
+	{
+		if (!isset($this->fileContentCache[$file])) {
+			$this->fileContentCache[$file] = TCPDF_STATIC::fileGetContents($file);
+		}
+		return $this->fileContentCache[$file];
+	}
 
-    /**
-     * Avoid multiple calls to an external server to see if a file exists
-     * @param string $file
-     * @return bool
-     */
-    protected function fileExists($file)
-    {
-        if (isset($this->fileContentCache[$file]) || false !== $this->getImageBuffer($file)) {
-            return true;
-        }
+	/**
+	 * Avoid multiple calls to an external server to see if a file exists
+	 * @param string $file
+	 * @return bool
+	 */
+	protected function fileExists($file)
+	{
+		if (isset($this->fileContentCache[$file]) || false !== $this->getImageBuffer($file)) {
+			return true;
+		}
 
-        return TCPDF_STATIC::file_exists($file);
-    }
+		return TCPDF_STATIC::file_exists($file);
+	}
 
 } // END OF TCPDF CLASS
 
