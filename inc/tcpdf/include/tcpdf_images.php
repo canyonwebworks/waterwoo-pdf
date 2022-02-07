@@ -49,8 +49,6 @@
  * @version 1.0.005
  * @author Nicola Asuni - info@tecnick.com
  */
-if ( ! class_exists( 'WaterWoo_TCPDF_IMAGES' ) ) :
-
 class WaterWoo_TCPDF_IMAGES {
 
 	/**
@@ -81,10 +79,7 @@ class WaterWoo_TCPDF_IMAGES {
 			}
 		}
 		if (empty($type)) {
-			$fileinfo = pathinfo($imgfile);
-			if (isset($fileinfo['extension']) AND (!WaterWoo_TCPDF_STATIC::empty_string($fileinfo['extension']))) {
-				$type = strtolower(trim($fileinfo['extension']));
-			}
+            $type = strtolower(trim(pathinfo(parse_url($imgfile, PHP_URL_PATH), PATHINFO_EXTENSION)));
 		}
 		if ($type == 'jpg') {
 			$type = 'jpeg';
@@ -359,4 +354,6 @@ class WaterWoo_TCPDF_IMAGES {
 
 } // END OF TCPDF_IMAGES CLASS
 
-endif;
+//============================================================+
+// END OF FILE
+//============================================================+

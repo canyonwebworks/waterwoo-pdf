@@ -45,8 +45,6 @@
  * @version 1.1.0
  * @author Nicola Asuni - info@tecnick.com
  */
-if ( ! class_exists( 'WaterWoo_TCPDF_FONTS' ) ) :
-
 class WaterWoo_TCPDF_FONTS {
 
 	/**
@@ -2662,4 +2660,6 @@ class WaterWoo_TCPDF_FONTS {
 
 } // END OF TCPDF_FONTS CLASS
 
-endif;
+//============================================================+
+// END OF FILE
+//============================================================+

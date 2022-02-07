@@ -5,8 +5,8 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) { // If uninstall not called from Word
 }
 
 /**
- * Manages WaterWoo PDF Premium uninstallation
- * The goal is to remove ALL Waterwoo related data in db
+ * Manages Watermark PDF for WooCommerce uninstallation
+ * The goal is to remove ALL plugin related data in db
  *
  * @since 2.2
  */

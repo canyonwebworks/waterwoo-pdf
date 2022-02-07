@@ -48,8 +48,6 @@
  * @version 1.0.001
  * @author Nicola Asuni - info@tecnick.com
  */
-if ( ! class_exists( 'WaterWoo_TCPDF_FILTERS' ) ) :
-
 class WaterWoo_TCPDF_FILTERS {
 
 	/**
@@ -82,36 +80,47 @@ class WaterWoo_TCPDF_FILTERS {
 		switch ($filter) {
 			case 'ASCIIHexDecode': {
 				return self::decodeFilterASCIIHexDecode($data);
+				break;
 			}
 			case 'ASCII85Decode': {
 				return self::decodeFilterASCII85Decode($data);
+				break;
 			}
 			case 'LZWDecode': {
 				return self::decodeFilterLZWDecode($data);
+				break;
 			}
 			case 'FlateDecode': {
 				return self::decodeFilterFlateDecode($data);
+				break;
 			}
 			case 'RunLengthDecode': {
 				return self::decodeFilterRunLengthDecode($data);
+				break;
 			}
 			case 'CCITTFaxDecode': {
 				return self::decodeFilterCCITTFaxDecode($data);
+				break;
 			}
 			case 'JBIG2Decode': {
 				return self::decodeFilterJBIG2Decode($data);
+				break;
 			}
 			case 'DCTDecode': {
 				return self::decodeFilterDCTDecode($data);
+				break;
 			}
 			case 'JPXDecode': {
 				return self::decodeFilterJPXDecode($data);
+				break;
 			}
 			case 'Crypt': {
 				return self::decodeFilterCrypt($data);
+				break;
 			}
 			default: {
 				return self::decodeFilterStandard($data);
+				break;
 			}
 		}
 	}
@@ -139,6 +148,8 @@ class WaterWoo_TCPDF_FILTERS {
 	 * @public static
 	 */
 	public static function decodeFilterASCIIHexDecode($data) {
+		// initialize string to return
+		$decoded = '';
 		// all white-space characters shall be ignored
 		$data = preg_replace('/[\s]/', '', $data);
 		// check for EOD character: GREATER-THAN SIGN (3Eh)
@@ -164,7 +175,8 @@ class WaterWoo_TCPDF_FILTERS {
 			self::Error('decodeFilterASCIIHexDecode: invalid code');
 		}
 		// get one byte of binary data for each pair of ASCII hexadecimal digits
-		return pack('H*', $data);
+		$decoded = pack('H*', $data);
+		return $decoded;
 	}
 
 	/**
@@ -267,10 +279,7 @@ class WaterWoo_TCPDF_FILTERS {
 		// convert string to binary string
 		$bitstring = '';
 		for ($i = 0; $i < $data_length; ++$i) {
-            // $bitstring .= sprintf('%08b', ord($data{$i}));
-            // https://github.com/tecnickcom/TCPDF/commit/b0948269a689c5ab08c5b6e00066bf9c9e6a9838
-            $bitstring .= sprintf('%08b', ord($data[$i]));
-
+			$bitstring .= sprintf('%08b', ord($data[$i]));
 		}
 		// get the number of bits
 		$data_length = strlen($bitstring);
@@ -404,8 +413,6 @@ class WaterWoo_TCPDF_FILTERS {
 		$i = 0;
 		while($i < $data_length) {
 			// get current byte value
-			// $byte = ord($data{$i});
-			// https://github.com/tecnickcom/TCPDF/commit/b0948269a689c5ab08c5b6e00066bf9c9e6a9838
 			$byte = ord($data[$i]);
 			if ($byte == 128) {
 				// a length value of 128 denote EOD
@@ -419,8 +426,6 @@ class WaterWoo_TCPDF_FILTERS {
 			} else {
 				// if length is in the range 129 to 255,
 				// the following single byte shall be copied 257 - length (2 to 128) times during decompression
-				// $decoded .= str_repeat($data{($i + 1)}, (257 - $byte));
-				// https://github.com/tecnickcom/TCPDF/commit/b0948269a689c5ab08c5b6e00066bf9c9e6a9838
 				$decoded .= str_repeat($data[($i + 1)], (257 - $byte));
 				// move to next block
 				$i += 2;
@@ -503,4 +508,6 @@ class WaterWoo_TCPDF_FILTERS {
 
 } // END OF TCPDF_FILTERS CLASS
 
-endif;
+//============================================================+
+// END OF FILE
+//============================================================+

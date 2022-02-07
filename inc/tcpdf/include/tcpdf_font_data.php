@@ -45,8 +45,6 @@
  * @version 1.0.001
  * @author Nicola Asuni - info@tecnick.com
  */
-if ( ! class_exists( 'WaterWoo_TCPDF_FONT_DATA' ) ) :
-
 class WaterWoo_TCPDF_FONT_DATA {
 
 /**
@@ -18444,4 +18442,6 @@ public static $uni_identity_h = "/CIDInit /ProcSet findresource begin\n12 dict b
 
 } // END OF WaterWoo_TCPDF_FONT_DATA CLASS
 
-endif;
+//============================================================+
+// END OF FILE
+//============================================================+

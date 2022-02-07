@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: WaterWoo PDF\n"
-"POT-Creation-Date: 2021-09-30 14:42-0700\n"
-"PO-Revision-Date: 2021-09-30 14:43-0700\n"
+"Project-Id-Version: Watermark PDF for WooCommerce\n"
+"POT-Creation-Date: 2022-02-07 06:56-0800\n"
+"PO-Revision-Date: 2022-02-07 06:59-0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en\n"
@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.4.2\n"
+"X-Generator: Poedit 3.0.1\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-WPHeader: waterwoo-pdf.php\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -20,97 +20,99 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
-#: classes/wwpdf-compatibility.php:75
+#: classes/wwpdf-compatibility.php:73
 #, php-format
 msgid ""
-"<strong>WaterWoo PDF</strong> requires WooCommerce to work. You can <a href="
-"\"%s\" target=\"_blank\" rel=\"noopener\">download WooCommerce here</a>."
+"<strong>Watermark PDF for WooCommerce</strong> requires WooCommerce to work. "
+"You can <a href=\"%s\" target=\"_blank\" rel=\"noopener\">download "
+"WooCommerce here</a>."
 msgstr ""
 
-#: classes/wwpdf-compatibility.php:78
+#: classes/wwpdf-compatibility.php:76
 msgid ""
 "The <strong>WC_Download_Handler</strong> WooCommerce class is missing! It is "
-"required for WaterWoo PDF to work. Perhaps your WooCommerce installation is "
-"corrupted?"
+"required for the Watermark PDF plugin to work. Perhaps your WooCommerce "
+"installation is corrupted?"
 msgstr ""
 
-#: classes/wwpdf-compatibility.php:81
+#: classes/wwpdf-compatibility.php:79
 #, php-format
 msgid ""
-"<strong>WaterWoo PDF</strong> supports PHP %s or later. Please update PHP on "
-"your server for better results."
+"<strong>Watermark PDF for WooCommerce</strong> supports PHP %s or later. "
+"Please update PHP on your server for better results."
 msgstr ""
 
-#: classes/wwpdf-compatibility.php:84
+#: classes/wwpdf-compatibility.php:82
 #, php-format
 msgid ""
-"<strong>WaterWoo PDF</strong> supports WordPress version %s or later. Please "
-"update WordPress to use this plugin."
+"<strong>Watermark PDF for WooCommerce</strong> supports WordPress version %s "
+"or later. Please update WordPress to use this plugin."
 msgstr ""
 
-#: classes/wwpdf-compatibility.php:87
+#: classes/wwpdf-compatibility.php:85
 #, php-format
 msgid ""
-"Sorry, <strong>WaterWoo PDF</strong> supports WooCommerce version %s or "
-"newer, for security reasons."
+"Sorry, <strong>Watermark PDF for WooCommerce</strong> supports WooCommerce "
+"version %s or newer, for security reasons."
+msgstr ""
+
+#: classes/wwpdf-file-handler.php:72
+msgid ""
+"The free version of WaterMark PDF cannot serve PDFs from remote servers."
 msgstr ""
 
 #: classes/wwpdf-file-handler.php:73
-msgid "The free version of WaterWoo cannot serve PDFs from remote servers."
-msgstr ""
-
-#: classes/wwpdf-file-handler.php:74
 msgid ""
 "Try uploading your PDF product to this domain using the native WooCommerce "
 "file uploader."
 msgstr ""
 
-#: classes/wwpdf-settings.php:47
+#: classes/wwpdf-settings.php:44
 msgid "FAQ"
 msgstr ""
 
-#: classes/wwpdf-settings.php:48
+#: classes/wwpdf-settings.php:45
 msgid "Support"
 msgstr ""
 
-#: classes/wwpdf-settings.php:63 classes/wwpdf-settings.php:111
+#: classes/wwpdf-settings.php:60 classes/wwpdf-settings.php:108
 msgid "Upgrade to Premium"
 msgstr ""
 
-#: classes/wwpdf-settings.php:65
+#: classes/wwpdf-settings.php:62
 msgid "Go to the settings page"
 msgstr ""
 
-#: classes/wwpdf-settings.php:65
+#: classes/wwpdf-settings.php:62
 msgid "Settings"
 msgstr ""
 
-#: classes/wwpdf-settings.php:97
+#: classes/wwpdf-settings.php:94
 msgid "About the Plugin"
 msgstr ""
 
+#: classes/wwpdf-settings.php:96
+msgid "About Watermark PDF for WooCommerce"
+msgstr ""
+
+#: classes/wwpdf-settings.php:97
+msgid ""
+"Protect your intellectual property! Watermark PDF for WooCommerce allows "
+"WooCommerce site administrators to apply custom watermarks to PDFs upon sale."
+msgstr ""
+
+#: classes/wwpdf-settings.php:98
+msgid ""
+"Watermark PDF for WooCommerce is a plugin that adds a watermark to every "
+"page of your PDF file(s). The watermark is customizable with font face, font "
+"color, font size, placement, and text. Not only that, but since the "
+"watermark is added when the download button is clicked (either on the "
+"customer's order confirmation page or email), the watermark can include "
+"customer-specifc data such as the customer's first name, last name, and "
+"email. Your watermark is highly customizable and manipulatable."
+msgstr ""
+
 #: classes/wwpdf-settings.php:99
-msgid "About WaterWoo PDF"
-msgstr ""
-
-#: classes/wwpdf-settings.php:100
-msgid ""
-"Protect your intellectual property! WaterWoo PDF allows WooCommerce site "
-"administrators to apply custom watermarks to PDFs upon sale."
-msgstr ""
-
-#: classes/wwpdf-settings.php:101
-msgid ""
-"WaterWoo PDF is a plugin that adds a watermark to every page of your PDF "
-"file(s). The watermark is customizable with font face, font color, font "
-"size, placement, and text. Not only that, but since the watermark is added "
-"when the download button is clicked (either on the customer's order "
-"confirmation page or email), the watermark can include customer-specifc data "
-"such as the customer's first name, last name, and email. Your watermark is "
-"highly customizable and manipulatable."
-msgstr ""
-
-#: classes/wwpdf-settings.php:102
 #, php-format
 msgid ""
 "<a href=\"%s\" target=\"_blank\" rel=\"noopener\">Consider upgrading to the "
@@ -121,48 +123,49 @@ msgid ""
 "characters. Thanks again, and enjoy!"
 msgstr ""
 
-#: classes/wwpdf-settings.php:108
+#: classes/wwpdf-settings.php:105
 msgid "For more information:"
 msgstr ""
 
-#: classes/wwpdf-settings.php:109
+#: classes/wwpdf-settings.php:106
 msgid "Frequently Asked Questions"
 msgstr ""
 
-#: classes/wwpdf-settings.php:110
+#: classes/wwpdf-settings.php:107
 msgid "Project on WordPress.org"
 msgstr ""
 
-#: classes/wwpdf-settings.php:124
+#: classes/wwpdf-settings.php:121
 msgid "Watermark"
 msgstr ""
 
-#: classes/wwpdf-settings.php:139
-msgid "WaterWoo Options"
+#: classes/wwpdf-settings.php:136
+msgid "WaterMark PDF Options"
 msgstr ""
 
-#: classes/wwpdf-settings.php:140
+#: classes/wwpdf-settings.php:137
 msgid ""
 "<strong>Note:</strong> This free watermarking plugin is rudimentary and may "
 "not work on every PDF. Test before going live!"
 msgstr ""
 
-#: classes/wwpdf-settings.php:141
+#: classes/wwpdf-settings.php:138
 msgid ""
 "<p><a href=\"https://web.little-package.com/downloads/waterwoo-pdf-premium/"
 "\" target=\"_blank\" rel=\"noopener\">Purchase the premium version of "
-"WaterWoo PDF</a> if you want: extended <strong>shortcodes</strong>, "
-"including order number, quantity sold and future dates;<br />"
+"Watermark PDF for WooCommerce</a> if you want: page and position control, "
+"extended <strong>shortcodes</strong>, including order number, quantity sold "
+"and future dates;<br />"
 msgstr ""
 
-#: classes/wwpdf-settings.php:142
+#: classes/wwpdf-settings.php:139
 msgid ""
 "<strong>opacity</strong> control; custom <strong>fonts</strong>, extended "
 "characters & RTL; <strong>barcodes</strong> and QR codes; <strong>password</"
 "strong> protection & permissions control;<br />"
 msgstr ""
 
-#: classes/wwpdf-settings.php:143
+#: classes/wwpdf-settings.php:140
 msgid ""
 "backend <strong>test watermarking</strong> of PDFs on-the-fly; <strong>per-"
 "product</strong> and variable product watermarking; <strong>Dropbox & S3</"
@@ -170,37 +173,37 @@ msgid ""
 "strong>; AND MORE!</p>"
 msgstr ""
 
-#: classes/wwpdf-settings.php:149
+#: classes/wwpdf-settings.php:146
 msgid "Enable Watermarking"
 msgstr ""
 
-#: classes/wwpdf-settings.php:150
+#: classes/wwpdf-settings.php:147
 msgid "Check to enable PDF watermarking"
 msgstr ""
 
-#: classes/wwpdf-settings.php:157
+#: classes/wwpdf-settings.php:154
 msgid "File(s) to watermark"
 msgstr ""
 
-#: classes/wwpdf-settings.php:158
+#: classes/wwpdf-settings.php:155
 msgid ""
 "List file name(s) of PDF(s) to watermark, one per line, e.g., <code>upload."
-"pdf</code> or <code>my_pdf.pdf</code> .<br />If left blank, WaterWoo PDF "
-"will watermark all PDFs sold through WooCommerce."
+"pdf</code> or <code>my_pdf.pdf</code> .<br />If left blank, Watermark PDF "
+"for WooCommerce will watermark all PDFs sold through WooCommerce."
 msgstr ""
 
-#: classes/wwpdf-settings.php:165
+#: classes/wwpdf-settings.php:163
 msgid "Custom text for footer watermark"
 msgstr ""
 
-#: classes/wwpdf-settings.php:166
+#: classes/wwpdf-settings.php:164
 msgid ""
 "Shortcodes available, all caps, in brackets: <code>[FIRSTNAME]</code> "
 "<code>[LASTNAME]</code> <code>[EMAIL]</code> <code>[PHONE]</code> "
 "<code>[DATE]</code>"
 msgstr ""
 
-#: classes/wwpdf-settings.php:167
+#: classes/wwpdf-settings.php:165
 msgid "Licensed to [FIRSTNAME] [LASTNAME], [EMAIL]"
 msgstr ""
 
@@ -249,7 +252,7 @@ msgstr ""
 
 #: classes/wwpdf-settings.php:229
 msgid ""
-"If this box is checked if/when you uninstall WaterWoo, all your WaterWoo "
+"If this box is checked if/when you uninstall WaterMark PDF, all your "
 "settings will be deleted from your Wordpress database."
 msgstr ""
 
@@ -273,16 +276,16 @@ msgid ""
 "to premium</a> if you benefit from my work."
 msgstr ""
 
-#: waterwoo-pdf.php:103
+#: waterwoo-pdf.php:109
 msgid "Cloning is forbidden."
 msgstr ""
 
-#: waterwoo-pdf.php:110
+#: waterwoo-pdf.php:116
 msgid "Unserializing instances of this class is forbidden."
 msgstr ""
 
 #. Plugin Name of the plugin/theme
-msgid "WaterWoo PDF"
+msgid "WaterMark PDF for WooCommerce"
 msgstr ""
 
 #. Plugin URI of the plugin/theme
@@ -290,7 +293,9 @@ msgid "https://wordpress.org/plugins/waterwoo-pdf/"
 msgstr ""
 
 #. Description of the plugin/theme
-msgid "Custom watermark your PDFs upon WooCommerce sale."
+msgid ""
+"Custom watermark your PDFs upon WooCommerce sale. Formerly known as "
+"\"WaterWoo\""
 msgstr ""
 
 #. Author of the plugin/theme

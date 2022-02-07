@@ -765,7 +765,7 @@ class PDF417 {
 		// get maximum correction level
 		$maxerrsize = (928 - $numcw); // available codewords for error
 		while ($maxecl > 0) {
-//      $errsize = (2 << $ecl);
+			// $errsize = (2 << $ecl);
             try {
 				$errsize = (2 << $ecl);
 			} catch( ArithmeticError $e ) {

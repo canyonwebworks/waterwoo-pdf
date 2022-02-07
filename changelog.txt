@@ -1,4 +1,42 @@
-Archived WaterWoo PDF changelog for pre-2.4 versions
+Archived Watermark PDF for WooCommerce changelog for pre-2.7 versions
+
+= 2.6.1 - 16 May 2020 =
+* Tweak - use str_replace instead of preg_replace with shortcodes in classes/wwpdf-file-handler for speed
+* Tweak - use output buffering while processing PDF with TCPDI/TCPDF
+* Tweak - log potential errors to debug.log while showing customers simple (filterable) error message
+* Tweak - don't try to center watermark if using large font size
+* Update TCPDF library to version 6.3.2 for better compatibility with PHP 7
+* Testing to WC 4.1.0
+* Testing to WP 5.4.1
+
+= 2.6 - 9 April 2020 =
+* Feature - allow for watermark placement measured from bottom of PDF page by using negative integer for Y-tuner
+* Testing to WC 4.0.1
+* Testing to WP 5.4
+* Update .pot file
+
+= 2.5.1 - 10 February 2020 =
+* Testing to WC 3.9.1
+* Rephrase test for PDF in classes/wwpdf-file-handler.php - don't allow non-PDFs through watermarker
+
+= 2.5 - 20 January 2020 =
+* Improve autoloader, performance improvements
+* Added Deja Vu font, which has extensive international language character support
+* Added compatibility check - because folks really should be upgrading their servers before running e-commerce!
+* 'woocommerce_product_file_download_path' is a filter, not an action hook in classes/wwpdf-file-handler
+
+= 2.4.6 - 8 January 2020 =
+* Required WP version moved from 4.4 to 4.9
+* Class naming and checks to prevent conflicts with other plugins using TCPDI/TCPDF
+* Update Flate filter
+* Added M Sung font, which also supports Chinese characters
+* Added Furat font, which also supports Arabic characters
+* Update lang files
+
+= 2.4.5 - 22/11/2019 =
+* Testing with WooCommerce 3.8
+* Update language files
+* Tweak - allow font sizes down to 1pt in settings (previously 6pt)
 
 = 2.4.4 - 18/Aug/2019 = 
 * Fix for settings not updating, fire settings hooks earlier in waterwoo-pdf.php

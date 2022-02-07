@@ -56,7 +56,7 @@ class WaterWoo_TCPDFBarcode {
 	 * Array representation of barcode.
 	 * @protected
 	 */
-	protected $barcode_array;
+	protected $barcode_array = array();
 
 	/**
 	 * This is the class constructor.
@@ -376,7 +376,7 @@ class WaterWoo_TCPDFBarcode {
 				break;
 			}
 			default: {
-				$this->barcode_array = false;
+				$this->barcode_array = array();
 				$arrcode = false;
 				break;
 			}
@@ -2354,5 +2354,8 @@ class WaterWoo_TCPDFBarcode {
 	}
 
 } // end of class
+//============================================================+
+// END OF FILE
+//============================================================+
 
 endif;

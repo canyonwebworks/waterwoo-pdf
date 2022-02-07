@@ -7,7 +7,7 @@
 // Author      : Nicola Asuni - Tecnick.com LTD - www.tecnick.com - info@tecnick.com
 // License     : GNU-LGPL v3 (http://www.gnu.org/copyleft/lesser.html)
 // -------------------------------------------------------------------
-// Copyright (C) 2002-2015 Nicola Asuni - Tecnick.com LTD
+// Copyright (C) 2002-2021 Nicola Asuni - Tecnick.com LTD
 //
 // This file is part of TCPDF software library.
 //
@@ -33,32 +33,29 @@
 //
 //============================================================+
 
-/**
- * @file
- * This is a PHP class that contains static methods for the TCPDF class.<br>
- * @package com.tecnick.tcpdf
- * @author Nicola Asuni
- * @version 1.1.2
- */
+	/**
+	 * @file
+	 * This is a PHP class that contains static methods for the TCPDF class.<br>
+	 * @package com.tecnick.tcpdf
+	 * @author Nicola Asuni
+	 * @version 1.1.2
+	 */
 
-/**
- * @class WaterWoo_TCPDF_STATIC
- * Static methods used by the TCPDF class.
- * @package com.tecnick.tcpdf
- * @brief PHP class for generating PDF documents without requiring external extensions.
- * @version 1.1.1
- * @author Nicola Asuni - info@tecnick.com
- */
- 
-if ( ! class_exists( 'WaterWoo_TCPDF_STATIC' ) ) :
-
+	/**
+	 * @class TCPDF_STATIC
+	 * Static methods used by the TCPDF class.
+	 * @package com.tecnick.tcpdf
+	 * @brief PHP class for generating PDF documents without requiring external extensions.
+	 * @version 1.1.1
+	 * @author Nicola Asuni - info@tecnick.com
+	 */
 class WaterWoo_TCPDF_STATIC {
 
 	/**
 	 * Current TCPDF version.
 	 * @private static
 	 */
-	private static $tcpdf_version = '6.4.2';
+	private static $tcpdf_version = '6.4.4';
 
 	/**
 	 * String alias for total number of pages.
@@ -452,8 +449,12 @@ class WaterWoo_TCPDF_STATIC {
 		$padding = 16 - (strlen($text) % 16);
 		$text .= str_repeat(chr($padding), $padding);
 		if (extension_loaded('openssl')) {
-			$iv = openssl_random_pseudo_bytes (openssl_cipher_iv_length('aes-256-cbc'));
-			$text = openssl_encrypt($text, 'aes-256-cbc', $key, OPENSSL_RAW_DATA, $iv);
+			$algo = 'aes-256-cbc';
+			if (strlen($key) == 16) {
+				$algo = 'aes-128-cbc';
+			}
+			$iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length($algo));
+			$text = openssl_encrypt($text, $algo, $key, OPENSSL_RAW_DATA, $iv);
 			return $iv.substr($text, 0, -16);
 		}
 		$iv = mcrypt_create_iv(mcrypt_get_iv_size(MCRYPT_RIJNDAEL_128, MCRYPT_MODE_CBC), MCRYPT_RAND);
@@ -474,8 +475,12 @@ class WaterWoo_TCPDF_STATIC {
 	 */
 	public static function _AESnopad($key, $text) {
 		if (extension_loaded('openssl')) {
-			$iv = str_repeat("\x00", openssl_cipher_iv_length('aes-256-cbc'));
-			$text = openssl_encrypt($text, 'aes-256-cbc', $key, OPENSSL_RAW_DATA, $iv);
+			$algo = 'aes-256-cbc';
+			if (strlen($key) == 16) {
+				$algo = 'aes-128-cbc';
+			}
+			$iv = str_repeat("\x00", openssl_cipher_iv_length($algo));
+			$text = openssl_encrypt($text, $algo, $key, OPENSSL_RAW_DATA, $iv);
 			return substr($text, 0, -16);
 		}
 		$iv = str_repeat("\x00", mcrypt_get_iv_size(MCRYPT_RIJNDAEL_128, MCRYPT_MODE_CBC));
@@ -501,7 +506,7 @@ class WaterWoo_TCPDF_STATIC {
 			return $out;
 		}
 		if ($last_enc_key != $key) {
-			$k = str_repeat($key, ((256 / strlen($key)) + 1));
+			$k = str_repeat($key, (int) ((256 / strlen($key)) + 1));
 			$rc4 = range(0, 255);
 			$j = 0;
 			for ($i = 0; $i < 256; ++$i) {
@@ -1135,8 +1140,8 @@ class WaterWoo_TCPDF_STATIC {
 	 * Cleanup HTML code (requires HTML Tidy library).
 	 * @param string $html htmlcode to fix
 	 * @param string $default_css CSS commands to add
-	 * @param array $tagvs parameters for setHtmlVSpace method
-	 * @param array $tidy_options options for tidy_parse_string function
+	 * @param array|null $tagvs parameters for setHtmlVSpace method
+	 * @param array|null $tidy_options options for tidy_parse_string function
 	 * @param array $tagvspaces Array of vertical spaces for tags.
 	 * @return string XHTML code cleaned up
 	 * @author Nicola Asuni
@@ -1146,7 +1151,7 @@ class WaterWoo_TCPDF_STATIC {
 	 */
 	public static function fixHTMLCode($html, $default_css, $tagvs, $tidy_options, &$tagvspaces) {
 		// configure parameters for HTML Tidy
-		if ($tidy_options === '') {
+		if (WaterWoo_TCPDF_STATIC::empty_string($tidy_options)) {
 			$tidy_options = array (
 				'clean' => 1,
 				'drop-empty-paras' => 0,
@@ -1193,7 +1198,7 @@ class WaterWoo_TCPDF_STATIC {
 		// remove some empty tag blocks
 		$html = preg_replace('/<div([^\>]*)><\/div>/', '', $html);
 		$html = preg_replace('/<p([^\>]*)><\/p>/', '', $html);
-		if ($tagvs !== '') {
+		if (!WaterWoo_TCPDF_STATIC::empty_string($tagvs)) {
 			// set vertical space for some XHTML tags
 			$tagvspaces = $tagvs;
 		}
@@ -1302,13 +1307,13 @@ class WaterWoo_TCPDF_STATIC {
 							break;
 						}
 						case ':': { // pseudo-class or pseudo-element
-							// if ($attrib[1] == ':') { // pseudo-element
+							if ($attrib[1] == ':') { // pseudo-element
 								// pseudo-elements are not supported!
 								// (::first-line, ::first-letter, ::before, ::after)
-							// } else { // pseudo-class
+							} else { // pseudo-class
 								// pseudo-classes are not supported!
 								// (:root, :nth-child(n), :nth-last-child(n), :nth-of-type(n), :nth-last-of-type(n), :first-child, :last-child, :first-of-type, :last-of-type, :only-child, :only-of-type, :empty, :link, :visited, :active, :hover, :focus, :target, :lang(fr), :enabled, :disabled, :checked)
-							// }
+							}
 							break;
 						}
 					} // end of switch
@@ -1535,6 +1540,7 @@ class WaterWoo_TCPDF_STATIC {
 		// TEX patterns are available at:
 		// http://www.ctan.org/tex-archive/language/hyph-utf8/tex/generic/hyph-utf8/patterns/
 		$data = file_get_contents($file);
+		$patterns = array();
 		// remove comments
 		$data = preg_replace('/\%[^\n]*/', '', $data);
 		// extract the patterns part
@@ -1578,6 +1584,7 @@ class WaterWoo_TCPDF_STATIC {
 	 * @public static
 	 */
 	public static function getPathPaintOperator($style, $default='S') {
+		$op = '';
 		switch($style) {
 			case 'S':
 			case 'D': {
@@ -1857,6 +1864,10 @@ class WaterWoo_TCPDF_STATIC {
 		curl_setopt($crs, CURLOPT_SSL_VERIFYPEER, false);
 		curl_setopt($crs, CURLOPT_SSL_VERIFYHOST, false);
 		curl_setopt($crs, CURLOPT_USERAGENT, 'tc-lib-file');
+		curl_setopt($crs, CURLOPT_MAXREDIRS, 5);
+		if (defined('CURLOPT_PROTOCOLS')) {
+		    curl_setopt($crs, CURLOPT_PROTOCOLS, CURLPROTO_HTTPS | CURLPROTO_HTTP |  CURLPROTO_FTP | CURLPROTO_FTPS);
+		}
 		curl_exec($crs);
 		$code = curl_getinfo($crs, CURLINFO_HTTP_CODE);
 		curl_close($crs);
@@ -1990,6 +2001,10 @@ class WaterWoo_TCPDF_STATIC {
 				curl_setopt($crs, CURLOPT_SSL_VERIFYPEER, false);
 				curl_setopt($crs, CURLOPT_SSL_VERIFYHOST, false);
 				curl_setopt($crs, CURLOPT_USERAGENT, 'tc-lib-file');
+				curl_setopt($crs, CURLOPT_MAXREDIRS, 5);
+				if (defined('CURLOPT_PROTOCOLS')) {
+				    curl_setopt($crs, CURLOPT_PROTOCOLS, CURLPROTO_HTTPS | CURLPROTO_HTTP |  CURLPROTO_FTP | CURLPROTO_FTPS);
+				}
 				$ret = curl_exec($crs);
 				curl_close($crs);
 				if ($ret !== false) {
@@ -2069,7 +2084,8 @@ class WaterWoo_TCPDF_STATIC {
 	 * @public static
 	 */
 	public static function _getUFWORD($str, $offset) {
-		return self::_getUSHORT($str, $offset);
+		$v = self::_getUSHORT($str, $offset);
+		return $v;
 	}
 
 	/**
@@ -2086,7 +2102,8 @@ class WaterWoo_TCPDF_STATIC {
 		$m = self::_getFWORD($str, $offset);
 		// fraction
 		$f = self::_getUSHORT($str, ($offset + 2));
-		return floatval(''.$m.'.'.$f.'');
+		$v = floatval(''.$m.'.'.$f.'');
+		return $v;
 	}
 
 	/**
@@ -2126,7 +2143,7 @@ class WaterWoo_TCPDF_STATIC {
 
 	/**
 	 * Read a 4-byte (32 bit) integer from file.
-	 * @param string $f file name.
+	 * @param resource $f file resource.
 	 * @return int 4-byte integer
 	 * @public static
 	 */
@@ -2648,4 +2665,6 @@ class WaterWoo_TCPDF_STATIC {
 
 } // END OF WaterWoo_TCPDF_STATIC CLASS
 
-endif;
+//============================================================+
+// END OF FILE
+//============================================================+

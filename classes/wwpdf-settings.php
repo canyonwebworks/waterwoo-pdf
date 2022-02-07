@@ -14,7 +14,6 @@ if ( ! class_exists( 'WWPDF_Settings' ) ) :
 			return self::$instance;
 		}
 
-		var $error = array();
 
 		public function __construct() {
 
@@ -94,9 +93,9 @@ if ( ! class_exists( 'WWPDF_Settings' ) ) :
 				'id' => 'waterwoo-pdf-usage',
 				'title' => __( 'About the Plugin', 'waterwoo-pdf' ),
 				'content' =>
-					'<h3>' . __( 'About WaterWoo PDF', 'waterwoo-pdf' ) . '</h3>' .
-					'<p>' . __( 'Protect your intellectual property! WaterWoo PDF allows WooCommerce site administrators to apply custom watermarks to PDFs upon sale.' ). '</p>' .
-					'<p>' . __( 'WaterWoo PDF is a plugin that adds a watermark to every page of your PDF file(s). The watermark is customizable with font face, font color, font size, placement, and text. Not only that, but since the watermark is added when the download button is clicked (either on the customer\'s order confirmation page or email), the watermark can include customer-specifc data such as the customer\'s first name, last name, and email. Your watermark is highly customizable and manipulatable.', 'waterwoo-pdf' ) . '</p>' .
+					'<h3>' . __( 'About Watermark PDF for WooCommerce', 'waterwoo-pdf' ) . '</h3>' .
+					'<p>' . __( 'Protect your intellectual property! Watermark PDF for WooCommerce allows WooCommerce site administrators to apply custom watermarks to PDFs upon sale.' ). '</p>' .
+					'<p>' . __( 'Watermark PDF for WooCommerce is a plugin that adds a watermark to every page of your PDF file(s). The watermark is customizable with font face, font color, font size, placement, and text. Not only that, but since the watermark is added when the download button is clicked (either on the customer\'s order confirmation page or email), the watermark can include customer-specifc data such as the customer\'s first name, last name, and email. Your watermark is highly customizable and manipulatable.', 'waterwoo-pdf' ) . '</p>' .
 					'<p>' . sprintf( __( '<a href="%s" target="_blank" rel="noopener">Consider upgrading to the Premium version</a> if you need more functionality. The premium version adds the ability to start watermarking on a specified page, password protect and copy/print/modify protect your document, a watermark overlay, HTML input, and UTF-8 and extended Unicode support for many more foreign language characters. Thanks again, and enjoy!', 'waterwoo-pdf' ), 'https://web.little-package.com/downloads/waterwoo-pdf-premium/' ) . '</p>'
 
 				) );
@@ -134,9 +133,9 @@ if ( ! class_exists( 'WWPDF_Settings' ) ) :
 					array(
 						'id'		=> 'wwpdf_options',
 						'type'		=> 'title',
-						'title'		=> __( 'WaterWoo Options', 'waterwoo-pdf' ),
+						'title'		=> __( 'WaterMark PDF Options', 'waterwoo-pdf' ),
 						'desc'		=> __( '<strong>Note:</strong> This free watermarking plugin is rudimentary and may not work on every PDF. Test before going live!', 'waterwoo-pdf' ) .
-									__( '<p><a href="https://web.little-package.com/downloads/waterwoo-pdf-premium/" target="_blank" rel="noopener">Purchase the premium version of WaterWoo PDF</a> if you want: page and position control, extended <strong>shortcodes</strong>, including order number, quantity sold and future dates;<br />', 'waterwoo-pdf' ) .
+									__( '<p><a href="https://web.little-package.com/downloads/waterwoo-pdf-premium/" target="_blank" rel="noopener">Purchase the premium version of Watermark PDF for WooCommerce</a> if you want: page and position control, extended <strong>shortcodes</strong>, including order number, quantity sold and future dates;<br />', 'waterwoo-pdf' ) .
 									__( '<strong>opacity</strong> control; custom <strong>fonts</strong>, extended characters & RTL; <strong>barcodes</strong> and QR codes; <strong>password</strong> protection & permissions control;<br />', 'waterwoo-pdf' ) .
 									__( 'backend <strong>test watermarking</strong> of PDFs on-the-fly; <strong>per-product</strong> and variable product watermarking; <strong>Dropbox & S3</strong> support; compatibility with <strong>Free Downloads WooCommerce</strong>; AND MORE!</p>', 'waterwoo-pdf' ),
 					),
@@ -153,7 +152,7 @@ if ( ! class_exists( 'WWPDF_Settings' ) ) :
 						'id'		=> 'wwpdf_files',
 						'type'		=> 'textarea',
 						'title'		=> __( 'File(s) to watermark', 'waterwoo-pdf' ),
-						'desc'		=> __( 'List file name(s) of PDF(s) to watermark, one per line, e.g., <code>upload.pdf</code> or <code>my_pdf.pdf</code> .<br />If left blank, WaterWoo PDF will watermark all PDFs sold through WooCommerce.', 'waterwoo-pdf' ),
+						'desc'		=> __( 'List file name(s) of PDF(s) to watermark, one per line, e.g., <code>upload.pdf</code> or <code>my_pdf.pdf</code> .<br />If left blank, Watermark PDF for WooCommerce will watermark all PDFs sold through WooCommerce.', 'waterwoo-pdf' ),
 						'default'	=>  '',
 						'css'		=> 'min-height: 82px;',
 					),
@@ -227,7 +226,7 @@ if ( ! class_exists( 'WWPDF_Settings' ) ) :
 						'id'		=> 'wwpdf_delete_checkbox',
 						'type'		=> 'checkbox',
 						'title'		=> __( 'Leave No Trace?', 'waterwoo-pdf' ),
-						'desc'		=> __( 'If this box is checked if/when you uninstall WaterWoo, all your WaterWoo settings will be deleted from your Wordpress database.', 'waterwoo-pdf' ),
+						'desc'		=> __( 'If this box is checked if/when you uninstall WaterMark PDF, all your settings will be deleted from your Wordpress database.', 'waterwoo-pdf' ),
 						'default'	=> 'no',
 					),
 

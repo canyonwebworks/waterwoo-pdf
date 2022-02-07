@@ -45,8 +45,6 @@
  * @version 1.0.004
  * @author Nicola Asuni - info@tecnick.com
  */
-if ( ! class_exists( 'WaterWoo_TCPDF_COLORS' ) ) :
-
 class WaterWoo_TCPDF_COLORS {
 
 	/**
@@ -360,7 +358,6 @@ class WaterWoo_TCPDF_COLORS {
 				$color_code = self::$webcolor[$color];
 			} else {
 				// spot color
-				// https://github.com/tecnickcom/TCPDF/commit/756908329d3ebf553d069f0dfede7a81a8229a4e
 				$returncolor = self::getSpotColor($hcolor, $spotc);
 				if ($returncolor === false) {
 					$returncolor = $defcol;
@@ -460,4 +457,6 @@ class WaterWoo_TCPDF_COLORS {
 
 } // END OF WaterWoo_TCPDF_COLORS CLASS
 
-endif;
+//============================================================+
+// END OF FILE
+//============================================================+

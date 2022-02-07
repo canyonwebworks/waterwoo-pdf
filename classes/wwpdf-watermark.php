@@ -7,7 +7,7 @@ if ( ! class_exists( 'WWPDF_Watermark' ) ) :
 
 	class WWPDF_Watermark {
 	
-		var $size = '';
+		private $size = null;
 
 		public function __construct( $origfile, $newfile, $footer ) {
 
@@ -25,7 +25,7 @@ if ( ! class_exists( 'WWPDF_Watermark' ) ) :
 
 		public function do_watermark() {
 		
-			// If you want to do a whole lot more with TCPDF, get the premium version of WaterWoo!
+			// If you want to do a whole lot more with TCPDF, get the premium version of this plugin (formerly known as WaterWoo)!
 			// This is BASIC, if not CRUDE
 			$pagecount = $this->pdf->setSourceFile( $this->file );
 			$footer_y = sanitize_text_field( get_option( 'wwpdf_footer_y', 260 ) );
