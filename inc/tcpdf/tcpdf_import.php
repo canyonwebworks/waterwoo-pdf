@@ -41,6 +41,7 @@
  * @author Nicola Asuni
  * @version 1.0.001
  */
+if ( ! class_exists( 'SS_TCPDF_IMPORT' ) ) :
 
 // include the TCPDF class
 require_once(dirname(__FILE__).'/tcpdf.php');
@@ -56,7 +57,7 @@ require_once(dirname(__FILE__).'/tcpdf_parser.php');
  * @version 1.0.001
  * @author Nicola Asuni - info@tecnick.com
  */
-class TCPDF_IMPORT extends TCPDF {
+class SS_TCPDF_IMPORT extends SS_TCPDF {
 
 	/**
 	 * Import an existing PDF document
@@ -79,7 +80,7 @@ class TCPDF_IMPORT extends TCPDF {
 		);
 		try {
 			// parse PDF data
-			$pdf = new TCPDF_PARSER($rawdata, $cfg);
+			$pdf = new SS_TCPDF_PARSER($rawdata, $cfg);
 		} catch (Exception $e) {
 			die($e->getMessage());
 		}
@@ -99,6 +100,7 @@ class TCPDF_IMPORT extends TCPDF {
 
 } // END OF CLASS
 
+endif;
 //============================================================+
 // END OF FILE
 //============================================================+

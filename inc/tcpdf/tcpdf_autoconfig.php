@@ -100,12 +100,32 @@ if (!defined('K_PATH_IMAGES')) {
 	}
 }
 
+if (!defined('PDF_HEADER_LOGO')) {
+	$tcpdf_header_logo = '';
+	if (@file_exists(K_PATH_IMAGES.'tcpdf_logo.jpg')) {
+		$tcpdf_header_logo = 'tcpdf_logo.jpg';
+	}
+	define ('PDF_HEADER_LOGO', $tcpdf_header_logo);
+}
+
+if (!defined('PDF_HEADER_LOGO_WIDTH')) {
+	if (!empty($tcpdf_header_logo)) {
+		define ('PDF_HEADER_LOGO_WIDTH', 30);
+	} else {
+		define ('PDF_HEADER_LOGO_WIDTH', 0);
+	}
+}
+
 if (!defined('K_PATH_CACHE')) {
 	$K_PATH_CACHE = ini_get('upload_tmp_dir') ? ini_get('upload_tmp_dir') : sys_get_temp_dir();
 	if (substr($K_PATH_CACHE, -1) != '/') {
 		$K_PATH_CACHE .= '/';
 	}
 	define ('K_PATH_CACHE', $K_PATH_CACHE);
+}
+
+if (!defined('K_BLANK_IMAGE')) {
+	define ('K_BLANK_IMAGE', '_blank.png');
 }
 
 if (!defined('PDF_PAGE_FORMAT')) {
@@ -126,6 +146,14 @@ if (!defined('PDF_AUTHOR')) {
 
 if (!defined('PDF_UNIT')) {
 	define ('PDF_UNIT', 'mm');
+}
+
+if (!defined('PDF_MARGIN_HEADER')) {
+	define ('PDF_MARGIN_HEADER', 5);
+}
+
+if (!defined('PDF_MARGIN_FOOTER')) {
+	define ('PDF_MARGIN_FOOTER', 10);
 }
 
 if (!defined('PDF_MARGIN_TOP')) {
@@ -192,6 +220,14 @@ if (!defined('K_TCPDF_CALLS_IN_HTML')) {
 	define('K_TCPDF_CALLS_IN_HTML', false);
 }
 
+if (!defined('K_TCPDF_THROW_EXCEPTION_ERROR')) {
+	define('K_TCPDF_THROW_EXCEPTION_ERROR', false);
+}
+
 if (!defined('K_TIMEZONE')) {
 	define('K_TIMEZONE', @date_default_timezone_get());
 }
+
+//============================================================+
+// END OF FILE
+//============================================================+

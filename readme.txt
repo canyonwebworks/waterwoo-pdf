@@ -3,9 +3,9 @@ Contributors: littlepackage
 Donate link: https://paypal.me/SagehenStudio
 Tags: watermark, stamp, pdf, ebook, security, property, tcpdf, ip, encrypt, password, woocommerce, woo
 Requires at least: 5.6
-Tested up to: 5.9
-Requires PHP: 7.0
-Stable tag: 3.0
+Tested up to: 6.0
+Requires PHP: 7.2
+Stable tag: 3.1
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -60,7 +60,7 @@ The free version works fine for many people, but [Watermark PDF for WooCommerce 
 = Prerequisites =
 1. WordPress 4.9 or newer
 2. WooCommerce plugin version 4.0 and newer, and PDF products
-3. PHP version 7.0 or newer. The fresher, the better!
+3. PHP version 7.2 or newer. WaterWoo works with PHP 8.1. The fresher, the better!
 4. If you are selling large files or have high sales traffic, you may need to upgrade your hosting account. Do at least set your PHP memory limit high.
 
 = To install plugin =
@@ -83,11 +83,11 @@ The free version works fine for many people, but [Watermark PDF for WooCommerce 
 3. Have you entered your PDF file names correctly in the second field if you've entered any at all?
 4. Is your Y fine-tuning adjustment off the page? Read more below under "Why does the watermark go off the page, create blank pages?".
 5. Check your WP debug logs (link to instructions below). If logs suggest your PDF is "goofy" or "template does not exist," try using Apple Preview application to resave your PDF by clicking "Export as PDF" in the menu. Preview might fix bad PDF syntax and allow your PDF to be processed for watermarking.
-6. It may also help to increase your PHP time limit and memory limits if they are set low.
+6. It may also help to increase your PHP time limit and memory limits if they are set low. Server limitations can stop this plugin from functioning.
 
-Further things to try:
-1. Make sure your WooCommerce downloads work WITHOUT WaterWoo activated, to narrow the problem
-2. Try watermarking a different PDF (one you didn't create). If your PDF has goofy syntax (and many do - correct PDF syntax is "optional" for many PDF creators), WaterWoo will not be able to read it. Look into using WooStamper instead
+= Further things to try: =
+1. Make sure your WooCommerce downloads work WITHOUT WaterWoo activated, to narrow the problem.
+2. Try watermarking a different PDF (one you didn't create). If your PDF has goofy syntax (and many do - correct PDF syntax is "optional" for some PDF builders), WaterWoo will not be able to read it. Look into using WooStamper instead
 3. Read through the [support forum](https://wordpress.org/support/plugin/waterwoo-pdf/). Tip: it has a search feature! Your answer is probably there by now since this plugin has been around a long time.
 
 Please do get in touch with your issues via the Wordpress.org support forum before leaving negative feedback about this free plugin.
@@ -147,6 +147,13 @@ If you do not know how to edit your functions.php file, you can use the Code Sni
 * The TCPDF library has been updated and this *MIGHT* break watermarking for certain PDFs. It is worth testing to make sure.
 
 == Changelog ==
+
+= 3.1 =
+* TCPDF update to version 6.4.4, with PHP 8.1 compatibility
+* Testing with Wordpress 6 and WooCommerce 6.5
+* WooCommerce requires PHP 7.2; therefore, this dependent plugin requires PHP 7.2
+* More careful checks with class_exists() and constant renaming; checks for premium version on activation - to avoid conflicts
+* Dismissible CTA update
 
 = 3.0.1 =
 * More info in FAQ for folks who refuse to read through the support channel.

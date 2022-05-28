@@ -40,18 +40,20 @@
  * @version 1.0.15
  */
 
+if ( ! class_exists( 'SS_TCPDF_PARSER' ) ) :
+
 // include class for decoding filters
 require_once(dirname(__FILE__).'/include/tcpdf_filters.php');
 
 /**
- * @class TCPDF_PARSER
+ * @class TCPDF_Parser
  * This is a PHP class for parsing PDF documents.<br>
  * @package com.tecnick.tcpdf
  * @brief This is a PHP class for parsing PDF documents..
  * @version 1.0.15
  * @author Nicola Asuni - info@tecnick.com
  */
-class TCPDF_PARSER {
+class SS_TCPDF_PARSER {
 
 	/**
 	 * Raw content of the PDF document.
@@ -776,9 +778,9 @@ class TCPDF_PARSER {
 		// decode the stream
 		$remaining_filters = array();
 		foreach ($filters as $filter) {
-			if (in_array($filter, TCPDF_FILTERS::getAvailableFilters())) {
+			if (in_array($filter, SS_TCPDF_FILTERS::getAvailableFilters())) {
 				try {
-					$stream = TCPDF_FILTERS::decodeFilter($filter, $stream);
+					$stream = SS_TCPDF_FILTERS::decodeFilter($filter, $stream);
 				} catch (Exception $e) {
 					$emsg = $e->getMessage();
 					if ((($emsg[0] == '~') AND !$this->cfg['ignore_missing_filter_decoders'])
@@ -802,14 +804,15 @@ class TCPDF_PARSER {
 	 */
 	public function Error($msg) {
 		if ($this->cfg['die_for_errors']) {
-			die('<strong>TCPDF_PARSER ERROR: </strong>'.$msg);
+			die('<strong>SS_TCPDF ERROR: </strong>'.$msg);
 		} else {
-			throw new Exception('TCPDF_PARSER ERROR: '.$msg);
+			throw new Exception('SS_TCPDF ERROR: '.$msg);
 		}
 	}
 
 } // END OF TCPDF_PARSER CLASS
 
+endif;
 //============================================================+
 // END OF FILE
 //============================================================+

@@ -1,6 +1,6 @@
 <?php defined( 'ABSPATH' ) || exit;
 
-if ( ! class_exists( 'WWPDF_File_Handler' ) ) {
+if ( ! class_exists( 'WWPDF_File_Handler' ) ) :
 
 	class WWPDF_File_Handler {
 
@@ -207,4 +207,4 @@ if ( ! class_exists( 'WWPDF_File_Handler' ) ) {
 
 	}
 
-}
+endif;

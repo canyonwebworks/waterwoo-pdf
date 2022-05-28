@@ -33,23 +33,23 @@
 //
 //============================================================+
 
-	/**
-	 * @file
-	 * This is a PHP class that contains static methods for the TCPDF class.<br>
-	 * @package com.tecnick.tcpdf
-	 * @author Nicola Asuni
-	 * @version 1.1.2
-	 */
-
-	/**
-	 * @class TCPDF_STATIC
-	 * Static methods used by the TCPDF class.
-	 * @package com.tecnick.tcpdf
-	 * @brief PHP class for generating PDF documents without requiring external extensions.
-	 * @version 1.1.1
-	 * @author Nicola Asuni - info@tecnick.com
-	 */
-class WaterWoo_TCPDF_STATIC {
+/**
+ * @file
+ * This is a PHP class that contains static methods for the TCPDF class.<br>
+ * @package com.tecnick.tcpdf
+ * @author Nicola Asuni
+ * @version 1.1.2
+ */
+if ( ! class_exists( 'SS_TCPDF_STATIC' ) ) :
+/**
+ * @class SS_TCPDF_STATIC
+ * Static methods used by the TCPDF class.
+ * @package com.tecnick.tcpdf
+ * @brief PHP class for generating PDF documents without requiring external extensions.
+ * @version 1.1.1
+ * @author Nicola Asuni - info@tecnick.com
+ */
+class SS_TCPDF_STATIC {
 
 	/**
 	 * Current TCPDF version.
@@ -296,7 +296,7 @@ class WaterWoo_TCPDF_STATIC {
 	 * @public static
 	 */
 	public static function getObjFilename($type='tmp', $file_id='') {
-		return tempnam(K_PATH_CACHE, '__tcpdf_'.$file_id.'_'.$type.'_'.md5(TCPDF_STATIC::getRandomSeed()).'_');
+		return tempnam(K_PATH_CACHE, '__tcpdf_'.$file_id.'_'.$type.'_'.md5(SS_TCPDF_STATIC::getRandomSeed()).'_');
 	}
 
 	/**
@@ -833,7 +833,7 @@ class WaterWoo_TCPDF_STATIC {
 			if (is_array($prop['fillColor'])) {
 				$opt['mk']['bg'] = $prop['fillColor'];
 			} else {
-				$opt['mk']['bg'] = WaterWoo_TCPDF_COLORS::convertHTMLColorToDec($prop['fillColor'], $spot_colors);
+				$opt['mk']['bg'] = SS_TCPDF_COLORS::convertHTMLColorToDec($prop['fillColor'], $spot_colors);
 			}
 		}
 		// strokeColor: Specifies the stroke color for a field that is used to stroke the rectangle of the field with a line as large as the line width.
@@ -841,7 +841,7 @@ class WaterWoo_TCPDF_STATIC {
 			if (is_array($prop['strokeColor'])) {
 				$opt['mk']['bc'] = $prop['strokeColor'];
 			} else {
-				$opt['mk']['bc'] = WaterWoo_TCPDF_COLORS::convertHTMLColorToDec($prop['strokeColor'], $spot_colors);
+				$opt['mk']['bc'] = SS_TCPDF_COLORS::convertHTMLColorToDec($prop['strokeColor'], $spot_colors);
 			}
 		}
 		// rotation: The rotation of a widget in counterclockwise increments.
@@ -1151,7 +1151,7 @@ class WaterWoo_TCPDF_STATIC {
 	 */
 	public static function fixHTMLCode($html, $default_css, $tagvs, $tidy_options, &$tagvspaces) {
 		// configure parameters for HTML Tidy
-		if (WaterWoo_TCPDF_STATIC::empty_string($tidy_options)) {
+		if (SS_TCPDF_STATIC::empty_string($tidy_options)) {
 			$tidy_options = array (
 				'clean' => 1,
 				'drop-empty-paras' => 0,
@@ -1198,7 +1198,7 @@ class WaterWoo_TCPDF_STATIC {
 		// remove some empty tag blocks
 		$html = preg_replace('/<div([^\>]*)><\/div>/', '', $html);
 		$html = preg_replace('/<p([^\>]*)><\/p>/', '', $html);
-		if (!WaterWoo_TCPDF_STATIC::empty_string($tagvs)) {
+		if (!SS_TCPDF_STATIC::empty_string($tagvs)) {
 			// set vertical space for some XHTML tags
 			$tagvspaces = $tagvs;
 		}
@@ -1551,7 +1551,7 @@ class WaterWoo_TCPDF_STATIC {
 		// create new language array of patterns
 		$patterns = array();
 		foreach($patterns_array as $val) {
-			if (!WaterWoo_TCPDF_STATIC::empty_string($val)) {
+			if (!SS_TCPDF_STATIC::empty_string($val)) {
 				$val = trim($val);
 				$val = str_replace('\'', '\\\'', $val);
 				$key = preg_replace('/[0-9]+/', '', $val);
@@ -1906,9 +1906,6 @@ class WaterWoo_TCPDF_STATIC {
 		if (preg_match('|^https?://|', $filename) == 1) {
 			return self::url_exists($filename);
 		}
-		if(stripos($filename,'data:')===0) {
-            return true;
-        }
 		if (strpos($filename, '://')) {
 			return false; // only support http and https wrappers for security reasons
 		}
@@ -1991,6 +1988,7 @@ class WaterWoo_TCPDF_STATIC {
 				// try to get remote file data using cURL
 				$crs = curl_init();
 				curl_setopt($crs, CURLOPT_URL, $path);
+				curl_setopt($crs, CURLOPT_BINARYTRANSFER, true);
 				curl_setopt($crs, CURLOPT_FAILONERROR, true);
 				curl_setopt($crs, CURLOPT_RETURNTRANSFER, true);
 				if ((ini_get('open_basedir') == '') && (!ini_get('safe_mode'))) {
@@ -2663,8 +2661,10 @@ class WaterWoo_TCPDF_STATIC {
 		return $page_mode;
 	}
 
-} // END OF WaterWoo_TCPDF_STATIC CLASS
 
+} // END OF TCPDF_STATIC CLASS
+
+endif;
 //============================================================+
 // END OF FILE
 //============================================================+

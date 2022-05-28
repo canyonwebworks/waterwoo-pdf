@@ -11,7 +11,7 @@ if ( ! class_exists( 'WWPDF_Watermark' ) ) :
 
 		public function __construct( $origfile, $newfile, $footer ) {
 
-			$this->pdf = new WaterWoo_TCPDI();
+			$this->pdf = new SS_TCPDI();
 			$this->file = $origfile;
 			$this->newfile = $newfile;
 			$this->footer = $footer; 

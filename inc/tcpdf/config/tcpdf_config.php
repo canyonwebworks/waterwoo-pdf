@@ -84,143 +84,144 @@
 /**
  * Generic name for a blank image.
  */
-// define ('K_BLANK_IMAGE', '_blank.png');
+define ('K_BLANK_IMAGE', '_blank.png');
 
 /**
  * Page format.
  */
-if (!defined('PDF_PAGE_FORMAT')) {
-    define ('PDF_PAGE_FORMAT', 'A4');
-}
+define ('PDF_PAGE_FORMAT', 'A4');
+
 /**
  * Page orientation (P=portrait, L=landscape).
  */
-if (!defined('PDF_PAGE_ORIENTATION')) {
-    define ('PDF_PAGE_ORIENTATION', 'P');
-}
-/**
- * Document unit of measure [pt=point, mm=millimeter, cm=centimeter, in=inch].
- */
-if (!defined('PDF_UNIT')) {
-    define ('PDF_UNIT', 'mm');
-}
+define ('PDF_PAGE_ORIENTATION', 'P');
+
 /**
  * Document creator.
  */
-if (!defined('PDF_CREATOR')) {
-    define ('PDF_CREATOR', '');
-} 
+define ('PDF_CREATOR', 'TCPDF');
+
 /**
  * Document author.
  */
-if (!defined('PDF_AUTHOR')) {
-    define ('PDF_AUTHOR', '');
-}
+define ('PDF_AUTHOR', 'TCPDF');
+
+/**
+ * Header title.
+ */
+define ('PDF_HEADER_TITLE', 'TCPDF Example');
+
+/**
+ * Header description string.
+ */
+define ('PDF_HEADER_STRING', "by Nicola Asuni - Tecnick.com\nwww.tcpdf.org");
+
+/**
+ * Document unit of measure [pt=point, mm=millimeter, cm=centimeter, in=inch].
+ */
+define ('PDF_UNIT', 'mm');
+
+/**
+ * Header margin.
+ */
+define ('PDF_MARGIN_HEADER', 5);
+
+/**
+ * Footer margin.
+ */
+define ('PDF_MARGIN_FOOTER', 10);
+
 /**
  * Top margin.
  */
-if (!defined('PDF_MARGIN_TOP')) {
-    define ('PDF_MARGIN_TOP', 27);
-}
+define ('PDF_MARGIN_TOP', 27);
+
 /**
  * Bottom margin.
  */
-if (!defined('PDF_MARGIN_BOTTOM')) {
-    define ('PDF_MARGIN_BOTTOM', 25);
-}
+define ('PDF_MARGIN_BOTTOM', 25);
+
 /**
  * Left margin.
  */
-if (!defined('PDF_MARGIN_LEFT')) {
-    define ('PDF_MARGIN_LEFT', 15);
-}
+define ('PDF_MARGIN_LEFT', 15);
+
 /**
  * Right margin.
  */
-if (!defined('PDF_MARGIN_RIGHT')) {
-    define ('PDF_MARGIN_RIGHT', 15);
-}
+define ('PDF_MARGIN_RIGHT', 15);
+
 /**
  * Default main font name.
  */
-if (!defined('PDF_FONT_NAME_MAIN')) {
-    define ('PDF_FONT_NAME_MAIN', 'helvetica');
-}
+define ('PDF_FONT_NAME_MAIN', 'helvetica');
+
 /**
  * Default main font size.
  */
-if (!defined('PDF_FONT_SIZE_MAIN')) {
-    define ('PDF_FONT_SIZE_MAIN', 10);
-}
+define ('PDF_FONT_SIZE_MAIN', 10);
+
 /**
  * Default data font name.
  */
-if (!defined('PDF_FONT_NAME_DATA')) {
-    define ('PDF_FONT_NAME_DATA', 'helvetica');
-}
+define ('PDF_FONT_NAME_DATA', 'helvetica');
+
 /**
  * Default data font size.
  */
-if (!defined('PDF_FONT_SIZE_DATA')) {
-    define ('PDF_FONT_SIZE_DATA', 8);
-}
+define ('PDF_FONT_SIZE_DATA', 8);
+
 /**
  * Default monospaced font name.
  */
-if (!defined('PDF_FONT_MONOSPACED')) {
-    define ('PDF_FONT_MONOSPACED', 'courier');
-}
+define ('PDF_FONT_MONOSPACED', 'courier');
+
 /**
  * Ratio used to adjust the conversion of pixels to user units.
  */
-if (!defined('PDF_IMAGE_SCALE_RATIO')) {
-    define ('PDF_IMAGE_SCALE_RATIO', 1.25);
-}
+define ('PDF_IMAGE_SCALE_RATIO', 1.25);
+
 /**
  * Magnification factor for titles.
  */
-if (!defined('HEAD_MAGNIFICATION')) {
-    define('HEAD_MAGNIFICATION', 1.1);
-}
+define('HEAD_MAGNIFICATION', 1.1);
+
 /**
  * Height of cell respect font height.
  */
-if (!defined('K_CELL_HEIGHT_RATIO')) {
-    define('K_CELL_HEIGHT_RATIO', 1.25);
-}
+define('K_CELL_HEIGHT_RATIO', 1.25);
+
 /**
  * Title magnification respect main font size.
  */
-if (!defined('K_TITLE_MAGNIFICATION')) {
-    define('K_TITLE_MAGNIFICATION', 1.3);
-}
+define('K_TITLE_MAGNIFICATION', 1.3);
+
 /**
  * Reduction factor for small font.
  */
-if (!defined('K_SMALL_RATIO')) {
-    define('K_SMALL_RATIO', 2/3);
-}
+define('K_SMALL_RATIO', 2/3);
+
 /**
  * Set to true to enable the special procedure used to avoid the overlappind of symbols on Thai language.
  */
-if (!defined('K_THAI_TOPCHARS')) {
-    define('K_THAI_TOPCHARS', false);
-}
+define('K_THAI_TOPCHARS', true);
+
 /**
  * If true allows to call TCPDF methods using HTML syntax
  * IMPORTANT: For security reason, disable this feature if you are printing user HTML content.
  */
-if (!defined('K_TCPDF_CALLS_IN_HTML')) {
-    define('K_TCPDF_CALLS_IN_HTML', false);
-}
+define('K_TCPDF_CALLS_IN_HTML', false);
 
-if (!defined('K_TCPDF_THROW_EXCEPTION_ERROR')) {
-    define ('K_TCPDF_THROW_EXCEPTION_ERROR', TRUE );
-}
+/**
+ * If true and PHP version is greater than 5, then the Error() method throw new exception instead of terminating the execution.
+ */
+define('K_TCPDF_THROW_EXCEPTION_ERROR', false);
 
 /**
  * Default timezone for datetime functions
  */
-if (!defined('K_TIMEZONE')) {
-    define('K_TIMEZONE', 'UTC');
-}
+define('K_TIMEZONE', 'UTC');
+
+//============================================================+
+// END OF FILE
+//============================================================+

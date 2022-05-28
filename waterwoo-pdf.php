@@ -3,12 +3,12 @@
  * Plugin Name: WaterMark PDF for WooCommerce
  * Plugin URI: https://wordpress.org/plugins/waterwoo-pdf/
  * Description: Custom watermark your PDFs upon WooCommerce sale. Formerly known as "WaterWoo"
- * Version: 3.0
+ * Version: 3.1
  * Author: Little Package
  * Author URI: https://web.little-package.com
  * Donate link: https://paypal.me/littlepackage
  * WC requires at least: 4.0
- * WC tested up to: 6.1
+ * WC tested up to: 6.5
  *
  * License: GPLv3 or later
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -17,7 +17,7 @@
  * Domain path: /lang
  *
  * Copyright 2013-2022 Little Package
- *		
+ *
  *		This file is part of Watermark PDF for WooCommerce, a plugin for WordPress. If
  *		it benefits you, please "buy me a coffee"
  *
@@ -45,7 +45,7 @@
  */
 defined( 'ABSPATH' ) || exit;
 
-if ( ! class_exists( 'WaterWooPDF' ) ) {
+if ( ! class_exists( 'WaterWooPDF' ) ) :
 
 	class WaterWooPDF {
 
@@ -71,9 +71,7 @@ if ( ! class_exists( 'WaterWooPDF' ) ) {
 
 			register_activation_hook( __FILE__, array( $this, 'activation_hook' ) );
 
-			// Autoloader
-			require_once WWPDF_PATH . '/autoloader.php';
-			new WWPDF_Autoloader();
+			$this->includes();
 
 			add_action( 'plugins_loaded', array( $this, 'plugins_loaded' ), 1 );
 
@@ -81,41 +79,18 @@ if ( ! class_exists( 'WaterWooPDF' ) ) {
 
 		}
 
-		private function define_constants() {
-
-			if ( ! defined( 'WWPDF_VERSION' ) ) {
-				define( 'WWPDF_VERSION', '3.0' );
-			}
-			if ( ! defined( 'WWPDF_MIN_PHP' ) ) {
-				define( 'WWPDF_MIN_PHP', '7.0' );
-			}
-			if ( ! defined( 'WWPDF_MIN_WP' ) ) {
-				define( 'WWPDF_MIN_WP', '5.6' );
-			}
-			if ( ! defined( 'WWPDF_MIN_WC' ) ) {
-				define( 'WWPDF_MIN_WC', '4.0' );
-			}
-			if ( ! defined( 'WWPDF_BASE_FILE' ) ) {
-				define( 'WWPDF_BASE_FILE', plugin_basename(__FILE__) );
-			}
-			if ( ! defined( 'WWPDF_PATH' ) ) {
-				define( 'WWPDF_PATH', plugin_dir_path( __FILE__ ) );
-			}
-
-		}
-
 		/**
 		 * Cloning is forbidden.
 		 */
 		public function __clone() {
-			_doing_it_wrong( __FUNCTION__, __( 'Cloning is forbidden.', 'woocommerce' ), WWPDF_VERSION );
+			_doing_it_wrong( __FUNCTION__, __( 'Cloning is forbidden.', 'woocommerce' ), WWPDF_FREE_VERSION );
 		}
 
 		/**
 		 * Unserializing instances of this class is forbidden.
 		 */
 		public function __wakeup() {
-			_doing_it_wrong( __FUNCTION__, __( 'Unserializing instances of this class is forbidden.', 'woocommerce' ), WWPDF_VERSION );
+			_doing_it_wrong( __FUNCTION__, __( 'Unserializing instances of this class is forbidden.', 'woocommerce' ), WWPDF_FREE_VERSION );
 		}
 
 		/**
@@ -129,6 +104,36 @@ if ( ! class_exists( 'WaterWooPDF' ) ) {
 			if ( is_plugin_active( 'waterwoo-pdf-premium/waterwoo-pdf-premium.php' ) ) {
 				deactivate_plugins( 'waterwoo-pdf-premium/waterwoo-pdf-premium.php' );
 			}
+
+		}
+
+		private function define_constants() {
+
+			if ( ! defined( 'WWPDF_FREE_VERSION' ) ) {
+				define( 'WWPDF_FREE_VERSION', '3.1' );
+			}
+			if ( ! defined( 'WWPDF_FREE_MIN_PHP' ) ) {
+				define( 'WWPDF_FREE_MIN_PHP', '7.2' );
+			}
+			if ( ! defined( 'WWPDF_FREE_MIN_WP' ) ) {
+				define( 'WWPDF_FREE_MIN_WP', '5.6' );
+			}
+			if ( ! defined( 'WWPDF_FREE_MIN_WC' ) ) {
+				define( 'WWPDF_FREE_MIN_WC', '4.0' );
+			}
+			if ( ! defined( 'WWPDF_PATH' ) ) {
+				define( 'WWPDF_PATH', plugin_dir_path( __FILE__ ) );
+			}
+
+		}
+
+		public function includes() {
+
+			include_once WWPDF_PATH . 'classes/wwpdf-admin-notices.php';
+			include_once WWPDF_PATH . 'classes/wwpdf-compatibility.php';
+			include_once WWPDF_PATH . 'classes/wwpdf-settings.php';
+			include_once WWPDF_PATH . 'classes/wwpdf-file-handler.php';
+			include_once WWPDF_PATH . 'classes/wwpdf-watermark.php';
 
 		}
 
@@ -167,13 +172,13 @@ if ( ! class_exists( 'WaterWooPDF' ) ) {
 		 */
 		public function admin_enqueue_scripts() {
 
-			wp_register_script( 'wwpdf-admin', plugins_url( '/assets/js/wwpdf-admin.min.js', __FILE__ ), array('jquery'), WWPDF_VERSION );
+			wp_register_script( 'wwpdf-admin', plugins_url( '/assets/js/wwpdf-admin.min.js', __FILE__ ), array('jquery'), WWPDF_FREE_VERSION );
 
 		}
 
 	}
 
-}
+endif;
 
 function WWPDF_Free() {
 	return WaterWooPDF::get_instance();

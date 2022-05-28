@@ -79,6 +79,8 @@
  * @version 1.0.010
  */
 
+if ( ! class_exists( 'SS_QRcode' ) ) :
+
 // definitions
 if (!defined('QRCODEDEFS')) {
 
@@ -262,9 +264,7 @@ if (!defined('QRCODEDEFS')) {
  * @author Nicola Asuni
  * @version 1.0.010
  */
-if ( ! class_exists( 'QRcode' ) ) :
-
-class QRcode {
+class SS_QRcode {
 
 	/**
 	 * Barcode array to be returned which is readable by TCPDF.
@@ -1195,7 +1195,7 @@ class QRcode {
 	 */
 	 protected function mask($width, $frame, $level) {
 		$minDemerit = PHP_INT_MAX;
-		// $bestMaskNum = 0;
+		$bestMaskNum = 0;
 		$bestMask = array();
 		$checked_masks = array(0, 1, 2, 3, 4, 5, 6, 7);
 		if (QR_FIND_FROM_RANDOM !== false) {
@@ -1219,7 +1219,7 @@ class QRcode {
 			if ($demerit < $minDemerit) {
 				$minDemerit = $demerit;
 				$bestMask = $mask;
-				// $bestMaskNum = $i;
+				$bestMaskNum = $i;
 			}
 		}
 		return $bestMask;
@@ -1694,7 +1694,7 @@ class QRcode {
 			return -1;
 		}
 		$buf = array($size, $index, $parity);
-		$entry = $this->newInputItem(QR_MODE_ST, 3, $buf);
+		$entry = $this->newInputItem(QR_MODE_ST, 3, buf);
 		array_unshift($items, $entry);
 		return $items;
 	}
@@ -1847,11 +1847,13 @@ class QRcode {
 			case QR_MODE_KJ: {
 				return $this->checkModeKanji($size, $data);
 			}
-            case QR_MODE_ST:
-            case QR_MODE_8B: {
+			case QR_MODE_8B: {
 				return true;
 			}
-            default: {
+			case QR_MODE_ST: {
+				return true;
+			}
+			default: {
 				break;
 			}
 		}
@@ -1951,8 +1953,7 @@ class QRcode {
 				}
 				break;
 			}
-            case QR_MODE_ST:
-            case QR_MODE_8B: {
+			case QR_MODE_8B: {
 				$size = (int)($payload / 8);
 				break;
 			}
@@ -1960,7 +1961,11 @@ class QRcode {
 				$size = (int)(($payload / 13) * 2);
 				break;
 			}
-            default: {
+			case QR_MODE_ST: {
+				$size = (int)($payload / 8);
+				break;
+			}
+			default: {
 				$size = 0;
 				break;
 			}
@@ -2766,7 +2771,7 @@ class QRcode {
 		$rs['gfpoly'] = $gfpoly;
 		// Find prim-th root of 1, used in decoding
 		for ($iprim=1; ($iprim % $prim) != 0; $iprim += $rs['nn']) {
-		    // intentional empty-body loop!
+			; // intentional empty-body loop!
 		}
 		$rs['iprim'] = (int)($iprim / $prim);
 		$rs['genpoly'][0] = 1;
@@ -2798,15 +2803,15 @@ class QRcode {
 	 * @return parity array
 	 */
 	 protected function encode_rs_char($rs, $data, $parity) {
-		// $MM       =& $rs['mm']; // bits per symbol
+		$MM       =& $rs['mm']; // bits per symbol
 		$NN       =& $rs['nn']; // the total number of symbols in a RS block
 		$ALPHA_TO =& $rs['alpha_to']; // the address of an array of NN elements to convert Galois field elements in index (log) form to polynomial form
 		$INDEX_OF =& $rs['index_of']; // the address of an array of NN elements to convert Galois field elements in polynomial form to index (log) form
 		$GENPOLY  =& $rs['genpoly']; // an array of NROOTS+1 elements containing the generator polynomial in index form
 		$NROOTS   =& $rs['nroots']; // the number of roots in the RS code generator polynomial, which is the same as the number of parity symbols in a block
-		// $FCR      =& $rs['fcr']; // first consecutive root, index form
-		// $PRIM     =& $rs['prim']; // primitive element, index form
-		// $IPRIM    =& $rs['iprim']; // prim-th root of 1, index form
+		$FCR      =& $rs['fcr']; // first consecutive root, index form
+		$PRIM     =& $rs['prim']; // primitive element, index form
+		$IPRIM    =& $rs['iprim']; // prim-th root of 1, index form
 		$PAD      =& $rs['pad']; // the number of pad symbols in a block
 		$A0       =& $NN;
 		$parity = array_fill(0, $NROOTS, 0);
@@ -2835,3 +2840,6 @@ class QRcode {
 } // end QRcode class
 
 endif;
+//============================================================+
+// END OF FILE
+//============================================================+

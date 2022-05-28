@@ -40,7 +40,7 @@
  * @author Nicola Asuni
  * @version 1.0.005
  */
-
+if ( ! class_exists( 'SS_TCPDF_IMAGES' ) ) :
 /**
  * @class TCPDF_IMAGES
  * Static image methods used by the TCPDF class.
@@ -49,7 +49,7 @@
  * @version 1.0.005
  * @author Nicola Asuni - info@tecnick.com
  */
-class WaterWoo_TCPDF_IMAGES {
+class SS_TCPDF_IMAGES {
 
 	/**
 	 * Array of hinheritable SVG properties.
@@ -160,7 +160,7 @@ class WaterWoo_TCPDF_IMAGES {
 	 */
 	public static function _parsejpeg($file) {
 		// check if is a local file
-		if (!@WaterWoo_TCPDF_STATIC::file_exists($file)) {
+		if (!@SS_TCPDF_STATIC::file_exists($file)) {
 			return false;
 		}
 		$a = getimagesize($file);
@@ -207,7 +207,7 @@ class WaterWoo_TCPDF_IMAGES {
 		$offset = 0;
 		while (($pos = strpos($data, "ICC_PROFILE\0", $offset)) !== false) {
 			// get ICC sequence length
-			$length = (WaterWoo_TCPDF_STATIC::_getUSHORT($data, ($pos - 2)) - 16);
+			$length = (SS_TCPDF_STATIC::_getUSHORT($data, ($pos - 2)) - 16);
 			// marker sequence number
 			$msn = max(1, ord($data[($pos + 12)]));
 			// number of markers (total of APP2 used)
@@ -254,8 +254,8 @@ class WaterWoo_TCPDF_IMAGES {
 			//Incorrect PNG file
 			return false;
 		}
-		$w = WaterWoo_TCPDF_STATIC::_freadint($f);
-		$h = WaterWoo_TCPDF_STATIC::_freadint($f);
+		$w = SS_TCPDF_STATIC::_freadint($f);
+		$h = SS_TCPDF_STATIC::_freadint($f);
 		$bpc = ord(fread($f, 1));
 		$ct = ord(fread($f, 1));
 		if ($ct == 0) {
@@ -292,16 +292,16 @@ class WaterWoo_TCPDF_IMAGES {
 		$trns = '';
 		$data = '';
 		$icc = false;
-		$n = WaterWoo_TCPDF_STATIC::_freadint($f);
+		$n = SS_TCPDF_STATIC::_freadint($f);
 		do {
 			$type = fread($f, 4);
 			if ($type == 'PLTE') {
 				// read palette
-				$pal = WaterWoo_TCPDF_STATIC::rfread($f, $n);
+				$pal = SS_TCPDF_STATIC::rfread($f, $n);
 				fread($f, 4);
 			} elseif ($type == 'tRNS') {
 				// read transparency info
-				$t = WaterWoo_TCPDF_STATIC::rfread($f, $n);
+				$t = SS_TCPDF_STATIC::rfread($f, $n);
 				if ($ct == 0) { // DeviceGray
 					$trns = array(ord($t[1]));
 				} elseif ($ct == 2) { // DeviceRGB
@@ -317,7 +317,7 @@ class WaterWoo_TCPDF_IMAGES {
 				fread($f, 4);
 			} elseif ($type == 'IDAT') {
 				// read image data block
-				$data .= WaterWoo_TCPDF_STATIC::rfread($f, $n);
+				$data .= SS_TCPDF_STATIC::rfread($f, $n);
 				fread($f, 4);
 			} elseif ($type == 'iCCP') {
 				// skip profile name
@@ -332,16 +332,16 @@ class WaterWoo_TCPDF_IMAGES {
 					return false;
 				}
 				// read ICC Color Profile
-				$icc = WaterWoo_TCPDF_STATIC::rfread($f, ($n - $len - 2));
+				$icc = SS_TCPDF_STATIC::rfread($f, ($n - $len - 2));
 				// decompress profile
 				$icc = gzuncompress($icc);
 				fread($f, 4);
 			} elseif ($type == 'IEND') {
 				break;
 			} else {
-				WaterWoo_TCPDF_STATIC::rfread($f, $n + 4);
+				SS_TCPDF_STATIC::rfread($f, $n + 4);
 			}
-			$n = WaterWoo_TCPDF_STATIC::_freadint($f);
+			$n = SS_TCPDF_STATIC::_freadint($f);
 		} while ($n);
 		if (($colspace == 'Indexed') AND (empty($pal))) {
 			// Missing palette
@@ -353,7 +353,7 @@ class WaterWoo_TCPDF_IMAGES {
 	}
 
 } // END OF TCPDF_IMAGES CLASS
-
+endif;
 //============================================================+
 // END OF FILE
 //============================================================+

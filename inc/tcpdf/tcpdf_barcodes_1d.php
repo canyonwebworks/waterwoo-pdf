@@ -40,6 +40,7 @@
  * @version 1.0.027
  */
 
+if ( ! class_exists( 'SS_TCPDFBarcode' ) ) :
 /**
  * @class TCPDFBarcode
  * PHP class to creates array representations for common 1D barcodes to be used with TCPDF (http://www.tcpdf.org).<br>
@@ -47,10 +48,7 @@
  * @version 1.0.027
  * @author Nicola Asuni
  */
-
-if ( ! class_exists( 'WaterWoo_TCPDFBarcode' ) ) :
-
-class WaterWoo_TCPDFBarcode {
+class SS_TCPDFBarcode {
 
 	/**
 	 * Array representation of barcode.
@@ -1495,7 +1493,7 @@ class WaterWoo_TCPDFBarcode {
 		$w = 0;
 		for ($i = 0; $i < $clen; ++$i) {
 			$w += 1;
-            if (($i == ($clen - 1)) OR (($i < ($clen - 1)) AND ($seq[$i] != $seq[$i+1]))) {
+			if (($i == ($clen - 1)) OR (($i < ($clen - 1)) AND ($seq[$i] != $seq[$i+1]))) {
 				if ($seq[$i] == '1') {
 					$t = true; // bar
 				} else {
@@ -2354,8 +2352,8 @@ class WaterWoo_TCPDFBarcode {
 	}
 
 } // end of class
+
+endif;
 //============================================================+
 // END OF FILE
 //============================================================+
-
-endif;

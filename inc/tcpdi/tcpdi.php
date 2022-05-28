@@ -3,13 +3,13 @@
 //  TCPDI - Version 1.1
 //  Based on FPDI - Version 1.4.4
 //
-//    Copyright 2004-2013 Setasign - Jan Slabon
+//	Copyright 2004-2013 Setasign - Jan Slabon
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
 //  You may obtain a copy of the License at
 //
-//      http://www.apache.org/licenses/LICENSE-2.0
+//	  http://www.apache.org/licenses/LICENSE-2.0
 //
 //  Unless required by applicable law or agreed to in writing, software
 //  distributed under the License is distributed on an "AS IS" BASIS,
@@ -19,15 +19,15 @@
 //
 defined( 'ABSPATH' ) || exit;
 
+if ( ! class_exists( 'SS_TCPDI' ) ) :
+
 // Dummy shim to allow unmodified use of fpdf_tpl
-class WaterWoo_FPDF extends WaterWoo_TCPDF {}
+//	class SS_FPDF extends SS_TCPDF_Child {}
 
-require_once('fpdf_tpl.php');
-require_once('tcpdi_parser.php');
+	require_once('fpdf_tpl.php');
+	require_once('tcpdi_parser.php');
 
-if ( ! class_exists( 'WaterWoo_TCPDI' ) ) :
-
-	class WaterWoo_TCPDI extends WaterWoo_FPDF_TPL {
+	class SS_TCPDI extends SS_FPDF_TPL {
 		/**
 		 * Actual filename
 		 * @var string
@@ -90,7 +90,7 @@ if ( ! class_exists( 'WaterWoo_TCPDI' ) ) :
 		 */
 		function setSourceFile( $filename ) {
 			$this->current_filename = $filename;
-
+			
 			if (!isset($this->parsers[$filename])) {
 				$this->parsers[$filename] = $this->_getPdfParser($filename);
 			}
@@ -104,13 +104,21 @@ if ( ! class_exists( 'WaterWoo_TCPDI' ) ) :
 		 * Returns a PDF parser object
 		 *
 		 * @param string $filename
-		 * @return WaterWoo_tcpdi_parser
+		 * @return fpdi_pdf_parser
 		 */
 		function _getPdfParser( $filename ) {
-
-			$data = file_get_contents( $filename );
-			return new WaterWoo_tcpdi_parser( $data, $filename );
-
+			
+			try {
+				$data = file_get_contents( $filename );
+				if ( $data === false ) {
+					// Try once more
+					$data = file_get_contents( $filename );
+				}
+			} catch (Exception $e) {
+				$this->Error('Unable to get PDF file contents.');
+			}
+			return new ss_tcpdi_parser( $data, $filename );
+			
 		}
 
 		/**
@@ -125,8 +133,7 @@ if ( ! class_exists( 'WaterWoo_TCPDI' ) ) :
 		/**
 		 * Set the PDF version
 		 *
-		 * @param string $version
-		 * @return void
+		 * @return string
 		 */
 		function setPDFVersion($version = '1.3') {
 			$this->PDFVersion = $version;
@@ -135,10 +142,8 @@ if ( ! class_exists( 'WaterWoo_TCPDI' ) ) :
 		/**
 		 * Import a page
 		 *
-		 * @param int $pageno Page number
-		 * @param string $boxName
-		 * @return void|int Index of imported page - to use with fpdf_tpl::useTemplate()
-		 * @throws Exception
+		 * @param int $pageno pagenumber
+		 * @return int Index of imported page - to use with fpdf_tpl::useTemplate()
 		 */
 		function importPage($pageno, $boxName = '/CropBox') {
 
@@ -154,7 +159,7 @@ if ( ! class_exists( 'WaterWoo_TCPDI' ) ) :
 				return $this->_importedPages[$pageKey];
 			}
 
-			$parser =& $this->parsers[$fn];
+			$parser =& $this->parsers[$fn];		  
 			$parser->setPageno($pageno);
 
 			if (!in_array($boxName, $parser->availableBoxes)) {
@@ -169,8 +174,8 @@ if ( ! class_exists( 'WaterWoo_TCPDI' ) ) :
 			 * BleedBox: Default -> CropBox
 			 * TrimBox: Default -> CropBox
 			 * ArtBox: Default -> CropBox
-			 */
-
+			 */		 
+		 
 			if (!isset($pageboxes[$boxName]) && ($boxName == '/BleedBox' || $boxName == '/TrimBox' || $boxName == '/ArtBox')) {
 				$boxName = '/CropBox';
 			}
@@ -192,7 +197,7 @@ if ( ! class_exists( 'WaterWoo_TCPDI' ) ) :
 			$tpl['resources'] = $parser->getPageResources();
 			$tpl['buffer'] = $parser->getContent();
 			$tpl['box'] = $box;
-
+		
 			// To build an array that can be used by PDF_TPL::useTemplate()
 			$this->tpls[$this->tpl] = array_merge($this->tpls[$this->tpl], $box);
 
@@ -220,17 +225,10 @@ if ( ! class_exists( 'WaterWoo_TCPDI' ) ) :
 			return $this->tpl;
 		}
 
-		/**
-		 * Get PDF Meta Data
-		 *
-		 * @return string|array
-		 */
 		public function getMetaData() {
-
+		
 			$metadata = $this->current_parser->_getMetaData();
-			if (!is_array($metadata)) {
-				return '';
-			}
+			if (!is_array($metadata)) return;
 			foreach ( $metadata[1][1] as $key => $value ) {
 
 				if ( stripos( $key, 'Author' ) !== FALSE ) {
@@ -238,10 +236,10 @@ if ( ! class_exists( 'WaterWoo_TCPDI' ) ) :
 				}
 				if ( stripos( $key, 'Creator' ) !== FALSE ) {
 					$meta_array['creator'] = $value[1];
-				}
+				}				
 				if ( stripos( $key, 'Keywords' ) !== FALSE ) {
 					$meta_array['keywords'] = $value[1];
-				}
+				}  
 				if ( stripos( $key, 'Subject' ) !== FALSE ) {
 					$meta_array['subject'] = $value[1];
 				}
@@ -254,58 +252,58 @@ if ( ! class_exists( 'WaterWoo_TCPDI' ) ) :
 				if ( stripos( $key, 'Producer' ) !== FALSE && apply_filters( 'wwpdf_overwrite_producer', FALSE ) ) {
 					$meta_array['producer'] = $value[1];
 				}
-/*                
+/*				
 				if ( stripos( $key, 'ModDate' ) !== FALSE ) {
 					$meta_array['moddate'] = $value[1];
 				}
-*/                
+*/				
 			}
-
+			
 			if ( ! empty( $meta_array ) ) {
 				return $meta_array;
 			}
-
+			
 			return '';
-
+		
 		}
 
 		function setPageFormatFromTemplatePage($pageno, $orientation, $size_array) {
 			$fn = $this->current_filename;
 			$parser =& $this->parsers[$fn];
 			$parser->setPageno($pageno);
-			$boxes = $parser->getPageBoxes($pageno, $this->k);
+			$boxes = $parser->getPageBoxes($pageno, $this->k); 
 
 			// added WWPDF 2.7 to cover scrappy pages with outrageous box sizes
 			if ( array_key_exists( '/CropBox', $boxes ) &&
 			array_key_exists( '/MediaBox', $boxes ) &&
-			( $boxes['/MediaBox']['x'] == '0' && $boxes['/MediaBox']['y'] == '0' ) &&
-			( $boxes['/CropBox']['x'] != '0' || $boxes['/CropBox']['y'] != '0' ) ) {
+			( $boxes['/MediaBox']['x'] == '0' && $boxes['/MediaBox']['y'] == '0' ) && 
+			( $boxes['/CropBox']['x'] != '0' || $boxes['/CropBox']['y'] != '0' ) ) { 
 
 				foreach ( $boxes as $name => &$box ) {
 					if ( array_key_exists( $name, $boxes ) ) {
-						if ( $box['x'] != '0' || $box['y'] != '0' ) {
-							$box['x'] = $box['y'] = $box['llx'] = $box['lly'] = 0;
+						if ( $box['x'] != '0' || $box['y'] != '0' ) { 
+							$box['x'] = $box['y'] = $box['llx'] = $box['lly'] = 0; 
 							$box['urx'] = $box['w'];
 							$box['ury'] = $box['h'];
-						}
-					}
+						}   
+					}  
 					if ( $box['w'] > $size_array[0] ) {
 						$box['w'] = $box['urx'] = $size_array[0];
 					}
 					if ( $box['h'] > $size_array[1] ) {
 						$box['h'] = $box['ury'] = $size_array[1];
-					}
+					}									
 				}
-				unset( $box );
+				unset( $box );	  
 			}
-
+					   
 			foreach ($boxes as $name => $box) {
 				if ($name[0] == '/') {
 					$boxes[substr($name, 1)] = $box;
 					unset($boxes[$name]);
 				}
-			}
-
+			}  
+		   
 			$this->setPageFormat($boxes, $orientation);
 		}
 
@@ -320,10 +318,10 @@ if ( ! class_exists( 'WaterWoo_TCPDI' ) ) :
 				$this->_numTOCpages++;
 			}
 		}
-
+	
 		/* Wrapper for AddTOC() which tracks TOC position to offset annotations later */
 		function AddTOC($page='', $numbersfont='', $filler='.', $toc_name='TOC', $style='', $color=array(0,0,0)) {
-			if (!WaterWoo_TCPDF_STATIC::empty_string($page)) {
+			if (!SS_TCPDF_STATIC::empty_string($page)) {
 				$this->_TOCpagenum = $page;
 			} else {
 				$this->_TOCpagenum = $this->page;
@@ -331,18 +329,18 @@ if ( ! class_exists( 'WaterWoo_TCPDI' ) ) :
 
 			parent::AddTOC($page, $numbersfont, $filler, $toc_name, $style, $color);
 		}
-
+	
 		function importAnnotations($pageno) {
 			$fn = $this->current_filename;
 			$parser =& $this->parsers[$fn];
 			$parser->setPageno($pageno);
 			$annots = $parser->getPageAnnotations();
-
+			
 			if ( is_array($annots) && $annots[0] == PDF_TYPE_OBJECT // (9) We got an object
 				&& is_array($annots[1]) && $annots[1][0] == PDF_TYPE_ARRAY // It's an array (6)
 				&& is_array($annots[1][1]) && count($annots[1][1]) > 1  // It's not empty - there are annotations for this page
 			) {
-
+		
 				if ( ! isset( $this->_obj_stack[$fn] ) ) {
 					$this->_obj_stack[$fn] = array();
 				}
@@ -366,9 +364,9 @@ if ( ! class_exists( 'WaterWoo_TCPDI' ) ) :
 				}
 				unset( $annot );
 			}
-
+	
 		}
-
+			 
 		function importAnnotation($annot) {
 			$fn = $this->current_filename;
 			$old_id = $annot[1];
@@ -499,8 +497,6 @@ if ( ! class_exists( 'WaterWoo_TCPDI' ) ) :
 
 		/**
 		 * Private Method that writes the form xobjects
-		 *
-		 * @return void
 		 */
 		function _putformxobjects() {
 			$filter=($this->compress) ? '/Filter /FlateDecode ' : '';
@@ -587,9 +583,8 @@ if ( ! class_exists( 'WaterWoo_TCPDI' ) ) :
 								$this->_out('/I' . $image['i'] . ' ' . $image['n'] . ' 0 R');
 						}
 						if (isset($this->_res['tpl'][$tplidx]['tpls']) && count($this->_res['tpl'][$tplidx]['tpls'])) {
-							foreach($this->_res['tpl'][$tplidx]['tpls'] as $i => $tpll) {
-								$this->_out($this->tplprefix . $i . ' ' . $tpll['n'] . ' 0 R');
-							}
+							foreach($this->_res['tpl'][$tplidx]['tpls'] as $i => $tpl)
+								$this->_out($this->tplprefix . $i . ' ' . $tpl['n'] . ' 0 R');
 						}
 						$this->_out('>>');
 					}
@@ -614,10 +609,6 @@ if ( ! class_exists( 'WaterWoo_TCPDI' ) ) :
 
 		/**
 		 * Rewritten to handle existing own defined objects
-		 *
-		 * @param boolean $obj_id
-		 * @param boolean $onlynewobj
-		 * @return int
 		 */
 		function _newobj($obj_id = false, $onlynewobj = false) {
 			if (!$obj_id) {
@@ -639,14 +630,14 @@ if ( ! class_exists( 'WaterWoo_TCPDI' ) ) :
 		 * Needed to rebuild the source document
 		 *
 		 * @param mixed $value A PDF-Value. Structure of values see cases in this method
-		 */
+		 */	  
 		function pdf_write_value(&$value) {
 			switch ($value[0]) {
 				case PDF_TYPE_STRING:
 					if ($this->encrypted) {
 						$value[1] = $this->_unescape($value[1]);
 						$value[1] = $this->_encrypt_data($this->_current_obj_id, $value[1]);
-						$value[1] = WaterWoo_TCPDF_STATIC::_escape($value[1]);
+						$value[1] = SS_TCPDF_STATIC::_escape($value[1]);
 					}
 					break;
 
@@ -762,8 +753,6 @@ if ( ! class_exists( 'WaterWoo_TCPDI' ) ) :
 
 		/**
 		 * Modified so not each call will add a newline to the output.
-		 *
-		 * @param bool|null|string $s
 		 */
 		function _straightOut($s) {
 			if ($this->state == 2) {

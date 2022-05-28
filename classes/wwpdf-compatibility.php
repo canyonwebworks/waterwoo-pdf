@@ -4,7 +4,7 @@
 if ( ! class_exists( 'WWPDF_Compatibility' ) ) :
 
 	class WWPDF_Compatibility {
-	
+
 		private static $instance = false;
 
 		public static function get_instance() {
@@ -46,15 +46,15 @@ if ( ! class_exists( 'WWPDF_Compatibility' ) ) :
 				return FALSE;
 			}
 			// Check PHP version
-			if ( ! version_compare( PHP_VERSION, WWPDF_MIN_PHP, '>=' ) ) {
+			if ( ! version_compare( PHP_VERSION, WWPDF_FREE_MIN_PHP, '>=' ) ) {
 				$this->error[] = 3;
 			}
 			// Check WordPress version
-			if ( ! version_compare( get_bloginfo( 'version' ), WWPDF_MIN_WP, '>=' ) ) {
+			if ( ! version_compare( get_bloginfo( 'version' ), WWPDF_FREE_MIN_WP, '>=' ) ) {
 				$this->error[] = 4;
 			}
 			// Check WooCommerce version
-			else if ( ! version_compare( WC_VERSION, WWPDF_MIN_WC, '>=' ) ) {
+			else if ( ! version_compare( WC_VERSION, WWPDF_FREE_MIN_WC, '>=' ) ) {
 				$this->error[] = 5;
 			}
 			return TRUE;
@@ -76,13 +76,13 @@ if ( ! class_exists( 'WWPDF_Compatibility' ) ) :
 						$message = __('The <strong>WC_Download_Handler</strong> WooCommerce class is missing! It is required for the Watermark PDF plugin to work. Perhaps your WooCommerce installation is corrupted?', 'waterwoo-pdf' );
 						break;
 					case 3: // PHP version
-						$message = sprintf( __('<strong>Watermark PDF for WooCommerce</strong> supports PHP %s or later. Please update PHP on your server for better results.', 'waterwoo-pdf' ), WWPDF_MIN_PHP );
+						$message = sprintf( __('<strong>Watermark PDF for WooCommerce</strong> supports PHP %s or later. Please update PHP on your server for better results.', 'waterwoo-pdf' ), WWPDF_FREE_MIN_PHP );
 						break;
 					case 4: // WP version
-						$message = sprintf( __('<strong>Watermark PDF for WooCommerce</strong> supports WordPress version %s or later. Please update WordPress to use this plugin.', 'waterwoo-pdf' ), WWPDF_MIN_WP );
+						$message = sprintf( __('<strong>Watermark PDF for WooCommerce</strong> supports WordPress version %s or later. Please update WordPress to use this plugin.', 'waterwoo-pdf' ), WWPDF_FREE_MIN_WP );
 						break;
 					case 5: // WC version
-						$message = sprintf( __('Sorry, <strong>Watermark PDF for WooCommerce</strong> supports WooCommerce version %s or newer, for security reasons.', 'waterwoo-pdf' ), WWPDF_MIN_WC );
+						$message = sprintf( __('Sorry, <strong>Watermark PDF for WooCommerce</strong> supports WooCommerce version %s or newer, for security reasons.', 'waterwoo-pdf' ), WWPDF_FREE_MIN_WC );
 						break;
 				}
 				if ( isset( $message ) ) {

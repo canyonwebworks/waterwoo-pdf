@@ -37,15 +37,15 @@
  * @author Nicola Asuni
  * @package com.tecnick.tcpdf
  */
-
+if ( ! class_exists( 'SS_TCPDF_COLORS' ) ) :
 /**
- * @class WaterWoo_TCPDF_COLORS
+ * @class TCPDF_COLORS
  * PHP color class for TCPDF
  * @package com.tecnick.tcpdf
  * @version 1.0.004
  * @author Nicola Asuni - info@tecnick.com
  */
-class WaterWoo_TCPDF_COLORS {
+class SS_TCPDF_COLORS {
 
 	/**
 	 * Array of WEB safe colors
@@ -455,8 +455,9 @@ class WaterWoo_TCPDF_COLORS {
 	}
 
 
-} // END OF WaterWoo_TCPDF_COLORS CLASS
+} // END OF TCPDF_COLORS CLASS
 
+endif;
 //============================================================+
 // END OF FILE
 //============================================================+

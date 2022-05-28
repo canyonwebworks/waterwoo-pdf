@@ -10,7 +10,7 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) { // If uninstall not called from Word
  *
  * @since 2.2
  */
-class WWPDF_Uninstall {
+class WWPDF_Free_Uninstall {
 
 	/**
 	 * Constructor: manages uninstall for multisite
@@ -66,4 +66,4 @@ class WWPDF_Uninstall {
 	}
 
 }
-new WWPDF_Uninstall();
+new WWPDF_Free_Uninstall();

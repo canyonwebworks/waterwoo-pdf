@@ -43,6 +43,8 @@
 * @version 1.0.008
 */
 
+if ( ! class_exists( 'SS_Datamatrix' ) ) :
+
 // custom definitions
 if (!defined('DATAMATRIXDEFS')) {
 
@@ -107,9 +109,7 @@ define('ENC_ASCII_NUM', 7);
 * @author Nicola Asuni
 * @version 1.0.004
 */
-if ( ! class_exists( 'Datamatrix' ) ) :
-
-class Datamatrix {
+class SS_Datamatrix {
 
 	/**
 	 * Barcode array to be returned which is readable by TCPDF.
@@ -1175,3 +1175,6 @@ class Datamatrix {
 } // end DataMatrix class
 
 endif;
+//============================================================+
+// END OF FILE
+//============================================================+

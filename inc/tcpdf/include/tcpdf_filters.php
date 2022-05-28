@@ -39,7 +39,7 @@
  * @author Nicola Asuni
  * @version 1.0.001
  */
-
+if ( ! class_exists('SS_TCPDF_FILTERS' ) ) :
 /**
  * @class TCPDF_FILTERS
  * This is a PHP class for decoding common PDF filters (PDF 32000-2008 - 7.4 Filters).<br>
@@ -48,7 +48,7 @@
  * @version 1.0.001
  * @author Nicola Asuni - info@tecnick.com
  */
-class WaterWoo_TCPDF_FILTERS {
+class SS_TCPDF_FILTERS {
 
 	/**
 	 * Define a list of available filter decoders.
@@ -215,7 +215,7 @@ class WaterWoo_TCPDF_FILTERS {
 		$group_pos = 0;
 		$tuple = 0;
 		$pow85 = array((85*85*85*85), (85*85*85), (85*85), 85, 1);
-		// $last_pos = ($data_length - 1);
+		$last_pos = ($data_length - 1);
 		// for each byte
 		for ($i = 0; $i < $data_length; ++$i) {
 			// get char value
@@ -344,18 +344,6 @@ class WaterWoo_TCPDF_FILTERS {
 		return $decoded;
 	}
 
-    /**
-     * Checks whether the zlib extension is loaded.
-     *
-     * Used for testing purpose.
-     *
-     * @return boolean
-     * @internal
-     */
-    public static function extensionLoaded() {
-        return extension_loaded('zlib');
-    }
-    
 	/**
 	 * FlateDecode
 	 * Decompresses data encoded using the zlib/deflate compression method, reproducing the original text or binary data.
@@ -365,37 +353,12 @@ class WaterWoo_TCPDF_FILTERS {
 	 * @public static
 	 */
 	public static function decodeFilterFlateDecode($data) {
-	
-        if (self::extensionLoaded()) {
-            $oData = $data;
-            // initialize string to return
-            // $decoded = @gzuncompress($data);
-            $data = @((strlen($data) > 0) ? gzuncompress($data) : '');
-            if ($data === false) {
-                // Try this fallback
-                $tries = 1;
-                while ($tries < 10 && ($data === false || strlen($data) < (strlen($oData) - $tries - 1))) {
-                    $data = @(gzinflate(substr($oData, $tries)));
-                    $tries++;
-                }
-                if ($data === false) {
-                    // let's try if the checksum is CRC32
-                    $fh = fopen('php://temp', 'w+b');
-                    fwrite($fh, "\x1f\x8b\x08\x00\x00\x00\x00\x00" . $oData);
-                    stream_filter_append($fh, 'zlib.inflate', STREAM_FILTER_READ, ['window' => 30]);
-                    fseek($fh, 0);
-                    $data = stream_get_contents($fh);
-                    fclose($fh);
-                }
-                if (!$data) {
-                    self::Error('decodeFilterFlateDecode: Error while decompressing stream.');
-                }
-            }
-        } else {
-            self::Error('To handle FlateDecode filter, enable zlib support in PHP.');
-        }
-        return $data;
-
+		// initialize string to return
+		$decoded = @gzuncompress($data);
+		if ($decoded === false) {
+			self::Error('decodeFilterFlateDecode: invalid code');
+		}
+		return $decoded;
 	}
 
 	/**
@@ -444,6 +407,7 @@ class WaterWoo_TCPDF_FILTERS {
 	 */
 	public static function decodeFilterCCITTFaxDecode($data) {
 		self::Error('~decodeFilterCCITTFaxDecode: this method has not been yet implemented');
+		//return $data;
 	}
 
 	/**
@@ -456,6 +420,7 @@ class WaterWoo_TCPDF_FILTERS {
 	 */
 	public static function decodeFilterJBIG2Decode($data) {
 		self::Error('~decodeFilterJBIG2Decode: this method has not been yet implemented');
+		//return $data;
 	}
 
 	/**
@@ -468,6 +433,7 @@ class WaterWoo_TCPDF_FILTERS {
 	 */
 	public static function decodeFilterDCTDecode($data) {
 		self::Error('~decodeFilterDCTDecode: this method has not been yet implemented');
+		//return $data;
 	}
 
 	/**
@@ -480,6 +446,7 @@ class WaterWoo_TCPDF_FILTERS {
 	 */
 	public static function decodeFilterJPXDecode($data) {
 		self::Error('~decodeFilterJPXDecode: this method has not been yet implemented');
+		//return $data;
 	}
 
 	/**
@@ -492,6 +459,7 @@ class WaterWoo_TCPDF_FILTERS {
 	 */
 	public static function decodeFilterCrypt($data) {
 		self::Error('~decodeFilterCrypt: this method has not been yet implemented');
+		//return $data;
 	}
 
 	// --- END FILTERS SECTION -------------------------------------------------
@@ -503,11 +471,12 @@ class WaterWoo_TCPDF_FILTERS {
 	 * @public static
 	 */
 	public static function Error($msg) {
-		throw new Exception( 'WaterWoo (TCPDF_FILTERS) ERROR: ' . $msg );
+		throw new Exception('SS_TCPDF ERROR: '.$msg);
 	}
 
 } // END OF TCPDF_FILTERS CLASS
 
+endif;
 //============================================================+
 // END OF FILE
 //============================================================+
