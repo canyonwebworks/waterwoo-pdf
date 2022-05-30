@@ -5,7 +5,7 @@ Tags: watermark, stamp, pdf, ebook, security, property, tcpdf, ip, encrypt, pass
 Requires at least: 5.6
 Tested up to: 6.0
 Requires PHP: 7.2
-Stable tag: 3.1
+Stable tag: 3.1.1
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -147,6 +147,9 @@ If you do not know how to edit your functions.php file, you can use the Code Sni
 * The TCPDF library has been updated and this *MIGHT* break watermarking for certain PDFs. It is worth testing to make sure.
 
 == Changelog ==
+
+= 3.1.1 =
+* Tweak - set TCPDF variables print_header and print_footer to false
 
 = 3.1 =
 * TCPDF update to version 6.4.4, with PHP 8.1 compatibility

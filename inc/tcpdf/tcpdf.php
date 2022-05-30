@@ -652,13 +652,13 @@ class SS_TCPDF {
 	 * Boolean flag to print/hide page header.
 	 * @protected
 	 */
-	protected $print_header = true;
+	protected $print_header = false;
 
 	/**
 	 * Boolean flag to print/hide page footer.
 	 * @protected
 	 */
-	protected $print_footer = true;
+	protected $print_footer = false;
 
 	/**
 	 * Header image logo.
