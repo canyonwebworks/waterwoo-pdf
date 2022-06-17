@@ -3,12 +3,12 @@
  * Plugin Name: WaterMark PDF for WooCommerce
  * Plugin URI: https://wordpress.org/plugins/waterwoo-pdf/
  * Description: Custom watermark your PDFs upon WooCommerce sale. Formerly known as "WaterWoo"
- * Version: 3.1.1
+ * Version: 3.1.2
  * Author: Sagehen Studio
  * Author URI: https://web.little-package.com
  * Donate link: https://paypal.me/littlepackage
  * WC requires at least: 4.0
- * WC tested up to: 6.5
+ * WC tested up to: 6.6
  *
  * License: GPLv3 or later
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -18,29 +18,29 @@
  *
  * Copyright 2013-2022 Little Package
  *
- *		This file is part of Watermark PDF for WooCommerce, a plugin for WordPress. If
- *		it benefits you, please "buy me a coffee"
+ *      This file is part of Watermark PDF for WooCommerce, a plugin for WordPress. If
+ *      it benefits you, please "buy me a coffee"
  *
- *		https://paypal.me/littlepackage   or/and
+ *      https://paypal.me/littlepackage   or/and
  *
- *		leave a nice review at:
+ *      leave a nice review at:
  *
- *		https://wordpress.org/support/view/plugin-reviews/waterwoo-pdf?filter=5
+ *      https://wordpress.org/support/view/plugin-reviews/waterwoo-pdf?filter=5
  *
- *		Thank you.
+ *      Thank you.
  *
- *		WaterMark PDF for WooCommerce is free software: You can redistribute
- *		it and/or modify it under the terms of the GNU General Public
- *		License as published by the Free Software Foundation, either
- *		version 3 of the License, or (at your option) any later version.
+ *      WaterMark PDF for WooCommerce is free software: You can redistribute
+ *      it and/or modify it under the terms of the GNU General Public
+ *      License as published by the Free Software Foundation, either
+ *      version 3 of the License, or (at your option) any later version.
  *
- *		WaterMark PDF for WooCOmmerce is distributed in the hope that it will
- *		be useful, but WITHOUT ANY WARRANTY; without even the
- *		implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
- *		PURPOSE. See the GNU General Public License for more details.
+ *      WaterMark PDF for WooCOmmerce is distributed in the hope that it will
+ *      be useful, but WITHOUT ANY WARRANTY; without even the
+ *      implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+ *      PURPOSE. See the GNU General Public License for more details.
  *
- *		You should have received a copy of the GNU General Public License
- *		along with WordPress. If not, see <http://www.gnu.org/licenses/>.
+ *      You should have received a copy of the GNU General Public License
+ *      along with WordPress. If not, see <http://www.gnu.org/licenses/>.
  *
  */
 defined( 'ABSPATH' ) || exit;
@@ -110,7 +110,7 @@ if ( ! class_exists( 'WaterWooPDF' ) ) :
 		private function define_constants() {
 
 			if ( ! defined( 'WWPDF_FREE_VERSION' ) ) {
-				define( 'WWPDF_FREE_VERSION', '3.1.1' );
+				define( 'WWPDF_FREE_VERSION', '3.1.2' );
 			}
 			if ( ! defined( 'WWPDF_FREE_MIN_PHP' ) ) {
 				define( 'WWPDF_FREE_MIN_PHP', '7.2' );

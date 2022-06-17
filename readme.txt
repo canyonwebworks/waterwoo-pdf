@@ -5,7 +5,7 @@ Tags: watermark, stamp, pdf, ebook, security, property, tcpdf, ip, encrypt, pass
 Requires at least: 5.6
 Tested up to: 6.0
 Requires PHP: 7.2
-Stable tag: 3.1.1
+Stable tag: 3.1.2
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -140,13 +140,13 @@ If you do not know how to edit your functions.php file, you can use the Code Sni
 
 == Upgrade Notice ==
 
-= 2.7.12 =
-* Support for WooCommerce versions older than 4.0 has been removed from this plugin for security reasons.
-
 = 3.0 =
 * The TCPDF library has been updated and this *MIGHT* break watermarking for certain PDFs. It is worth testing to make sure.
 
 == Changelog ==
+
+= 3.1.2 - 17 June 2022=
+* Testing with WC version 6.6
 
 = 3.1.1 =
 * Tweak - set TCPDF variables print_header and print_footer to false
