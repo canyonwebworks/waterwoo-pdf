@@ -38,7 +38,7 @@ class WWPDF_Admin_Notices {
 			return;
 		}
 
-		if ( isset( $_GET['tab'] ) && 'waterwoo-pdf' === $_GET['tab'] && empty( get_option( 'wwpdf_donate_dismiss_06-17' ) ) ) { ?>
+		if ( isset( $_GET['tab'] ) && 'waterwoo-pdf' === $_GET['tab'] && empty( get_option( 'wwpdf_donate_dismiss_11-03' ) ) ) { ?>
 			<div class="updated settings-error notice is-dismissible wwpdf-donation">
 				<p style="font-size: 1.15em;">
 					If you have questions about the free version of <strong>WaterMark PDF</strong> (FKA WaterWoo), please <a href="https://wordpress.org/support/plugin/waterwoo-pdf/" target="_blank" rel="noopener nofollow">open a topic at wordpress.org</a> after first searching the forum to make sure your question hasn't already been answered. I respond to inquiries about the free version of WaterMark PDF as a volunteer in my spare time. Please <a href="https://wordpress.org/support/topic/before-you-post-please-read-2/" target="_blank" rel="noopener noreferrer">follow these guidelines for the quickest help</a>, and be patient.
@@ -49,7 +49,7 @@ class WWPDF_Admin_Notices {
 				<p style="font-size: 1.25em;text-align:center">
 					* * * PayPal: <a href="https://www.paypal.com/paypalme/SagehenStudio" target="_blank" rel="noopener noreferrer">paypal.me/SagehenStudio</a> * * *
 				</p>
-				<button style="z-index: 100;" data-security="<?php echo esc_attr( wp_create_nonce('wwpdf-donate-06-17') ); ?>" type="button" class="notice-dismiss wwpdf-donation-dismiss">
+				<button style="z-index: 100;" data-security="<?php echo esc_attr( wp_create_nonce('wwpdf-donate-11-03') ); ?>" type="button" class="notice-dismiss wwpdf-donation-dismiss">
 					<span class="screen-reader-text">Dismiss this notice.</span>
 				</button>
 			</div>
@@ -65,12 +65,13 @@ class WWPDF_Admin_Notices {
 	 */
 	public function dismiss_notice() {
 
-		check_admin_referer( 'wwpdf-donate-06-17', 'security' );
+		check_admin_referer( 'wwpdf-donate-11-03', 'security' );
 		// Newest at top
 
 		delete_option( 'wwpdf_donate_dismiss_02-07' );
 		delete_option( 'wwpdf_donate_dismiss_05-28' );
-		update_option( 'wwpdf_donate_dismiss_06-17', true, false );
+		delete_option( 'wwpdf_donate_dismiss_06-17' );
+		update_option( 'wwpdf_donate_dismiss_11-03', true, false );
 
 	}
 

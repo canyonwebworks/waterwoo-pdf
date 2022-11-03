@@ -3,9 +3,9 @@ Contributors: littlepackage
 Donate link: https://paypal.me/SagehenStudio
 Tags: watermark, stamp, pdf, ebook, security, property, tcpdf, ip, encrypt, password, woocommerce, woo
 Requires at least: 5.6
-Tested up to: 6.0
+Tested up to: 6.1
 Requires PHP: 7.2
-Stable tag: 3.1.2
+Stable tag: 3.1.3
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -145,7 +145,12 @@ If you do not know how to edit your functions.php file, you can use the Code Sni
 
 == Changelog ==
 
-= 3.1.2 - 17 June 2022=
+= 3.1.3 - 3 November 2022 =
+* Testing with WC v7.0 & WP 6.1
+* Update TCPDF
+* Remove large status.txt file from TCPDF installation
+
+= 3.1.2 - 17 June 2022 =
 * Testing with WC version 6.6
 
 = 3.1.1 =

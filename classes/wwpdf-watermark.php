@@ -6,7 +6,7 @@ if ( ! class_exists( 'WWPDF_Watermark' ) ) :
 	require_once WWPDF_PATH . 'inc/tcpdi/tcpdi.php';
 
 	class WWPDF_Watermark {
-	
+
 		private $size = null;
 
 		public function __construct( $origfile, $newfile, $footer ) {
@@ -15,7 +15,7 @@ if ( ! class_exists( 'WWPDF_Watermark' ) ) :
 			$this->file = $origfile;
 			$this->newfile = $newfile;
 			$this->footer = $footer; 
-			
+
 			ob_start();
 			$this->do_watermark();
 			ob_end_clean();
@@ -37,8 +37,10 @@ if ( ! class_exists( 'WWPDF_Watermark' ) ) :
 			$string_width = $this->pdf->GetStringWidth( $this->footer, $font, '', $footer_size );
 
 			for ( $i = 1; $i <= $pagecount; $i++ ) {
-			
-				if ( apply_filters( 'wwpdf_dont_watermark_this_page', FALSE, $i, $pagecount ) ) continue;
+
+				if ( apply_filters( 'wwpdf_dont_watermark_this_page', FALSE, $i, $pagecount ) ) {
+					continue;
+				}
 
 				$this->setup_page( $i ); // $i is page number
 
@@ -61,7 +63,7 @@ if ( ! class_exists( 'WWPDF_Watermark' ) ) :
 				do_action( 'wwpdf_before_write', $this->pdf, $i );
 				$this->pdf->Write( 1, $this->footer );
 				do_action( 'wwpdf_after_write', $this->pdf, $i );
-				
+
 			}
 
 			do_action( 'wwpdf_before_output', $this->pdf );
@@ -72,11 +74,11 @@ if ( ! class_exists( 'WWPDF_Watermark' ) ) :
 
 		public function setup_page( $page ) {
 
-			$idx			= $this->pdf->importPage( $page, '/BleedBox' );
-			$meta			= $this->pdf->getMetaData();
-			$this->size		= $this->pdf->getTemplateSize( $idx );
-			$size_array		= array( $this->size['w'], $this->size['h'] );
-			$orientation	= ( $this->size['w'] > $this->size['h'] ) ? 'L' : 'P';
+			$idx            = $this->pdf->importPage( $page, '/BleedBox' );
+			$meta           = $this->pdf->getMetaData();
+			$this->size     = $this->pdf->getTemplateSize( $idx );
+			$size_array     = array( $this->size['w'], $this->size['h'] );
+			$orientation    = ( $this->size['w'] > $this->size['h'] ) ? 'L' : 'P';
 
 			$this->pdf->SetAutoPageBreak( true, 0 );
 			$this->pdf->AddPage( $orientation, '', $meta );
