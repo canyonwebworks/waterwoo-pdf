@@ -34,7 +34,7 @@ If have a Wordpress site and need to watermark PDFs, but do not have WooCommerce
 
 = Premium version: =
 
-The free version works fine for many people, but [Watermark PDF for WooCommerce Premium](https://web.little-package.com/downloads/waterwoo-pdf-premium/ "Watermark PDF for WooCommerce Premium Version") offers helpful extra features in addition to free features:
+The free version works fine for many people, but [Watermark PDF for WooCommerce Premium](https://web.little-package.com/wordpress-plugins/waterwoo-pdf-premium// "Watermark PDF for WooCommerce Premium Version") offers helpful extra features in addition to free features:
 
 * Optionally password protect and/or set PDF permissions (copy, annotate, or modify, etc) while encrypting PDFs
 * Keep original file name
@@ -53,7 +53,7 @@ The free version works fine for many people, but [Watermark PDF for WooCommerce 
 * Filter hooks to add 1D and 2D barcodes (including QR codes)
 * Test watermark and/or manually watermark a file on the fly, from the admin panel
 
-[Check out the full-featured version of this plugin](https://web.little-package.com/downloads/waterwoo-pdf-premium/ "Watermark PDF for WooCommerce Premium Version")! WaterMark PDF is the only watermarker for Wordpress which includes necessary libraries (so you don't have to ask your host to load them), is compatible with PHP 7, and watermarks ALL versions of PDFs (not just older versions).
+[Check out the full-featured version of this plugin](https://web.little-package.com/wordpress-plugins/waterwoo-pdf-premium// "Watermark PDF for WooCommerce Premium Version")! WaterMark PDF is the only watermarker for Wordpress which includes necessary libraries (so you don't have to ask your host to load them), is compatible with PHP 7, and watermarks ALL versions of PDFs (not just older versions).
 
 == Installation ==
 

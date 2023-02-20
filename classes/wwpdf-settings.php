@@ -46,7 +46,7 @@ if ( ! class_exists( 'WWPDF_Settings' ) ) :
 		public function plugin_action_links( $links ) {
 
 			if ( function_exists( 'is_plugin_active' ) && ! is_plugin_active( 'waterwoo-pdf-premium/waterwoo-pdf-premium.php' ) ) {
-				$links[] = '<a href="https://web.little-package.com/downloads/waterwoo-pdf-premium/" target="_blank" rel="noopener">' . __( 'Upgrade to Premium', 'waterwoo-pdf' ) . '</a>';
+				$links[] = '<a href="https://web.little-package.com/wordpress-plugins/waterwoo-pdf-premium//" target="_blank" rel="noopener">' . __( 'Upgrade to Premium', 'waterwoo-pdf' ) . '</a>';
 			}
 			$settings = sprintf( '<a href="%s" title="%s">%s</a>' , admin_url( 'admin.php?page=wc-settings&tab=waterwoo-pdf' ) , __( 'Go to the settings page', 'waterwoo-pdf' ) , __( 'Settings', 'waterwoo-pdf' ) );
 			array_unshift( $links, $settings );
@@ -85,7 +85,7 @@ if ( ! class_exists( 'WWPDF_Settings' ) ) :
 					'<h3>' . __( 'About Watermark PDF for WooCommerce', 'waterwoo-pdf' ) . '</h3>' .
 					'<p>' . __( 'Protect your intellectual property! Watermark PDF for WooCommerce allows WooCommerce site administrators to apply custom watermarks to PDFs upon sale.' ). '</p>' .
 					'<p>' . __( 'Watermark PDF for WooCommerce is a plugin that adds a watermark to every page of your PDF file(s). The watermark is customizable with font face, font color, font size, placement, and text. Not only that, but since the watermark is added when the download button is clicked (either on the customer\'s order confirmation page or email), the watermark can include customer-specifc data such as the customer\'s first name, last name, and email. Your watermark is highly customizable and manipulatable.', 'waterwoo-pdf' ) . '</p>' .
-					'<p>' . sprintf( __( '<a href="%s" target="_blank" rel="noopener">Consider upgrading to the Premium version</a> if you need more functionality. The premium version adds the ability to start watermarking on a specified page, password protect and copy/print/modify protect your document, a watermark overlay, HTML input, and UTF-8 and extended Unicode support for many more foreign language characters. Thanks again, and enjoy!', 'waterwoo-pdf' ), 'https://web.little-package.com/downloads/waterwoo-pdf-premium/' ) . '</p>'
+					'<p>' . sprintf( __( '<a href="%s" target="_blank" rel="noopener">Consider upgrading to the Premium version</a> if you need more functionality. The premium version adds the ability to start watermarking on a specified page, password protect and copy/print/modify protect your document, a watermark overlay, HTML input, and UTF-8 and extended Unicode support for many more foreign language characters. Thanks again, and enjoy!', 'waterwoo-pdf' ), 'https://web.little-package.com/wordpress-plugins/waterwoo-pdf-premium/' ) . '</p>'
 
 				) );
 
@@ -94,7 +94,7 @@ if ( ! class_exists( 'WWPDF_Settings' ) ) :
 				'<p><strong>' . __( 'For more information:', 'waterwoo-pdf' ) . '</strong></p>'.
 				'<p><a href="https://wordpress.org/extend/plugins/waterwoo-pdf/faq/" target="_blank" rel="noopener">' . __( 'Frequently Asked Questions', 'waterwoo-pdf' ) . '</a></p>' .
 				'<p><a href="https://wordpress.org/extend/plugins/waterwoo-pdf/" target="_blank" rel="noopener">' . __( 'Project on WordPress.org', 'waterwoo-pdf' ) . '</a></p>' .
-				'<p><a href="https://web.little-package.com/downloads/waterwoo-pdf-premium/" target="_blank" rel="noopener">' . __( 'Upgrade to Premium', 'waterwoo-pdf' ) . '</a></p>'
+				'<p><a href="https://web.little-package.com/wordpress-plugins/waterwoo-pdf-premium//" target="_blank" rel="noopener">' . __( 'Upgrade to Premium', 'waterwoo-pdf' ) . '</a></p>'
 			);
 
 		}
@@ -124,7 +124,7 @@ if ( ! class_exists( 'WWPDF_Settings' ) ) :
 						'type'      => 'title',
 						'title'     => __( 'WaterMark PDF Options', 'waterwoo-pdf' ),
 						'desc'      => __( '<strong>Note:</strong> This free watermarking plugin is rudimentary and may not work on every PDF. Test before going live!', 'waterwoo-pdf' ) .
-									__( '<p><a href="https://web.little-package.com/downloads/waterwoo-pdf-premium/" target="_blank" rel="noopener">Purchase the premium version of Watermark PDF for WooCommerce</a> if you want: page and position control, extended <strong>shortcodes</strong>, including order number, quantity sold and future dates;<br />', 'waterwoo-pdf' ) .
+									__( '<p><a href="https://web.little-package.com/wordpress-plugins/waterwoo-pdf-premium//" target="_blank" rel="noopener">Purchase the premium version of Watermark PDF for WooCommerce</a> if you want: page and position control, extended <strong>shortcodes</strong>, including order number, quantity sold and future dates;<br />', 'waterwoo-pdf' ) .
 									__( '<strong>opacity</strong> control; custom <strong>fonts</strong>, extended characters & RTL; <strong>barcodes</strong> and QR codes; <strong>password</strong> protection & permissions control;<br />', 'waterwoo-pdf' ) .
 									__( 'backend <strong>test watermarking</strong> of PDFs on-the-fly; <strong>per-product</strong> and variable product watermarking; <strong>Dropbox & S3</strong> support; compatibility with <strong>Free Downloads WooCommerce</strong>; AND MORE!</p>', 'waterwoo-pdf' ),
 					),
@@ -226,7 +226,7 @@ if ( ! class_exists( 'WWPDF_Settings' ) ) :
 						'name'      => __( 'Thank you!', 'woocommerce-gift-wrapper' ),
 						'type'      => 'title',
 						'desc'      => __( 'I\'ve been working very hard on this <em>helpful and free</em> plugin for you since October 2014.', 'waterwoo-pdf' ) . '<br />'
-									. sprintf(__( 'Please show the love: <a href="%s" target="_blank" rel="noopener">leave a review</a>, <a href="%s" target="_blank" rel="noopener">make a small donation</a>, or <a href="https://web.little-package.com/downloads/waterwoo-pdf-premium/" target="_blank" rel="noopener">upgrade to premium</a> if you benefit from my work.', 'waterwoo-pdf' ), 'https://wordpress.org/support/plugin/waterwoo-pdf/reviews/?filter=5', 'https://paypal.me/sagehenstudio' ) . '<br />'
+									. sprintf(__( 'Please show the love: <a href="%s" target="_blank" rel="noopener">leave a review</a>, <a href="%s" target="_blank" rel="noopener">make a small donation</a>, or <a href="https://web.little-package.com/wordpress-plugins/waterwoo-pdf-premium//" target="_blank" rel="noopener">upgrade to premium</a> if you benefit from my work.', 'waterwoo-pdf' ), 'https://wordpress.org/support/plugin/waterwoo-pdf/reviews/?filter=5', 'https://paypal.me/sagehenstudio' ) . '<br />'
 					),
 
 				)
