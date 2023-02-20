@@ -16,9 +16,7 @@ if ( ! class_exists( 'WWPDF_Watermark' ) ) :
 			$this->newfile = $newfile;
 			$this->footer = $footer; 
 
-			ob_start();
 			$this->do_watermark();
-			ob_end_clean();
 			return $this->newfile;
 
 		}

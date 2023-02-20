@@ -126,17 +126,17 @@ if ( ! class_exists( 'WWPDF_File_Handler' ) ) :
 			$order = wc_get_order( $order_id );
 			$order_data = $order->get_data();
 
-			$first_name		= $order_data['billing']['first_name'];
-			$last_name		= $order_data['billing']['last_name'];
-			$phone			= $order_data['billing']['phone'];
-			$paid_date		= $order_data['date_created']->date('Y-m-d H:i:s');
-			$date_format	= get_option( 'date_format' );
-			$paid_date		= date_i18n( $date_format, strtotime( $paid_date ) );
-			$timestamp		= date_i18n( $date_format, current_time('timestamp') );
+			$first_name     = $order_data['billing']['first_name'];
+			$last_name      = $order_data['billing']['last_name'];
+			$phone          = $order_data['billing']['phone'];
+			$paid_date      = $order_data['date_created']->date('Y-m-d H:i:s');
+			$date_format    = get_option( 'date_format' );
+			$paid_date      = date_i18n( $date_format, strtotime( $paid_date ) );
+			$timestamp      = date_i18n( $date_format, current_time('timestamp') );
 
-			$content		= sanitize_text_field( get_option( 'wwpdf_footer_input', 'Licensed to [FIRSTNAME] [LASTNAME], [EMAIL]' ) );
-			
-			$shortcodes		= apply_filters( 'wwpdf_filter_shortcodes',
+			$content        = sanitize_text_field( get_option( 'wwpdf_footer_input', 'Licensed to [FIRSTNAME] [LASTNAME], [EMAIL]' ) );
+
+			$shortcodes     = apply_filters( 'wwpdf_filter_shortcodes',
 				array(
 					'[FIRSTNAME]' => $first_name,
 					'[LASTNAME]' => $last_name,

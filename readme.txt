@@ -1,11 +1,11 @@
 === WaterMark PDF for WooCommerce - Stamp PDFs with Customer Data ===
 Contributors: littlepackage
 Donate link: https://paypal.me/SagehenStudio
-Tags: watermark, stamp, pdf, ebook, security, property, tcpdf, ip, encrypt, password, woocommerce, woo
+Tags: pdf, watermark, stamp, password, woocommerce, security, property, tcpdf, ip, ebook, encrypt, woo
 Requires at least: 5.6
 Tested up to: 6.1
 Requires PHP: 7.2
-Stable tag: 3.1.3
+Stable tag: 3.1.4
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -144,6 +144,9 @@ If you do not know how to edit your functions.php file, you can use the Code Sni
 * The TCPDF library has been updated and this *MIGHT* break watermarking for certain PDFs. It is worth testing to make sure.
 
 == Changelog ==
+
+= 3.1.4 - 20 February 2023 =
+* Testing with WC v7.4
 
 = 3.1.3 - 3 November 2022 =
 * Testing with WC v7.0 & WP 6.1
