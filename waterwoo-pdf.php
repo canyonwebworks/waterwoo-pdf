@@ -3,7 +3,7 @@
  * Plugin Name: WaterMark PDF for WooCommerce
  * Plugin URI: https://wordpress.org/plugins/waterwoo-pdf/
  * Description: Custom watermark your PDFs upon WooCommerce sale. Formerly known as "WaterWoo"
- * Version: 3.1.4
+ * Version: 3.2.0
  * Author: Sagehen Studio
  * Author URI: https://web.little-package.com
  * Donate link: https://paypal.me/littlepackage
@@ -16,12 +16,12 @@
  * Text Domain: waterwoo-pdf
  * Domain path: /lang
  *
- * Copyright 2013-2022 Little Package
+ * Copyright 2013-2023 Sagehen Studio
  *
  *      This file is part of Watermark PDF for WooCommerce, a plugin for WordPress. If
  *      it benefits you, please "buy me a coffee"
  *
- *      https://paypal.me/littlepackage   or/and
+ *      https://paypal.me/SagehenStudio  or/and
  *
  *      leave a nice review at:
  *
@@ -34,7 +34,7 @@
  *      License as published by the Free Software Foundation, either
  *      version 3 of the License, or (at your option) any later version.
  *
- *      WaterMark PDF for WooCOmmerce is distributed in the hope that it will
+ *      WaterMark PDF for WooCommerce is distributed in the hope that it will
  *      be useful, but WITHOUT ANY WARRANTY; without even the
  *      implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
  *      PURPOSE. See the GNU General Public License for more details.
@@ -69,13 +69,13 @@ if ( ! class_exists( 'WaterWooPDF' ) ) :
 
 			$this->compatible = true;
 
-			register_activation_hook( __FILE__, array( $this, 'activation_hook' ) );
+			register_activation_hook( __FILE__, [ $this, 'activation_hook' ] );
 
 			$this->includes();
 
-			add_action( 'plugins_loaded', array( $this, 'plugins_loaded' ), 1 );
+			add_action( 'plugins_loaded', [ $this, 'plugins_loaded' ], 1 );
 
-			add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
+			add_action( 'admin_enqueue_scripts', [ $this, 'admin_enqueue_scripts' ] );
 
 		}
 
@@ -110,13 +110,13 @@ if ( ! class_exists( 'WaterWooPDF' ) ) :
 		private function define_constants() {
 
 			if ( ! defined( 'WWPDF_FREE_VERSION' ) ) {
-				define( 'WWPDF_FREE_VERSION', '3.1.4' );
+				define( 'WWPDF_FREE_VERSION', '3.2' );
 			}
 			if ( ! defined( 'WWPDF_FREE_MIN_PHP' ) ) {
 				define( 'WWPDF_FREE_MIN_PHP', '7.2' );
 			}
 			if ( ! defined( 'WWPDF_FREE_MIN_WP' ) ) {
-				define( 'WWPDF_FREE_MIN_WP', '5.6' );
+				define( 'WWPDF_FREE_MIN_WP', '5.9' );
 			}
 			if ( ! defined( 'WWPDF_FREE_MIN_WC' ) ) {
 				define( 'WWPDF_FREE_MIN_WC', '4.0' );
@@ -172,7 +172,8 @@ if ( ! class_exists( 'WaterWooPDF' ) ) :
 		 */
 		public function admin_enqueue_scripts() {
 
-			wp_register_script( 'wwpdf-admin', plugins_url( '/assets/js/wwpdf-admin.min.js', __FILE__ ), array('jquery'), WWPDF_FREE_VERSION );
+			$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
+			wp_register_script( 'wwpdf-admin', plugins_url( '/assets/js/wwpdf-admin' . $suffix . '.js', __FILE__ ), [ 'jquery' ], WWPDF_FREE_VERSION );
 
 		}
 

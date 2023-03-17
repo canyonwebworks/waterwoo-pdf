@@ -1,0 +1,14 @@
+jQuery( document ).ready( function($) {
+    $( ".wwpdf-donation-dismiss" ).on( "click", function() {
+        $.post(
+            ajaxurl,
+            {
+                action: "wwpdf_dismiss_notice",
+                nonce: $( this ).data( "nonce" )
+            },
+            function() {
+                $( "#wwpdf-donation" ).slideUp();
+            }
+        );
+    });
+});

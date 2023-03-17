@@ -15,7 +15,7 @@ if ( ! class_exists( 'WWPDF_Compatibility' ) ) :
 			return self::$instance;
 		}
 
-		var $error = array();
+		var $error = [];
 
 		/**
 		 * Autoloader constructor
@@ -23,7 +23,7 @@ if ( ! class_exists( 'WWPDF_Compatibility' ) ) :
 		 */
 		public function __construct() {
 
-			add_action( 'admin_notices', array( $this, 'admin_notices' ) );
+			add_action( 'admin_notices', [ $this, 'admin_notices' ] );
 
 		}
 
@@ -38,12 +38,12 @@ if ( ! class_exists( 'WWPDF_Compatibility' ) ) :
 			// Check if WooCommerce is enabled
 			if ( ! class_exists( 'WooCommerce' ) ) {
 				$this->error[] = 1;
-				return FALSE;
+				return false;
 			}
 			// Crucial hook
 			if ( ! class_exists( 'WC_Download_Handler' ) ) {
 				$this->error[] = 2;
-				return FALSE;
+				return false;
 			}
 			// Check PHP version
 			if ( ! version_compare( PHP_VERSION, WWPDF_FREE_MIN_PHP, '>=' ) ) {
@@ -57,7 +57,7 @@ if ( ! class_exists( 'WWPDF_Compatibility' ) ) :
 			else if ( ! version_compare( WC_VERSION, WWPDF_FREE_MIN_WC, '>=' ) ) {
 				$this->error[] = 5;
 			}
-			return TRUE;
+			return true;
 
 		}
 
@@ -68,7 +68,7 @@ if ( ! class_exists( 'WWPDF_Compatibility' ) ) :
 			if ( empty( $errors ) || ( defined( 'DISABLE_NAG_NOTICES' ) && DISABLE_NAG_NOTICES === TRUE ) ) return;
 
 			foreach ( $errors as $error ) {
-				switch ($error) {
+				switch ( $error ) {
 					case 1: // WC enabled
 						$message = sprintf( __('<strong>Watermark PDF for WooCommerce</strong> requires WooCommerce to work. You can <a href="%s" target="_blank" rel="noopener">download WooCommerce here</a>.', 'waterwoo-pdf' ), 'https://wordpress.org/plugins/woocommerce/' );
 						break;
@@ -86,12 +86,12 @@ if ( ! class_exists( 'WWPDF_Compatibility' ) ) :
 						break;
 				}
 				if ( isset( $message ) ) {
-					echo '<div class="error"><p>' . wp_kses( $message, array( 'strong' => array(), 'a' => array( 'href' => array(), 'target' => array(), 'rel' => array( 'noopener' ) ) ) ) . '</p></div>';
+					echo '<div class="error"><p>' . wp_kses( $message, array( 'strong' => [], 'a' => array( 'href' => [], 'target' => [], 'rel' => [ 'noopener' ] ) ) ) . '</p></div>';
 				}
 			}
 
 		}
 
-	} // End WWPDF_Compatibility
+	}
 
 endif;

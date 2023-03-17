@@ -14,14 +14,13 @@ if ( ! class_exists( 'WWPDF_File_Handler' ) ) :
 			$this->watermarked_file = '';
 
 			// Filter the file download path
-			add_filter( 'woocommerce_download_product_filepath', array( $this, 'pdf_filepath' ), 50, 5 );
+			add_filter( 'woocommerce_download_product_filepath', [ $this, 'pdf_filepath' ], 50, 5 );
 
 			if ( apply_filters( 'wwpdf_do_cleanup', true ) ) {
 				$this->do_cleanup();
 			}
 
 		}
-		
 
 		/**
 		 * For WC > 4.0, filters file path to add watermark via TCPDI/TCPDF
@@ -38,7 +37,9 @@ if ( ! class_exists( 'WWPDF_File_Handler' ) ) :
 		public function pdf_filepath( $file_path, $email, $order, $product, $download ) {
 
 			// Is the plugin enabled?
-			if ( "no" === get_option( 'wwpdf_enable', 'no' ) ) return $file_path;
+			if ( "no" === get_option( 'wwpdf_enable', 'no' ) ) {
+				return $file_path;
+			}
 			
 			if ( apply_filters( 'wwpdf_skip_watermarking', false, $file_path, $email, $order, $product, $download ) ) return $file_path;
 			
@@ -48,19 +49,19 @@ if ( ! class_exists( 'WWPDF_File_Handler' ) ) :
 			
 			$order_id = $order->get_id();
 
-			// get requested PDF and compare to admin designated PDFs
+			// Get requested PDF and compare to admin designated PDFs
 			$requested_file     = basename( $file_path );
 			if ( FALSE !== strpos( $requested_file, '?' ) ) {
 				$requested_file = substr( $requested_file, 0, strpos( $requested_file, '?' ) );
 			}
-			$wwpdf_files		= sanitize_textarea_field( get_option( 'wwpdf_files', '' ) );
-			$wwpdf_file_list	= array_filter( array_map( 'trim', explode( PHP_EOL, $wwpdf_files ) ) );
-			$wwpdf_file_list	= apply_filters( 'wwpdf_filter_file_list', $wwpdf_file_list, $email, $order );
+			$wwpdf_files        = sanitize_textarea_field( get_option( 'wwpdf_files', '' ) );
+			$wwpdf_file_list    = array_filter( array_map( 'trim', explode( PHP_EOL, $wwpdf_files ) ) );
+			$wwpdf_file_list    = apply_filters( 'wwpdf_filter_file_list', $wwpdf_file_list, $email, $order );
 
 			// Watermark desired files only
 			if ( in_array( $requested_file, $wwpdf_file_list ) || $wwpdf_files == '' ) {
 
-				// set up watermark content according to admin settings
+				// Set up watermark content according to admin settings
 				$product_id = $product->get_id();
 				$content = $this->wwpdf_setup_watermark( $email, $product_id, $order_id ); 
 
@@ -81,12 +82,12 @@ if ( ! class_exists( 'WWPDF_File_Handler' ) ) :
 					$path = wp_normalize_path( $path );
 				}
 
-				// create a unique file name for the new watermarked file
+				// Create a unique file name for the new watermarked file
 				$time = time();
 				$watermarked_path = str_replace( '.pdf', '', $path ) . '_' . $order_id . '_' . $time . '.pdf';
 				$watermarked_path = apply_filters( 'wwpdf_filter_file_path', $watermarked_path, $email, $order, $product, $download, $time );
 
-				// attempt to watermark using TCPDI/TCPDF
+				// Attempt to watermark using TCPDI/TCPDF
 				try {
 					$this->watermarked_file = new WWPDF_Watermark( $path, $watermarked_path, $content );
 				} catch ( Exception $e ) {
@@ -157,7 +158,7 @@ if ( ! class_exists( 'WWPDF_File_Handler' ) ) :
 
 			$content = apply_filters( 'wwpdf_filter_footer', $content, $order_id, $product_id );
 
-			// text encoding
+			// Text encoding
 			if ( has_filter( 'wwpdf_font_decode' ) ) {
 				$content = apply_filters( 'wwpdf_font_decode', $content );
 			} else {
@@ -177,7 +178,7 @@ if ( ! class_exists( 'WWPDF_File_Handler' ) ) :
 		 */
 		public function cleanup_file() {
 
-			// this only happens if download type is set to FORCE
+			// This only happens if download type is set to FORCE
 			if ( isset( $this->watermarked_file ) && ! empty( $this->watermarked_file->newfile ) ) {
 				unlink( $this->watermarked_file->newfile );
 				$this->watermarked_file = '';
@@ -193,10 +194,10 @@ if ( ! class_exists( 'WWPDF_File_Handler' ) ) :
 		 */
 		private function do_cleanup() {
 
-			// force
+			// Force
 			if ( 'force' === get_option( 'woocommerce_file_download_method' ) ) {
-				add_action( 'shutdown', array( $this, 'cleanup_file' ) ); // this will not work every time because we cannot know download is complete before PHP shutdown
-			// redirect or xsendfile
+				add_action( 'shutdown', [ $this, 'cleanup_file' ] ); // this will not work every time because we cannot know download is complete before PHP shutdown
+			// Redirect or xsendfile
 			} else {
 				// recommend setting up a cron job to remove watermarked files periodically,
 				// but adding a hook here just in case you have other plans

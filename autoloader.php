@@ -1,67 +1,63 @@
 <?php defined( 'ABSPATH' ) || exit;
 
-if ( ! class_exists( 'WWPDF_Autoloader' ) ) :
+class WWPDF_Autoloader {
 
-	class WWPDF_Autoloader {
-
-		/**
-		 * Autoloader constructor
-		 *
-		 */
-		public function __construct() {
-			spl_autoload_register( array( $this, 'autoloader' ) );
-		}
-
-		/**
-		 * Autoloader
-		 *
-		 * @param string $class_name
-		 */
-		public function autoloader( $class_name ) {
-			if ( ! $this->class_belongs_to_plugin( $class_name ) ) {
-				return;
-			}
-
-			$path = $this->get_classes_directory() . $this->get_class_path( $class_name ) . '.php';
-			if ( file_exists( $path ) ) {
-				require_once $path;
-			}
-		}
-
-		/**
-		 * Does class belong to plugin (includes 'WWPDF'?)
-		 *
-		 * @param string $class_name
-		 *
-		 * @return bool
-		 */
-		protected function class_belongs_to_plugin( $class_name ) {
-			if ( 0 !== strpos( $class_name, 'WWPDF' ) ) {
-				return false;
-			}
-			return true;
-		}
-
-		/**
-		 * Get class path
-		 *
-		 * @param string $class_name
-		 *
-		 * @return string
-		 */
-		protected function get_class_path( $class_name ) {
-			return str_replace( '_', '-', strtolower( $class_name ) );
-		}
-
-		/**
-		 * Get classes directory
-		 *
-		 * @return string
-		 */
-		protected function get_classes_directory() {
-			return dirname( __FILE__ ) . '/' . 'classes' . '/';
-		}
-
+	/**
+	 * Autoloader constructor
+	 *
+	 */
+	public function __construct() {
+		spl_autoload_register( array( $this, 'autoloader' ) );
 	}
 
-endif;
+	/**
+	 * Autoloader
+	 *
+	 * @param string $class_name
+	 */
+	public function autoloader( $class_name ) {
+		if ( ! $this->class_belongs_to_plugin( $class_name ) ) {
+			return;
+		}
+
+		$path = $this->get_classes_directory() . $this->get_class_path( $class_name ) . '.php';
+		if ( file_exists( $path ) ) {
+			require_once $path;
+		}
+	}
+
+	/**
+	 * Does class belong to plugin (includes 'WWPDF'?)
+	 *
+	 * @param string $class_name
+	 *
+	 * @return bool
+	 */
+	protected function class_belongs_to_plugin( $class_name ) {
+		if ( 0 !== strpos( $class_name, 'WWPDF' ) ) {
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * Get class path
+	 *
+	 * @param string $class_name
+	 *
+	 * @return string
+	 */
+	protected function get_class_path( $class_name ) {
+		return str_replace( '_', '-', strtolower( $class_name ) );
+	}
+
+	/**
+	 * Get classes directory
+	 *
+	 * @return string
+	 */
+	protected function get_classes_directory() {
+		return dirname( __FILE__ ) . '/' . 'classes' . '/';
+	}
+
+}

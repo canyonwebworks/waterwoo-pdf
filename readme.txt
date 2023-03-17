@@ -2,10 +2,10 @@
 Contributors: littlepackage
 Donate link: https://paypal.me/SagehenStudio
 Tags: pdf, watermark, stamp, password, woocommerce, security, property, tcpdf, ip, ebook, encrypt, woo
-Requires at least: 5.6
+Requires at least: 5.9
 Tested up to: 6.1
 Requires PHP: 7.2
-Stable tag: 3.1.4
+Stable tag: 3.2
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -144,6 +144,11 @@ If you do not know how to edit your functions.php file, you can use the Code Sni
 * The TCPDF library has been updated and this *MIGHT* break watermarking for certain PDFs. It is worth testing to make sure.
 
 == Changelog ==
+
+= 3.2 - 17 March 2023 =
+* Update TCPDF to version 6.6.2 with namespacing
+* Move several TCPDF pdf setup functions outside page loop
+* Testing with WC v7.5
 
 = 3.1.4 - 20 February 2023 =
 * Testing with WC v7.4
