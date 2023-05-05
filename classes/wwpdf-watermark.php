@@ -70,15 +70,16 @@ if ( ! class_exists( 'WWPDF_Watermark' ) ) :
 				} else {
 					$footer_x = ( $this->size['w'] / 2 ) - ( $this->pdf->GetStringWidth( $this->footer ) / 2 );
 				}
+
 				if ( $footer_y < 0 ) { // for measuring from bottom of page
 					// upper-left corner Y coordinate
-					$footer_y = $this->size['h'] - abs( $footer_y );
+					$_footer_y = $this->size['h'] - abs( $footer_y );
 				}
 				if ( $footer_y > 0 && $footer_y >= $this->size['h'] ) {
-					$footer_y = -10;
+					$_footer_y = -10;
 				}
 
-				$this->pdf->SetXY( $footer_x, $footer_y );
+				$this->pdf->SetXY( $footer_x, $_footer_y );
 
 				do_action( 'wwpdf_before_write', $this->pdf, $i );
 				$this->pdf->Write( 1, $this->footer );

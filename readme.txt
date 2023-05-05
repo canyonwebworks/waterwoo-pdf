@@ -3,9 +3,9 @@ Contributors: littlepackage
 Donate link: https://paypal.me/SagehenStudio
 Tags: pdf, watermark, stamp, password, woocommerce, security, property, tcpdf, ip, ebook, encrypt, woo
 Requires at least: 5.9
-Tested up to: 6.1
+Tested up to: 6.2
 Requires PHP: 7.2
-Stable tag: 3.2
+Stable tag: 3.2.1
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -145,6 +145,9 @@ If you do not know how to edit your functions.php file, you can use the Code Sni
 
 == Changelog ==
 
+= 3.2.1 - 5 May 2023 =
+* Fix for when Footer Y adjustment changes page-by-page (PDF page orientation/size changes)
+
 = 3.2 - 17 March 2023 =
 * Update TCPDF to version 6.6.2 with namespacing
 * Move several TCPDF pdf setup functions outside page loop
@@ -179,77 +182,5 @@ If you do not know how to edit your functions.php file, you can use the Code Sni
 * Escape echo'd text in classes/wwpdf-compatibility.php
 * Plugin name change forced by WooCommerce trademark - no longer called WaterWoo, boohoo :(
 * Dismissible CTA/info added on settings page
-
-= 2.7.13 - 24 January 2022 =
-* Add `wwpdf_skip_watermarking` filter hook with ample parameters to decde whether to continue with watermarking on per-file (or per customer, etc) basis
-* Testing with WP 5.8.3
-* Recommend minimum WP version 5.4
-
-= 2.7.12 - 10 December 2021 =
-* Testing with WooCommerce 5.9
-* Require WooCommerce version >4.0
-
-= 2.7.11 - 25 October 2021 =
-* Update TCPDF to version 6.4.2
-* Discontinue use of DIRECTORY_SEPARATOR constant
-* Use wp_normalize_path() method for PDF paths if manipulated - for Windows users
-* Add page number parameter to 'wwpdf_before_write' and wwpdf_after_write' hooks
-* Testing with Wordpress 5.8 and WooCommerce 5.7+
-* WooCommerce requires PHP 7.0, and so as a technicality, so does this plugin
-
-= 2.7.10 - 13 January 2020 =
-* Testing with WooCommerce version 4.9
-* Tweak - Catch for when users have Y-axis taller than the page - use -10mm and help prevent blank pages (will catch egregious instances)
-
-= 2.7.9 - 26 December 2020 =
-* Testing with WP version 5.6 & WooCommerce version 4.8
-* Minor code tidying in TCPDI & TCPDF
-
-= 2.7.8 - 21 0ctober 2020 =
-* Testing with WooCommerce version 4.6
-* Minor changes to readme.txt
-
-= 2.7.7 - 8 0ctober 2020 =
-* Error logging for if (corrupted) PDF /Root not found - helpful feedback for a delivery failure
-* More descriptive error source added to error log lines for easier tracing
-* Clear on-screen error feedback with instructions for folks trying to watermark remotely-hosted PDFs
-* Reverse chronological order of changelog, clean up upgrade notices in readme.txt, archive changelog to trunk
-* Fallback instructions added to readme.txt
-* Update language files
-
-= 2.7.6 - 29 September 2020 =
-* Deal with file paths same way with new Woo filter as with old in classes/wwpdf-file-handler.php
-
-= 2.7.5 - 24 September 2020 =
-* Fix - Better accommodate files listed in Woo by absolute path
-* Tweak - Minor updates to TCPDF for PHP 7+ compatibility
-* Testing with WooCommerce version 4.5 
-
-= 2.7.4 - 12 July 2020 =
-* Fix - Account for PDFs not stored in the /wp-content directory
-
-= 2.7.3 - 11 July 2020 =
-* Fix - property $size not correctly defined in classes/wwpdf-watermark.php line 47
-* Tweak - don't attempt to remove ABSPATH from watermarked file path before returning to WC in classes/wwpdf-file-handler.php
-* Tweak - filters 'wwpdf_filter_file_list', 'wwpdf_filter_file_path' and 'wwpdf_filter_watermarked_file' added in classes/wwpdf-file-handler.php
-* Tweak - use order ID instead of order key for unique file naming, order ID now before time()
-* Tweak - use new WC filter 'woocommerce_download_product_filepath' for Woo 4.0+ users
-* Tweak - enforce use of Woo 3.0+
-* Testing with WooCommerce version 4.3 
-
-= 2.7.2 - 2 July 2020 =
-* Fix - check if $res exists for PHP 7+ compatibility inc/tcpdi/tcpdi_parser.php line 1325
-* Tweak - thorough class renaming for TCPDF/TCPDI to avoid conflicts with other PDF-manipulating plugins
-* Tweak - more reliable handling of variable page size watermark placement in classes/wwpdf-watermark.php
-
-= 2.7.1 - 22 June 2020 =
-* Fix - cleanup expecting file and finding object in classes/wwpdf-file-handler.php line 67
-
-= 2.7 - 15 June 2020 =
-* Feature - [TIMESTAMP] shortcode watermarks date file was downloaded/marked (use [DATE] for sold date)
-* Feature - 'wwpdf_before_output' action hook for folks wanting to get entrepreneuring with TCPDF
-* Feature - compatibility up to PHP 7.4.2
-* Testing to WC 4.2.0
-* Testing to WP 5.4.2
 
 Older changes are found <a href="https://plugins.svn.wordpress.org/waterwoo-pdf/trunk/changelog.txt">in the changelog.txt file in the plugin directory.</a>
