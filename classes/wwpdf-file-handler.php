@@ -37,7 +37,7 @@ if ( ! class_exists( 'WWPDF_File_Handler' ) ) :
 		public function pdf_filepath( $file_path, $email, $order, $product, $download ) {
 
 			// Is the plugin enabled?
-			if ( "no" === get_option( 'wwpdf_enable', 'no' ) ) {
+			if ( "no" === get_option( 'wwpdf_global', 'no' ) ) {
 				return $file_path;
 			}
 			
@@ -135,7 +135,7 @@ if ( ! class_exists( 'WWPDF_File_Handler' ) ) :
 			$paid_date      = date_i18n( $date_format, strtotime( $paid_date ) );
 			$timestamp      = date_i18n( $date_format, current_time('timestamp') );
 
-			$content        = sanitize_text_field( get_option( 'wwpdf_footer_input', 'Licensed to [FIRSTNAME] [LASTNAME], [EMAIL]' ) );
+			$content        = sanitize_text_field( get_option( 'wwpdf_footer_input_premium', 'Licensed to [FIRSTNAME] [LASTNAME], [EMAIL]' ) );
 
 			$shortcodes     = apply_filters( 'wwpdf_filter_shortcodes',
 				array(
@@ -145,7 +145,7 @@ if ( ! class_exists( 'WWPDF_File_Handler' ) ) :
 					'[PHONE]' => $phone,
 					'[DATE]' => $paid_date,
 					'[TIMESTAMP]' => $timestamp,
-				)
+				), $email, $product_id, $order_id
 			);
 
 			foreach ( $shortcodes as $shortcode => $value ) {

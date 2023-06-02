@@ -1,5 +1,14 @@
 Archived Watermark PDF for WooCommerce changelog for pre-3.0 versions
 
+= 3.0.1 =
+* More info in FAQ for folks who refuse to read through the support channel.
+
+= 3.0 =
+* TCPDF library updated to version 6.4.4 - initial compatibility with PHP 8.1!
+* Escape echo'd text in classes/wwpdf-compatibility.php
+* Plugin name change forced by WooCommerce trademark - no longer called WaterWoo, boohoo :(
+* Dismissible CTA/info added on settings page
+
 = 2.7.13 - 24 January 2022 =
 * Add `wwpdf_skip_watermarking` filter hook with ample parameters to decde whether to continue with watermarking on per-file (or per customer, etc) basis
 * Testing with WP 5.8.3

@@ -11,4 +11,24 @@ jQuery( document ).ready( function($) {
             }
         );
     });
+
+    $( "select#wwpdf_encrypt" ).on( "change", function() {
+        if ( "4" === $(this).val() ) {
+            $( ".fortybit" ).closest( "tr" ).hide();
+            $( ".onetwoeightbit" ).closest( "tr" ).hide();
+        } else if ( "0" === $(this).val() ) {
+            $( ".fortybit" ).closest( "tr" ).show();
+            $( ".onetwoeightbit" ).closest( "tr" ).hide();
+        } else {
+            // Show em all
+            $( ".fortybit" ).closest( "tr" ).show();
+            $( ".onetwoeightbit" ).closest( "tr" ).show();
+        }
+    }).trigger( "change" );
+
+    $( document ).on( "mousedown", ".wwpdf-premium", function() {
+        $( "#wwpdf-thickbox-link" ).trigger( "click" );
+        $( this ).prop( "disabled", true );
+    });
+
 });

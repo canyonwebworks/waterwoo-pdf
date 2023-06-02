@@ -1564,7 +1564,7 @@ class tcpdi_parser {
 		if ( $serve == 'yes' ) {
 			return FALSE;
 		} else {
-			wp_die( __( 'There was an error while preparing your file for download. Please contact support.', 'waterwoo-pdf-premium' ), __( 'File download (TCPDI_PARSER) error', 'waterwoo-pdf-premium' ), 501 );
+			wp_die( __( 'There was an error while preparing your file for download. Please contact support.', 'waterwoo-pdf' ), __( 'File download (TCPDI_PARSER) error', 'waterwoo-pdf-premium' ), 501 );
 		}
 	}
 

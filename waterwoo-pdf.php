@@ -3,12 +3,12 @@
  * Plugin Name: WaterMark PDF for WooCommerce
  * Plugin URI: https://wordpress.org/plugins/waterwoo-pdf/
  * Description: Custom watermark your PDFs upon WooCommerce sale. Formerly known as "WaterWoo"
- * Version: 3.2.1
+ * Version: 3.2.2
  * Author: Sagehen Studio
  * Author URI: https://web.little-package.com
  * Donate link: https://paypal.me/littlepackage
  * WC requires at least: 4.0
- * WC tested up to: 7.6
+ * WC tested up to: 7.7
  *
  * License: GPLv3 or later
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -19,7 +19,7 @@
  * Copyright 2013-2023 Sagehen Studio
  *
  *      This file is part of Watermark PDF for WooCommerce, a plugin for WordPress. If
- *      it benefits you, please "buy me a coffee"
+ *      it benefits you, please support my volunteer work
  *
  *      https://paypal.me/SagehenStudio  or/and
  *
@@ -66,6 +66,7 @@ if ( ! class_exists( 'WaterWooPDF' ) ) :
 		public function __construct() {
 
 			$this->define_constants();
+			$this->update_db();
 
 			$this->compatible = true;
 
@@ -73,9 +74,9 @@ if ( ! class_exists( 'WaterWooPDF' ) ) :
 
 			$this->includes();
 
-			add_action( 'plugins_loaded', [ $this, 'plugins_loaded' ], 1 );
+			add_action( 'plugins_loaded',           [ $this, 'plugins_loaded' ], 1 );
 
-			add_action( 'admin_enqueue_scripts', [ $this, 'admin_enqueue_scripts' ] );
+			add_action( 'admin_enqueue_scripts',    [ $this, 'admin_enqueue_scripts' ] );
 
 		}
 
@@ -110,7 +111,7 @@ if ( ! class_exists( 'WaterWooPDF' ) ) :
 		private function define_constants() {
 
 			if ( ! defined( 'WWPDF_FREE_VERSION' ) ) {
-				define( 'WWPDF_FREE_VERSION', '3.2.1' );
+				define( 'WWPDF_FREE_VERSION', '3.2.2' );
 			}
 			if ( ! defined( 'WWPDF_FREE_MIN_PHP' ) ) {
 				define( 'WWPDF_FREE_MIN_PHP', '7.2' );
@@ -123,6 +124,40 @@ if ( ! class_exists( 'WaterWooPDF' ) ) :
 			}
 			if ( ! defined( 'WWPDF_PATH' ) ) {
 				define( 'WWPDF_PATH', plugin_dir_path( __FILE__ ) );
+			}
+
+		}
+
+		/**
+		 * Import and convert WaterWoo settings to match paid setting names
+		 *
+		 * @return void
+		 */
+		private function update_db() {
+
+			if ( $global = get_option( 'wwpdf_enable' ) ) {
+				update_option( 'wwpdf_global', $global );
+				delete_option( 'wwpdf_enable' );
+			}
+			if ( $footer_input = get_option( 'wwpdf_footer_input' ) ) {
+				update_option( 'wwpdf_footer_input_premium', $footer_input );
+				delete_option( 'wwpdf_footer_input' );
+			}
+			if ( $font = get_option( 'wwpdf_font' ) ) {
+				update_option( 'wwpdf_font_premium', $font );
+				delete_option( 'wwpdf_font' );
+			}
+			if ( $footer_size = get_option( 'wwpdf_footer_size' ) ) {
+				update_option( 'wwpdf_footer_size_premium', $footer_size );
+				delete_option( 'wwpdf_footer_size' );
+			}
+			if ( $footer_color = get_option( 'wwpdf_footer_color' ) ) {
+				update_option( 'wwpdf_footer_color_premium', $footer_color );
+				delete_option( 'wwpdf_footer_color' );
+			}
+			if ( $footer_y = get_option( 'wwpdf_footer_y' ) ) {
+				update_option( 'wwpdf_footer_finetune_Y_premium', $footer_y );
+				delete_option( 'wwpdf_footer_y' );
 			}
 
 		}
@@ -170,16 +205,36 @@ if ( ! class_exists( 'WaterWooPDF' ) ) :
 		 *
 		 * @return void
 		 */
-		public function admin_enqueue_scripts() {
+		public function admin_enqueue_scripts( $hook ) {
 
+			if ( 'woocommerce_page_wc-settings' !== $hook ) {
+				return;
+			}
 			$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
+			add_thickbox();
 			wp_register_script( 'wwpdf-admin', plugins_url( '/assets/js/wwpdf-admin' . $suffix . '.js', __FILE__ ), [ 'jquery' ], WWPDF_FREE_VERSION );
+			wp_enqueue_style( 'wwpdf-admin-css', plugins_url( '/assets/css/wwpdf-admin' . $suffix . '.css', __FILE__ ), [], WWPDF_FREE_VERSION );
 
 		}
 
 	}
 
 endif;
+
+/**
+ * Declare compatibility with HPOS
+ * @todo won't be required after 8/23 or so when HPOS becomes standard
+ * @return void
+ */
+add_action( 'before_woocommerce_init', function() {
+	if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
+		\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
+	}
+} );
+
+if ( function_exists('is_plugin_active') && is_plugin_active( 'waterwoo-pdf-premium/waterwoo-pdf-premium.php' ) ) {
+	wp_die( 'Before activating (WaterWoo) PDF WaterMark for WooCommerce, please deactivate the Premium version. You can use one or the other, but not both.', 'ERROR', [ 'back_link' => true ] );
+}
 
 function WWPDF_Free() {
 	return WaterWooPDF::get_instance();

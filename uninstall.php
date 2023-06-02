@@ -49,19 +49,19 @@ class WWPDF_Free_Uninstall {
 		$user_id = $current_user->ID;
 
 		delete_user_meta( $user_id, 'wwpdf_ignore_notice' );
-		for( $i = 2; $i <= 14; $i++ ) {
+		for ( $i = 2; $i <= 14; $i++ ) {
 			delete_user_meta( $user_id, 'wwpdf_ignore_notice' . $i );
 		}
 		
 		foreach ( array(
-			'wwpdf_enable',
-			'wwpdf_font',
-			'wwpdf_footer_input',
-			'wwpdf_footer_color',
-			'wwpdf_footer_size',
+			'wwpdf_global',
+			'wwpdf_font_premium',
+			'wwpdf_footer_input_premium',
+			'wwpdf_footer_color_premium',
+			'wwpdf_footer_size_premium',
 			'wwpdf_footer_finetune_Y',
 			'wwpdf_delete_checkbox', // BYE BYE!
-		) as $option) {
+		) as $option ) {
 				delete_option( $option );
 		}
 

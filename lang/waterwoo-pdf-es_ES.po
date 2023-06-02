@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Watermark PDF for WooCommerce\n"
-"POT-Creation-Date: 2022-02-07 06:56-0800\n"
-"PO-Revision-Date: 2022-02-07 06:57-0800\n"
+"POT-Creation-Date: 2023-06-01 18:49-0700\n"
+"PO-Revision-Date: 2023-06-01 18:50-0700\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es\n"
@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 3.3.1\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-WPHeader: waterwoo-pdf.php\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -69,14 +69,14 @@ msgstr ""
 "Lo sentimos, <strong>Watermark PDF for WooCommerce</strong> es compatible "
 "con WooCommerce versión %s o posterior, por razones de seguridad."
 
-#: classes/wwpdf-file-handler.php:72
+#: classes/wwpdf-file-handler.php:73
 msgid ""
 "The free version of WaterMark PDF cannot serve PDFs from remote servers."
 msgstr ""
 "La versión gratuita de WaterMark PDF no puede servir PDFs desde servidores "
 "remotos."
 
-#: classes/wwpdf-file-handler.php:73
+#: classes/wwpdf-file-handler.php:74
 msgid ""
 "Try uploading your PDF product to this domain using the native WooCommerce "
 "file uploader."
@@ -84,35 +84,35 @@ msgstr ""
 "Prueba a subir tu producto PDF a este dominio usando el cargador de archivos "
 "nativo de WooCommerce."
 
-#: classes/wwpdf-settings.php:44
+#: classes/wwpdf-settings.php:32
 msgid "FAQ"
 msgstr "FAQ"
 
-#: classes/wwpdf-settings.php:45
+#: classes/wwpdf-settings.php:33
 msgid "Support"
 msgstr "Asistencia"
 
-#: classes/wwpdf-settings.php:60 classes/wwpdf-settings.php:108
-msgid "Upgrade to Premium"
-msgstr "Mejorar a Premium"
+#: classes/wwpdf-settings.php:50
+msgid "Upgrade Now"
+msgstr "Actualizar ahora"
 
-#: classes/wwpdf-settings.php:62
+#: classes/wwpdf-settings.php:52
 msgid "Go to the settings page"
 msgstr "Ir a la página de configuración"
 
-#: classes/wwpdf-settings.php:62
+#: classes/wwpdf-settings.php:52
 msgid "Settings"
 msgstr "Parámetros"
 
-#: classes/wwpdf-settings.php:94
+#: classes/wwpdf-settings.php:85
 msgid "About the Plugin"
 msgstr "Acerca del plugin"
 
-#: classes/wwpdf-settings.php:96
+#: classes/wwpdf-settings.php:87
 msgid "About Watermark PDF for WooCommerce"
 msgstr "Sobre Watermark PDF for WooCommerce"
 
-#: classes/wwpdf-settings.php:97
+#: classes/wwpdf-settings.php:88
 msgid ""
 "Protect your intellectual property! Watermark PDF for WooCommerce allows "
 "WooCommerce site administrators to apply custom watermarks to PDFs upon sale."
@@ -121,7 +121,7 @@ msgstr ""
 "administradores de sitio WooCommerce aplicar marcas de agua personalizados a "
 "PDF en venta."
 
-#: classes/wwpdf-settings.php:98
+#: classes/wwpdf-settings.php:89
 msgid ""
 "Watermark PDF for WooCommerce is a plugin that adds a watermark to every "
 "page of your PDF file(s). The watermark is customizable with font face, font "
@@ -140,7 +140,7 @@ msgstr ""
 "Apellido y correo electrónico del cliente. Su marca de agua es altamente "
 "personalizable y manipulable."
 
-#: classes/wwpdf-settings.php:99
+#: classes/wwpdf-settings.php:90
 #, php-format
 msgid ""
 "<a href=\"%s\" target=\"_blank\" rel=\"noopener\">Consider upgrading to the "
@@ -158,27 +158,31 @@ msgstr ""
 "UTF-8 y compatibilidad Unicode extendida para muchos más caracteres de "
 "idioma extranjero. Gracias de nuevo, y disfrutar!"
 
-#: classes/wwpdf-settings.php:105
+#: classes/wwpdf-settings.php:96
 msgid "For more information:"
 msgstr "Para más información:"
 
-#: classes/wwpdf-settings.php:106
+#: classes/wwpdf-settings.php:97
 msgid "Frequently Asked Questions"
 msgstr "Preguntas Frecuentes"
 
-#: classes/wwpdf-settings.php:107
+#: classes/wwpdf-settings.php:98
 msgid "Project on WordPress.org"
 msgstr "Proyecto en WordPress.org"
 
-#: classes/wwpdf-settings.php:121
+#: classes/wwpdf-settings.php:99
+msgid "Upgrade for More Control"
+msgstr "Actualización para un mayor control"
+
+#: classes/wwpdf-settings.php:113
 msgid "Watermark"
 msgstr "marca al agua"
 
-#: classes/wwpdf-settings.php:136
+#: classes/wwpdf-settings.php:129
 msgid "WaterMark PDF Options"
 msgstr "Opciones de WaterMark"
 
-#: classes/wwpdf-settings.php:137
+#: classes/wwpdf-settings.php:130
 msgid ""
 "<strong>Note:</strong> This free watermarking plugin is rudimentary and may "
 "not work on every PDF. Test before going live!"
@@ -186,56 +190,37 @@ msgstr ""
 "<strong>Nota:</strong> Este plugin gratuito de marca de agua es rudimentario "
 "y puede no funcionar en todos los PDF. Pruébalo antes de ponerlo en marcha"
 
-#: classes/wwpdf-settings.php:138
+#: classes/wwpdf-settings.php:132
+#, php-format
 msgid ""
-"<p><a href=\"https://web.little-package.com/wordpress-plugins/waterwoo-pdf-premium//"
-"\" target=\"_blank\" rel=\"noopener\">Purchase the premium version of "
-"Watermark PDF for WooCommerce</a> if you want: page and position control, "
-"extended <strong>shortcodes</strong>, including order number, quantity sold "
-"and future dates;<br />"
+"<a href=\"%s\" target=\"_blank\" rel=\"noopener\">Purchase a Watermark PDF "
+"for WooCommerce Premium</a> license and get:"
 msgstr ""
-"<p><a href=\"https://web.little-package.com/wordpress-plugins/waterwoo-pdf-premium//"
-"\" target=\"_blank\" rel=\"noopener\">Adquiera la versión premium de "
-"Watermark PDF para WooCommerce</a> si desea: control de página y posición, "
-"<strong>shortcodes</strong> extendidos, incluyendo número de pedido, "
-"cantidad vendida y fechas futuras<br />"
+"<a href=\"%s\" target=\"_blank\" rel=\"noopener\">Compre una</a> licencia "
+"Watermark PDF para WooCommerce Premium y obtenga:"
 
-#: classes/wwpdf-settings.php:139
+#: classes/wwpdf-settings.php:147
+#, php-format
 msgid ""
-"<strong>opacity</strong> control; custom <strong>fonts</strong>, extended "
-"characters & RTL; <strong>barcodes</strong> and QR codes; <strong>password</"
-"strong> protection & permissions control;<br />"
+"Priority email support, <a href=\"%s\" target=\"_blank\" "
+"rel=\"noopener\">and more!"
 msgstr ""
-"control <strong>de opacidad;</strong> <strong>fuentes</"
-"strong>personalizadas, caracteres extendidos & RTL; <strong>códigos de "
-"barras</strong> y códigos QR; protección con <strong>contraseña</strong> y "
-"control de permisos;<br>"
+"Asistencia prioritaria por correo electrónico, <a href=\"%s\" "
+"target=\"_blank\" rel=\"noopener\">y mucho más"
 
-#: classes/wwpdf-settings.php:140
-msgid ""
-"backend <strong>test watermarking</strong> of PDFs on-the-fly; <strong>per-"
-"product</strong> and variable product watermarking; <strong>Dropbox & S3</"
-"strong> support; compatibility with <strong>Free Downloads WooCommerce</"
-"strong>; AND MORE!</p>"
-msgstr ""
-"marca de <strong>agua de prueba</strong> backend de archivos PDF sobre la "
-"marcha; <strong>por producto</strong> y marca de agua variable del producto; "
-"Soporte de <strong>Dropbox & S3;</strong> compatibilidad con <strong>Free "
-"Downloads WooCommerce</strong>; ¡Y MÁS!<p>"
-
-#: classes/wwpdf-settings.php:146
+#: classes/wwpdf-settings.php:154
 msgid "Enable Watermarking"
 msgstr "Activar marca de agua"
 
-#: classes/wwpdf-settings.php:147
+#: classes/wwpdf-settings.php:155
 msgid "Check to enable PDF watermarking"
 msgstr "Check para habilitar marcas de agua PDF"
 
-#: classes/wwpdf-settings.php:154
+#: classes/wwpdf-settings.php:162
 msgid "File(s) to watermark"
 msgstr "Archivo (s) a la marca de agua"
 
-#: classes/wwpdf-settings.php:155
+#: classes/wwpdf-settings.php:163
 msgid ""
 "List file name(s) of PDF(s) to watermark, one per line, e.g., <code>upload."
 "pdf</code> or <code>my_pdf.pdf</code> .<br />If left blank, Watermark PDF "
@@ -246,11 +231,60 @@ msgstr ""
 "blanco, Waterloo PDF se marca de agua todos los PDFs de vendidos a través de "
 "WooCommerce."
 
-#: classes/wwpdf-settings.php:163
+#: classes/wwpdf-settings.php:171
+msgid "Right to Left Watermarking"
+msgstr "De derecha a izquierda de marca de agua"
+
+#: classes/wwpdf-settings.php:172
+msgid ""
+"Check to switch from default left-to-right (LTR) to right-to-left (RTL), for "
+"Arabic, Hebrew, etc."
+msgstr ""
+"De verificación para cambiar de forma predeterminada de izquierda a derecha "
+"(LTR) de derecha a izquierda (RTL), para árabe, hebreo, etc."
+
+#: classes/wwpdf-settings.php:179
+msgid "Start Page"
+msgstr "Página de inicio"
+
+#: classes/wwpdf-settings.php:180
+msgid ""
+"Provide a number to indicate the page you wish watermarking to begin on. "
+"Defaults to page 1."
+msgstr ""
+"Proporcionar un número para indicar que la página que desea watermarking "
+"para comenzar. Por defecto la Página 1."
+
+#: classes/wwpdf-settings.php:192
+msgid "End Page"
+msgstr "Página final"
+
+#: classes/wwpdf-settings.php:193
+msgid ""
+"Provide a number to indicate the page you wish watermarking to end on. "
+"Defaults to last page. Use -1 to indicate last page."
+msgstr ""
+"Proporcione un número para indicar la página en la que desea que finalice la "
+"marca de agua. El valor predeterminado es la última página. Utilice -1 para "
+"indicar la última página."
+
+#: classes/wwpdf-settings.php:205
+msgid "Pages to watermark"
+msgstr "Páginas de marca de agua"
+
+#: classes/wwpdf-settings.php:206
+msgid ""
+"Watermark every page, the first page only, the last page only, every odd "
+"page, or every even page."
+msgstr ""
+"Cada página, sólo la primera página, sólo la última página, cada página "
+"impar o todas las páginas incluso de marca de agua."
+
+#: classes/wwpdf-settings.php:221
 msgid "Custom text for footer watermark"
 msgstr "Texto personalizado para la marca de agua de pie de página"
 
-#: classes/wwpdf-settings.php:164
+#: classes/wwpdf-settings.php:222
 msgid ""
 "Shortcodes available, all caps, in brackets: <code>[FIRSTNAME]</code> "
 "<code>[LASTNAME]</code> <code>[EMAIL]</code> <code>[PHONE]</code> "
@@ -260,15 +294,15 @@ msgstr ""
 "<code>[LASTNAME]</code> <code>[EMAIL]</code> <code>[PHONE]</"
 "code><code>[DATE]</code>"
 
-#: classes/wwpdf-settings.php:165
+#: classes/wwpdf-settings.php:223
 msgid "Licensed to [FIRSTNAME] [LASTNAME], [EMAIL]"
 msgstr "Licenciado en [FIRSTNAME] [LASTNAME], [EMAIL]"
 
-#: classes/wwpdf-settings.php:173
+#: classes/wwpdf-settings.php:231
 msgid "Font face"
 msgstr "Cara de Fuente"
 
-#: classes/wwpdf-settings.php:174
+#: classes/wwpdf-settings.php:232
 msgid ""
 "Select a font for watermarks. M Sung will have limited Chinese characters, "
 "and Furat will have limited Arabic characters"
@@ -276,31 +310,60 @@ msgstr ""
 "Seleccione una fuente para marcas de agua. M Sung tendrá caracteres chinos "
 "limitados, y Furat tendrá caracteres árabes limitados"
 
-#: classes/wwpdf-settings.php:192
+#: classes/wwpdf-settings.php:250
+msgid "Top/bottom margin"
+msgstr "Margen superior/inferior"
+
+#: classes/wwpdf-settings.php:251
+msgid "In millimeters. Yes, metric! Defaults to 10mm"
+msgstr "En milímetros. Sí, métrica! Por defecto es 10mm"
+
+#: classes/wwpdf-settings.php:263
+msgid "Left/right margin"
+msgstr "Margen izquierda/derecha"
+
+#: classes/wwpdf-settings.php:264
+msgid "In millimeters. Defaults to 10mm"
+msgstr "En milímetros. Por defecto es 10mm"
+
+#: classes/wwpdf-settings.php:277
 msgid "Font size"
 msgstr "Tamaño de la fuente"
 
-#: classes/wwpdf-settings.php:193
+#: classes/wwpdf-settings.php:278
 msgid "Provide a number (suggested 10-20) for the footer watermark font size"
 msgstr ""
 "Proporcionar un número (sugerido 10-20) para el tamaño de letra de pie de "
 "página marca de agua"
 
-#: classes/wwpdf-settings.php:206
+#: classes/wwpdf-settings.php:291
 msgid "Watermark color"
 msgstr "Color de marca de agua"
 
-#: classes/wwpdf-settings.php:207
+#: classes/wwpdf-settings.php:292
 msgid "Color of the footer watermark. Default is black: <code>#000000</code>."
 msgstr ""
 "Color de la marca de agua de pie de página. Por defecto es negro: "
 "<code>#000000</code> ."
 
-#: classes/wwpdf-settings.php:215
+#: classes/wwpdf-settings.php:299
+msgid "X Fine Tuning"
+msgstr "X Fine Tuning"
+
+#: classes/wwpdf-settings.php:300
+msgid ""
+"Move the footer watermark left and right on the page by adjusting this "
+"number. Default 15mm (left of portrait 8.5x11\" page)."
+msgstr ""
+"Mueva la marca de agua de pie de página izquierda y la derecha en la página "
+"mediante el ajuste de este número. Por defecto 15mm (a la izquierda del "
+"retrato 8.5x11 \"página)."
+
+#: classes/wwpdf-settings.php:313
 msgid "Y Fine Tuning"
 msgstr "sintonía fina"
 
-#: classes/wwpdf-settings.php:216
+#: classes/wwpdf-settings.php:314
 msgid ""
 "In millimeters. Move the footer watermark up and down on the page by "
 "adjusting this number. Default is 260 millimeters (bottom of letter-sized "
@@ -315,11 +378,11 @@ msgstr ""
 "predeterminado volverá a -10 (10 milímetros desde la parte inferior de la "
 "página). ¡Cuenta la altura de tu fuente/texto!"
 
-#: classes/wwpdf-settings.php:228
+#: classes/wwpdf-settings.php:326
 msgid "Leave No Trace?"
 msgstr "¿No dejas rastro?"
 
-#: classes/wwpdf-settings.php:229
+#: classes/wwpdf-settings.php:327
 msgid ""
 "If this box is checked if/when you uninstall WaterMark PDF, all your "
 "settings will be deleted from your Wordpress database."
@@ -327,11 +390,203 @@ msgstr ""
 "Si esta casilla está marcada, si/cuando desinstale WaterMark PDF, todos sus "
 "ajustes se borrarán de su base de datos de Wordpress."
 
-#: classes/wwpdf-settings.php:237
+#: classes/wwpdf-settings.php:337
+msgid "WaterWoo Security Options"
+msgstr "Opciones de seguridad de WaterWoo"
+
+#: classes/wwpdf-settings.php:338
+#, php-format
+msgid ""
+"The following security settings are not included in the free version of this "
+"plugin; <a href=\"%s\" target=\"_blank\" rel=\"noopener\">upgrade for "
+"access</a>"
+msgstr ""
+"Los siguientes ajustes de seguridad no están incluidos en la versión "
+"gratuita de este plugin; <a href=\"%s\" target=\"_blank\" "
+"rel=\"noopener\">actualice para acceder a</a> ellos"
+
+#: classes/wwpdf-settings.php:343
+msgid "Serve PDF if not watermarked?"
+msgstr "¿Servir PDF si no tiene marcas de agua?"
+
+#: classes/wwpdf-settings.php:344
+msgid ""
+"Should the unwatermarked PDF still be served if watermarking or encryption "
+"fails?"
+msgstr ""
+"¿Debe seguir si se produce un error en el PDF sin marca de agua si se "
+"produce un error en la marca de agua o el cifrado?"
+
+#: classes/wwpdf-settings.php:355
+msgid "Encryption Level"
+msgstr "Nivel de cifrado"
+
+#: classes/wwpdf-settings.php:356
+msgid ""
+"Choose encryption key length. Encryption is required for passwording and "
+"file protections, but can slow down and possibly stall your downloads, "
+"especially if you are watermarking files with images or embedded fonts. Note "
+"the RC4 stream cipher is not bullet-proof."
+msgstr ""
+"Elija la longitud de la clave de cifrado. El cifrado es necesario para la "
+"contraseña y las protecciones de archivos, pero puede ralentizar y "
+"posiblemente detener las descargas, especialmente si está marcando la marca "
+"de agua archivos con imágenes o fuentes incrustadas. Observe que el cifrado "
+"de secuencia RC4 no es a prueba de balas."
+
+#: classes/wwpdf-settings.php:370
+msgid "Disable Low Res Printing"
+msgstr "Desactivar la impresión a baja resolución"
+
+#: classes/wwpdf-settings.php:371
+msgid ""
+"Check this box to make it much more difficult for your PDF to be printed at "
+"all by the end consumer."
+msgstr ""
+"Marque esta casilla para que sea mucho más difícil para su PDF ser impreso "
+"en absoluto por el consumidor final."
+
+#: classes/wwpdf-settings.php:378
+msgid "Disable Copying"
+msgstr "Desactivar copia"
+
+#: classes/wwpdf-settings.php:379
+msgid ""
+"Check this box to prevent your end consumer from copying and pasting content "
+"from your PDF."
+msgstr ""
+"Marque esta casilla para evitar que el consumidor final de copiar y pegar el "
+"contenido de tu PDF."
+
+#: classes/wwpdf-settings.php:386
+msgid "Disable Editing"
+msgstr "Para deshabilitar la edición"
+
+#: classes/wwpdf-settings.php:387
+msgid ""
+"Check this box to prevent editing/modification of your PDF by the end "
+"consumer in Acrobat."
+msgstr ""
+"Marque esta casilla para evitar que el consumidor final de Acrobat edite/"
+"modifique su PDF."
+
+#: classes/wwpdf-settings.php:394
+msgid "Disable Annotations"
+msgstr "Desactivar las anotaciones"
+
+#: classes/wwpdf-settings.php:395
+msgid ""
+"Check this box to prevent the addition or modification of text annotations/"
+"comments, and filling of interactive form fields. If \"editing and "
+"annotation\" are both allowed, customers can create or modify interactive "
+"form fields (including signature fields)."
+msgstr ""
+"Marque esta casilla para impedir que se añadan o modifiquen anotaciones/"
+"comentarios de texto y que se rellenen los campos de formularios "
+"interactivos. Si se permite tanto la \"edición como la anotación\", los "
+"clientes pueden crear o modificar campos de formulario interactivos "
+"(incluidos los campos de firma)."
+
+#: classes/wwpdf-settings.php:402
+msgid "Disable Assembly"
+msgstr "Deshabilitar ensamblaje"
+
+#: classes/wwpdf-settings.php:403
+msgid ""
+"Check this box to prevent insertion, rotation, or deletion of pages and "
+"creation of bookmarks or thumbnail images."
+msgstr ""
+"Marque esta casilla para evitar la inserción, rotación o eliminación de "
+"páginas y la creación de marcadores o imágenes en miniatura."
+
+#: classes/wwpdf-settings.php:410
+msgid "Disable High Res Printing"
+msgstr "Desactivar la impresión en alta resolución"
+
+#: classes/wwpdf-settings.php:411
+msgid ""
+"Check this box to make it much more difficult for your PDF to be printed "
+"beautifully by the end consumer."
+msgstr ""
+"Marque esta casilla para dificultar que el consumidor final imprima su PDF "
+"de forma bonita."
+
+#: classes/wwpdf-settings.php:418
+msgid "Disable Form Filling"
+msgstr "Desactivar el llenado de formularios"
+
+#: classes/wwpdf-settings.php:419
+msgid ""
+"Check this box to prevent filling in existing interactive form fields "
+"(including signature fields)."
+msgstr ""
+"Marque esta casilla para impedir que se rellenen los campos de formularios "
+"interactivos existentes (incluidos los campos de firma)."
+
+#: classes/wwpdf-settings.php:426
+msgid "Disable Accessibility"
+msgstr "Desactivar la accesibilidad"
+
+#: classes/wwpdf-settings.php:427
+msgid ""
+"Check this box to prevent extraction of text and graphics (in support of "
+"accessibility to users with disabilities or for other purposes). Some PDF "
+"readers already disable this."
+msgstr ""
+"Marque esta casilla para impedir la extracción de texto y gráficos (para "
+"favorecer la accesibilidad de los usuarios con discapacidades o para otros "
+"fines). Algunos lectores de PDF ya lo desactivan."
+
+#: classes/wwpdf-settings.php:434
+msgid "User Password (optional)"
+msgstr "Contraseña de usuario (opcional)"
+
+#: classes/wwpdf-settings.php:435
+msgid ""
+"This is a password your end user will need to enter *before viewing* the PDF "
+"file. Enter <code>email</code> to set the password automagically as the "
+"user's checkout email address."
+msgstr ""
+"Se trata de una contraseña que el usuario tendrá que introducir antes de ver "
+"el archivo PDF. Entrar en <code>email</code> para establecer la contraseña "
+"automáticamente como dirección de correo electrónico de verificación del "
+"usuario."
+
+#: classes/wwpdf-settings.php:443
+msgid "Owner Password (optional)"
+msgstr "Contraseña del propietario (opcional)"
+
+#: classes/wwpdf-settings.php:444
+msgid ""
+"An owner password allows the end user to take control of a PDF. Leave blank "
+"and it will be set by MD5 hash automatically (it will be different for every "
+"download, and you will not know it). Enter <code>email</code> to set the "
+"password automagically as the user's checkout email address."
+msgstr ""
+"Una contraseña de propietario permite al usuario final tomar el control de "
+"un PDF. Deje en blanco y se establecerá por hash MD5 automáticamente (será "
+"diferente para cada descarga, y no lo sabrá). Introduzca para establecer la "
+"contraseña automáticamente como la dirección de <code>email</code> correo "
+"electrónico de pago del usuario."
+
+#: classes/wwpdf-settings.php:452
+msgid "Unlock with User Password?"
+msgstr "¿Desbloquear con contraseña de usuario?"
+
+#: classes/wwpdf-settings.php:453
+msgid ""
+"By default PDF protections can only be removed with an owner password. Check "
+"to allow removal with a user password. USE WITH CAUTION."
+msgstr ""
+"Por defecto, las protecciones de PDF sólo pueden eliminarse con una "
+"contraseña de propietario. Marque para permitir la eliminación con una "
+"contraseña de usuario. UTILIZAR CON PRECAUCIÓN."
+
+#: classes/wwpdf-settings.php:461
 msgid "Thank you!"
 msgstr "¡Gracias!"
 
-#: classes/wwpdf-settings.php:239
+#: classes/wwpdf-settings.php:463
 msgid ""
 "I've been working very hard on this <em>helpful and free</em> plugin for you "
 "since October 2014."
@@ -339,26 +594,35 @@ msgstr ""
 "He estado trabajando muy duro en este plugin <em>útil y gratuito</em> para "
 "usted desde octubre de 2014."
 
-#: classes/wwpdf-settings.php:240
+#: classes/wwpdf-settings.php:464
 #, php-format
 msgid ""
-"Please show the love: <a href=\"%s\" target=\"_blank\" rel=\"noopener"
-"\">leave a review</a>, <a href=\"%s\" target=\"_blank\" rel=\"noopener"
-"\">make a small donation</a>, or <a href=\"https://web.little-package.com/"
-"downloads/waterwoo-pdf-premium/\" target=\"_blank\" rel=\"noopener\">upgrade "
-"to premium</a> if you benefit from my work."
+"Please show the love: <a href=\"%s\" target=\"_blank\" "
+"rel=\"noopener\">leave a review</a> or <a href=\"%s\" target=\"_blank\" "
+"rel=\"noopener\">make a small donation</a> if you benefit from my work."
 msgstr ""
-"Por favor, muestre el amor: <a href=\"%s\" target=\"_blank\" rel=\"noopener"
-"\">deje una reseña,</a> <a href=\"%s\" target=\"_blank\" rel=\"noopener"
-"\">haga una pequeña donación,</a>o <a href=\"https://web.little-package.com/"
-"downloads/waterwoo-pdf-premium/\" target=\"_blank\" rel=\"noopener"
-"\">actualice a la prima</a> si se beneficia de mi trabajo."
+"Por favor, demuestre su cariño: <a href=\"%s\" target=\"_blank\" "
+"rel=\"noopener\">deje una reseña</a> o haga una <a href=\"%s\" "
+"target=\"_blank\" rel=\"noopener\">pequeña donación</a> si se beneficia de "
+"mi trabajo."
 
-#: waterwoo-pdf.php:109
+#: lib/tcpdi/tcpdi_parser.php:1567
+msgid ""
+"There was an error while preparing your file for download. Please contact "
+"support."
+msgstr ""
+"Se ha producido un error al preparar el archivo para su descarga. Póngase en "
+"contacto con el soporte técnico."
+
+#: lib/tcpdi/tcpdi_parser.php:1567
+msgid "File download (TCPDI_PARSER) error"
+msgstr "Error de descarga de archivos (TCPDI_PARSER)"
+
+#: waterwoo-pdf.php:87
 msgid "Cloning is forbidden."
 msgstr "La clonación está prohibida."
 
-#: waterwoo-pdf.php:116
+#: waterwoo-pdf.php:94
 msgid "Unserializing instances of this class is forbidden."
 msgstr "Se prohíbe la serialización de instancias de esta clase."
 
@@ -379,7 +643,7 @@ msgstr ""
 "Anteriormente conocido como \"WaterWoo\""
 
 #. Author of the plugin/theme
-msgid "Little Package"
+msgid "Sagehen Studio"
 msgstr ""
 
 #. Author URI of the plugin/theme
@@ -387,12 +651,38 @@ msgid "https://web.little-package.com"
 msgstr ""
 
 #~ msgid ""
-#~ "Move the footer watermark up and down on the page by adjusting this "
-#~ "number. Default is 260 millimeters (bottom of letter-sized page)."
+#~ "<p><a href=\"https://web.little-package.com/wordpress-plugins/waterwoo-"
+#~ "pdf-premium/\" target=\"_blank\" rel=\"noopener\">Purchase the premium "
+#~ "version of Watermark PDF for WooCommerce</a> if you want: page and "
+#~ "position control, extended <strong>shortcodes</strong>, including order "
+#~ "number, quantity sold and future dates;<br />"
 #~ msgstr ""
-#~ "Mover arriba y abajo la marca de agua de pie de página en la página "
-#~ "mediante el ajuste de este número. Por defecto es de 260 milímetros "
-#~ "(parte inferior de página tamaño carta)."
+#~ "<p><a href=\"https://web.little-package.com/wordpress-plugins/waterwoo-"
+#~ "pdf-premium/\" target=\"_blank\" rel=\"noopener\">Adquiera la versión "
+#~ "premium de Watermark PDF para WooCommerce</a> si desea: control de página "
+#~ "y posición, <strong>shortcodes</strong> extendidos, incluyendo número de "
+#~ "pedido, cantidad vendida y fechas futuras<br />"
+
+#~ msgid ""
+#~ "<strong>opacity</strong> control; custom <strong>fonts</strong>, extended "
+#~ "characters & RTL; <strong>barcodes</strong> and QR codes; "
+#~ "<strong>password</strong> protection & permissions control;<br />"
+#~ msgstr ""
+#~ "control <strong>de opacidad;</strong> <strong>fuentes</"
+#~ "strong>personalizadas, caracteres extendidos & RTL; <strong>códigos de "
+#~ "barras</strong> y códigos QR; protección con <strong>contraseña</strong> "
+#~ "y control de permisos;<br>"
+
+#~ msgid ""
+#~ "backend <strong>test watermarking</strong> of PDFs on-the-fly; "
+#~ "<strong>per-product</strong> and variable product watermarking; "
+#~ "<strong>Dropbox & S3</strong> support; compatibility with <strong>Free "
+#~ "Downloads WooCommerce</strong>; AND MORE!</p>"
+#~ msgstr ""
+#~ "marca de <strong>agua de prueba</strong> backend de archivos PDF sobre la "
+#~ "marcha; <strong>por producto</strong> y marca de agua variable del "
+#~ "producto; Soporte de <strong>Dropbox & S3;</strong> compatibilidad con "
+#~ "<strong>Free Downloads WooCommerce</strong>; ¡Y MÁS!<p>"
 
 #~ msgid "here"
 #~ msgstr "aquí"
@@ -409,15 +699,16 @@ msgstr ""
 
 #, php-format
 #~ msgid ""
-#~ "<p>If you like Watermark PDF for WooCommerce, please consider <a href="
-#~ "\"%1$s\" target=\"_blank\" rel=\"noopener\">sending a donation</a> so I "
-#~ "can continue improving it. No funds? Maybe <a href=\"%2$s\" target="
-#~ "\"_blank\" rel=\"noopener\">write a kind review</a>.</p><p class="
-#~ "\"alignright\"><a href=\"%3$s\" target=\"_blank\">Hide This Notice</a></p>"
+#~ "<p>If you like Watermark PDF for WooCommerce, please consider <a "
+#~ "href=\"%1$s\" target=\"_blank\" rel=\"noopener\">sending a donation</a> "
+#~ "so I can continue improving it. No funds? Maybe <a href=\"%2$s\" "
+#~ "target=\"_blank\" rel=\"noopener\">write a kind review</a>.</p><p "
+#~ "class=\"alignright\"><a href=\"%3$s\" target=\"_blank\">Hide This Notice</"
+#~ "a></p>"
 #~ msgstr ""
-#~ "<p>Si te gusta Watermark PDF for WooCommerce, por favor considera <a href="
-#~ "\"%1$s\" target=\"_blank\" rel=\"noopener\">enviar una donación</a> para "
-#~ "que pueda seguir mejorándola. ¿Sin fondos? Tal vez <a href=\"%2$s\" "
+#~ "<p>Si te gusta Watermark PDF for WooCommerce, por favor considera <a "
+#~ "href=\"%1$s\" target=\"_blank\" rel=\"noopener\">enviar una donación</a> "
+#~ "para que pueda seguir mejorándola. ¿Sin fondos? Tal vez <a href=\"%2$s\" "
 #~ "target=\"_blank\" rel=\"noopener\">escribir una amable evaluación</a>.</"
 #~ "p><p class=\"alignright\"><a href=\"%3$s\" target=\"_blank\">Ocultar este "
 #~ "aviso</a></p>"
@@ -425,17 +716,17 @@ msgstr ""
 #, fuzzy, php-format
 #~| msgid ""
 #~| "<p>Encourage Wordpress plugin authors to keep making & supporting free "
-#~| "plugins!<br />If you benefit from using WaterWoo, please <a href="
-#~| "\"https://wordpress.org/support/view/plugin-reviews/waterwoo-pdf?"
-#~| "filter=5\" target=\"_blank\">submit a kind review</a> or <a href="
-#~| "\"https://www.paypal.com/cgi-bin/webscr?cmd=_s-"
+#~| "plugins!<br />If you benefit from using WaterWoo, please <a "
+#~| "href=\"https://wordpress.org/support/view/plugin-reviews/waterwoo-pdf?"
+#~| "filter=5\" target=\"_blank\">submit a kind review</a> or <a "
+#~| "href=\"https://www.paypal.com/cgi-bin/webscr?cmd=_s-"
 #~| "xclick&hosted_button_id=PB2CFX8H4V49L\" target=\"_blank\">make a small "
 #~| "donation</a>. <strong>Thank you</strong>.</p><p class=\"alignright\"><a "
 #~| "href=\"%1$s\">Hide This Notice</a></p>"
 #~ msgid ""
 #~ "<p>Encourage Wordpress plugin authors to keep making & supporting free "
-#~ "plugins!<br />If you benefit from using WaterWoo, please <a href="
-#~ "\"https://wordpress.org/support/view/plugin-reviews/waterwoo-pdf?"
+#~ "plugins!<br />If you benefit from using WaterWoo, please <a "
+#~ "href=\"https://wordpress.org/support/view/plugin-reviews/waterwoo-pdf?"
 #~ "filter=5\" target=\"_blank\" rel=\"noopener\">submit a kind review</a> or "
 #~ "<a href=\"https://www.paypal.com/cgi-bin/webscr?cmd=_s-"
 #~ "xclick&hosted_button_id=PB2CFX8H4V49L\" target=\"_blank\">make a small "
@@ -448,24 +739,21 @@ msgstr ""
 #~ "waterwoo-pdf?filter=5\" target=\"_blank\">enviar una revisión amable</a> "
 #~ "o <a href=\"https://www.paypal.com/cgi-bin/webscr?cmd=_s-"
 #~ "xclick&hosted_button_id=PB2CFX8H4V49L\" target=\"_blank\">hacer una "
-#~ "pequeña donación</a>. <strong>Muchas gracias</strong>.</p><p class="
-#~ "\"alignright\"><a href=\"%1$s\">Ocultar este aviso</a></p>"
-
-#~ msgid "Select a font for watermarks."
-#~ msgstr "Seleccione una fuente para marcas de agua."
+#~ "pequeña donación</a>. <strong>Muchas gracias</strong>.</p><p "
+#~ "class=\"alignright\"><a href=\"%1$s\">Ocultar este aviso</a></p>"
 
 #~ msgid "https://waterwoo.me"
 #~ msgstr "https://waterwoo.me"
 
 #~ msgid ""
-#~ "Note: This free watermarking plugin is rudimentary. You need the <a href="
-#~ "\"https://www.waterwoo.me/buy/waterwoo-premium/\" target=\"_blank"
-#~ "\">Premium Version of WaterWoo</a> if:<ol><li>Your watermark is not in "
-#~ "English and/or contains extended Unicode characters (e.g. ě à é č ì ü Л Ж "
-#~ "Ω ﺦ ﺉ ...)</li><li>If any of your PDFs are version 1.5 or newer.</"
-#~ "li><li>You want extended shortcode function, opacity control, RTL, "
-#~ "password protection, per-product and variable product watermarking, and "
-#~ "much more.</li>"
+#~ "Note: This free watermarking plugin is rudimentary. You need the <a "
+#~ "href=\"https://www.waterwoo.me/buy/waterwoo-premium/\" "
+#~ "target=\"_blank\">Premium Version of WaterWoo</a> if:<ol><li>Your "
+#~ "watermark is not in English and/or contains extended Unicode characters "
+#~ "(e.g. ě à é č ì ü Л Ж Ω ﺦ ﺉ ...)</li><li>If any of your PDFs are version "
+#~ "1.5 or newer.</li><li>You want extended shortcode function, opacity "
+#~ "control, RTL, password protection, per-product and variable product "
+#~ "watermarking, and much more.</li>"
 #~ msgstr ""
 #~ "Nota: Este complemento gratuito de marca de agua es rudimentario. "
 #~ "Necesita la <a href=\"https://www.waterwoo.me/buy/waterwoo-premium/\" "
@@ -530,13 +818,13 @@ msgstr ""
 #~ "inferior de página tamaño carta)."
 
 #~ msgid ""
-#~ "<a href=\"http://www.little-package.com/shop/pdf-watermark-plugin-waterwoo"
-#~ "\" target=\"_blank\">Consider upgrading to the Premium version</a> if you "
-#~ "need more functionality. The premium version adds the ability to start "
-#~ "watermarking on a specified page, password protect and copy/print/modify "
-#~ "protect your document, a watermark overlay, HTML input, and UTF-8 and "
-#~ "extended Unicode support for many more foreign language characters. "
-#~ "Thanks again, and enjoy!"
+#~ "<a href=\"http://www.little-package.com/shop/pdf-watermark-plugin-"
+#~ "waterwoo\" target=\"_blank\">Consider upgrading to the Premium version</"
+#~ "a> if you need more functionality. The premium version adds the ability "
+#~ "to start watermarking on a specified page, password protect and copy/"
+#~ "print/modify protect your document, a watermark overlay, HTML input, and "
+#~ "UTF-8 and extended Unicode support for many more foreign language "
+#~ "characters. Thanks again, and enjoy!"
 #~ msgstr ""
 #~ "<a href=“http://www.little-package.com/shop/pdf-watermark-plugin-"
 #~ "waterwoo” target=“_blank”>Considere actualizar a la versión Premium</a> "

@@ -8,7 +8,15 @@ if ( ! class_exists( 'WWPDF_Watermark' ) ) :
 
 	class WWPDF_Watermark {
 
+		private $pdf;
+
 		private $size = null;
+
+		public $file = '';
+
+		public $newfile = '';
+
+		public $footer = '';
 
 		public function __construct( $origfile, $newfile, $footer ) {
 
@@ -36,24 +44,29 @@ if ( ! class_exists( 'WWPDF_Watermark' ) ) :
 
 		}
 
+		/**
+		 * Run TCPDF commands
+		 *
+		 * @return void
+		 */
 		public function do_watermark() {
 
 			// If you want to do a whole lot more with TCPDF, get the premium version of this plugin (formerly known as WaterWoo)!
-			// This is BASIC, if not CRUDE
+			// This plugin is BASIC, if not CRUDE 🥴
 			$pagecount = $this->pdf->setSourceFile( $this->file );
 
-			$font = sanitize_text_field( get_option( 'wwpdf_font', 'helvetica' ) );
+			$font = sanitize_text_field( get_option( 'wwpdf_font_premium', 'helvetica' ) );
 			$font = apply_filters( 'wwpdf_add_custom_font', $font );
-			$footer_size = absint( sanitize_text_field( get_option( 'wwpdf_footer_size', 12 ) ) );
+			$footer_size = absint( sanitize_text_field( get_option( 'wwpdf_footer_size_premium', 12 ) ) );
 			$this->pdf->SetFont( $font, '', $footer_size );
 
-			$footer_color = $this->hex2rgb( sanitize_text_field( get_option( 'wwpdf_footer_color', '#000000' ) ) );
+			$footer_color = $this->hex2rgb( sanitize_text_field( get_option( 'wwpdf_footer_color_premium', '#000000' ) ) );
 			$rgb_array = explode( ",", $footer_color );
 			$this->pdf->SetTextColor( $rgb_array[0], $rgb_array[1], $rgb_array[2] );
 
 			// Set mark position
 			$string_width = $this->pdf->GetStringWidth( $this->footer, $font, '', $footer_size );
-			$footer_y = sanitize_text_field( get_option( 'wwpdf_footer_y', 260 ) );
+			$footer_y = sanitize_text_field( get_option( 'wwpdf_footer_finetune_Y_premium', -10 ) );
 
 			for ( $i = 1; $i <= $pagecount; $i++ ) {
 
@@ -74,9 +87,12 @@ if ( ! class_exists( 'WWPDF_Watermark' ) ) :
 				if ( $footer_y < 0 ) { // for measuring from bottom of page
 					// upper-left corner Y coordinate
 					$_footer_y = $this->size['h'] - abs( $footer_y );
-				}
-				if ( $footer_y > 0 && $footer_y >= $this->size['h'] ) {
-					$_footer_y = -10;
+				} else { // set greater than zero
+					if ( $footer_y >= $this->size['h'] ) {
+						$_footer_y = -10;
+					} else {
+						$_footer_y = $footer_y;
+					}
 				}
 
 				$this->pdf->SetXY( $footer_x, $_footer_y );
@@ -93,6 +109,11 @@ if ( ! class_exists( 'WWPDF_Watermark' ) ) :
 
 		} // end function do_watermark
 
+		/**
+		 * Set up each TCPDF page object
+		 *
+		 * @return void
+		 */
 		private function setup_page( $page ) {
 
 			$idx            = $this->pdf->importPage( $page, '/BleedBox' );

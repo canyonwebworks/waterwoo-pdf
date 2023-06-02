@@ -5,7 +5,7 @@ Tags: pdf, watermark, stamp, password, woocommerce, security, property, tcpdf, i
 Requires at least: 5.9
 Tested up to: 6.2
 Requires PHP: 7.2
-Stable tag: 3.2.1
+Stable tag: 3.2.2
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -30,11 +30,12 @@ If have a Wordpress site and need to watermark PDFs, but do not have WooCommerce
 * Watermark is applied to **all** pages of **every** PDF purchased
 * Watermarks upon click of either the customer's order confirmation page link, email order confirmation link, or My Account page download links
 * Dynamic customer data inputs (customer first name, last name, email, order paid date, and phone)
-* Choice of font face, color, size and placement (horizontal line of text anywhere on the page).
+* Choice of font face, color, size and placement (horizontal line of text anywhere on the page)
+* Compatible up to PHP 8.1 (as of May 2023)
 
 = Premium version: =
 
-The free version works fine for many people, but [Watermark PDF for WooCommerce Premium](https://web.little-package.com/wordpress-plugins/waterwoo-pdf-premium// "Watermark PDF for WooCommerce Premium Version") offers helpful extra features in addition to free features:
+The free version works fine for many people, but [Watermark PDF for WooCommerce Premium](https://web.little-package.com/wordpress-plugins/waterwoo-pdf-premium/ "Watermark PDF for WooCommerce Premium Version") offers helpful extra features in addition to free features:
 
 * Optionally password protect and/or set PDF permissions (copy, annotate, or modify, etc) while encrypting PDFs
 * Keep original file name
@@ -53,7 +54,7 @@ The free version works fine for many people, but [Watermark PDF for WooCommerce 
 * Filter hooks to add 1D and 2D barcodes (including QR codes)
 * Test watermark and/or manually watermark a file on the fly, from the admin panel
 
-[Check out the full-featured version of this plugin](https://web.little-package.com/wordpress-plugins/waterwoo-pdf-premium// "Watermark PDF for WooCommerce Premium Version")! WaterMark PDF is the only watermarker for Wordpress which includes necessary libraries (so you don't have to ask your host to load them), is compatible with PHP 7, and watermarks ALL versions of PDFs (not just older versions).
+[Check out the full-featured version of this plugin](https://web.little-package.com/wordpress-plugins/waterwoo-pdf-premium/ "Watermark PDF for WooCommerce Premium Version")! WaterMark PDF is the only watermarker for Wordpress which includes necessary libraries (so you don't have to ask your host to load them), is compatible with PHP 7, and watermarks ALL versions of PDFs (not just older versions).
 
 == Installation ==
 
@@ -125,7 +126,7 @@ Watermark PDF for WooCommerce is intended to watermark PDF (.pdf) files. If you 
 No, sorry. This plugin is just for PDF files.
 
 = The plugin seems to break my PDF =
-Watermark PDF for WooCommerce is a plugin which bridges WooCommerce and the open-source PDF reading TCPDI and PDF writing TCPDF library. WaterMark PDF functions by parsing/reading your PDF into memory the best it can, then adding a watermark to the PDF syntax and outputting a revised file. Between the reading and output, certain features may be lost and other features (interactive PDF elements like internal links and fillable forms) will be lost. This is a limitation of a third-party library and the wild-west nature of PDF syntax, and not the fault of WaterWoo. If you are serious about watermarking and/or encrypting complex PDF files, [consider purchasing WooStamper](https://web.little-package.com/downloads/woostamper-pdf/ "WooStamper PDF Plugin"). Ultimately, Watermark PDF for WooCommerce is best for simple, smaller-sized PDFs.
+This plugin bridges WooCommerce and the open-source PDF reading TCPDI and PDF writing TCPDF library. WaterMark PDF functions by parsing/reading your PDF into memory the best it can, then adding a watermark to the PDF syntax and outputting a revised file. Between the reading and output, certain features may be lost and other features (interactive PDF elements like internal links and fillable forms) will be lost. This is a limitation of a third-party library and the wild-west nature of PDF syntax, and not the fault of WaterWoo. If you are serious about watermarking and/or encrypting complex PDF files, [consider purchasing WooStamper](https://web.little-package.com/downloads/woostamper-pdf/ "WooStamper PDF Plugin"). Ultimately, Watermark PDF for WooCommerce is best for simple, smaller-sized PDFs.
 
 = Is there a fallback in case watermarking fails? =
 Yes, you can serve the file untouched if watermarking fails, and avoid any error messages, by using the following filter code in your (child) theme functions.php file:
@@ -144,6 +145,13 @@ If you do not know how to edit your functions.php file, you can use the Code Sni
 * The TCPDF library has been updated and this *MIGHT* break watermarking for certain PDFs. It is worth testing to make sure.
 
 == Changelog ==
+
+= 3.2.2 - 1 June 2023 =
+* Confirm PHP 8.1 compatibility and apply some TCPDF patches. Unfortunately no TCPDF update available for 8.2 compatibility yet
+* Fix - where $_footer_y value sometimes not set
+* Tweak - enqueue plugin admin JS only on Woo pages
+* Add some Premium settings to the Free settings page for upsell (cuz hey I'm broke maintaining this for free nearly 10 years!)
+* Standardize setting names between free and paid plugin versions for smoother upgrade (because *1* person complained after ten years and I'm nice like that)
 
 = 3.2.1 - 5 May 2023 =
 * Fix for when Footer Y adjustment changes page-by-page (PDF page orientation/size changes)
@@ -173,14 +181,5 @@ If you do not know how to edit your functions.php file, you can use the Code Sni
 * WooCommerce requires PHP 7.2; therefore, this dependent plugin requires PHP 7.2
 * More careful checks with class_exists() and constant renaming; checks for premium version on activation - to avoid conflicts
 * Dismissible CTA update
-
-= 3.0.1 =
-* More info in FAQ for folks who refuse to read through the support channel.
-
-= 3.0 =
-* TCPDF library updated to version 6.4.4 - initial compatibility with PHP 8.1!
-* Escape echo'd text in classes/wwpdf-compatibility.php
-* Plugin name change forced by WooCommerce trademark - no longer called WaterWoo, boohoo :(
-* Dismissible CTA/info added on settings page
 
 Older changes are found <a href="https://plugins.svn.wordpress.org/waterwoo-pdf/trunk/changelog.txt">in the changelog.txt file in the plugin directory.</a>

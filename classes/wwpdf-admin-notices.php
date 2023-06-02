@@ -14,7 +14,7 @@ class WWPDF_Admin_Notices {
 		}
 
 		// Help cure open source burnout!
-		add_action( 'admin_notices', [ $this, 'help_a_girl_out_notice' ] );
+		add_action( 'admin_notices',                [ $this, 'help_a_girl_out_notice' ] );
 
 		// Ajax dismiss "help a girl out" notice
 		add_action( 'wp_ajax_wwpdf_dismiss_notice', [ $this, 'dismiss_notice' ] );
@@ -38,8 +38,8 @@ class WWPDF_Admin_Notices {
 			return;
 		}
 
-		if ( isset( $_GET['tab'] ) && 'waterwoo-pdf' === $_GET['tab'] && empty( get_option( 'wwpdf_donate_dismiss_03-17' ) ) ) { ?>
-			<div id="wwpdf-donation" class="updated settings-error notice is-dismissible">
+		if ( isset( $_GET['tab'] ) && 'waterwoo-pdf' === $_GET['tab'] && empty( get_option( 'wwpdf_donate_dismiss_05-31' ) ) ) { ?>
+			<div id="wwpdf-donation" class="notice notice-info is-dismissible">
 				<p style="font-size: 1.15em;">
 					If you have questions about the free version of <strong>WaterMark PDF</strong> (FKA WaterWoo), please <a href="https://wordpress.org/support/plugin/waterwoo-pdf/" target="_blank" rel="noopener nofollow">open a topic at wordpress.org</a> after first searching the forum to make sure your question hasn't already been answered. I respond to inquiries about the free version of WaterMark PDF as a volunteer in my spare time. Please <a href="https://wordpress.org/support/topic/before-you-post-please-read-2/" target="_blank" rel="noopener noreferrer">follow these guidelines for the quickest help</a>, and be patient.
 				</p>
@@ -49,7 +49,7 @@ class WWPDF_Admin_Notices {
 				<p style="font-size: 1.25em;text-align:center">
 					* * * PayPal: <a href="https://www.paypal.com/paypalme/SagehenStudio" target="_blank" rel="noopener noreferrer">paypal.me/SagehenStudio</a> * * *
 				</p>
-				<button style="z-index: 100;" data-nonce="<?php esc_attr_e( wp_create_nonce('wwpdf-donate-03-17') ); ?>" type="button" class="notice-dismiss wwpdf-donation-dismiss">
+				<button style="z-index: 100;" data-nonce="<?php esc_attr_e( wp_create_nonce('wwpdf-donate-05-31') ); ?>" type="button" class="notice-dismiss wwpdf-donation-dismiss">
 					<span class="screen-reader-text">Dismiss this notice.</span>
 				</button>
 			</div>
@@ -65,7 +65,7 @@ class WWPDF_Admin_Notices {
 	 */
 	public function dismiss_notice() {
 
-		check_admin_referer( 'wwpdf-donate-03-17', 'nonce' );
+		check_admin_referer( 'wwpdf-donate-05-31', 'nonce' );
 		// Newest at top
 
 		delete_option( 'wwpdf_donate_dismiss_02-07' );
@@ -73,7 +73,8 @@ class WWPDF_Admin_Notices {
 		delete_option( 'wwpdf_donate_dismiss_06-17' );
 		delete_option( 'wwpdf_donate_dismiss_11-03' );
 		delete_option( 'wwpdf_donate_dismiss_02-20' );
-		update_option( 'wwpdf_donate_dismiss_03-17', true, false );
+		delete_option( 'wwpdf_donate_dismiss_03-17' );
+		update_option( 'wwpdf_donate_dismiss_05-31', true, false );
 
 	}
 
