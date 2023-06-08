@@ -5,7 +5,7 @@ Tags: pdf, watermark, stamp, password, woocommerce, security, property, tcpdf, i
 Requires at least: 5.9
 Tested up to: 6.2
 Requires PHP: 7.2
-Stable tag: 3.2.2
+Stable tag: 3.3
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -18,7 +18,7 @@ Watermark PDF is a plugin that adds a watermark to every page of your sold PDF f
 
 Upon WooCommerce purchase download link, this plugin uses the open source TCPDI and TCPDF libraries to customize your PDF. This process isn't fool-proof, but works well in many cases. You may encounter problems if your PDF is malformed (bad PDF syntax), encrypted, web-optimized, linearized, or if your server cannot handle the memory load of PDF processing.
 
-**Please note** you must have WooCommerce plugin installed and activated for this plugin to work. This plugin watermarks WooCommerce PDF products when downloaded.
+**Please note** you must have WooCommerce plugin installed and activated for this plugin to work. This plugin watermarks WooCommerce PDF products when downloaded using WooCommerce download links.
 
 If have a Wordpress site and need to watermark PDFs, but do not have WooCommerce, [check out WP TCPDF Bridge](https://web.little-package.com/downloads/wp-tcpdf-bridge/ "WP TCPDF Bridge").
 
@@ -145,6 +145,9 @@ If you do not know how to edit your functions.php file, you can use the Code Sni
 * The TCPDF library has been updated and this *MIGHT* break watermarking for certain PDFs. It is worth testing to make sure.
 
 == Changelog ==
+
+= 3.3 - 9 June 2023 =
+* Use TCPDF Write() arguments to center watermark, not GetStringWidth(), add 'wwpdf_write_URL' and 'wwpdf_write_align' filter hooks to the TCPDF Write() method call
 
 = 3.2.2 - 1 June 2023 =
 * Confirm PHP 8.1 compatibility and apply some TCPDF patches. Unfortunately no TCPDF update available for 8.2 compatibility yet

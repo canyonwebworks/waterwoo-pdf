@@ -64,25 +64,18 @@ if ( ! class_exists( 'WWPDF_Watermark' ) ) :
 			$rgb_array = explode( ",", $footer_color );
 			$this->pdf->SetTextColor( $rgb_array[0], $rgb_array[1], $rgb_array[2] );
 
-			// Set mark position
-			$string_width = $this->pdf->GetStringWidth( $this->footer, $font, '', $footer_size );
+			// Get mark position
 			$footer_y = sanitize_text_field( get_option( 'wwpdf_footer_finetune_Y_premium', -10 ) );
 
 			for ( $i = 1; $i <= $pagecount; $i++ ) {
+
+				$this->setup_page( $i ); // $i is page number
 
 				if ( apply_filters( 'wwpdf_dont_watermark_this_page', false, $i, $pagecount ) ) {
 					continue;
 				}
 
-				$this->setup_page( $i ); // $i is page number
-
 				$this->pdf->SetMargins( apply_filters( 'wwpdf_left_margin', 0 ), apply_filters( 'wwpdf_top_margin', 0 ) );
-
-				if ( $string_width > $this->size['w'] ) {
-					$footer_x = apply_filters( 'wwpdf_footer_x_abcissa', 0, $this->size['w'] );
-				} else {
-					$footer_x = ( $this->size['w'] / 2 ) - ( $this->pdf->GetStringWidth( $this->footer ) / 2 );
-				}
 
 				if ( $footer_y < 0 ) { // for measuring from bottom of page
 					// upper-left corner Y coordinate
@@ -95,10 +88,11 @@ if ( ! class_exists( 'WWPDF_Watermark' ) ) :
 					}
 				}
 
-				$this->pdf->SetXY( $footer_x, $_footer_y );
+				// $this->pdf->SetXY( $footer_x, $_footer_y );
+				$this->pdf->SetXY( 0, $_footer_y );
 
 				do_action( 'wwpdf_before_write', $this->pdf, $i );
-				$this->pdf->Write( 1, $this->footer );
+				$this->pdf->Write( 1, $this->footer, apply_filters( 'wwpdf_write_URL', '' ), FALSE, apply_filters( 'wwpdf_write_align', 'C' ) );
 				do_action( 'wwpdf_after_write', $this->pdf, $i );
 
 			}

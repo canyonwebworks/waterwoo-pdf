@@ -40,13 +40,15 @@ if ( ! class_exists( 'WWPDF_File_Handler' ) ) :
 			if ( "no" === get_option( 'wwpdf_global', 'no' ) ) {
 				return $file_path;
 			}
-			
-			if ( apply_filters( 'wwpdf_skip_watermarking', false, $file_path, $email, $order, $product, $download ) ) return $file_path;
-			
+
+			if ( apply_filters( 'wwpdf_skip_watermarking', false, $file_path, $email, $order, $product, $download ) ) {
+				return $file_path;
+			}
+
 			// PDF - watermarking - start by checking if it's even a PDF
 			$file_extension = preg_replace( '/\?.*/', '', substr( strrchr( $file_path, '.' ), 1 ) );
 			if ( 'pdf' !== strtolower( $file_extension ) ) return $file_path;
-			
+
 			$order_id = $order->get_id();
 
 			// Get requested PDF and compare to admin designated PDFs
