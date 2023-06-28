@@ -5,7 +5,7 @@ Tags: pdf, watermark, stamp, password, woocommerce, security, property, tcpdf, i
 Requires at least: 5.9
 Tested up to: 6.2
 Requires PHP: 7.2
-Stable tag: 3.3
+Stable tag: 3.3.1
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -145,6 +145,9 @@ If you do not know how to edit your functions.php file, you can use the Code Sni
 * The TCPDF library has been updated and this *MIGHT* break watermarking for certain PDFs. It is worth testing to make sure.
 
 == Changelog ==
+
+= 3.3.1 - 28 June 2023 =
+* Testing with WooCommerce v7.8
 
 = 3.3 - 9 June 2023 =
 * Use TCPDF Write() arguments to center watermark, not GetStringWidth(), add 'wwpdf_write_URL' and 'wwpdf_write_align' filter hooks to the TCPDF Write() method call
