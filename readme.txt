@@ -26,18 +26,18 @@ If have a Wordpress site and need to watermark PDFs, but do not have WooCommerce
 
 * Watermark only designated PDF downloads (as specified by you), or *all* PDF downloads from your site
 * Files do not need to be in a specific directory
-* Super customizable placement: watermark can be moved all over the page, allowing for different paper sizes (such as letter, A4, legal, etc)
-* Watermark is applied to **all** pages of **every** PDF purchased
-* Watermarks upon click of either the customer's order confirmation page link, email order confirmation link, or My Account page download links
+* Customizable watermark placement can be moved all over the page, allowing for different paper sizes (such as letter, A4, legal, etc)
+* Watermark is applied to **all** pages of **every** PDF purchased (upgrade for more control)
+* Watermarks upon click of customer's order confirmation page link, email order confirmation link, or My Account page download links
 * Dynamic customer data inputs (customer first name, last name, email, order paid date, and phone)
 * Choice of font face, color, size and placement (horizontal line of text anywhere on the page)
 * Compatible up to PHP 8.2
 
-= Premium (paid) version features: = {#premium}
+= Premium (paid) version features: {#premium}
 
 The free version is enough for some people, but [Watermark PDF for WooCommerce Premium](https://web.little-package.com/wordpress-plugins/waterwoo-pdf-premium/ "Watermark PDF for WooCommerce Premium Version") offers helpful extra features in addition to free features:
 
-* Optionally password protect and/or set PDF permissions (copy, annotate, or modify, etc) while also encrypting PDF files
+* Optionally **password protect** and/or **set PDF permissions** (copy, annotate, or modify, etc) while also encrypting PDF files
 * Additional dynamic customer data input (business name, address, order number, product name, quantity of product), and filter hooks for adding even more
 * Test watermark and/or manually watermark a file on the fly, from the admin panel
 * Keep original file name
@@ -58,11 +58,17 @@ The free version is enough for some people, but [Watermark PDF for WooCommerce P
 
 == Installation ==
 
-= Prerequisites =
-1. WordPress 4.9 or newer
-2. WooCommerce plugin version 4.0 and newer, and PDF products
-3. PHP version 7.2 or newer. WaterWoo works with PHP 8.1. The fresher, the better!
-4. If you are selling large files or have high sales traffic, you may need to upgrade your hosting account. Do at least set your PHP memory limit high.
+= Minimum Requirements =
+
+* WordPress 5.9 or greater
+* WooCommerce 4.0 and newe
+* PHP version 7.2 or greater
+
+= We recommend your host supports: =
+
+* WordPress Memory limit of 64 MB or greater (usually <=512MB works fine)
+* PHP max_execution_time up to 60 seconds (30 should be fine)
+* If you have large PDF files and/or heavy download traffic, you may need to pay for beefier hosting with more CPUs. A shared hosting plan might not cut it.
 
 = To install plugin =
 1. Upload the entire "waterwoo-pdf" folder to the "/wp-content/plugins/" directory.
