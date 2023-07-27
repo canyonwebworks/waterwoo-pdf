@@ -1,4 +1,7 @@
 <?php
+
+namespace tecnick\TCPDF;
+
 //============================================================+
 // File name   : tcpdf_barcodes_2d.php
 // Version     : 1.0.015
@@ -31,8 +34,6 @@
 //               2D barcodes to be used with TCPDF.
 //
 //============================================================+
-
-namespace tecnick\TCPDF;
 
 use Imagick;
 use imagickpixel;

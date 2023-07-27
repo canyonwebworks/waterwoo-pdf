@@ -19,7 +19,6 @@ class WWPDF_Admin_Notices {
 		// Ajax dismiss "help a girl out" notice
 		add_action( 'wp_ajax_wwpdf_dismiss_notice', [ $this, 'dismiss_notice' ] );
 
-
 	}
 
 	/**
@@ -34,20 +33,24 @@ class WWPDF_Admin_Notices {
 			return;
 		}
 
+		// You're welcome
 		if ( defined( 'DISABLE_NAG_NOTICES' ) && 'true' === 'DISABLE_NAG_NOTICES' ) {
 			return;
 		}
 
 		if ( isset( $_GET['tab'] ) && 'waterwoo-pdf' === $_GET['tab'] && empty( get_option( 'wwpdf_donate_dismiss_06-28' ) ) ) { ?>
 			<div id="wwpdf-donation" class="notice notice-info is-dismissible">
+				<p style="font-size: 1.25em;">
+					Keep in mind this free plugin is a very basic teaser of the paid upgrade. If it works as-is for you, great! If it doesn't do enough, consider upgrading.</p>
 				<p style="font-size: 1.15em;">
-					If you have questions about the free version of <strong>WaterMark PDF</strong> (FKA WaterWoo), please <a href="https://wordpress.org/support/plugin/waterwoo-pdf/" target="_blank" rel="noopener nofollow">open a topic at wordpress.org</a> after first searching the forum to make sure your question hasn't already been answered. I respond to inquiries about the free version of WaterMark PDF as a volunteer in my spare time. Please <a href="https://wordpress.org/support/topic/before-you-post-please-read-2/" target="_blank" rel="noopener noreferrer">follow these guidelines for the quickest help</a>, and be patient.
+					<strong><a href="https://wordpress.org/plugins/waterwoo-pdf/#faq" target="_blank">The plugin FAQ is online</a></strong>. Please <strong><a href="https://wordpress.org/support/plugin/waterwoo-pdf/" target="_blank" rel="noopener nofollow">open a topic at wordpress.org if you have questions</a></strong>. (Please search the forum first to make sure your question hasn't already been answered.) I respond to inquiries about the free version of WaterMark PDF as a volunteer in my spare time. Please <a href="https://wordpress.org/support/topic/before-you-post-please-read-2/" target="_blank" rel="noopener noreferrer">follow these guidelines for the quickest help</a>, and be patient.
 				</p>
 				<p style="font-size: 1.15em;">
-					If you find <strong>WaterMark PDF</strong> useful, and particularly if you benefit from it, please take a moment to write <a href="https://wordpress.org/support/plugin/waterwoo-pdf/reviews/?filter=5" target="_blank" rel="noopener">an encouraging review</a>, donate a couple dollars using the PayPal link below, or maybe even <a href="https://web.little-package.com/wordpress-plugins/waterwoo-pdf-premium/" target="_blank" rel="noopener">upgrade to the premium version from Sagehen Studio (FKA Little Package) for MANY more features and prioritized email support</a>. Your enthusiasm makes donating my time to this open-source project worthwhile.
+					If you find WaterMark PDF useful, and particularly if you benefit from it, please take a moment to write <strong><a href="https://wordpress.org/support/plugin/waterwoo-pdf/reviews/?filter=5" target="_blank" rel="noopener">an encouraging review</a></strong> or <strong><a href="https://www.paypal.com/paypalme/SagehenStudio" target="_blank" rel="noopener noreferrer">donate a couple dollars using PayPal</a></strong>. Your enthusiasm makes donating my time to this open-source project worthwhile.
 				</p>
-				<p style="font-size: 1.25em;text-align:center">
-					* * * PayPal: <a href="https://www.paypal.com/paypalme/SagehenStudio" target="_blank" rel="noopener noreferrer">paypal.me/SagehenStudio</a> * * *
+				<p style="font-size: 1.25em;">
+					The premium/paid version of this plugin includes many more features and prioritized email support.<br><br>
+					<a href="https://web.little-package.com/wordpress-plugins/waterwoo-pdf-premium/" target="_blank" rel="noopener" class="button-primary">Learn More about PDF Premium</a>
 				</p>
 				<button style="z-index: 100;" data-nonce="<?php esc_attr_e( wp_create_nonce('wwpdf-donate-06-28') ); ?>" type="button" class="notice-dismiss wwpdf-donation-dismiss">
 					<span class="screen-reader-text">Dismiss this notice.</span>
@@ -66,7 +69,6 @@ class WWPDF_Admin_Notices {
 	public function dismiss_notice() {
 
 		check_admin_referer( 'wwpdf-donate-06-28', 'nonce' );
-		// Newest at top
 
 		delete_option( 'wwpdf_donate_dismiss_02-07' );
 		delete_option( 'wwpdf_donate_dismiss_05-28' );
@@ -76,6 +78,7 @@ class WWPDF_Admin_Notices {
 		delete_option( 'wwpdf_donate_dismiss_03-17' );
 		delete_option( 'wwpdf_donate_dismiss_05-31' );
 		update_option( 'wwpdf_donate_dismiss_06-28', true, false );
+		wp_die();
 
 	}
 

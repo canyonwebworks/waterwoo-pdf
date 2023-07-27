@@ -1,14 +1,14 @@
 <?php
-/*
+/**
  * Plugin Name: WaterMark PDF for WooCommerce
  * Plugin URI: https://wordpress.org/plugins/waterwoo-pdf/
- * Description: Custom watermark your PDFs upon WooCommerce sale. Formerly known as "WaterWoo"
- * Version: 3.3.1
+ * Description: Custom watermark your PDF files upon WooCommerce customer download. Formerly known as "WaterWoo"
+ * Version: 3.3.2
  * Author: Sagehen Studio
  * Author URI: https://web.little-package.com
  * Donate link: https://paypal.me/littlepackage
  * WC requires at least: 4.0
- * WC tested up to: 7.8
+ * WC tested up to: 7.9
  *
  * License: GPLv3 or later
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -45,12 +45,31 @@
  */
 defined( 'ABSPATH' ) || exit;
 
+if ( ! defined( 'WWPDF_FREE_VERSION' ) ) {
+	define( 'WWPDF_FREE_VERSION', '3.3.2' );
+}
+if ( ! defined( 'WWPDF_FREE_MIN_PHP' ) ) {
+	define( 'WWPDF_FREE_MIN_PHP', '7.2' );
+}
+if ( ! defined( 'WWPDF_FREE_MIN_WP' ) ) {
+	define( 'WWPDF_FREE_MIN_WP', '5.9' );
+}
+if ( ! defined( 'WWPDF_FREE_MIN_WC' ) ) {
+	define( 'WWPDF_FREE_MIN_WC', '4.0' );
+}
+if ( ! defined( 'WWPDF_PATH' ) ) {
+	define( 'WWPDF_PATH', plugin_dir_path( __FILE__ ) );
+}
+
 if ( ! class_exists( 'WaterWooPDF' ) ) :
 
 	class WaterWooPDF {
 
 		private static $instance = false;
 
+		/**
+		 * @return bool|WaterWooPDF
+		 */
 		public static function get_instance() {
 			if ( ! self::$instance ) {
 				self::$instance = new self();
@@ -58,25 +77,27 @@ if ( ! class_exists( 'WaterWooPDF' ) ) :
 			return self::$instance;
 		}
 
-		private $compatible;
-
 		/**
 		 * Constructor
 		 */
 		public function __construct() {
 
-			$this->define_constants();
-			$this->update_db();
-
-			$this->compatible = true;
-
 			register_activation_hook( __FILE__, [ $this, 'activation_hook' ] );
 
+			$this->update_db();
 			$this->includes();
 
-			add_action( 'plugins_loaded',           [ $this, 'plugins_loaded' ], 1 );
+			add_action( 'admin_enqueue_scripts', [ $this, 'admin_enqueue_scripts' ] );
 
-			add_action( 'admin_enqueue_scripts',    [ $this, 'admin_enqueue_scripts' ] );
+			if ( is_admin() ) {
+				// Backend settings
+				$this->settings = new WWPDF_Settings();
+				new WWPDF_Admin_Notices();
+			}
+			// Only run when downloading
+			if ( ! is_admin() && isset( $_GET['download_file'] )  ) {
+				new WWPDF_File_Handler();
+			}
 
 		}
 
@@ -108,28 +129,8 @@ if ( ! class_exists( 'WaterWooPDF' ) ) :
 
 		}
 
-		private function define_constants() {
-
-			if ( ! defined( 'WWPDF_FREE_VERSION' ) ) {
-				define( 'WWPDF_FREE_VERSION', '3.3.1' );
-			}
-			if ( ! defined( 'WWPDF_FREE_MIN_PHP' ) ) {
-				define( 'WWPDF_FREE_MIN_PHP', '7.2' );
-			}
-			if ( ! defined( 'WWPDF_FREE_MIN_WP' ) ) {
-				define( 'WWPDF_FREE_MIN_WP', '5.9' );
-			}
-			if ( ! defined( 'WWPDF_FREE_MIN_WC' ) ) {
-				define( 'WWPDF_FREE_MIN_WC', '4.0' );
-			}
-			if ( ! defined( 'WWPDF_PATH' ) ) {
-				define( 'WWPDF_PATH', plugin_dir_path( __FILE__ ) );
-			}
-
-		}
-
 		/**
-		 * Import and convert WaterWoo settings to match paid setting names
+		 * Import and convert WaterWoo settings to match paid plugin setting names
 		 *
 		 * @return void
 		 */
@@ -162,41 +163,15 @@ if ( ! class_exists( 'WaterWooPDF' ) ) :
 
 		}
 
+		/**
+		 * @return void
+		 */
 		public function includes() {
 
 			include_once WWPDF_PATH . 'classes/wwpdf-admin-notices.php';
-			include_once WWPDF_PATH . 'classes/wwpdf-compatibility.php';
 			include_once WWPDF_PATH . 'classes/wwpdf-settings.php';
 			include_once WWPDF_PATH . 'classes/wwpdf-file-handler.php';
 			include_once WWPDF_PATH . 'classes/wwpdf-watermark.php';
-
-		}
-
-		/**
-		 * Load language files, check compatibility
-		 *
-		 * @return void
-		 */
-		public function plugins_loaded() {
-
-			load_plugin_textdomain( 'waterwoo-pdf', false, dirname( plugin_basename( __FILE__ ) ) . '/lang/' );	
-
-			if ( is_admin() ) {
-				$compatibility = WWPDF_Compatibility::get_instance();
-				if ( ! $compatibility->check_requirements() ) {
-					$this->compatible = false;
-					unset( $compatibility );
-				}
-				if ( $this->compatible ) {
-					// Backend settings
-					$this->settings = new WWPDF_Settings();
-				}
-				new WWPDF_Admin_Notices();
-			}
-			// Only run when downloading & system is compatible
-			if ( ! is_admin() && isset( $_GET['download_file'] ) && $this->compatible ) {
-				new WWPDF_File_Handler();  
-			}
 
 		}
 
@@ -232,11 +207,70 @@ add_action( 'before_woocommerce_init', function() {
 	}
 } );
 
-if ( function_exists('is_plugin_active') && is_plugin_active( 'waterwoo-pdf-premium/waterwoo-pdf-premium.php' ) ) {
+if ( function_exists('is_plugin_active' ) && is_plugin_active( 'waterwoo-pdf-premium/waterwoo-pdf-premium.php' ) ) {
 	wp_die( 'Before activating (WaterWoo) PDF WaterMark for WooCommerce, please deactivate the Premium version. You can use one or the other, but not both.', 'ERROR', [ 'back_link' => true ] );
 }
 
 function WWPDF_Free() {
 	return WaterWooPDF::get_instance();
 }
-WWPDF_Free();
+
+function wwpdf_old_php_notice() {
+	echo '<div class="error"><p>' . sprintf( __( '<strong>Watermark PDF for WooCommerce</strong> supports PHP %s or later. Please update PHP on your server for better overall results.', 'waterwoo-pdf' ), WWPDF_FREE_MIN_PHP ) . '</p></div>';
+}
+
+function wwpdf_old_wp_notice() {
+	echo '<div class="error"><p>' . sprintf( __( '<strong>Watermark PDF for WooCommerce</strong> supports WordPress version %s or later. Please update WordPress to use this plugin.', 'waterwoo-pdf' ), WWPDF_FREE_MIN_WP ) . '</p></div>';
+}
+
+function wwpdf_no_woo_notice() {
+	echo '<div class="error"><p>' . sprintf( __( 'The <strong>Watermark PDF for WooCommerce</strong> plugin requires WooCommerce be activated. You can <a href="%s" target="_blank" rel="noopener">download WooCommerce here</a>.', 'waterwoo-pdf' ), 'https://wordpress.org/plugins/woocommerce/' ) . '</p></div>';
+}
+
+function wwpdf_broken_woo_notice() {
+	echo '<div class="error"><p>' . __( 'Weird. The <strong>WC_Download_Handler</strong> WooCommerce class is missing! It is required for the Watermark PDF plugin to work. Perhaps your WooCommerce installation is corrupted?', 'waterwoo-pdf' ) . '</p></div>';
+}
+
+function wwpdf_old_woo_notice() {
+	echo '<div class="error"><p>' . sprintf( __( 'Sorry, <strong>Watermark PDF for WooCommerce</strong> supports WooCommerce version %s or newer, for security reasons.', 'waterwoo-pdf' ), WWPDF_FREE_MIN_WC ) . '</p></div>';
+}
+
+/**
+ * Checks for compatibility and maybe fires up the plugin
+ *
+ * @return void
+ */
+function wwpdf_plugins_loaded() {
+
+	// Check PHP version
+	if ( version_compare( PHP_VERSION, WWPDF_FREE_MIN_PHP, '<' ) ) {
+		add_action( 'admin_notices', 'wwpdf_old_php_notice' );
+		return;
+	}
+	// Check WordPress version
+	if ( version_compare( get_bloginfo( 'version' ), WWPDF_FREE_MIN_WP, '<' ) ) {
+		add_action( 'admin_notices', 'wwpdf_old_wp_notice' );
+		return;
+	}
+	// Check if WooCommerce is enabled
+	if ( ! class_exists( 'WooCommerce' ) ) {
+		add_action( 'admin_notices', 'wwpdf_no_woo_notice' );
+		return;
+	}
+	// Crucial WC hook for watermarking
+	if ( ! class_exists( 'WC_Download_Handler' ) ) {
+		add_action( 'admin_notices', 'wwpdf_broken_woo_notice' );
+		return;
+	}
+	// Check WooCommerce version
+	if ( version_compare( WC_VERSION, WWPDF_FREE_MIN_WC, '<' ) ) {
+		add_action( 'admin_notices', 'wwpdf_old_woo_notice' );
+		return;
+	}
+
+	load_plugin_textdomain( 'waterwoo-pdf', false, dirname( plugin_basename( __FILE__ ) ) . '/lang/' );
+
+	WWPDF_Free();
+
+}
+add_action( 'plugins_loaded', 'wwpdf_plugins_loaded', 1 );

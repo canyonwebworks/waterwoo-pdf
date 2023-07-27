@@ -3,8 +3,6 @@
 namespace SagehenStudio\lib;
 
 use tecnick\TCPDF\TCPDF;
-use tecnick\TCPDF\includes\TCPDF_STATIC as TCPDF_STATIC;
-use tecnick\TCPDF\includes\TCPDF_FONT_DATA as TCPDF_FONT_DATA;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -21,7 +19,7 @@ class TCPDF_Child extends TCPDF {
 			$quality = 75;
 		}
 		if ( ! isset( $quality ) ) {
-			$quality = apply_filters( 'wwpdf_jpeg_quality', 100 );
+			$quality = apply_filters_deprecated( 'wwpdf_jpeg_quality', [ 100 ], '6.3', '', 'The `wwpdf_jpeg_quality` filter hook is included in the Premium (paid) version of WaterWoo PDF. Please upgrade to continue using it.' );
 		}
 		$this->jpeg_quality = intval($quality);
 	}

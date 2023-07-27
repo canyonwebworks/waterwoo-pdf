@@ -20,11 +20,11 @@ if ( ! class_exists( 'WWPDF_Watermark' ) ) :
 
 		public function __construct( $origfile, $newfile, $footer ) {
 
-			$this->includes();
-			$this->pdf = new TCPDI();
 			$this->file = $origfile;
 			$this->newfile = $newfile;
-			$this->footer = $footer; 
+			$this->footer = $footer;
+			$this->includes();
+			$this->pdf = new TCPDI();
 
 			$this->do_watermark();
 			return $this->newfile;
@@ -71,7 +71,7 @@ if ( ! class_exists( 'WWPDF_Watermark' ) ) :
 
 				$this->setup_page( $i ); // $i is page number
 
-				if ( apply_filters( 'wwpdf_dont_watermark_this_page', false, $i, $pagecount ) ) {
+				if ( apply_filters_deprecated( 'wwpdf_dont_watermark_this_page', [false, $i, $pagecount ], '6.3', '', 'The `wwpdf_dont_watermark_this_page` filter hook is included in the Premium (paid) version of WaterWoo PDF. Please upgrade to continue using it.' ) ) {
 					continue;
 				}
 
@@ -128,8 +128,7 @@ if ( ! class_exists( 'WWPDF_Watermark' ) ) :
 			$r = hexdec( substr( $hex,0,2 ) );
 			$g = hexdec( substr( $hex,2,2 ) );
 			$b = hexdec( substr( $hex,4,2 ) );
-			$rgb = array( $r, $g, $b );
-			return implode( ",", $rgb );
+			return implode( ",", [ $r, $g, $b ] );
 		}
 
 	} // end Class WWPDF_Watermark

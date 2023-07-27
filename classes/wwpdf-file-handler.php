@@ -72,7 +72,7 @@ if ( ! class_exists( 'WWPDF_File_Handler' ) ) :
 					if ( apply_filters( 'wwpdf_serve_unwatermarked_file', false ) ) {
 						return $file_path;
 					} else {
-						echo __( 'The free version of WaterMark PDF cannot serve PDFs from remote servers.', 'waterwoo-pdf' ) . '<br />'
+						echo __( 'The free version of WaterMark PDF cannot serve PDFs from remote servers.', 'waterwoo-pdf' ) . '<br>'
 						. __( 'Try uploading your PDF product to this domain using the native WooCommerce file uploader.', 'waterwoo-pdf' );
 						// sabotage file path access
 						return '';
@@ -110,10 +110,10 @@ if ( ! class_exists( 'WWPDF_File_Handler' ) ) :
 
 				// send watermarked file back to WooCommerce
 				return apply_filters( 'wwpdf_filter_watermarked_file', $watermarked_file, $email, $order, $product, $download );
-				
+
 			}
 			return $file_path;
-		
+
 		}
 
 		/**
@@ -139,15 +139,21 @@ if ( ! class_exists( 'WWPDF_File_Handler' ) ) :
 
 			$content        = sanitize_text_field( get_option( 'wwpdf_footer_input_premium', 'Licensed to [FIRSTNAME] [LASTNAME], [EMAIL]' ) );
 
-			$shortcodes     = apply_filters( 'wwpdf_filter_shortcodes',
-				array(
-					'[FIRSTNAME]' => $first_name,
-					'[LASTNAME]' => $last_name,
-					'[EMAIL]' => $email,
-					'[PHONE]' => $phone,
-					'[DATE]' => $paid_date,
-					'[TIMESTAMP]' => $timestamp,
-				), $email, $product_id, $order_id
+			$shortcodes     = apply_filters_deprecated(
+				'wwpdf_filter_shortcodes',
+				[
+					[
+						'[FIRSTNAME]' => $first_name,
+						'[LASTNAME]' => $last_name,
+						'[EMAIL]' => $email,
+						'[PHONE]' => $phone,
+						'[DATE]' => $paid_date,
+						'[TIMESTAMP]' => $timestamp,
+					],
+				$email, $product_id, $order_id ],
+				'6.3',
+				'',
+				'The `wwpdf_filter_shortcodes` filter hook is included in the Premium (paid) version of WaterWoo PDF. Please upgrade to continue using it.'
 			);
 
 			foreach ( $shortcodes as $shortcode => $value ) {
@@ -158,14 +164,14 @@ if ( ! class_exists( 'WWPDF_File_Handler' ) ) :
 				}
 			}
 
-			$content = apply_filters( 'wwpdf_filter_footer', $content, $order_id, $product_id );
+			$content = apply_filters_deprecated( 'wwpdf_filter_footer', [ $content, $order_id, $product_id ], '6.3', '', 'The `wwpdf_filter_footer` filter hook is included in the Premium (paid) version of WaterWoo PDF. Please upgrade to continue using it.' );
 
 			// Text encoding
 			if ( has_filter( 'wwpdf_font_decode' ) ) {
-				$content = apply_filters( 'wwpdf_font_decode', $content );
+				$content = apply_filters_deprecated( 'wwpdf_font_decode', [ $content ], '6.3', '', 'The `wwpdf_font_decode` filter hook is included in the Premium (paid) version of WaterWoo PDF. Please upgrade to continue using it.' );
 			} else {
 				$out_charset = 'UTF-8';
-				$out_charset = apply_filters( 'wwpdf_out_charset', $out_charset );
+				$out_charset = apply_filters_deprecated( 'wwpdf_out_charset', [ $out_charset ], '6.3', '', 'The `wwpdf_out_charset` filter hook is included in the Premium (paid) version of WaterWoo PDF. Please upgrade to continue using it.' );
 				$content = html_entity_decode( $content, ENT_QUOTES | ENT_XML1, $out_charset );
 			}
 

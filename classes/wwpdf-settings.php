@@ -47,7 +47,7 @@ class WWPDF_Settings {
 	public function plugin_action_links( $links ) {
 
 		if ( function_exists( 'is_plugin_active' ) && ! is_plugin_active( 'waterwoo-pdf-premium/waterwoo-pdf-premium.php' ) ) {
-			$links[] = '<a href="https://web.little-package.com/wordpress-plugins/waterwoo-pdf-premium/" target="_blank" rel="noopener">' . __( 'Upgrade Now', 'waterwoo-pdf' ) . '</a>';
+			$links[] = '<a href="https://web.little-package.com/wordpress-plugins/waterwoo-pdf-premium/" target="_blank" rel="noopener">' . __( 'Upgrade for more features', 'waterwoo-pdf' ) . '</a>';
 		}
 		$settings = sprintf( '<a href="%s" title="%s">%s</a>', admin_url( 'admin.php?page=wc-settings&tab=waterwoo-pdf' ), __( 'Go to the settings page', 'waterwoo-pdf' ), __( 'Settings', 'waterwoo-pdf' ) );
 		array_unshift( $links, $settings );
@@ -160,7 +160,7 @@ class WWPDF_Settings {
 					'id'      => 'wwpdf_files',
 					'type'    => 'textarea',
 					'title'   => __( 'File(s) to watermark', 'waterwoo-pdf' ),
-					'desc'    => __( 'List file name(s) of PDF(s) to watermark, one per line, e.g., <code>upload.pdf</code> or <code>my_pdf.pdf</code> .<br />If left blank, Watermark PDF for WooCommerce will watermark all PDFs sold through WooCommerce.', 'waterwoo-pdf' ),
+					'desc'    => __( 'List file name(s) of PDF(s) to watermark, one per line, e.g., <code>upload.pdf</code> or <code>my_pdf.pdf</code> .<br>If left blank, Watermark PDF for WooCommerce will watermark all PDFs sold through WooCommerce.', 'waterwoo-pdf' ),
 					'default' => '',
 					'css'     => 'min-height: 82px;',
 				),
@@ -460,8 +460,8 @@ class WWPDF_Settings {
 					'id'   => 'wwpdf_thanks',
 					'name' => __( 'Thank you!', 'woocommerce-gift-wrapper' ),
 					'type' => 'title',
-					'desc' => __( 'I\'ve been working very hard on this <em>helpful and free</em> plugin for you since October 2014.', 'waterwoo-pdf' ) . '<br />'
-							. sprintf( __( 'Please show the love: <a href="%s" target="_blank" rel="noopener">leave a review</a> or <a href="%s" target="_blank" rel="noopener">make a small donation</a> if you benefit from my work.', 'waterwoo-pdf' ), 'https://wordpress.org/support/plugin/waterwoo-pdf/reviews/?filter=5', 'https://paypal.me/sagehenstudio' ) . '<br />'
+					'desc' => __( 'I\'ve been working very hard on this <em>helpful and free</em> plugin for you since October 2014.', 'waterwoo-pdf' ) . '<br>'
+							. sprintf( __( 'Please show the love: <a href="%s" target="_blank" rel="noopener">leave a review</a> or <a href="%s" target="_blank" rel="noopener">make a small donation</a> if you benefit from my work.', 'waterwoo-pdf' ), 'https://wordpress.org/support/plugin/waterwoo-pdf/reviews/?filter=5', 'https://paypal.me/sagehenstudio' ) . '<br>'
 				),
 
 			)

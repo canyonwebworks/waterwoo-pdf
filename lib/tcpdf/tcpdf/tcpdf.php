@@ -1,4 +1,7 @@
 <?php
+
+namespace tecnick\TCPDF;
+
 //============================================================+
 // File name   : tcpdf.php
 // Version     : 6.6.2
@@ -106,8 +109,6 @@
  * @author Nicola Asuni
  * @version 6.6.2
  */
-
-namespace tecnick\TCPDF;
 
 // TCPDF configuration
 require_once(dirname(__FILE__).'/tcpdf_autoconfig.php');

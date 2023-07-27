@@ -1,4 +1,7 @@
 <?php
+
+namespace tecnick\TCPDF;
+
 //============================================================+
 // File name   : tcpdf_barcodes_1d.php
 // Version     : 1.0.027
@@ -31,8 +34,6 @@
 //               common 1D barcodes to be used with TCPDF.
 //
 //============================================================+
-
-namespace tecnick\TCPDF;
 
 use Imagick;
 use imagickpixel;

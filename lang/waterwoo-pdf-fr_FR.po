@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Watermark PDF for WooCommerce\n"
-"POT-Creation-Date: 2023-06-01 18:47-0700\n"
-"PO-Revision-Date: 2023-06-01 18:49-0700\n"
+"POT-Creation-Date: 2023-07-27 10:31-0700\n"
+"PO-Revision-Date: 2023-07-27 12:39-0700\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr_FR\n"
@@ -20,64 +20,14 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
-#: classes/wwpdf-compatibility.php:73
-#, php-format
-msgid ""
-"<strong>Watermark PDF for WooCommerce</strong> requires WooCommerce to work. "
-"You can <a href=\"%s\" target=\"_blank\" rel=\"noopener\">download "
-"WooCommerce here</a>."
-msgstr ""
-"<strong>Watermark PDF for WooCommerce</strong> nécessite woocommerce pour "
-"travailler. Vous pouvez <a href=\"%s\" target=\"_blank\" "
-"rel=\"noopener\">télécharger WooCommerce ici</a>."
-
-#: classes/wwpdf-compatibility.php:76
-msgid ""
-"The <strong>WC_Download_Handler</strong> WooCommerce class is missing! It is "
-"required for the Watermark PDF plugin to work. Perhaps your WooCommerce "
-"installation is corrupted?"
-msgstr ""
-"La classe <strong>WC_Download_Handler</strong> WooCommerce est manquante ! "
-"Elle est nécessaire pour que le plugin Watermark PDF fonctionne. Peut-être "
-"que votre installation de WooCommerce est corrompue ?"
-
-#: classes/wwpdf-compatibility.php:79
-#, php-format
-msgid ""
-"<strong>Watermark PDF for WooCommerce</strong> supports PHP %s or later. "
-"Please update PHP on your server for better results."
-msgstr ""
-"<strong>Watermark PDF for WooCommerce</strong> prend en charge PHP %s ou "
-"plus tard. S'il vous plaît mettre à jour PHP sur votre serveur pour de "
-"meilleurs résultats."
-
-#: classes/wwpdf-compatibility.php:82
-#, php-format
-msgid ""
-"<strong>Watermark PDF for WooCommerce</strong> supports WordPress version %s "
-"or later. Please update WordPress to use this plugin."
-msgstr ""
-"<strong>Watermark PDF for WooCommerce</strong> prend en charge WordPress "
-"version %s ou plus tard. S'il vous plaît mettre à jour WordPress pour "
-"utiliser ce plugin."
-
-#: classes/wwpdf-compatibility.php:85
-#, php-format
-msgid ""
-"Sorry, <strong>Watermark PDF for WooCommerce</strong> supports WooCommerce "
-"version %s or newer, for security reasons."
-msgstr ""
-"Désolé, <strong>Watermark PDF for WooCommerce</strong> prend en charge "
-"WooCommerce version %s ou plus récent, pour des raisons de sécurité."
-
-#: classes/wwpdf-file-handler.php:73
+#: classes/wwpdf-file-handler.php:75
 msgid ""
 "The free version of WaterMark PDF cannot serve PDFs from remote servers."
 msgstr ""
 "La version gratuite de WaterMark PDF ne peut pas servir des PDF provenant de "
 "serveurs distants."
 
-#: classes/wwpdf-file-handler.php:74
+#: classes/wwpdf-file-handler.php:76
 msgid ""
 "Try uploading your PDF product to this domain using the native WooCommerce "
 "file uploader."
@@ -94,8 +44,8 @@ msgid "Support"
 msgstr "Assistance"
 
 #: classes/wwpdf-settings.php:50
-msgid "Upgrade Now"
-msgstr "Mettre à niveau maintenant"
+msgid "Upgrade for more features"
+msgstr "Passage au Prémium"
 
 #: classes/wwpdf-settings.php:52
 msgid "Go to the settings page"
@@ -223,8 +173,8 @@ msgstr "Fichier (s) à filigrane"
 #: classes/wwpdf-settings.php:163
 msgid ""
 "List file name(s) of PDF(s) to watermark, one per line, e.g., <code>upload."
-"pdf</code> or <code>my_pdf.pdf</code> .<br />If left blank, Watermark PDF "
-"for WooCommerce will watermark all PDFs sold through WooCommerce."
+"pdf</code> or <code>my_pdf.pdf</code> .<br>If left blank, Watermark PDF for "
+"WooCommerce will watermark all PDFs sold through WooCommerce."
 msgstr ""
 "Liste des noms des fichiers de PDF(s) de filigrane, un par ligne, par "
 "exemple, <code>upload.pdf</code> ou <code>my_pdf.pdf</code> .<br>Si laissé "
@@ -365,16 +315,15 @@ msgstr "accord précis"
 #: classes/wwpdf-settings.php:314
 msgid ""
 "In millimeters. Move the footer watermark up and down on the page by "
-"adjusting this number. Default is 260 millimeters (bottom of letter-sized "
-"page). If this number is longer/higher than the length/height of your PDF, "
-"it will default back to -10 (10 millimeters from the bottom of the page). "
-"Account for the height of your font/text!"
+"adjusting this number. If this number is longer/higher than the length/"
+"height of your PDF, it will default back to -10 (10 millimeters from the "
+"bottom of the page). Account for the height of your font/text!"
 msgstr ""
-"En millimètres. Déplacez le filigrane footer de haut en bas sur la page en "
-"ajustant ce nombre. Par défaut est de 260 millimètres (en bas de la page de "
-"la taille d’une lettre). Si ce nombre est plus long/supérieur à la longueur/"
-"hauteur de votre PDF, il sera par défaut de retour à -10 (10 millimètres à "
-"partir du bas de la page). Comptez pour la hauteur de votre police / texte!"
+"En millimètres. Déplacez le filigrane de bas de page vers le haut ou vers le "
+"bas de la page en ajustant ce nombre. Si ce nombre est plus long ou plus "
+"haut que la longueur ou la hauteur de votre PDF, il sera ramené par défaut à "
+"-10 (10 millimètres à partir du bas de la page). Tenez compte de la hauteur "
+"de votre police/texte !"
 
 #: classes/wwpdf-settings.php:326
 msgid "Leave No Trace?"
@@ -616,13 +565,63 @@ msgstr ""
 msgid "File download (TCPDI_PARSER) error"
 msgstr "Erreur de téléchargement de fichier (TCPDI_PARSER)"
 
-#: waterwoo-pdf.php:87
+#: waterwoo-pdf.php:108
 msgid "Cloning is forbidden."
 msgstr "Le clonage est interdit."
 
-#: waterwoo-pdf.php:94
+#: waterwoo-pdf.php:115
 msgid "Unserializing instances of this class is forbidden."
 msgstr "La désérialisation des instances de cette classe est interdite."
+
+#: waterwoo-pdf.php:219
+#, php-format
+msgid ""
+"<strong>Watermark PDF for WooCommerce</strong> supports PHP %s or later. "
+"Please update PHP on your server for better overall results."
+msgstr ""
+"<strong>Watermark PDF for WooCommerce</strong> supporte PHP %s ou plus "
+"récent. Veuillez mettre à jour PHP sur votre serveur pour obtenir de "
+"meilleurs résultats."
+
+#: waterwoo-pdf.php:223
+#, php-format
+msgid ""
+"<strong>Watermark PDF for WooCommerce</strong> supports WordPress version %s "
+"or later. Please update WordPress to use this plugin."
+msgstr ""
+"<strong>Watermark PDF for WooCommerce</strong> prend en charge WordPress "
+"version %s ou plus tard. S'il vous plaît mettre à jour WordPress pour "
+"utiliser ce plugin."
+
+#: waterwoo-pdf.php:227
+#, php-format
+msgid ""
+"The <strong>Watermark PDF for WooCommerce</strong> plugin requires "
+"WooCommerce be activated. You can <a href=\"%s\" target=\"_blank\" "
+"rel=\"noopener\">download WooCommerce here</a>."
+msgstr ""
+"Le plugin <strong>Watermark PDF for WooCommerce</strong> nécessite "
+"l'activation de WooCommerce. Vous pouvez <a href=\"%s\" target=\"_blank\" "
+"rel=\"noopener\">télécharger WooCommerce ici</a>."
+
+#: waterwoo-pdf.php:231
+msgid ""
+"Weird. The <strong>WC_Download_Handler</strong> WooCommerce class is "
+"missing! It is required for the Watermark PDF plugin to work. Perhaps your "
+"WooCommerce installation is corrupted?"
+msgstr ""
+"Bizarre. La classe <strong>WC_Download_Handler</strong> WooCommerce est "
+"manquante ! Elle est nécessaire au fonctionnement du plugin Watermark PDF. "
+"Peut-être que votre installation de WooCommerce est corrompue ?"
+
+#: waterwoo-pdf.php:235
+#, php-format
+msgid ""
+"Sorry, <strong>Watermark PDF for WooCommerce</strong> supports WooCommerce "
+"version %s or newer, for security reasons."
+msgstr ""
+"Désolé, <strong>Watermark PDF for WooCommerce</strong> prend en charge "
+"WooCommerce version %s ou plus récent, pour des raisons de sécurité."
 
 #. Plugin Name of the plugin/theme
 msgid "WaterMark PDF for WooCommerce"
@@ -634,11 +633,11 @@ msgstr ""
 
 #. Description of the plugin/theme
 msgid ""
-"Custom watermark your PDFs upon WooCommerce sale. Formerly known as "
-"\"WaterWoo\""
+"Custom watermark your PDF files upon WooCommerce customer download. Formerly "
+"known as \"WaterWoo\""
 msgstr ""
-"Personnalisez le filigrane de vos PDF lors de la vente par WooCommerce. "
-"Anciennement connu sous le nom de \"WaterWoo\""
+"Filigrane personnalisé pour vos fichiers PDF lors du téléchargement par les "
+"clients de WooCommerce. Anciennement connu sous le nom de \"WaterWoo\""
 
 #. Author of the plugin/theme
 msgid "Sagehen Studio"
@@ -648,23 +647,26 @@ msgstr ""
 msgid "https://web.little-package.com"
 msgstr ""
 
+#~ msgid "Upgrade Now"
+#~ msgstr "Mettre à niveau maintenant"
+
 #~ msgid ""
 #~ "<p><a href=\"https://web.little-package.com/wordpress-plugins/waterwoo-"
 #~ "pdf-premium/\" target=\"_blank\" rel=\"noopener\">Purchase the premium "
 #~ "version of Watermark PDF for WooCommerce</a> if you want: page and "
 #~ "position control, extended <strong>shortcodes</strong>, including order "
-#~ "number, quantity sold and future dates;<br />"
+#~ "number, quantity sold and future dates;<br>"
 #~ msgstr ""
 #~ "<p><a href=\"https://web.little-package.com/wordpress-plugins/waterwoo-"
 #~ "pdf-premium/\" target=\"_blank\" rel=\"noopener\">Achetez la version "
 #~ "premium de Watermark PDF for WooCommerce</a> si vous voulez : contrôle de "
 #~ "la page et de la position, <strong>shortcodes</strong> étendus, y compris "
-#~ "le numéro de commande, la quantité vendue et les dates futures<br />"
+#~ "le numéro de commande, la quantité vendue et les dates futures<br>"
 
 #~ msgid ""
 #~ "<strong>opacity</strong> control; custom <strong>fonts</strong>, extended "
 #~ "characters & RTL; <strong>barcodes</strong> and QR codes; "
-#~ "<strong>password</strong> protection & permissions control;<br />"
+#~ "<strong>password</strong> protection & permissions control;<br>"
 #~ msgstr ""
 #~ "contrôle <strong>de l'opacité;</strong> <strong>polices personnalisées, "
 #~ "caractères étendus</strong>- RTL; <strong>codes à barres</strong> et "
@@ -714,16 +716,16 @@ msgstr ""
 #, fuzzy, php-format
 #~ msgid ""
 #~ "<p>Encourage Wordpress plugin authors to keep making & supporting free "
-#~ "plugins!<br />If you benefit from using WaterWoo, please <a "
-#~ "href=\"https://wordpress.org/support/view/plugin-reviews/waterwoo-pdf?"
-#~ "filter=5\" target=\"_blank\" rel=\"noopener\">submit a kind review</a> or "
-#~ "<a href=\"https://www.paypal.com/cgi-bin/webscr?cmd=_s-"
+#~ "plugins!<br>If you benefit from using WaterWoo, please <a href=\"https://"
+#~ "wordpress.org/support/view/plugin-reviews/waterwoo-pdf?filter=5\" "
+#~ "target=\"_blank\" rel=\"noopener\">submit a kind review</a> or <a "
+#~ "href=\"https://www.paypal.com/cgi-bin/webscr?cmd=_s-"
 #~ "xclick&hosted_button_id=PB2CFX8H4V49L\" target=\"_blank\">make a small "
 #~ "donation</a>. <strong>Thank you</strong>.</p><p class=\"alignright\"><a "
 #~ "href=\"%1$s\">Hide This Notice</a></p>"
 #~ msgstr ""
 #~ "<p> Encouragez les auteurs de plug-ins Wordpress à continuer de créer et "
-#~ "de prendre en charge des plug-ins gratuits! <br /> Si vous bénéficiez de "
+#~ "de prendre en charge des plug-ins gratuits! <br> Si vous bénéficiez de "
 #~ "l'utilisation de WaterWoo, veuillez <a href=\"https://wordpress.org/"
 #~ "support/view/plugin-reviews/waterwoo-pdf?filter=5\" "
 #~ "target=\"_blank\">soumettre une critique</a> ou <a href=\"https://www."
@@ -733,22 +735,23 @@ msgstr ""
 
 #~ msgid ""
 #~ "Note: This free watermarking plugin is rudimentary. You need the <a "
-#~ "href=\"https://www.waterwoo.me/buy/waterwoo-premium/\" "
-#~ "target=\"_blank\">Premium Version of WaterWoo</a> if:<ol><li>Your "
-#~ "watermark is not in English and/or contains extended Unicode characters "
-#~ "(e.g. ě à é č ì ü Л Ж Ω ﺦ ﺉ ...)</li><li>If any of your PDFs are version "
-#~ "1.5 or newer.</li><li>You want extended shortcode function, opacity "
-#~ "control, RTL, password protection, per-product and variable product "
-#~ "watermarking, and much more.</li></ol>"
+#~ "href=\"https://web.little-package.com/wordpress-plugins/waterwoo-pdf-"
+#~ "premium/\" target=\"_blank\">Premium Version of WaterWoo</a> if:"
+#~ "<ol><li>Your watermark is not in English and/or contains extended Unicode "
+#~ "characters (e.g. ě à é č ì ü Л Ж Ω ﺦ ﺉ ...)</li><li>If any of your PDFs "
+#~ "are version 1.5 or newer.</li><li>You want extended shortcode function, "
+#~ "opacity control, RTL, password protection, per-product and variable "
+#~ "product watermarking, and much more.</li></ol>"
 #~ msgstr ""
 #~ "Ce plugin gratuit est rudimentaire. Vous avez besoin de la <a "
-#~ "href=\"https://www.waterwoo.me/buy/waterwoo-premium/\" "
-#~ "target=\"_blank\">version Premium de WaterWoo</a> si:<ol><li>Votre "
-#~ "filigrane n'est pas en anglais et / ou contient des caractères Unicode "
-#~ "étendus</li><li>Si l'un de vos PDF est la version 1.5 ou plus récente.</"
-#~ "li><li>Vous voulez une fonction de shortcode étendue, un contrôle de "
-#~ "l’opacité, une RTL, une protection par mot de passe, un filigranage par "
-#~ "produit et par produit variable, et bien plus encore.</li></ol>"
+#~ "href=\"https://web.little-package.com/wordpress-plugins/waterwoo-pdf-"
+#~ "premium/\" target=\"_blank\">version Premium de WaterWoo</a> si:"
+#~ "<ol><li>Votre filigrane n'est pas en anglais et / ou contient des "
+#~ "caractères Unicode étendus</li><li>Si l'un de vos PDF est la version 1.5 "
+#~ "ou plus récente.</li><li>Vous voulez une fonction de shortcode étendue, "
+#~ "un contrôle de l’opacité, une RTL, une protection par mot de passe, un "
+#~ "filigranage par produit et par produit variable, et bien plus encore.</"
+#~ "li></ol>"
 
 #~ msgid "Invalid email address."
 #~ msgstr "Adresse courriel non valide."

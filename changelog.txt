@@ -1,4 +1,4 @@
-Archived Watermark PDF for WooCommerce changelog for pre-3.0 versions
+Archived Watermark PDF for WooCommerce (WaterWoo) changelog for pre-3.0 versions
 
 = 3.0.1 =
 * More info in FAQ for folks who refuse to read through the support channel.
