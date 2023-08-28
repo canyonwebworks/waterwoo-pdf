@@ -14,7 +14,7 @@ if ( ! class_exists( 'WWPDF_File_Handler' ) ) :
 			$this->watermarked_file = '';
 
 			// Filter the file download path
-			add_filter( 'woocommerce_download_product_filepath', [ $this, 'pdf_filepath' ], 50, 5 );
+			add_filter( 'woocommerce_download_product_filepath', array( $this, 'pdf_filepath' ), 50, 5 );
 
 			if ( apply_filters( 'wwpdf_do_cleanup', true ) ) {
 				$this->do_cleanup();
@@ -63,42 +63,36 @@ if ( ! class_exists( 'WWPDF_File_Handler' ) ) :
 			// Watermark desired files only
 			if ( in_array( $requested_file, $wwpdf_file_list ) || $wwpdf_files == '' ) {
 
-				// Set up watermark content according to admin settings
-				$product_id = $product->get_id();
-				$content = $this->wwpdf_setup_watermark( $email, $product_id, $order_id ); 
-
-				$parsed_file_path = WC_Download_Handler::parse_file_path( $file_path );
-				if ( $parsed_file_path['remote_file'] === true ) {
-					if ( apply_filters( 'wwpdf_serve_unwatermarked_file', false ) ) {
-						return $file_path;
-					} else {
-						echo __( 'The free version of WaterMark PDF cannot serve PDFs from remote servers.', 'waterwoo-pdf' ) . '<br>'
-						. __( 'Try uploading your PDF product to this domain using the native WooCommerce file uploader.', 'waterwoo-pdf' );
-						// sabotage file path access
-						return '';
-					}
-				}
-
-				$path = $parsed_file_path['file_path'];
-				if ( function_exists( 'wp_normalize_path' ) ) {
-					$path = wp_normalize_path( $path );
-				}
-
-				// Create a unique file name for the new watermarked file
-				$time = time();
-				$watermarked_path = str_replace( '.pdf', '', $path ) . '_' . $order_id . '_' . $time . '.pdf';
-				$watermarked_path = apply_filters( 'wwpdf_filter_file_path', $watermarked_path, $email, $order, $product, $download, $time );
-
-				// Attempt to watermark using TCPDI/TCPDF
 				try {
+					// Set up watermark content according to admin settings
+					$product_id = $product->get_id();
+					$content = $this->wwpdf_setup_watermark( $email, $product_id, $order_id );
+
+					$parsed_file_path = WC_Download_Handler::parse_file_path( $file_path );
+					if ( $parsed_file_path['remote_file'] === true ) {
+						throw new Exception( __( 'The free version of WaterMark PDF cannot serve PDFs from remote servers.', 'waterwoo-pdf' ) . __( 'Try uploading your PDF product to this domain using the native WooCommerce file uploader.', 'waterwoo-pdf' ) );
+					}
+
+					$path = $parsed_file_path['file_path'];
+					if ( function_exists( 'wp_normalize_path' ) ) {
+						$path = wp_normalize_path( $path );
+					}
+
+					// Create a unique file name for the new watermarked file
+					$time = time();
+					$watermarked_path = str_replace( '.pdf', '', $path ) . '_' . $order_id . '_' . $time . '.pdf';
+					$watermarked_path = apply_filters( 'wwpdf_filter_file_path', $watermarked_path, $email, $order, $product, $download, $time );
+
+					// Attempt to watermark using TCPDI/TCPDF
 					$this->watermarked_file = new WWPDF_Watermark( $path, $watermarked_path, $content );
+
 				} catch ( Exception $e ) {
 					$error_message = $e->getMessage();
-					echo apply_filters( 'wwpdf_filter_exception_message', 'Unable to watermark this file for download. Please notify site administrator.', $error_message, $path );
+					error_log( 'PDF Watermark error: ' . print_r( $error_message, true ) );
 					if ( apply_filters( 'wwpdf_serve_unwatermarked_file', false, $file_path ) ) {
 						return $file_path;
 					} else {
-						return '';
+						wp_die( apply_filters( 'wwpdf_filter_exception_message', __( 'Sorry, we were unable to prepare this file for download! Please notify site administrator. An error has been logged on their end.', 'waterwoo-pdf' ), $error_message, $file_path ), '', array( 'back_link' => true ) );
 					}
 				}
 
@@ -141,16 +135,16 @@ if ( ! class_exists( 'WWPDF_File_Handler' ) ) :
 
 			$shortcodes     = apply_filters_deprecated(
 				'wwpdf_filter_shortcodes',
-				[
-					[
+				array(
+					array(
 						'[FIRSTNAME]' => $first_name,
 						'[LASTNAME]' => $last_name,
 						'[EMAIL]' => $email,
 						'[PHONE]' => $phone,
 						'[DATE]' => $paid_date,
 						'[TIMESTAMP]' => $timestamp,
-					],
-				$email, $product_id, $order_id ],
+					),
+				$email, $product_id, $order_id ),
 				'6.3',
 				'',
 				'The `wwpdf_filter_shortcodes` filter hook is included in the Premium (paid) version of WaterWoo PDF. Please upgrade to continue using it.'
@@ -164,14 +158,14 @@ if ( ! class_exists( 'WWPDF_File_Handler' ) ) :
 				}
 			}
 
-			$content = apply_filters_deprecated( 'wwpdf_filter_footer', [ $content, $order_id, $product_id ], '6.3', '', 'The `wwpdf_filter_footer` filter hook is included in the Premium (paid) version of WaterWoo PDF. Please upgrade to continue using it.' );
+			$content = apply_filters_deprecated( 'wwpdf_filter_footer', array( $content, $order_id, $product_id ), '6.3', '', 'The `wwpdf_filter_footer` filter hook is included in the Premium (paid) version of WaterWoo PDF. Please upgrade to continue using it.' );
 
 			// Text encoding
 			if ( has_filter( 'wwpdf_font_decode' ) ) {
-				$content = apply_filters_deprecated( 'wwpdf_font_decode', [ $content ], '6.3', '', 'The `wwpdf_font_decode` filter hook is included in the Premium (paid) version of WaterWoo PDF. Please upgrade to continue using it.' );
+				$content = apply_filters_deprecated( 'wwpdf_font_decode', array( $content ), '6.3', '', 'The `wwpdf_font_decode` filter hook is included in the Premium (paid) version of WaterWoo PDF. Please upgrade to continue using it.' );
 			} else {
 				$out_charset = 'UTF-8';
-				$out_charset = apply_filters_deprecated( 'wwpdf_out_charset', [ $out_charset ], '6.3', '', 'The `wwpdf_out_charset` filter hook is included in the Premium (paid) version of WaterWoo PDF. Please upgrade to continue using it.' );
+				$out_charset = apply_filters_deprecated( 'wwpdf_out_charset', array( $out_charset ), '6.3', '', 'The `wwpdf_out_charset` filter hook is included in the Premium (paid) version of WaterWoo PDF. Please upgrade to continue using it.' );
 				$content = html_entity_decode( $content, ENT_QUOTES | ENT_XML1, $out_charset );
 			}
 
@@ -204,13 +198,12 @@ if ( ! class_exists( 'WWPDF_File_Handler' ) ) :
 
 			// Force
 			if ( 'force' === get_option( 'woocommerce_file_download_method' ) ) {
-				add_action( 'shutdown', [ $this, 'cleanup_file' ] ); // this will not work every time because we cannot know download is complete before PHP shutdown
+				add_action( 'shutdown', array( $this, 'cleanup_file' ) ); // this will not work every time because we cannot know download is complete before PHP shutdown
 			// Redirect or xsendfile
-			} else {
-				// recommend setting up a cron job to remove watermarked files periodically,
-				// but adding a hook here just in case you have other plans
-				do_action( 'wwpdf_file_cleanup', $this->watermarked_file );
 			}
+			// recommend setting up a cron job to remove watermarked files periodically,
+			// but adding a hook here just in case you have other plans
+			do_action( 'wwpdf_file_cleanup', $this->watermarked_file );
 
 		}
 

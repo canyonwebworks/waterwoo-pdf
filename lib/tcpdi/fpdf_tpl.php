@@ -18,6 +18,7 @@
 //
 namespace pauln\Tcpdi;
 
+// Uses a dumbed-down version of TCPDF_Child in free version
 class FPDF_TPL extends \SagehenStudio\lib\TCPDF_Child {
 
 	/**

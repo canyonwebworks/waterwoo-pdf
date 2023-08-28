@@ -116,14 +116,12 @@ class TCPDI extends FPDF_TPL {
 	 */
 	function _getPdfParser( $filename ) {
 
-		try {
-			$data = file_get_contents( $filename );
-			if ( $data === false ) {
-				// Try once more
-				$data = file_get_contents( $filename );
-			}
-		} catch (Exception $e) {
-			$this->Error('Unable to get PDF file contents.');
+		if ( empty( $filename ) ) {
+			throw new \Exception( 'File path cannot be empty.' );
+		}
+		$data = file_get_contents( $filename );
+		if ( false === $data ) {
+			throw new \Exception( 'Unable to get PDF file contents.' );
 		}
 		return new tcpdi_parser( $data, $filename );
 
@@ -156,7 +154,7 @@ class TCPDI extends FPDF_TPL {
 	function importPage($pageno, $boxName = '/CropBox') {
 
 		if ($this->_intpl) {
-			return $this->Error('Please import the desired pages before creating a new template.');
+			throw new \Exception( 'Please import the desired pages before creating a new template.' );
 		}
 
 		$fn = $this->current_filename;
@@ -171,7 +169,7 @@ class TCPDI extends FPDF_TPL {
 		$parser->setPageno($pageno);
 
 		if (!in_array($boxName, $parser->availableBoxes)) {
-			return $this->Error(sprintf('Unknown box: %s', $boxName));
+			throw new \Exception( sprintf( 'Unknown box: %s', $boxName ) );
 		}
 
 		$pageboxes = $parser->getPageBoxes($pageno, $this->k);

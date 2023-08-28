@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WaterMark PDF for WooCommerce\n"
-"POT-Creation-Date: 2023-07-27 10:31-0700\n"
+"POT-Creation-Date: 2023-08-28 10:04-0700\n"
 "PO-Revision-Date: 2022-02-07 12:11-0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -21,14 +21,20 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.min.js\n"
 
-#: classes/wwpdf-file-handler.php:75
+#: classes/wwpdf-file-handler.php:73
 msgid "The free version of WaterMark PDF cannot serve PDFs from remote servers."
 msgstr ""
 
-#: classes/wwpdf-file-handler.php:76
+#: classes/wwpdf-file-handler.php:73
 msgid ""
 "Try uploading your PDF product to this domain using the native WooCommerce file "
 "uploader."
+msgstr ""
+
+#: classes/wwpdf-file-handler.php:95
+msgid ""
+"Sorry, we were unable to prepare this file for download! Please notify site "
+"administrator. An error has been logged on their end."
 msgstr ""
 
 #: classes/wwpdf-settings.php:32
@@ -443,15 +449,6 @@ msgid ""
 "donation</a> if you benefit from my work."
 msgstr ""
 
-#: lib/tcpdi/tcpdi_parser.php:1567
-msgid ""
-"There was an error while preparing your file for download. Please contact support."
-msgstr ""
-
-#: lib/tcpdi/tcpdi_parser.php:1567
-msgid "File download (TCPDI_PARSER) error"
-msgstr ""
-
 #: waterwoo-pdf.php:108
 msgid "Cloning is forbidden."
 msgstr ""
@@ -460,21 +457,21 @@ msgstr ""
 msgid "Unserializing instances of this class is forbidden."
 msgstr ""
 
-#: waterwoo-pdf.php:219
+#: waterwoo-pdf.php:205
 #, php-format
 msgid ""
 "<strong>Watermark PDF for WooCommerce</strong> supports PHP %s or later. Please "
 "update PHP on your server for better overall results."
 msgstr ""
 
-#: waterwoo-pdf.php:223
+#: waterwoo-pdf.php:209
 #, php-format
 msgid ""
 "<strong>Watermark PDF for WooCommerce</strong> supports WordPress version %s or "
 "later. Please update WordPress to use this plugin."
 msgstr ""
 
-#: waterwoo-pdf.php:227
+#: waterwoo-pdf.php:213
 #, php-format
 msgid ""
 "The <strong>Watermark PDF for WooCommerce</strong> plugin requires WooCommerce be "
@@ -482,14 +479,14 @@ msgid ""
 "WooCommerce here</a>."
 msgstr ""
 
-#: waterwoo-pdf.php:231
+#: waterwoo-pdf.php:217
 msgid ""
 "Weird. The <strong>WC_Download_Handler</strong> WooCommerce class is missing! It is "
 "required for the Watermark PDF plugin to work. Perhaps your WooCommerce "
 "installation is corrupted?"
 msgstr ""
 
-#: waterwoo-pdf.php:235
+#: waterwoo-pdf.php:221
 #, php-format
 msgid ""
 "Sorry, <strong>Watermark PDF for WooCommerce</strong> supports WooCommerce version "

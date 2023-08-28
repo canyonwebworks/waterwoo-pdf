@@ -1785,11 +1785,10 @@ class TCPDF_FONTS {
 	 */
 	public static function UTF8ArrayToUniArray($ta, $isunicode=true) {
 		if ($isunicode) {
-			// return array_map('self::unichrUnicode', $ta);
-			return array_map(self::class . "::unichrUnicode",$ta);
+			return array_map(array('self','unichrUnicode'),$ta);
 		}
-		// return array_map('self::unichrASCII', $ta);
-		return array_map(self::class . "::unichrASCII",$ta);
+		return array_map(array('self','unichrASCII'),$ta );
+
 	}
 
 	/**
@@ -2010,7 +2009,8 @@ class TCPDF_FONTS {
 			// requires PCRE unicode support turned on
 			$chars = TCPDF_STATIC::pregSplit('//','u', $str, -1, PREG_SPLIT_NO_EMPTY);
 			// $carr = array_map('self::uniord',$chars);
-			$carr = array_map(self::class . "::uniord",$chars);
+			$carr = array_map(array('self', 'uniord'),$chars);
+
 		} else {
 			$chars = str_split($str);
 			$carr = array_map('ord', $chars);

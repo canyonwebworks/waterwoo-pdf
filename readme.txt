@@ -2,10 +2,10 @@
 Contributors: littlepackage
 Donate link: https://paypal.me/SagehenStudio
 Tags: pdf, watermark, stamp, password, woocommerce, security, property, tcpdf, ip, ebook, encrypt, woo
-Requires at least: 5.9
+Requires at least: 4.9
 Tested up to: 6.3
-Requires PHP: 7.2
-Stable tag: 3.3.2
+Requires PHP: 5.6
+Stable tag: 3.3.3
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -20,7 +20,7 @@ Upon WooCommerce purchase download link, this plugin uses the open source TCPDI 
 
 **Please note** you must have WooCommerce plugin installed and activated for this plugin to work. This plugin watermarks WooCommerce PDF products when downloaded using WooCommerce download links.
 
-If have a Wordpress site and need to watermark PDFs, but do not have WooCommerce, [check out WP TCPDF Bridge](https://web.little-package.com/downloads/wp-tcpdf-bridge/ "WP TCPDF Bridge").
+If have a Wordpress site and need to watermark PDFs, but do not have WooCommerce, [check out WP TCPDF Bridge](https://web.little-package.com/wordpress-plugins/wp-tcpdf-bridge/ "WP TCPDF Bridge").
 
 = Features: =
 
@@ -60,9 +60,9 @@ The free version is enough for some people, but [Watermark PDF for WooCommerce P
 
 = Minimum Requirements =
 
-* WordPress 5.9 or greater
-* WooCommerce 4.0 and newe
-* PHP version 7.2 or greater
+* WordPress 4.9 or greater
+* WooCommerce 4.0 and newer
+* PHP version 5.6 or greater
 
 = We recommend your host supports: =
 
@@ -101,6 +101,8 @@ Please do get in touch with your issues via the Wordpress.org support forum befo
 
 If requesting help using the Wordpress.org support forum, please state which versions Wordpress/WooCommerce/WaterMark PDF you are using, and what error messages if any you are seeing. You will find more detailed error messaging if you [turn on Wordpress debugging](https://wordpress.org/support/article/debugging-in-wordpress/). Screenshots and clear descriptions of the steps it takes to reproduce your problem are also very helpful. Please also make your support request TITLE descriptive. If the answer to your question can be found on this page, you might be waiting a while to hear from me, as I must prioritize support requests. Thanks for understanding.
 
+If you get the message "Sorry, we were unable to prepare this file for download," please check your WP debug logs for more details.
+
 **Do not use the Wordpress.org support forum for help with the Premium (paid) version** of WaterMark PDF - that is against Wordpress.org rules.
 
 = Where do I change watermark settings? =
@@ -132,7 +134,7 @@ Watermark PDF for WooCommerce is intended to watermark PDF (.pdf) files. If you 
 No, sorry. This plugin is just for PDF files.
 
 = The plugin seems to break my PDF =
-This plugin bridges WooCommerce and the open-source PDF reading TCPDI and PDF writing TCPDF library. WaterMark PDF functions by parsing/reading your PDF into memory the best it can, then adding a watermark to the PDF syntax and outputting a revised file. Between the reading and output, certain features may be lost and other features (interactive PDF elements like internal links and fillable forms) will be lost. This is a limitation of a third-party library and the wild-west nature of PDF syntax, and not the fault of WaterWoo. If you are serious about watermarking and/or encrypting complex PDF files, [consider purchasing WooStamper](https://web.little-package.com/downloads/woostamper-pdf/ "WooStamper PDF Plugin"). Ultimately, Watermark PDF for WooCommerce is best for simple, smaller-sized PDFs.
+This plugin bridges WooCommerce and the open-source PDF reading TCPDI and PDF writing TCPDF library. WaterMark PDF functions by parsing/reading your PDF into memory the best it can, then adding a watermark to the PDF syntax and outputting a revised file. Between the reading and output, certain features may be lost and other features (interactive PDF elements like internal links and fillable forms) will be lost. This is a limitation of the open-source third-party library used AND the wild-west nature of PDF syntax. It is not the fault of WaterWoo, which simply connects those libraries to WooCommerce. If you are serious about watermarking and/or encrypting complex PDF files, [consider purchasing WooStamper](https://web.little-package.com/wordpress-plugins/pdf-stamper-for-woocommerce/ "PDF Stamper for WooCommerce plugin"). Ultimately, Watermark PDF for WooCommerce is best for simple, smaller-sized and well-formed PDFs.
 
 = Is there a fallback in case watermarking fails? =
 Yes, you can serve the file untouched if watermarking fails, and avoid any error messages, by using the following filter code in your (child) theme functions.php file:
@@ -151,6 +153,12 @@ If you do not know how to edit your functions.php file, you can use the Code Sni
 * The TCPDF library has been updated and this *MIGHT* break watermarking for certain PDFs. It is worth testing to make sure.
 
 == Changelog ==
+
+= 3.3.3 - 28 Aug 2023 =
+* Remove `register_activation_hook` which wasn't used anymore plus was attached to a hook where it wasn't fired anyway
+* Tweak - improve exception handling and error feedback from external libraries (TCPDI/TCPDF) on failed downloads
+* Compatibility testing
+* Update POT file
 
 = 3.3.2 - 28 July 2023 =
 * Testing with WooCommerce v7.9

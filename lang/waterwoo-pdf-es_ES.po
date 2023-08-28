@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Watermark PDF for WooCommerce\n"
-"POT-Creation-Date: 2023-07-27 12:40-0700\n"
-"PO-Revision-Date: 2023-07-27 12:41-0700\n"
+"POT-Creation-Date: 2023-08-28 10:04-0700\n"
+"PO-Revision-Date: 2023-08-28 10:05-0700\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es\n"
@@ -20,20 +20,28 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
-#: classes/wwpdf-file-handler.php:75
+#: classes/wwpdf-file-handler.php:73
 msgid ""
 "The free version of WaterMark PDF cannot serve PDFs from remote servers."
 msgstr ""
 "La versión gratuita de WaterMark PDF no puede servir PDFs desde servidores "
 "remotos."
 
-#: classes/wwpdf-file-handler.php:76
+#: classes/wwpdf-file-handler.php:73
 msgid ""
 "Try uploading your PDF product to this domain using the native WooCommerce "
 "file uploader."
 msgstr ""
 "Prueba a subir tu producto PDF a este dominio usando el cargador de archivos "
 "nativo de WooCommerce."
+
+#: classes/wwpdf-file-handler.php:95
+msgid ""
+"Sorry, we were unable to prepare this file for download! Please notify site "
+"administrator. An error has been logged on their end."
+msgstr ""
+"Lo sentimos, no hemos podido preparar este archivo para su descarga "
+"Notifíquelo al administrador del sitio. Se ha producido un error."
 
 #: classes/wwpdf-settings.php:32
 msgid "FAQ"
@@ -555,18 +563,6 @@ msgstr ""
 "target=\"_blank\" rel=\"noopener\">pequeña donación</a> si se beneficia de "
 "mi trabajo."
 
-#: lib/tcpdi/tcpdi_parser.php:1567
-msgid ""
-"There was an error while preparing your file for download. Please contact "
-"support."
-msgstr ""
-"Se ha producido un error al preparar el archivo para su descarga. Póngase en "
-"contacto con el soporte técnico."
-
-#: lib/tcpdi/tcpdi_parser.php:1567
-msgid "File download (TCPDI_PARSER) error"
-msgstr "Error de descarga de archivos (TCPDI_PARSER)"
-
 #: waterwoo-pdf.php:108
 msgid "Cloning is forbidden."
 msgstr "La clonación está prohibida."
@@ -575,7 +571,7 @@ msgstr "La clonación está prohibida."
 msgid "Unserializing instances of this class is forbidden."
 msgstr "Se prohíbe la serialización de instancias de esta clase."
 
-#: waterwoo-pdf.php:219
+#: waterwoo-pdf.php:205
 #, php-format
 msgid ""
 "<strong>Watermark PDF for WooCommerce</strong> supports PHP %s or later. "
@@ -585,7 +581,7 @@ msgstr ""
 "Por favor, actualice PHP en su servidor para obtener mejores resultados "
 "generales."
 
-#: waterwoo-pdf.php:223
+#: waterwoo-pdf.php:209
 #, php-format
 msgid ""
 "<strong>Watermark PDF for WooCommerce</strong> supports WordPress version %s "
@@ -595,7 +591,7 @@ msgstr ""
 "de WordPress %s o posterior. Por favor, actualice WordPress para usar este "
 "plugin."
 
-#: waterwoo-pdf.php:227
+#: waterwoo-pdf.php:213
 #, php-format
 msgid ""
 "The <strong>Watermark PDF for WooCommerce</strong> plugin requires "
@@ -606,7 +602,7 @@ msgstr ""
 "WooCommerce esté activado. Puede <a href=\"%s\" target=\"_blank\" "
 "rel=\"noopener\">descargar WooCommerce aquí</a>."
 
-#: waterwoo-pdf.php:231
+#: waterwoo-pdf.php:217
 msgid ""
 "Weird. The <strong>WC_Download_Handler</strong> WooCommerce class is "
 "missing! It is required for the Watermark PDF plugin to work. Perhaps your "
@@ -616,7 +612,7 @@ msgstr ""
 "necesaria para que el plugin Watermark PDF funcione. ¿Tal vez su instalación "
 "de WooCommerce está dañada?"
 
-#: waterwoo-pdf.php:235
+#: waterwoo-pdf.php:221
 #, php-format
 msgid ""
 "Sorry, <strong>Watermark PDF for WooCommerce</strong> supports WooCommerce "
@@ -648,6 +644,16 @@ msgstr ""
 #. Author URI of the plugin/theme
 msgid "https://web.little-package.com"
 msgstr ""
+
+#~ msgid ""
+#~ "There was an error while preparing your file for download. Please contact "
+#~ "support."
+#~ msgstr ""
+#~ "Se ha producido un error al preparar el archivo para su descarga. Póngase "
+#~ "en contacto con el soporte técnico."
+
+#~ msgid "File download (TCPDI_PARSER) error"
+#~ msgstr "Error de descarga de archivos (TCPDI_PARSER)"
 
 #~ msgid "Upgrade Now"
 #~ msgstr "Actualizar ahora"
@@ -688,13 +694,6 @@ msgstr ""
 
 #~ msgid "here"
 #~ msgstr "aquí"
-
-#~ msgid ""
-#~ "Unable to watermark this file for download. Please notify site "
-#~ "administrator."
-#~ msgstr ""
-#~ "No se puede marcar este archivo para su descarga. Notifique al "
-#~ "administrador del sitio."
 
 #~ msgid "Upgrade to Watermark PDF for WooCommerce Premium"
 #~ msgstr "Mejorar a Watermark PDF for WooCommerce Premium"

@@ -201,7 +201,7 @@ class tcpdi_parser {
 	 */
 	public function __construct( $data, $uniqueid, $cfg = array() ) {
 		if ( empty( $data ) ) {
-			$this->Error('PDF data was not read, either because the file doesn\'t exist, is corrupted, or transfer timed out.');
+			$this->Error('PDF data was not read, either because the file is corrupted, un-readable, or transfer timed out.');
 		}
 
 		// find the PDF header starting position
@@ -1531,6 +1531,11 @@ class tcpdi_parser {
 		return $this->_getPageRotation($this->pages[$pageno - 1]);
 	}
 
+	/**
+	 * @param $obj
+	 *
+	 * @return array|false|mixed
+	 */
 	private function _getPageRotation($obj) { // $obj = /Page
 		$obj = $this->getObjectVal($obj);
 		if (isset ($obj[1][1]['/Rotate'])) {
@@ -1559,13 +1564,9 @@ class tcpdi_parser {
 	 * @since 1.0.000 (2011-05-23)
 	 */
 	public function Error($msg) {
-		wwpdf_debug_log( 'WaterWoo (TCPDI_PARSER) ERROR: ' . $msg, 'error' );
-		$serve = get_option( 'wwpdf_failure', 'no' );
-		if ( $serve == 'yes' ) {
-			return FALSE;
-		} else {
-			wp_die( __( 'There was an error while preparing your file for download. Please contact support.', 'waterwoo-pdf' ), __( 'File download (TCPDI_PARSER) error', 'waterwoo-pdf-premium' ), 501 );
-		}
+
+		throw new Exception( $msg );
+
 	}
 
 } // END OF tcpdi_parser CLASS

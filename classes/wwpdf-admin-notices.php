@@ -14,10 +14,10 @@ class WWPDF_Admin_Notices {
 		}
 
 		// Help cure open source burnout!
-		add_action( 'admin_notices',                [ $this, 'help_a_girl_out_notice' ] );
+		add_action( 'admin_notices',                array( $this, 'help_a_girl_out_notice' ) );
 
 		// Ajax dismiss "help a girl out" notice
-		add_action( 'wp_ajax_wwpdf_dismiss_notice', [ $this, 'dismiss_notice' ] );
+		add_action( 'wp_ajax_wwpdf_dismiss_notice', array( $this, 'dismiss_notice' ) );
 
 	}
 
@@ -38,7 +38,7 @@ class WWPDF_Admin_Notices {
 			return;
 		}
 
-		if ( isset( $_GET['tab'] ) && 'waterwoo-pdf' === $_GET['tab'] && empty( get_option( 'wwpdf_donate_dismiss_06-28' ) ) ) { ?>
+		if ( isset( $_GET['tab'] ) && 'waterwoo-pdf' === $_GET['tab'] && empty( get_option( 'wwpdf_donate_dismiss_08-28' ) ) ) { ?>
 			<div id="wwpdf-donation" class="notice notice-info is-dismissible">
 				<p style="font-size: 1.25em;">
 					Keep in mind this free plugin is a very basic teaser of the paid upgrade. If it works as-is for you, great! If it doesn't do enough, consider upgrading.</p>
@@ -52,7 +52,7 @@ class WWPDF_Admin_Notices {
 					The premium/paid version of this plugin includes many more features and prioritized email support.<br><br>
 					<a href="https://web.little-package.com/wordpress-plugins/waterwoo-pdf-premium/" target="_blank" rel="noopener" class="button-primary">Learn More about PDF Premium</a>
 				</p>
-				<button style="z-index: 100;" data-nonce="<?php esc_attr_e( wp_create_nonce('wwpdf-donate-06-28') ); ?>" type="button" class="notice-dismiss wwpdf-donation-dismiss">
+				<button style="z-index: 100;" data-nonce="<?php esc_attr_e( wp_create_nonce('wwpdf-donate-08-28') ); ?>" type="button" class="notice-dismiss wwpdf-donation-dismiss">
 					<span class="screen-reader-text">Dismiss this notice.</span>
 				</button>
 			</div>
@@ -68,7 +68,7 @@ class WWPDF_Admin_Notices {
 	 */
 	public function dismiss_notice() {
 
-		check_admin_referer( 'wwpdf-donate-06-28', 'nonce' );
+		check_admin_referer( 'wwpdf-donate-08-28', 'nonce' );
 
 		delete_option( 'wwpdf_donate_dismiss_02-07' );
 		delete_option( 'wwpdf_donate_dismiss_05-28' );
@@ -77,7 +77,8 @@ class WWPDF_Admin_Notices {
 		delete_option( 'wwpdf_donate_dismiss_02-20' );
 		delete_option( 'wwpdf_donate_dismiss_03-17' );
 		delete_option( 'wwpdf_donate_dismiss_05-31' );
-		update_option( 'wwpdf_donate_dismiss_06-28', true, false );
+		delete_option( 'wwpdf_donate_dismiss_06-28' );
+		update_option( 'wwpdf_donate_dismiss_08-28', true, false );
 		wp_die();
 
 	}

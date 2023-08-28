@@ -4,14 +4,14 @@ class WWPDF_Settings {
 
 	public function __construct() {
 
-		add_filter( 'plugin_row_meta',                                      [ $this, 'add_support_links' ], 10, 2 );
-		add_action( 'current_screen',                                       [ $this, 'load_screen_hooks' ] );
+		add_filter( 'plugin_row_meta',                                      array( $this, 'add_support_links' ), 10, 2 );
+		add_action( 'current_screen',                                       array( $this, 'load_screen_hooks' ) );
 
-		add_filter( 'plugin_action_links_waterwoo-pdf/waterwoo-pdf.php',    [ $this, 'plugin_action_links' ] );
+		add_filter( 'plugin_action_links_waterwoo-pdf/waterwoo-pdf.php',    array( $this, 'plugin_action_links' ) );
 
-		add_filter( 'woocommerce_settings_tabs_array',                      [ $this, 'settings_tabs_array' ], 99 );
-		add_action( 'woocommerce_settings_tabs_waterwoo-pdf',               [ $this, 'settings_tabs' ] );
-		add_action( 'woocommerce_update_options_waterwoo-pdf',              [ $this, 'update_options' ] );
+		add_filter( 'woocommerce_settings_tabs_array',                      array( $this, 'settings_tabs_array' ), 99 );
+		add_action( 'woocommerce_settings_tabs_waterwoo-pdf',               array( $this, 'settings_tabs' ) );
+		add_action( 'woocommerce_update_options_waterwoo-pdf',              array( $this, 'update_options' ) );
 
 	}
 
