@@ -3,8 +3,8 @@
  * Plugin Name: WaterMark PDF for WooCommerce
  * Plugin URI: https://wordpress.org/plugins/waterwoo-pdf/
  * Description: Custom watermark your PDF files upon WooCommerce customer download. Formerly known as "WaterWoo"
- * Version: 3.3.3
- * Author: Sagehen Studio
+ * Version: 3.3.4
+ * Author: Little Package
  * Author URI: https://web.little-package.com
  * Donate link: https://paypal.me/littlepackage
  * WC requires at least: 4.0
@@ -16,12 +16,12 @@
  * Text Domain: waterwoo-pdf
  * Domain path: /lang
  *
- * Copyright 2013-2023 Sagehen Studio
+ * Copyright 2013-2023 Little Package
  *
  *      This file is part of Watermark PDF for WooCommerce, a plugin for WordPress. If
  *      it benefits you, please support my volunteer work
  *
- *      https://paypal.me/SagehenStudio  or/and
+ *      https://paypal.me/littlepackage  or/and
  *
  *      leave a nice review at:
  *
@@ -46,10 +46,10 @@
 defined( 'ABSPATH' ) || exit;
 
 if ( ! defined( 'WWPDF_FREE_VERSION' ) ) {
-	define( 'WWPDF_FREE_VERSION', '3.3.3' );
+	define( 'WWPDF_FREE_VERSION', '3.3.4' );
 }
 if ( ! defined( 'WWPDF_FREE_MIN_PHP' ) ) {
-	define( 'WWPDF_FREE_MIN_PHP', '5.6' );
+	define( 'WWPDF_FREE_MIN_PHP', '7.0' );
 }
 if ( ! defined( 'WWPDF_FREE_MIN_WP' ) ) {
 	define( 'WWPDF_FREE_MIN_WP', '4.9' );
@@ -87,7 +87,7 @@ if ( ! class_exists( 'WaterWooPDF' ) ) :
 			$this->update_db();
 			$this->includes();
 
-			add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
+			add_action( 'admin_enqueue_scripts', [ $this, 'admin_enqueue_scripts' ] );
 
 			if ( is_admin() ) {
 				// Backend settings

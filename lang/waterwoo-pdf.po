@@ -512,7 +512,7 @@ msgid ""
 msgstr ""
 
 #. Author of the plugin/theme
-msgid "Sagehen Studio"
+msgid "Little Package"
 msgstr ""
 
 #. Author URI of the plugin/theme

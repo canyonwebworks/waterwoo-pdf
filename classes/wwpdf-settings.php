@@ -128,23 +128,23 @@ class WWPDF_Settings {
 					'type'  => 'title',
 					'title' => __( 'WaterMark PDF Options', 'waterwoo-pdf' ),
 					'desc'  => __( '<strong>Note:</strong> This free watermarking plugin is rudimentary and may not work on every PDF. Test before going live!', 'waterwoo-pdf' ) .
-							'<div id="wwpdf-thickbox-content"><p style="color:darkred"><small>Sorry, this feature is not part of the free plugin.</small></p><p style="font-size:17px;line-height:1.4em">' .
+							'<div id="wwpdf-thickbox-content"><p style="color:darkred;font-size:20px"><small>Sorry, this feature is not part of the free plugin.</small></p><p style="font-size:17px;line-height:1.4em">' .
 								sprintf( __( '<a href="%s" target="_blank" rel="noopener">Purchase a Watermark PDF for WooCommerce Premium</a> license and get:', 'waterwoo-pdf' ), 'https://web.little-package.com/wordpress-plugins/waterwoo-pdf-premium/' ) . '</p>'
 								. '<ul style="font-size:17px;line-height:1.4em;list-style-type:circle;margin-left:2em">'
-								. '<li>Watermark page and position control'
-					            . '<li>Watermark <strong>opacity</strong> control'
-					            . '<li><strong>Password</strong> protection, encryption & permissions control'
+								. '<li>Full watermark page and position control'
+								. '<li>Watermark <strong>opacity</strong> control'
+								. '<li>PDF <strong>Password</strong> protection, encryption & permissions control'
 								. '<li>Extended magic <strong>shortcodes</strong>, including order number, future dates, and copies purchased'
-					            . '<li>Extended characters & RTL'
+								. '<li>Extended characters & RTL'
 								. '<li>Upload your own TTF <strong>fonts</strong>'
 								. '<li>Add <strong>barcodes</strong> and QR codes to PDFs'
 								. '<li>Another full watermark position'
 								. '<li>Backend <strong>test watermarking</strong> of PDFs on-the-fly'
 								. '<li><strong>Per-product</strong> and variable product watermarking settings'
 								. '<li>Keep your original file name'
-								. '<li><strong>External file (like Amazon S3)</strong> support'
+								. '<li>Support for <strong>externally hosted files (like Amazon S3)</strong>'
 								. '<li>Compatibility with <strong>Free Downloads WooCommerce</strong> and <strong>WooCommerce Bulk Downloads</strong>'
-					            . '<li>' . sprintf(__( 'Priority email support, <a href="%s" target="_blank" rel="noopener">and more!', 'waterwoo-pdf' ), 'https://web.little-package.com/wordpress-plugins/waterwoo-pdf-premium/' )
+								. '<li>' . sprintf(__( 'Priority email support, <a href="%s" target="_blank" rel="noopener">and more!', 'waterwoo-pdf' ), 'https://web.little-package.com/wordpress-plugins/waterwoo-pdf-premium/' )
 								. '</ul></div><a id="wwpdf-thickbox-link" href="#TB_inline?width=600&height=550&inlineId=wwpdf-thickbox-content" class="thickbox" style="display:none">WaterWoo ThickBox</a>',
 				),
 
@@ -461,7 +461,7 @@ class WWPDF_Settings {
 					'name' => __( 'Thank you!', 'woocommerce-gift-wrapper' ),
 					'type' => 'title',
 					'desc' => __( 'I\'ve been working very hard on this <em>helpful and free</em> plugin for you since October 2014.', 'waterwoo-pdf' ) . '<br>'
-							. sprintf( __( 'Please show the love: <a href="%s" target="_blank" rel="noopener">leave a review</a> or <a href="%s" target="_blank" rel="noopener">make a small donation</a> if you benefit from my work.', 'waterwoo-pdf' ), 'https://wordpress.org/support/plugin/waterwoo-pdf/reviews/?filter=5', 'https://paypal.me/sagehenstudio' ) . '<br>'
+							. sprintf( __( 'Please show the love: <a href="%s" target="_blank" rel="noopener">leave a review</a> or <a href="%s" target="_blank" rel="noopener">make a small donation</a> if you benefit from my work.', 'waterwoo-pdf' ), 'https://wordpress.org/support/plugin/waterwoo-pdf/reviews/?filter=5', 'https://paypal.me/littlepackage?country.x=US&locale.x=en_US' ) . '<br>'
 				),
 
 			)

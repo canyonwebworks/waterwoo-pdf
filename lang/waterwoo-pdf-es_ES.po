@@ -638,7 +638,7 @@ msgstr ""
 "clientes de WooCommerce. Anteriormente conocido como \"WaterWoo\""
 
 #. Author of the plugin/theme
-msgid "Sagehen Studio"
+msgid "Little Package"
 msgstr ""
 
 #. Author URI of the plugin/theme

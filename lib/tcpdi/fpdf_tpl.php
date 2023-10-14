@@ -19,7 +19,7 @@
 namespace pauln\Tcpdi;
 
 // Uses a dumbed-down version of TCPDF_Child in free version
-class FPDF_TPL extends \SagehenStudio\lib\TCPDF_Child {
+class FPDF_TPL extends \LittlePackage\lib\TCPDF_Child {
 
 	/**
 	 * Array of template data

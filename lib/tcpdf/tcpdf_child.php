@@ -1,6 +1,6 @@
 <?php
 
-namespace SagehenStudio\lib;
+namespace LittlePackage\lib;
 
 use tecnick\TCPDF\TCPDF;
 
