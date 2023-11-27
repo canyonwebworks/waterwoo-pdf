@@ -26,9 +26,6 @@ if ( ! class_exists( 'WWPDF_Watermark' ) ) :
 			$this->includes();
 			$this->pdf = new TCPDI();
 
-			$this->do_watermark();
-			return $this->newfile;
-
 		}
 
 		/**
@@ -56,7 +53,7 @@ if ( ! class_exists( 'WWPDF_Watermark' ) ) :
 			$pagecount = $this->pdf->setSourceFile( $this->file );
 
 			$font = sanitize_text_field( get_option( 'wwpdf_font_premium', 'helvetica' ) );
-			$font = apply_filters( 'wwpdf_add_custom_font', $font );
+			$font = apply_filters_deprecated( 'wwpdf_add_custom_font', [ $font ], '6.3', '', 'The `wwpdf_add_custom_font` filter hook is included in the Premium (paid) version of WaterWoo PDF. Please upgrade to continue using it.' );
 			$footer_size = absint( sanitize_text_field( get_option( 'wwpdf_footer_size_premium', 12 ) ) );
 			$this->pdf->SetFont( $font, '', $footer_size );
 
@@ -88,7 +85,6 @@ if ( ! class_exists( 'WWPDF_Watermark' ) ) :
 					}
 				}
 
-				// $this->pdf->SetXY( $footer_x, $_footer_y );
 				$this->pdf->SetXY( 0, $_footer_y );
 
 				do_action( 'wwpdf_before_write', $this->pdf, $i );
@@ -99,7 +95,7 @@ if ( ! class_exists( 'WWPDF_Watermark' ) ) :
 
 			do_action( 'wwpdf_before_output', $this->pdf );
 
-			$this->pdf->Output( $this->newfile, 'F' );
+			$this->pdf->Output( $this->newfile, apply_filters_deprecated( 'wwpdf_output_dest', [ 'F' ], '6.3', '', 'The `wwpdf_output_dest` filter hook is included in the Premium (paid) version of WaterWoo PDF. Please upgrade to continue using it.' ) );
 
 		} // end function do_watermark
 
@@ -112,7 +108,7 @@ if ( ! class_exists( 'WWPDF_Watermark' ) ) :
 
 			$idx            = $this->pdf->importPage( $page, '/BleedBox' );
 			$this->size     = $this->pdf->getTemplateSize( $idx );
-			$size_array     = array( $this->size['w'], $this->size['h'] );
+			$size_array     = [ $this->size['w'], $this->size['h'] ];
 			$orientation    = ( $this->size['w'] > $this->size['h'] ) ? 'L' : 'P';
 
 			$this->pdf->SetAutoPageBreak( true, 0 );
@@ -123,12 +119,20 @@ if ( ! class_exists( 'WWPDF_Watermark' ) ) :
 
 		}
 
+		/**
+		 * Convert hex color to RGB
+		 *
+		 * @param string $hex
+		 * @return string
+		 */
 		protected function hex2rgb( $hex ) {
+
 			$hex = str_replace( "#", "", $hex );
 			$r = hexdec( substr( $hex,0,2 ) );
 			$g = hexdec( substr( $hex,2,2 ) );
 			$b = hexdec( substr( $hex,4,2 ) );
 			return implode( ",", [ $r, $g, $b ] );
+
 		}
 
 	} // end Class WWPDF_Watermark

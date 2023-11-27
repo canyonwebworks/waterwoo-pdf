@@ -3,12 +3,12 @@
  * Plugin Name: WaterMark PDF for WooCommerce
  * Plugin URI: https://wordpress.org/plugins/waterwoo-pdf/
  * Description: Custom watermark your PDF files upon WooCommerce customer download. Formerly known as "WaterWoo"
- * Version: 3.3.4
+ * Version: 3.3.5
  * Author: Little Package
  * Author URI: https://web.little-package.com
  * Donate link: https://paypal.me/littlepackage
  * WC requires at least: 4.0
- * WC tested up to: 8.2
+ * WC tested up to: 8.3
  *
  * License: GPLv3 or later
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -42,11 +42,13 @@
  *      You should have received a copy of the GNU General Public License
  *      along with WordPress. If not, see <http://www.gnu.org/licenses/>.
  *
+ * @todo remove deprecated filters with next major version
+ *
  */
 defined( 'ABSPATH' ) || exit;
 
 if ( ! defined( 'WWPDF_FREE_VERSION' ) ) {
-	define( 'WWPDF_FREE_VERSION', '3.3.4' );
+	define( 'WWPDF_FREE_VERSION', '3.3.5' );
 }
 if ( ! defined( 'WWPDF_FREE_MIN_PHP' ) ) {
 	define( 'WWPDF_FREE_MIN_PHP', '7.0' );
@@ -87,12 +89,9 @@ if ( ! class_exists( 'WaterWooPDF' ) ) :
 			$this->update_db();
 			$this->includes();
 
-			add_action( 'admin_enqueue_scripts', [ $this, 'admin_enqueue_scripts' ] );
-
 			if ( is_admin() ) {
 				// Backend settings
 				$this->settings = new WWPDF_Settings();
-				new WWPDF_Admin_Notices();
 			}
 			// Only run when downloading
 			if ( ! is_admin() && isset( $_GET['download_file'] )  ) {
@@ -121,6 +120,8 @@ if ( ! class_exists( 'WaterWooPDF' ) ) :
 		 * @return void
 		 */
 		private function update_db() {
+
+			delete_option( 'wwpdf_donate_dismiss_08-28' );
 
 			if ( $global = get_option( 'wwpdf_enable' ) ) {
 				update_option( 'wwpdf_global', $global );
@@ -154,27 +155,9 @@ if ( ! class_exists( 'WaterWooPDF' ) ) :
 		 */
 		public function includes() {
 
-			include_once WWPDF_PATH . 'classes/wwpdf-admin-notices.php';
 			include_once WWPDF_PATH . 'classes/wwpdf-settings.php';
 			include_once WWPDF_PATH . 'classes/wwpdf-file-handler.php';
 			include_once WWPDF_PATH . 'classes/wwpdf-watermark.php';
-
-		}
-
-		/**
-		 * Enqueue admin-side scripts
-		 *
-		 * @return void
-		 */
-		public function admin_enqueue_scripts( $hook ) {
-
-			if ( 'woocommerce_page_wc-settings' !== $hook ) {
-				return;
-			}
-			$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
-			add_thickbox();
-			wp_register_script( 'wwpdf-admin', plugins_url( '/assets/js/wwpdf-admin' . $suffix . '.js', __FILE__ ), array( 'jquery' ), WWPDF_FREE_VERSION );
-			wp_enqueue_style( 'wwpdf-admin-css', plugins_url( '/assets/css/wwpdf-admin' . $suffix . '.css', __FILE__ ), array(), WWPDF_FREE_VERSION );
 
 		}
 

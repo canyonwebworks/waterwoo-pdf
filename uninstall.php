@@ -34,7 +34,7 @@ class WWPDF_Free_Uninstall {
 	}
 
 	/**
-	 * Removes ALL plugin data
+	 * Removes all plugin data
 	 * only when the relevant option is active
 	 *
 	 * @since 0.5
@@ -53,7 +53,7 @@ class WWPDF_Free_Uninstall {
 			delete_user_meta( $user_id, 'wwpdf_ignore_notice' . $i );
 		}
 		
-		foreach ( array(
+		foreach ( [
 			'wwpdf_global',
 			'wwpdf_font_premium',
 			'wwpdf_footer_input_premium',
@@ -61,7 +61,7 @@ class WWPDF_Free_Uninstall {
 			'wwpdf_footer_size_premium',
 			'wwpdf_footer_finetune_Y',
 			'wwpdf_delete_checkbox', // BYE BYE!
-		) as $option ) {
+		] as $option ) {
 				delete_option( $option );
 		}
 

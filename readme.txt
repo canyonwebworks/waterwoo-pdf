@@ -5,7 +5,7 @@ Tags: pdf, watermark, stamp, password, woocommerce, security, property, tcpdf, i
 Requires at least: 4.9
 Tested up to: 6.3
 Requires PHP: 7.0
-Stable tag: 3.3.4
+Stable tag: 3.3.5
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -90,7 +90,7 @@ The free version is enough for some people, but [Watermark PDF for WooCommerce P
 3. Have you entered your PDF file names correctly in the second field if you've entered any at all?
 4. Is your Y fine-tuning adjustment off the page? Read more below under "Why does the watermark go off the page, create blank pages?".
 5. Check your WP debug logs (link to instructions below). If logs suggest your PDF is "goofy" or "template does not exist," try using Apple Preview application to resave your PDF by clicking "Export as PDF" in the menu. Preview might fix bad PDF syntax and allow your PDF to be processed for watermarking.
-6. It may also help to increase your PHP time limit and memory limits if they are set low. Server limitations can stop this plugin from functioning.
+6. It may also help to increase your PHP time limit and memory limits if they are set low. Server limitations can stop this plugin from functioning well.
 
 = Further things to try: =
 1. Make sure your WooCommerce downloads work WITHOUT WaterWoo activated, to narrow the problem.
@@ -125,7 +125,7 @@ You can use a negative integer value for your Y-tuner and measure up from the bo
 = Where do the watermarked files go? =
 They are generated with a unique name and stored in the same folder as your original Wordpress/Woo product media upload (usually wp-content/uploads/year/month/file). The unique name includes the order number and a time stamp. If your end user complains of not being able to access their custom PDF for some reason (most often after their max number of downloads is exceeded), you can find it in that folder, right alongside your original.
 
-However, if you are using Woo FORCED downloads, the plugin attempts to delete the watermarked files after being delivered. If you don't like that behavior, you can change it with the 'wwpdf_do_cleanup' filter hook (set it to FALSE).
+If you are using Woo FORCED downloads, the plugin attempts to delete the watermarked files after being delivered. This isn't 100% reliable since it works on PHP shutdown. If you don't like attempted deletion, you can change it with the 'wwpdf_do_cleanup' filter hook (set it to FALSE).
 
 = Will Watermark PDF for WooCommerce watermark images? =
 Watermark PDF for WooCommerce is intended to watermark PDF (.pdf) files. If you are specifically looking to watermark image files (.jpg, .jpeg, .gif, .png, .etc), you may want to look into a plugin such as [Image Watermark](https://wordpress.org/plugins/image-watermark/ "Image Watermark Plugin").
@@ -153,6 +153,12 @@ If you do not know how to edit your functions.php file, you can use the Code Sni
 * The TCPDF library has been updated and this *MIGHT* break watermarking for certain PDFs. It is worth testing to make sure.
 
 == Changelog ==
+
+= 3.3.5 - 27 Nov 2023 =
+* Separate constructor and main do_watermark() method in class WWPDF_Watermark
+* Remove CTA, which also removes need for all CSS/JS
+* Update integration with WC settings API
+* Testing with WC 8.3, PHP 8.2
 
 = 3.3.4 - 14 Oct 2023 =
 * Remove unused, auto-generated js/css files
