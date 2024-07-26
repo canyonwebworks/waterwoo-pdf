@@ -1,7 +1,4 @@
 <?php
-
-namespace tecnick\TCPDF\includes;
-
 //============================================================+
 // File name   : tcpdf_font_data.php
 // Version     : 1.0.001
@@ -33,6 +30,8 @@ namespace tecnick\TCPDF\includes;
 // Description : Unicode data and encoding maps for TCPDF.
 //
 //============================================================+
+
+namespace LittlePackage\lib\tcpdf\tecnick\tcpdf\includes;
 
 /**
  * @file

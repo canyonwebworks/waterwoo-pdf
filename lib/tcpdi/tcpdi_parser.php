@@ -39,12 +39,13 @@
 //
 //============================================================+
 
-namespace pauln\tcpdi;
+namespace LittlePackage\lib\tcpdi\pauln\tcpdi;
 
 // include class for decoding filters
 require_once __DIR__ . '/../tcpdf/tcpdf/include/tcpdf_filters.php';
 
-use tecnick\TCPDF\includes\TCPDF_FILTERS as TCPDF_FILTERS;
+use LittlePackage\lib\tcpdf\tecnick\tcpdf\includes\TCPDF_FILTERS as TCPDF_FILTERS;
+use Exception as Exception;
 
 /**
  * @file
@@ -179,7 +180,7 @@ class tcpdi_parser {
 	 *
 	 * @public array
 	 */
-	public $availableBoxes = array('/MediaBox', '/CropBox', '/BleedBox', '/TrimBox', '/ArtBox');
+	public $availableBoxes = ['/MediaBox', '/CropBox', '/BleedBox', '/TrimBox', '/ArtBox'];
 
 	/**
 	* Array of configuration parameters.
@@ -201,7 +202,7 @@ class tcpdi_parser {
 	 */
 	public function __construct( $data, $uniqueid, $cfg = array() ) {
 		if ( empty( $data ) ) {
-			$this->Error('PDF data was not read, either because the file is corrupted, un-readable, or transfer timed out.');
+			$this->Error('PDF data was not read, either because the file doesn\'t exist, is corrupted, or transfer timed out.');
 		}
 
 		// find the PDF header starting position
@@ -253,7 +254,7 @@ class tcpdi_parser {
 	}
 
 	public function _getMetaData() {
-		$metadata = $this->getObjectVal($this->xref['trailer'][1]['/Info']);
+		$metadata = isset( $this->xref['trailer'][1]['/Info'] ) ? $this->getObjectVal( $this->getObjectVal( $this->xref['trailer'][1]['/Info'] ) ) : [];
 		return $metadata;
 	}
 
@@ -797,11 +798,7 @@ class tcpdi_parser {
 		$objtype = ''; // object type to be returned
 		$objval = ''; // object value to be returned
 		// skip initial white space chars: \x00 null (NUL), \x09 horizontal tab (HT), \x0A line feed (LF), \x0C form feed (FF), \x0D carriage return (CR), \x20 space (SP)
-		// 2.2.2 to address https://github.com/SD-dthompson/tcpdi_parser/commit/fee436f3e9eaf1fd9aaffeb43cc2fec742b638be
-		// while ( strspn( $data[$offset], "\x00\x09\x0a\x0c\x0d\x20" ) == 1 ) {
-		while ( strspn( $data[$offset], "\x00\x09\x0a\x0c\x0d\x20" ) ) {
-			$offset++;
-		}
+		$offset += strspn($data, "\x00\x09\x0a\x0c\x0d\x20", $offset);
 		// get first char
 		$char = $data[$offset];
 		// get object type
@@ -811,10 +808,6 @@ class tcpdi_parser {
 				$next = strcspn($data, "\r\n", $offset);
 				if ($next > 0) {
 					$offset += $next;
-					// Since 2.10.1
-					// https://github.com/pauln/tcpdi_parser/pull/23/commits/3bacfdc8ea0d391a01daa9507d941574de5a97bb
-					// list($obj, $unused) = $this->getRawObject($offset, $data);
-					// return $obj;
 					return $this->getRawObject($offset, $data);
 				}
 				break;
@@ -993,25 +986,28 @@ class tcpdi_parser {
 		$objval = array();
 
 		// Extract dict from data.
-		$i = 2;
+		$i = 1;
+		// $i = 2;
 		$dict = '';
 		$offset += 2;
 		do {
 			if ($data[$offset] == '>' && $data[$offset+1] == '>') {
-				$i -= 2;
+				$i--;
+				// $i -= 2;
 				$dict .= '>>';
 				$offset += 2;
 			} else if ($data[$offset] == '<' && $data[$offset+1] == '<') {
-				$i += 2;
+				$i ++;
+				// $i += 2;
 				$dict .= '<<';
 				$offset += 2;
 			} else {
-				// 2.2.2
-				if ( $data[$offset] == '<' ) {
+				/*
+				 * if ( $data[$offset] == '<' ) {
 					$i++;
 				} else if ( $data[$offset] == '>' ) {
 					$i--;
-				}
+				}*/
 				$dict .= $data[$offset];
 				$offset++;
 			}
@@ -1531,11 +1527,6 @@ class tcpdi_parser {
 		return $this->_getPageRotation($this->pages[$pageno - 1]);
 	}
 
-	/**
-	 * @param $obj
-	 *
-	 * @return array|false|mixed
-	 */
 	private function _getPageRotation($obj) { // $obj = /Page
 		$obj = $this->getObjectVal($obj);
 		if (isset ($obj[1][1]['/Rotate'])) {
@@ -1564,9 +1555,8 @@ class tcpdi_parser {
 	 * @since 1.0.000 (2011-05-23)
 	 */
 	public function Error($msg) {
-
-		throw new Exception( $msg );
-
+		wwpdf_debug_log( 'TCPDI_PARSER ERROR: ' . $msg, 'error' );
+		throw new Exception('TCPDF_PARSER ERROR: '.$msg);
 	}
 
 } // END OF tcpdi_parser CLASS

@@ -137,11 +137,19 @@ if (!defined('PDF_PAGE_ORIENTATION')) {
 }
 
 if (!defined('PDF_CREATOR')) {
-	define ('PDF_CREATOR', '');
+	define ('PDF_CREATOR', 'TCPDF');
 }
 
 if (!defined('PDF_AUTHOR')) {
-	define ('PDF_AUTHOR', '');
+	define ('PDF_AUTHOR', 'TCPDF');
+}
+
+if (!defined('PDF_HEADER_TITLE')) {
+	define ('PDF_HEADER_TITLE', 'TCPDF Example');
+}
+
+if (!defined('PDF_HEADER_STRING')) {
+	define ('PDF_HEADER_STRING', "by Nicola Asuni - Tecnick.com\nwww.tcpdf.org");
 }
 
 if (!defined('PDF_UNIT')) {
@@ -213,11 +221,15 @@ if (!defined('K_SMALL_RATIO')) {
 }
 
 if (!defined('K_THAI_TOPCHARS')) {
-	define('K_THAI_TOPCHARS', false);
+	define('K_THAI_TOPCHARS', true);
 }
 
 if (!defined('K_TCPDF_CALLS_IN_HTML')) {
 	define('K_TCPDF_CALLS_IN_HTML', false);
+}
+
+if (!defined('K_ALLOWED_TCPDF_TAGS')) {
+	define('K_ALLOWED_TCPDF_TAGS', '');
 }
 
 if (!defined('K_TCPDF_THROW_EXCEPTION_ERROR')) {

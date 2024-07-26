@@ -90,7 +90,7 @@ class WWPDF_Settings_Main extends WC_Settings_Page {
 						'helvetica'           => 'Helvetica',
 						'times'               => 'Times New Roman',
 						'courier'             => 'Courier',
-						'dejavusanscondensed' => 'Deja Vu',
+						'dejavusanscondensed' => 'Deja Vu Sans Condensed',
 						'msungstdlight'       => 'M Sung',
 						'aefurat'             => 'AE Furat',
 					],
@@ -110,12 +110,12 @@ class WWPDF_Settings_Main extends WC_Settings_Page {
 					'desc_tip'          => true,
 				],
 				[
-					'title'     => __( 'Watermark color', 'waterwoo-pdf' ),
-					'id'        => 'wwpdf_footer_color_premium',
-					'type'      => 'color',
-					'desc'      => __( 'Color of the footer watermark. Default is black: <code>#000000</code>.', 'waterwoo-pdf' ),
-					'default'   => '#000000',
-					'desc_tip'  => true,
+					'title'             => __( 'Watermark color', 'waterwoo-pdf' ),
+					'id'                => 'wwpdf_footer_color_premium',
+					'type'              => 'color',
+					'desc'              => __( 'Color of the footer watermark. Default is black: <code>#000000</code>.', 'waterwoo-pdf' ),
+					'default'           => '#000000',
+					'desc_tip'          => true,
 				],
 				[
 					'title'             => __( 'Y Fine Tuning', 'waterwoo-pdf' ),
@@ -173,7 +173,7 @@ class WWPDF_Settings_Main extends WC_Settings_Page {
 
 		<div style="margin:3em">
 			<p style="font-size: 2em;">
-				Hi, I'm Caroline, a WordPress developer in Nevada USA. I've kept the <strong>PDF Watermarker</strong> plugin in active development since 2014 <em>as an unpaid volunteer</em>. Why? Because I believe IP protection is important.
+				Hi, I'm Caroline, a WordPress developer based in Utah, USA. I've kept the <strong>PDF Watermarker</strong> plugin in active development since 2014 <em>as an unpaid volunteer</em>. Why? Because I believe IP protection is important.
 			<p style="font-size: 1.75em;">
 				But also -- and truthfully -- I depend on donations and paid upgrades to make my living. If you find this little plugin useful, and particularly if you benefit from it, consider upgrading to the much more powerful <a href="https://web.little-package.com/wordpress-plugins/waterwoo-pdf-premium" target="_blank" rel="noopener">WaterWoo PDF Premium</a>. Some features included in the upgrade:<br>
 			<ul style="list-style:circle;margin-left:30px">

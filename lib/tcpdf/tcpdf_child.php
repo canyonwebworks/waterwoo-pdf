@@ -1,12 +1,32 @@
 <?php
 
-namespace LittlePackage\lib;
+namespace LittlePackage\lib\tcpdf;
 
-use tecnick\TCPDF\TCPDF;
+use LittlePackage\lib\tcpdf\tecnick\tcpdf\TCPDF;
+use LittlePackage\lib\tcpdf\tecnick\tcpdf\includes\TCPDF_STATIC as TCPDF_STATIC;
+use LittlePackage\lib\tcpdf\tecnick\tcpdf\includes\TCPDF_FONT_DATA as TCPDF_FONT_DATA;
 
 defined( 'ABSPATH' ) || exit;
 
 class TCPDF_Child extends TCPDF {
+
+	/**
+	 * Document metadata.
+	 * @protected
+	 */
+	public $metadata = [];
+
+	/**
+	 * Document creation date
+	 * @protected
+	 */
+	protected $creationdate = NULL;
+
+	/**
+	 * Document producer
+	 * @protected
+	 */
+	protected $producer = NULL;
 
 	/**
 	 * Set the default JPEG compression quality (1-100)
@@ -19,7 +39,7 @@ class TCPDF_Child extends TCPDF {
 			$quality = 75;
 		}
 		if ( ! isset( $quality ) ) {
-			$quality = apply_filters_deprecated( 'wwpdf_jpeg_quality', [ 100 ], '6.3', '', 'The `wwpdf_jpeg_quality` filter hook is included in the Premium (paid) version of WaterWoo PDF. Please upgrade to continue using it.' );
+			$quality = apply_filters( 'wwpdf_jpeg_quality', 100 );
 		}
 		$this->jpeg_quality = intval($quality);
 	}

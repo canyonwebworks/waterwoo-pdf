@@ -1,6 +1,6 @@
 <?php
 
-use pauln\Tcpdi\TCPDI as TCPDI;
+use LittlePackage\lib\tcpdi\pauln\tcpdi\TCPDI as TCPDI;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -48,8 +48,9 @@ if ( ! class_exists( 'WWPDF_Watermark' ) ) :
 		 */
 		public function do_watermark() {
 
-			// If you want to do a whole lot more with TCPDF, get the premium version of this plugin (formerly known as WaterWoo)!
+			// If you want to do a whole lot more with TCPDF, buy the premium version of this plugin (formerly known as WaterWoo)!
 			// This plugin is BASIC, if not CRUDE 🥴
+			// Please support the work of WordPress developers
 			$pagecount = $this->pdf->setSourceFile( $this->file );
 
 			$font = sanitize_text_field( get_option( 'wwpdf_font_premium', 'helvetica' ) );
@@ -97,7 +98,7 @@ if ( ! class_exists( 'WWPDF_Watermark' ) ) :
 
 			$this->pdf->Output( $this->newfile, apply_filters_deprecated( 'wwpdf_output_dest', [ 'F' ], '6.3', '', 'The `wwpdf_output_dest` filter hook is included in the Premium (paid) version of WaterWoo PDF. Please upgrade to continue using it.' ) );
 
-		} // end function do_watermark
+		}
 
 		/**
 		 * Set up each TCPDF page object
@@ -135,6 +136,6 @@ if ( ! class_exists( 'WWPDF_Watermark' ) ) :
 
 		}
 
-	} // end Class WWPDF_Watermark
+	}
 
 endif;

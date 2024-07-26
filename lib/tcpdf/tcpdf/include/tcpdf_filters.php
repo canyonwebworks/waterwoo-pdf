@@ -32,8 +32,7 @@
 //
 //============================================================+
 
-namespace tecnick\TCPDF\includes;
-
+namespace LittlePackage\lib\tcpdf\tecnick\tcpdf\includes;
 use Exception;
 
 /**
@@ -357,6 +356,7 @@ class TCPDF_FILTERS {
 	 * @public static
 	 */
 	public static function decodeFilterFlateDecode($data) {
+
 		// Uncatchable E_WARNING for "data error" is @ suppressed
 		// so execution may proceed with an alternate decompression
 		// method.
@@ -367,22 +367,41 @@ class TCPDF_FILTERS {
 			// wrapper to decode it in a file-based context.
 			// See: https://www.php.net/manual/en/function.gzuncompress.php#79042
 			// Issue: https://github.com/smalot/pdfparser/issues/592
-			$ztmp = tmpfile();
+			try {
+				// tmpfile() not working on some (Windows?) servers? Add backslash and a try/catch
+				if ( function_exists( 'tmpfile' ) ) {
+					$ztmp = \tmpfile();
+				} else {
+					throw new Exception( 'The required tmpfile() PHP function is not available on your server. Contact your hosting provider for help.' );
+				}
+			} catch ( Exception $e ) {
+				$tmpfname = tempnam( sys_get_temp_dir(), '' );
+				$ztmp = fopen( $tmpfname, "w" );
+			}
 			if (false != $ztmp) {
 				fwrite($ztmp, "\x1f\x8b\x08\x00\x00\x00\x00\x00".$data);
 				$file = stream_get_meta_data($ztmp)['uri'];
 				$decoded = file_get_contents('compress.zlib://'.$file);
 				fclose($ztmp);
+			} else {
+				self::Error( 'decodeFilterFlateDecode: unable to create tmp file to write data' );
 			}
 		}
 
-		// If the decoded string is empty, that means decoding failed.
-		// if (false === \is_string($decoded) || '' === $decoded) {
-		if (false === \is_string($decoded)) { // Au contraire mon frere, the string might in fact be empty!
+		if (false === \is_string($decoded)) { // String might in fact be empty!
+			// if (false === \is_string($decoded) || '' === $decoded) {
+			// If the decoded string is empty, that means decoding failed.
 			self::Error('decodeFilterFlateDecode: invalid data');
 		}
 
 		return $decoded;
+
+		/* initialize string to return
+		$decoded = @gzuncompress($data);
+		if ($decoded === false) {
+			self::Error('decodeFilterFlateDecode: invalid code');
+		}
+		return $decoded; */
 	}
 
 	/**

@@ -16,10 +16,9 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 //
-namespace pauln\Tcpdi;
+namespace LittlePackage\lib\tcpdi\pauln\tcpdi;
 
-// Uses a dumbed-down version of TCPDF_Child in free version
-class FPDF_TPL extends \LittlePackage\lib\TCPDF_Child {
+class FPDF_TPL extends \LittlePackage\lib\tcpdf\TCPDF_Child {
 
 	/**
 	 * Array of template data

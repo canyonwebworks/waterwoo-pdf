@@ -1,4 +1,7 @@
 <?php
+
+namespace LittlePackage\lib\tcpdf\tecnick\tcpdf;
+
 //============================================================+
 // File name   : tcpdf_parser.php
 // Version     : 1.0.16
