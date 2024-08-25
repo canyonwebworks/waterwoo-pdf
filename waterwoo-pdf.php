@@ -3,9 +3,9 @@
  * Plugin Name: WaterMark PDF for WooCommerce
  * Plugin URI: https://wordpress.org/plugins/waterwoo-pdf/
  * Description: Custom watermark your PDF files upon WooCommerce customer download. Formerly known as "WaterWoo"
- * Version: 3.3.6
+ * Version: 3.3.7
  * Author: Little Package
- * Author URI: https://web.little-package.com
+ * Author URI: https://www.little-package.com
  * Donate link: https://paypal.me/littlepackage
  * WC requires at least: 4.0
  * WC tested up to: 9.1
@@ -43,12 +43,11 @@
  *      along with WordPress. If not, see <http://www.gnu.org/licenses/>.
  *
  * @todo remove deprecated filters with next major version
- *
  */
 defined( 'ABSPATH' ) || exit;
 
 if ( ! defined( 'WWPDF_FREE_VERSION' ) ) {
-	define( 'WWPDF_FREE_VERSION', '3.3.6' );
+	define( 'WWPDF_FREE_VERSION', '3.3.7' );
 }
 if ( ! defined( 'WWPDF_FREE_MIN_PHP' ) ) {
 	define( 'WWPDF_FREE_MIN_PHP', '7.0' );

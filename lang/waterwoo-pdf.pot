@@ -292,5 +292,5 @@ msgid "Little Package"
 msgstr ""
 
 #. Author URI of the plugin/theme
-msgid "https://web.little-package.com"
+msgid "https://www.little-package.com"
 msgstr ""

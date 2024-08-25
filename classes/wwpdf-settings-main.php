@@ -52,7 +52,7 @@ class WWPDF_Settings_Main extends WC_Settings_Page {
 					'type'   => 'title',
 					'title'  => __( 'WaterMark PDF Options', 'waterwoo-pdf' ),
 					'desc'   => '<strong>' . __( 'Note:', 'waterwoo-pdf' ) . '</strong> ' . __( 'This free watermarking plugin is rudimentary and may not work on every PDF. Test before going live!', 'waterwoo-pdf' )
-								. '<br>The <strong>only</strong> watermarking plugin for WooCommerce that works with <strong>any and every</strong> PDF is <a href="https://web.little-package.com/wordpress-plugins/pdf-stamper-for-woocommerce/" target="_blank" rel="noopener">PDF Stamper for WooCommerce</a>',
+								. '<br>The <strong>only</strong> watermarking plugin for WooCommerce that works with <strong>any and every</strong> PDF is <a href="https://www.little-package.com/shop/pdf-stamper-for-woocommerce/" target="_blank" rel="noopener">PDF Stamper for WooCommerce</a>',
 				],
 
 				[
@@ -134,7 +134,7 @@ class WWPDF_Settings_Main extends WC_Settings_Page {
 					'id'        => 'wwpdf_delete_checkbox',
 					'type'      => 'checkbox',
 					'desc'      => __( 'If this box is checked if/when you uninstall WaterMark PDF, all your settings will be deleted from your Wordpress database.', 'waterwoo-pdf' )
-                            . '<br>' . sprintf( __( 'Marked PDF files will accumulate in your PDF folder whether using Force downloads or not. To keep your server tidy, manually delete ad lib or <a href="%s" target="_blank" rel="noopener">upgrade</a> for better file handling and automatic cleaning.', 'waterwoo-pdf' ), 'https://web.little-package.com/wordpress-plugins/waterwoo-pdf-premium' ),
+                            . '<br>' . sprintf( __( 'Marked PDF files will accumulate in your PDF folder whether using Force downloads or not. To keep your server tidy, manually delete ad lib or <a href="%s" target="_blank" rel="noopener">upgrade</a> for better file handling and automatic cleaning.', 'waterwoo-pdf' ), 'https://www.little-package.com/shop/waterwoo-pdf-premium' ),
 					'default'   => 'no',
 				],
 				[
@@ -175,7 +175,7 @@ class WWPDF_Settings_Main extends WC_Settings_Page {
 			<p style="font-size: 2em;">
 				Hi, I'm Caroline, a WordPress developer based in Utah, USA. I've kept the <strong>PDF Watermarker</strong> plugin in active development since 2014 <em>as an unpaid volunteer</em>. Why? Because I believe IP protection is important.
 			<p style="font-size: 1.75em;">
-				But also -- and truthfully -- I depend on donations and paid upgrades to make my living. If you find this little plugin useful, and particularly if you benefit from it, consider upgrading to the much more powerful <a href="https://web.little-package.com/wordpress-plugins/waterwoo-pdf-premium" target="_blank" rel="noopener">WaterWoo PDF Premium</a>. Some features included in the upgrade:<br>
+				But also -- and truthfully -- I depend on donations and paid upgrades to make my living. If you find this little plugin useful, and particularly if you benefit from it, consider upgrading to the much more powerful <a href="https://www.little-package.com/shop/waterwoo-pdf-premium" target="_blank" rel="noopener">WaterWoo PDF Premium</a>. Some features included in the upgrade:<br>
 			<ul style="list-style:circle;margin-left:30px">
 				<li>Full watermark page number and position control
 				<li>Another full watermark position, anywhere on the page
@@ -191,7 +191,7 @@ class WWPDF_Settings_Main extends WC_Settings_Page {
 				<li>Automatic, scheduled file cleanup
 				<li>Support for <strong>externally hosted files (like Amazon S3)</strong>
 				<li>Compatibility with <strong>Free Downloads WooCommerce</strong> and <strong>WooCommerce Bulk Downloads</strong>
-				<li><?php echo sprintf(__( 'Priority email support, <a href="%s" target="_blank" rel="noopener">and more!</a>', 'waterwoo-pdf' ), 'https://web.little-package.com/wordpress-plugins/waterwoo-pdf-premium/' ) ?>
+				<li><?php echo sprintf(__( 'Priority email support, <a href="%s" target="_blank" rel="noopener">and more!</a>', 'waterwoo-pdf' ), 'https://www.little-package.com/shop/waterwoo-pdf-premium/' ) ?>
 
 			</ul></p>
 			<p style="font-size: 1.5em;">

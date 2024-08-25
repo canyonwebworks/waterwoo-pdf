@@ -95,7 +95,7 @@ class WWPDF_Settings {
 				'<h3>' . __( 'About Watermark PDF for WooCommerce', 'waterwoo-pdf' ) . '</h3>' .
 				'<p>' . __( 'Protect your intellectual property! Watermark PDF for WooCommerce allows WooCommerce site administrators to apply custom watermarks to PDFs upon sale.' ) . '</p>' .
 				'<p>' . __( 'Watermark PDF for WooCommerce is a plugin that adds a watermark to every page of your PDF file(s). The watermark is customizable with font face, font color, font size, placement, and text. Not only that, but since the watermark is added when the download button is clicked (either on the customer\'s order confirmation page or email), the watermark can include customer-specifc data such as the customer\'s first name, last name, and email. Your watermark is highly customizable and manipulatable.', 'waterwoo-pdf' ) . '</p>' .
-				'<p>' . sprintf( __( '<a href="%s" target="_blank" rel="noopener">Consider upgrading to the Premium version</a> if you need more functionality.', 'waterwoo-pdf' ), 'https://web.little-package.com/wordpress-plugins/waterwoo-pdf-premium/' ) . '</p>'
+				'<p>' . sprintf( __( '<a href="%s" target="_blank" rel="noopener">Consider upgrading to the Premium version</a> if you need more functionality.', 'waterwoo-pdf' ), 'https://www.little-package.com/wordpress-plugins/waterwoo-pdf-premium/' ) . '</p>'
 
 		] );
 
@@ -104,7 +104,7 @@ class WWPDF_Settings {
 			'<p><strong>' . __( 'For more information:', 'waterwoo-pdf' ) . '</strong></p>' .
 			'<p><a href="https://wordpress.org/plugins/waterwoo-pdf/#faq" target="_blank" rel="noopener">' . __( 'Frequently Asked Questions', 'waterwoo-pdf' ) . '</a></p>' .
 			'<p><a href="https://wordpress.org/plugins/waterwoo-pdf/" target="_blank" rel="noopener">' . __( 'Project on WordPress.org', 'waterwoo-pdf' ) . '</a></p>' .
-			'<p><a href="https://web.little-package.com/wordpress-plugins/waterwoo-pdf-premium/" target="_blank" rel="noopener">' . __( 'Upgrade', 'waterwoo-pdf' ) . '</a></p>'
+			'<p><a href="https://www.little-package.com/shop/waterwoo-pdf-premium/" target="_blank" rel="noopener">' . __( 'Upgrade', 'waterwoo-pdf' ) . '</a></p>'
 		);
 
 	}
