@@ -9,7 +9,7 @@ Stable tag: 3.4.0
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-Protect your intellectual property! Watermark PDF for WooCommerce allows WooCommerce site administrators to apply a custom watermark & password to a simple PDF upon sale.
+Watermark PDF allows WooCommerce site administrators to apply a custom watermark & password to a simple PDF upon sale.
 
 == Description ==
 Watermark PDF is a free plugin that adds a watermark to every page of your sold PDF file(s). It can also password and permissions protect your PDF file(s). The watermark is customizable with font face, font color, font size, placement, and text. Not only that, but since the watermark is added when the download button is clicked (either on the customer's order confirmation page or email), the watermark can include customer-specific data such as the customer's first name, last name, and email. Your watermark is highly customizable and manipulatable, practically magic!
@@ -97,7 +97,7 @@ Please use the most recent version of all WordPress software - it's what we supp
 
 = Further things to try: =
 1. Make sure your WooCommerce downloads work WITHOUT WaterWoo activated, to narrow the problem.
-2. Try watermarking a different PDF (one you didn't create). If your PDF has goofy syntax (and many do - correct PDF syntax is "optional" for some PDF builders), WaterWoo will not be able to read it. Look into using WooStamper instead
+2. Try watermarking a different PDF (one you didn't create). If your PDF has goofy syntax (and many do - correct PDF syntax is "optional" for some PDF builders), WaterWoo will not be able to read it. Look into using [WooStamper](https://www.little-package.com/shop/pdf-stamper-for-woocommerce/ "PDF Stamper for WooCommerce plugin") instead
 3. Read through the [support forum](https://wordpress.org/support/plugin/waterwoo-pdf/). Tip: it has a search feature! Your answer is probably there by now since this plugin has been around a long time.
 
 Please do get in touch with your issues via the Wordpress.org support forum before leaving negative feedback about this free plugin.

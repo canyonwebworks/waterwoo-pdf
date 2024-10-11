@@ -2,7 +2,7 @@
 /**
  * Plugin Name: WaterMark PDF for WooCommerce
  * Plugin URI: https://wordpress.org/plugins/waterwoo-pdf/
- * Description: Custom watermark your PDF files upon WooCommerce customer download. Formerly known as "WaterWoo"
+ * Description: Custom watermark your PDF files upon WooCommerce customer download. FKA "WaterWoo"
  * Version: 3.4.0
  * Author: Little Package
  * Author URI: https://www.little-package.com/wordpress-plugins
