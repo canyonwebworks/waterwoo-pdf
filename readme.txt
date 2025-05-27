@@ -9,10 +9,10 @@ Stable tag: 4.0.0
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-PDF Ink Lite (FKA WaterWoo) allows WooCommerce, Download Monitor & Easy Digital Downloads site administrators to apply a custom watermark & password to a simple PDF upon sale.
+PDF Ink Lite applies custom watermarks & passwords to simple PDFs upon WooCommerce, Download Monitor & Easy Digital Downloads file downloads.
 
 == Description ==
-PDF Ink Lite is a free plugin that can add a watermark to every page of your sold PDF file(s). It can also password and permissions protect your PDF file(s). The watermark is customizable with font face, font color, font size, placement, and text.
+PDF Ink Lite (FKA WaterWoo) is a free plugin that can add a watermark to every page of your sold PDF file(s). It can also password and permissions protect your PDF file(s). The watermark is customizable with font face, font color, font size, placement, and text.
 
 This plugin watermarks PDF products when downloaded using WooCommerce download links, and works similarly for Download Monitor and Easy Digital Downloads.
 
