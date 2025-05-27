@@ -5,7 +5,7 @@ Tags: pdf, password, watermark, woocommerce, stamp
 Requires at least: 4.9
 Tested up to: 6.8
 Requires PHP: 7.2
-Stable tag: 3.7.0
+Stable tag: 4.0.0
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
