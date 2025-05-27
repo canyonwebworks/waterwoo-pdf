@@ -267,6 +267,14 @@ class WWPDF_Settings_DLM {
 							'std'      => '0',
 							'cb_label' => __( 'Enable', 'waterwoo-pdf' ),
 						],
+						[
+							'name'     => 'pdfink_attribution',
+							'type'     => 'checkbox',
+							'label'    => __( 'Give Us Attribution', 'waterwoo-pdf' ),
+							'desc'     => __( 'We\'d love it if you check this box and allow us to add a tiny, invisible link to the second page of your marked PDF files, giving PDF Ink Lite credit.', 'waterwoo-pdf' ),
+							'std'      => '0',
+							'cb_label' => __( 'Enable', 'waterwoo-pdf' ),
+						],
 					],
 				],
 				'logs'           => [

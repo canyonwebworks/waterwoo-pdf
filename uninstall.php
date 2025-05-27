@@ -58,6 +58,8 @@ class WWPDF_Free_Uninstall {
 		}
 
 		foreach ( [
+			'pdfink_attribution',
+
 			'wwpdf_global',
 			'wwpdf_files',
 			'wwpdf_font_premium',

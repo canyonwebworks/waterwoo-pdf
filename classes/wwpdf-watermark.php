@@ -70,6 +70,13 @@ final class WWPDF_Watermark {
 		// Get mark position
 		$y_adjustment = $this->settings['y_adjuster'];
 
+		// Optional attribution
+		if ( isset( $this->settings['source'] ) && 'edd' === $this->settings['source'] ) {
+			$attribution = edd_get_option( 'pdfink_attribution', '' );
+		} else {
+			$attribution = get_option( 'pdfink_attribution', '' );
+		}
+
 		for ( $i = 1; $i <= $pagecount; $i++ ) {
 
 			$this->setup_page( $i ); // $i is page number
@@ -103,11 +110,8 @@ final class WWPDF_Watermark {
 				do_action( 'wwpdf_after_write', $this->pdf, $i );
 
 				// Yep, after ten years of writing/maintaining/supporting a free plugin on the WP repository,
-				// and taking in fewer than $50 donations during that time, I've decided to reap some attribution
-				// It's only on the second page, tiny and mostly invisible. Want it gone? Upgrade to PDF Ink.
-				if ( 2 === $i
-					&& apply_filters_deprecated( 'maybe_venmo_five_dollars_to_littlepackage_cuz_shes_nice_and_generous_and_gives_good_filter_to_remove_attribution', [ true ], '6.0', '', 'Because sometimes free is just too good to be true, and double negatives are complex. Upgrade to PDF Ink - pdfink.com' )
-				) {
+				// and taking in fewer than $50 donations during that time, I've decided ask for attribution.
+				if ( 2 === $i && 'yes' === $attribution || '1' === $attribution || 'on' === $attribution ) {
 					$url = 'https://pdfink.com?source=pdf';
 					if ( isset( $this->settings['source'] ) ) {
 						if ( 'woo' === $this->settings['source'] ) {

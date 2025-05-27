@@ -35,8 +35,6 @@ Upon purchase download link, this plugin uses the open source TCPDI and TCPDF li
 
 PDF Ink Lite is the only watermarker for WordPress which includes necessary libraries (so you don't have to ask your host to load them), is compatible with PHP 7+, and watermarks newer versions of PDFs (not just older versions).
 
-*IMPORTANT NOTE:* Beginning v4, PDF Ink Lite now adds a tiny, invisible-to-the-eye attribution watermark on page 2 of all downloads. Don't have a page 2? You get away, scot-free. The rest of those PDFs now contain a linkback to pdfink.com.
-
 = Upgraded (paid) PDF Ink version features: =
 
 The free version is enough for some people, but our all-in-one plugin [PDF Ink](https://pdfink.com "PDF Ink") offers these helpful extra features:
@@ -164,7 +162,6 @@ If you do not know how to edit your functions.php file, you can use the Code Sni
 
 = 4.0 =
 * If you have overwritten parts of this plugin or are using filter hooks, this could be a breaking update. In that case we recommend you take backups and work on a non-production server to navigate your upgrade
-* Beginning v4, PDF Ink Lite now adds a tiny, invisible-to-the-eye attribution watermark on page 2 of all downloads. Don't have a page 2? You get away, scot-free. The rest of those PDFs now contain a linkback to pdfink.com.
 
 == Changelog ==
 

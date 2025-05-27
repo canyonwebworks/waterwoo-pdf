@@ -17,6 +17,7 @@ class WWPDF_Settings_Woo extends WC_Settings_Page {
 		add_action( 'admin_enqueue_scripts',                                                [ $this, 'admin_enqueue_scripts' ], 11 );
 		parent::__construct();
 
+		add_action( 'woocommerce_admin_field_pdfink_css',                                   [ $this, 'pdfink_css' ], 10, 1 );
 		add_action( 'woocommerce_admin_field_pdfink_intro',                                 [ $this, 'pdfink_intro' ], 10, 1 );
 		add_action( 'woocommerce_admin_field_pdfink_cta',                                   'pdfink_cta_tb', 10, 1 );
 
@@ -85,6 +86,10 @@ class WWPDF_Settings_Woo extends WC_Settings_Page {
 		if ( 'housekeeping' === $current_section ) {
 			$settings = [
 				[
+					'id'    => 'pdfink_css',
+					'type'  => 'pdfink_css',
+				],
+				[
 					'type' => 'title',
 					'id'   => 'housekeeping',
 					'name' => __( 'Housekeeping', 'waterwoo-pdf' ),
@@ -95,8 +100,15 @@ class WWPDF_Settings_Woo extends WC_Settings_Page {
 					'id'      => 'wwpdf_delete_checkbox',
 					'type'    => 'checkbox',
 					'desc'    => __( 'If this box is checked and you uninstall PDF Ink Lite, all your settings will be deleted from your WordPress database.', 'waterwoo-pdf' )
-					             . '<br>' . sprintf( __( 'Marked PDF files will accumulate in your PDF folder whether using Force downloads or not. To keep your server tidy, manually delete ad lib or </strong><a href="%s" target="_blank" rel="noopener">upgrade this plugin</a></strong> for better file handling and automatic cleaning.', 'waterwoo-pdf' ), 'https://pdfink.com/' ),
+								 . '<br>' . sprintf( __( 'Marked PDF files will accumulate in your PDF folder whether using Force downloads or not. To keep your server tidy, manually delete ad lib or </strong><a href="%s" target="_blank" rel="noopener">upgrade this plugin</a></strong> for better file handling and automatic cleaning.', 'waterwoo-pdf' ), 'https://pdfink.com/' ),
 					'default' => 'no',
+				],
+				[
+					'id'     => 'pdfink_attribution',
+					'type'     => 'checkbox',
+					'title'    => __( 'Give Us Attribution', 'waterwoo-pdf' ),
+					'desc'     => __( 'We\'d love it if you check this box and allow us to add a tiny, invisible link to the second page of your marked PDF files, giving PDF Ink Lite credit.', 'waterwoo-pdf' ),
+					'default'      => 'no',
 				],
 				[
 					'id'   => 'housekeeping',
@@ -576,6 +588,19 @@ class WWPDF_Settings_Woo extends WC_Settings_Page {
 		return 'no';
 
 	}
+
+	/**
+	 * @param $value
+	 *
+	 * @return void
+	 */
+	public function pdfink_css( $value ) { ?>
+
+		<style>button.is-primary{padding:0.5rem 2em;font-size:1.5em;border-radius:8px;background-color:#D15A45;border-color:#D15A45;color:white;}</style>
+
+		<?php
+	}
+
 
 	/**
 	 * @param $value

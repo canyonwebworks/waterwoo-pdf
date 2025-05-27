@@ -398,6 +398,12 @@ class WWPDF_Settings_EDD {
 					'desc'      => __( 'If this box is checked and you uninstall PDF Ink Lite, all your settings will be deleted from your Wordpress database.', 'waterwoo-pdf' ),
 					'type'      => 'checkbox',
 				],
+				'pdfink_attribution' => [
+					'id'        => 'pdfink_attribution',
+					'name'     => __( 'Give Us Attribution', 'waterwoo-pdf' ),
+					'desc'      => __( 'We\'d love it if you check this box and allow us to add a tiny, invisible link to the second page of your marked PDF files, giving PDF Ink Lite credit.', 'waterwoo-pdf' ),
+					'type'      => 'checkbox',
+				],
 
 			]
 
