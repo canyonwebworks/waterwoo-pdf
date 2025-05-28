@@ -93,6 +93,18 @@ Please use the most recent version of all WordPress software - it's what we supp
 
 == Frequently Asked Questions ==
 
+= I can't donate and I cannot upgrade. How can I still support you? =
+
+&nbsp;
+Oh, thanks for thinking of the countless volunteers who develop plugins for you to enjoy!
+
+In the PDF Ink Lite "Housekeeping" settings, you can check the "Attribution" box. This will add a super tiny, invisible watermark to page 2 of your PDF files, linking back to PDF Ink. The attribution mark is almost impossible to spot -- try it!
+
+= Where do I change PDF Ink Lite settings? =
+
+&nbsp;
+You can find the PDF Ink settings page by clicking on the "Settings for XXX" link under the PDF Ink Lite plugin title on your WordPress plugins panel.
+
 = Something is wrong =
 
 &nbsp;
@@ -121,11 +133,6 @@ Please - definitely - get in touch with your issues via the WordPress.org suppor
 [To request help using the WordPress.org support forum, start here](https://wordpress.org/support/topic/before-you-post-2025-support-tips-please-read/).
 
 **Do not use the WordPress.org support forum for help with the full (paid) version of PDF Ink** - that is against WordPress.org rules. Conversely, use the Wordpress.org support channel -- not email -- for PDF Ink Lite (free).
-
-= Where do I change PDF Ink Lite settings? =
-
-&nbsp;
-You can find the PDF Ink settings page by clicking on the "Settings for XXX" link under the PDF Ink Lite plugin title on your WordPress plugins panel.
 
 = My watermark isn’t English =
 
