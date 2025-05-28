@@ -122,7 +122,7 @@ In order of simplest/obvious to more difficult/less obvious...
 7. Choose a different font in the settings.
 8. Update WordPress, and all plugins including this plugin to the most recent versions.
 9. If your PHP version is the newest, try downgrading.
-10. Is your Y fine-tuning adjustment moving the mark off the page? Read more below under ["Why does the watermark go off the page, create blank pages?"](/#why%20does%20the%20watermark%20go%20off%20the%20page%2C%20create%20blank%20pages%3F).
+10. Is your Y fine-tuning adjustment moving the mark off the page? Read more below under ["Why does the watermark go off the page, create blank pages?"](https://wordpress.org/plugins/waterwoo-pdf/#why%20does%20the%20watermark%20go%20off%20the%20page%2C%20create%20blank%20pages%3F).
 11. Increase your PHP time limit and memory limits if they are set low (but don't set too high, either). Server limitations can stop this plugin from functioning well.
 12. If using WooCommerce, go to WooCommerce -> Settings -> PDF Ink Lite -> Logging and turn logging on. If using Easy Digital Downloads, go to Settings -> Misc -> Debug Mode and turn on logs. Run the program again, then look at the logs (EDD logs are under the Tools tab).
 13. Check your [WP debug](https://developer.wordpress.org/advanced-administration/debug/debug-wordpress/ "WordPress Debugging") logs. If logs suggest your PDF is "malformed" or "template does not exist," try using Apple Preview application to resave your PDF by clicking "Export as PDF" in the menu. Preview might fix bad PDF syntax and allow your PDF to be processed for watermarking.
