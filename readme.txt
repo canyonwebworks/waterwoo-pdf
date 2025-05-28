@@ -95,9 +95,9 @@ Please use the most recent version of all WordPress software - it's what we supp
 
 = Something is wrong =
 
+&nbsp;
 **Troubleshooting Steps**
 
-&nbsp;
 In order of simplest/obvious to more difficult/less obvious...
 &nbsp;
 
@@ -106,7 +106,7 @@ In order of simplest/obvious to more difficult/less obvious...
 3. Have you entered your PDF file names correctly in the second field if you've entered any at all? This field is case-sensitive.
 4. Make sure your PDF product downloads work without PDF Ink Lite activated, to narrow the problem.
 5. Try watermarking a different PDF (one you didn't create) to see if that PDF works. If your PDF has goofy syntax (and many do because good PDF syntax is "optional"), this plugin will not be able to read it. [Use PDF Ink with SetaPDF-Stamper instead](https://pdfink.com "PDF Ink").
-6. Is your PDF version 2.0? You'll want to downgrade your PDF or [use PDF Ink with SetaPDF-Stamper instead](https://pdfink.com "PDF Ink plugin").
+6. Is your PDF version 2.0? You'll want to downgrade your PDF or use PDF Ink with SetaPDF-Stamper instead.
 7. Choose a different font in the settings.
 8. Update WordPress, and all plugins including this plugin to the most recent versions.
 9. If your PHP version is the newest, try downgrading.
