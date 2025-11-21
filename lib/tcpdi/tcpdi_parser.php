@@ -812,9 +812,12 @@ class tcpdi_parser {
 		$objval  = ''; // object value to be returned
 
 		// skip initial white space (control) chars: \x00 null (NUL), \x09 horizontal tab (HT), \x0A line feed (LF), \x0C form feed (FF), \x0D carriage return (CR), \x20 space (SP)
-		$offset += strspn($data, "\x00\x09\x0a\x0c\x0d\x20", $offset);
+		// $offset += strspn( $data, "\x00\x09\x0a\x0c\x0d\x20", $offset );
+		$offset += isset( $data[$offset] ) ? strspn( $data, "\x00\x09\x0a\x0c\x0d\x20", $offset ) : 0;
+
+		// return added v1.1.3
 		if ( ! isset( $data[ $offset ] ) ) {
-			return;
+			return [ [ PDF_TYPE_NULL, 'null' ], $offset ];
 		}
 		// get first char
 		$char = $data[ $offset ];
@@ -1489,7 +1492,7 @@ class tcpdi_parser {
 		if ( isset( $annots[0] ) ) {
 			if ( $annots[0] === PDF_TYPE_OBJREF ) { // 8
 			return $this->getObjectVal( $annots );
-			} else if ( $annots[0] === PDF_TYPE_ARRAY && $annots[1][0] === PDF_TYPE_OBJREF ) {
+			} else if ( $annots[0] === PDF_TYPE_ARRAY && isset( $annots[1][0] ) && $annots[1][0] === PDF_TYPE_OBJREF ) {
 				// Maybe try drilling down
 				return $this->getObjectVal( $annots[1][0] );
 			}

@@ -80,7 +80,7 @@ final class WWPDF_Free_File_Handler {
 		$this->email = $email;
 
 		$file = $this->dispatch( 'woo', $file_path, $order_id, $product_id );
-		return apply_filters_deprecated( 'wwpdf_filter_watermarked_file', [ $file, $email, $order, $product, $download ], '6.0', '', 'The `wwpdf_filter_watermarked_file` filter hook will be removed from a future version of PDF Ink Lite.' );
+		return apply_filters_deprecated( 'wwpdf_filter_watermarked_file', [ $file, $email, $order, $product, $download ], '6.0', '', 'The `wwpdf_filter_watermarked_file` filter hook will stop working in 2026' );
 
 	}
 
@@ -216,6 +216,7 @@ final class WWPDF_Free_File_Handler {
 			$error_message = $e->getMessage();
 			if ( 'edd' === $source ) {
 				edd_debug_log( '(PDF Ink Lite) Caught exception: ' . print_r( $error_message, true ) );
+				wwpdf_debug_log( 'Caught exception: ' . $error_message, 'warning' );
 			} else {
 				wwpdf_debug_log( 'Caught exception: ' . $error_message, 'warning' );
 			}
@@ -359,7 +360,7 @@ final class WWPDF_Free_File_Handler {
 				$email, $product_id, $order_id ],
 			'6.3',
 			'pdfink_filter_woo_magic_tags',
-			'The `pdfink_filter_woo_magic_tags` filter hook is included in the upgrade of this plugin at pdfink.com. `wwpdf_filter_shortcodes` will be removed soon from the Lite plugin version.'
+			'The `pdfink_filter_woo_magic_tags` filter hook is included in the plugin upgrade at pdfink.com. `wwpdf_filter_shortcodes` will stop working in 2026.'
 		);
 
 		foreach ( $shortcodes as $shortcode => $value ) {
@@ -370,7 +371,7 @@ final class WWPDF_Free_File_Handler {
 			}
 		}
 
-		$content = apply_filters_deprecated( 'wwpdf_filter_footer', [ $content, $order_id, $product_id ], '6.3', 'pdfink_filter_placement_content', 'The `pdfink_filter_placement_content` filter hook is included in the upgrade of this plugin at pdfink.com. `wwpdf_filter_footer` will be removed soon from the Lite plugin version.' );
+		$content = apply_filters_deprecated( 'wwpdf_filter_footer', [ $content, $order_id, $product_id ], '6.3', 'pdfink_filter_placement_content', 'The `pdfink_filter_placement_content` filter hook is included in the upgrade of this plugin at pdfink.com. `wwpdf_filter_footer` will stop working in 2026.' );
 
 		// Text encode before returning
 		return html_entity_decode( $content, ENT_QUOTES | ENT_XML1, 'UTF-8' );
@@ -446,6 +447,7 @@ final class WWPDF_Free_File_Handler {
 		if ( $parsed_file_path['remote_file'] ) {
 			if ( 'edd' === $source ) {
 				edd_debug_log( '(PDF Ink Lite) The free version of PDF Ink (pdfink.com) doesn\'t handle remotely-hosted PDF files.' );
+				wwpdf_debug_log( 'The free version of PDF Ink (pdfink.com) doesn\'t handle remotely-hosted PDF files.', 'error' );
 			} else {
 				wwpdf_debug_log( 'The free version of PDF Ink (pdfink.com) doesn\'t handle remotely-hosted PDF files.', 'error' );
 			}

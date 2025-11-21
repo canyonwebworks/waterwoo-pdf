@@ -1,7 +1,5 @@
 <?php defined( 'ABSPATH' ) || exit;
-
 class WWPDF_Settings_EDD {
-
 	public function __construct() {
 
 		// Add section for EDDiMark settings under the Extensions tab
@@ -42,7 +40,7 @@ class WWPDF_Settings_EDD {
 					<?php _e( 'PDF Ink Lite is rudimentary and may not work on every PDF. Test before going live, and remember, it\'s free!', 'waterwoo-pdf' ); ?>
 				</p>
 				<p style="font-size:1.4em">
-					<?php echo sprintf( __( 'The only watermarking plugin for Easy Digital Downloads that works with <strong>any and every</strong> PDF is the <a href="%s" target="_blank" rel="noopener">PDF Ink upgrade combined with the SetaPDF-Stamper add-on</a>.', 'waterwoo-pdf' ), 'https://pdfink.com/documentation/libraries/#recommendation?source=free_plugin&utm_campaign=edd' ); ?>
+					<?php echo sprintf( __( 'The only watermarking plugin for Easy Digital Downloads that works with any and every PDF is the <a href="%s" target="_blank" rel="noopener">PDF Ink upgrade combined with the SetaPDF-Stamper add-on</a>.', 'waterwoo-pdf' ), 'https://pdfink.com/documentation/libraries/#recommendation?source=free_plugin&utm_campaign=edd' ); ?>
 				</p>
 				<p style="font-size:1.3em">
 					<?php echo sprintf( __( 'Greyed-out settings below are included in the <a href="%s" target="_blank" rel="noopener">full (paid) PDF Ink version</a>, which provides <a href="%s">many more features</a>.', 'waterwoo-pdf' ), 'https://pdfink.com/?source=free_plugin&utm_campaign=edd', admin_url( 'admin.php?page=wc-settings&tab=pdf-ink-lite&section=more_info' ) ); ?>
@@ -107,8 +105,8 @@ class WWPDF_Settings_EDD {
 					'id'        => 'eddimark_files',
 					'name'      => 'File(s) to Watermark',
 					'desc'      => '<br>' . __( 'List file name(s) of PDF(s), one per line, e.g.,', 'waterwoo-pdf' ) . ' <code>upload.pdf</code> ' . __( 'or', 'waterwoo-pdf' ) . ' <code>my_pdf.pdf</code>. ' . __( 'Case-sensitive.', 'waterwoo-pdf' )
-                                   . '<br>' . __( 'If left blank and the Global checkbox above is checked, <strong>all</strong> PDFs sold through EDD will be watermarked.', 'waterwoo-pdf' )
-								   . '<br>' . __( 'But if the global checkbox is checked and files are listed here, those files listed will <strong>not</strong> be watermarked.', 'waterwoo-pdf' )
+                                   . '<br>' . __( 'If left blank and the Global checkbox above is checked, ALL PDFs sold through EDD will be watermarked.', 'waterwoo-pdf' )
+								   . '<br>' . __( 'But if the global checkbox is checked and files are listed here, those files listed will NOT be watermarked.', 'waterwoo-pdf' )
                                    . '<br><br>' . sprintf( __( '<a href="%s" target="_blank" rel="noopener">Upgrade</a> for easier file control.', 'waterwoo-pdf' ), 'https://pdfink.com/?source=free_plugin&utm_campaign=woo' ),
 					'type'      => 'textarea',
 					'size'      => 'regular',
@@ -417,7 +415,7 @@ class WWPDF_Settings_EDD {
 	 * @param array $input
 	 * @return array
 	 */
-	public function sanitize_input( $input ) {
+	public function sanitize_input( array $input ): array {
 
 		if ( isset( $input['eddimark_rtl'] ) ) {
 			unset( $input['eddimark_rtl'] );

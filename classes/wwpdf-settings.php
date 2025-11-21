@@ -20,7 +20,7 @@ class WWPDF_Settings {
 	 *
 	 * @return array $links
 	 */
-	public function add_support_links( $links, $file ) {
+	public function add_support_links( array $links, string $file ): array {
 
 		if ( ! current_user_can( 'install_plugins' ) ) {
 			return $links;
@@ -42,7 +42,7 @@ class WWPDF_Settings {
 	 *
 	 * @return array
 	 */
-	public function plugin_action_links( $links ) {
+	public function plugin_action_links( array $links ): array {
 
 		if ( is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
 			$links[] = sprintf( '<a href="%s" title="%s">%s</a>', admin_url( 'admin.php?page=wc-settings&tab=pdf-ink-lite' ), __( 'Go to the settings page', 'waterwoo-pdf' ), __( 'Settings for Woo', 'waterwoo-pdf' ) );

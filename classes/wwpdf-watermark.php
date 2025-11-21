@@ -42,12 +42,13 @@ final class WWPDF_Watermark {
 	/**
 	 * Run TCPDF commands
 	 *
+	 * @throws Exception
 	 * @return void
 	 */
 	public function do_watermark() {
 
 		// This free plugin is BASIC, if not CRUDE! 🥴
-		// If you want to do a whole lot more with your PDF files,
+		// If you want to do a lot more with your PDF files,
 		// (like adding multiple marks with your own fonts, using HTML
 		// for more styling, and marking chosen pages)
 		// please support the work of WordPress developers
@@ -149,6 +150,7 @@ final class WWPDF_Watermark {
 	/**
 	 * Set up each TCPDF page object
 	 *
+	 * @param int $page
 	 * @return void
 	 */
 	private function setup_page( $page ) {
@@ -210,11 +212,10 @@ final class WWPDF_Watermark {
 
 	/**
 	 * Convert hex color to RGB
-	 *
 	 * @param string $hex
-	 * @return string
+	 * @return string RGB color value
 	 */
-	protected function hex2rgb( $hex ) {
+	protected function hex2rgb( string $hex ): string {
 
 		$hex = str_replace( "#", "", $hex );
 		$r = hexdec( substr( $hex,0,2 ) );

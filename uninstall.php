@@ -106,7 +106,7 @@ class WWPDF_Free_Uninstall {
 			'eddimark_lnt',
 			// BYE BYE!
 		] as $option ) {
-				delete_option( $option );
+			delete_option( $option );
 		}
 
 	}

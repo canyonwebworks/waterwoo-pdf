@@ -4,9 +4,9 @@ namespace LittlePackage\lib\tcpdf\tecnick\tcpdf;
 
 //============================================================+
 // File name   : tcpdf.php
-// Version     : 6.9.4
+// Version     : 6.10.0
 // Begin       : 2002-08-03
-// Last Update : 2025-04-18
+// Last Update : 2025-05-27
 // Author      : Nicola Asuni - Tecnick.com LTD - www.tecnick.com - info@tecnick.com
 // License     : GNU-LGPL v3 (http://www.gnu.org/copyleft/lesser.html)
 // -------------------------------------------------------------------
@@ -107,7 +107,7 @@ namespace LittlePackage\lib\tcpdf\tecnick\tcpdf;
  * Tools to encode your unicode fonts are on fonts/utils directory.</p>
  * @package com.tecnick.tcpdf
  * @author Nicola Asuni
- * @version 6.9.4
+ * @version 6.10.0
  */
 
 // TCPDF configuration
@@ -129,7 +129,7 @@ use Countable;
 use LittlePackage\lib\tcpdf\tecnick\tcpdf\includes\TCPDF_FONT_DATA as TCPDF_FONT_DATA;
 use LittlePackage\lib\tcpdf\tecnick\tcpdf\includes\TCPDF_FONTS as TCPDF_FONTS;
 use LittlePackage\lib\tcpdf\tecnick\tcpdf\includes\TCPDF_COLORS as TCPDF_COLORS;
-use LittlePackage\lib\tcpdf\tecnick\tcpdf\includes\TCPDF_IMAGES as TCPDF_IMAGES;
+use LLittlePackage\lib\tcpdf\tecnick\tcpdf\includes\TCPDF_IMAGES as TCPDF_IMAGES;
 use LittlePackage\lib\tcpdf\tecnick\tcpdf\includes\TCPDF_STATIC as TCPDF_STATIC;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -140,7 +140,7 @@ use LittlePackage\lib\tcpdf\tecnick\tcpdf\includes\TCPDF_STATIC as TCPDF_STATIC;
  * TCPDF project (http://www.tcpdf.org) has been originally derived in 2002 from the Public Domain FPDF class by Olivier Plathey (http://www.fpdf.org), but now is almost entirely rewritten.<br>
  * @package com.tecnick.tcpdf
  * @brief PHP class for generating PDF documents without requiring external extensions.
- * @version 6.9.4
+ * @version 6.10.0
  * @author Nicola Asuni - info@tecnick.com
  * @IgnoreAnnotation("protected")
  * @IgnoreAnnotation("public")
@@ -1823,6 +1823,12 @@ class TCPDF {
 	protected $custom_xmp_rdf = '';
 
 	/**
+	 * Custom XMP RDF pdfaextension data.
+	 * @protected
+	 * @since 6.9.0 (2025-02-11)
+	 */
+	protected $custom_xmp_rdf_pdfaExtension = '';
+	/**
 	 * Overprint mode array.
 	 * (Check the "Entries in a Graphics State Parameter Dictionary" on PDF 32000-1:2008).
 	 * @protected
@@ -1860,12 +1866,12 @@ class TCPDF {
 	 */
 	protected $gdgammacache = array();
 
-    /**
-     * Cache array for file content
-     * @protected
-     * @var array
-     * @since 6.3.5 (2020-09-28)
-     */
+	/**
+	 * Cache array for file content
+	 * @protected
+	 * @var array
+	 * @since 6.3.5 (2020-09-28)
+	 */
 	protected $fileContentCache = array();
 
 	/**
@@ -2627,7 +2633,6 @@ class TCPDF {
 			$this->original_lMargin = $this->lMargin;
 			$this->original_rMargin = $this->rMargin;
 		}
-
 	}
 
 	/**
@@ -4946,6 +4951,31 @@ class TCPDF {
 	}
 
 	/**
+	 * Embed the attached files.
+	 * @since 6.9.000 (2025-02-11)
+	 * @public
+	 */
+	public function EmbedFile($opt) {
+		if (!$this->pdfa_mode || ($this->pdfa_mode && $this->pdfa_version == 3)) {
+			if ((($opt['Subtype'] == 'FileAttachment')) AND (!TCPDF_STATIC::empty_string($opt['FS']))
+				AND (@TCPDF_STATIC::file_exists($opt['FS']) OR TCPDF_STATIC::isValidURL($opt['FS']))
+				AND (!isset($this->embeddedfiles[basename($opt['FS'])]))) {
+				$this->embeddedfiles[basename($opt['FS'])] = array('f' => ++$this->n, 'n' => ++$this->n, 'file' => $opt['FS']);
+			}
+		}
+	}
+
+	/**
+	 * Embed the attached files.
+	 * @since 6.9.000 (2025-02-11)
+	 * @public
+	 */
+	public function EmbedFileFromString($filename, $content) {
+		if (!$this->pdfa_mode || ($this->pdfa_mode && $this->pdfa_version == 3)) {
+			$this->embeddedfiles[$filename] = array('f' => ++$this->n, 'n' => ++$this->n, 'content' => $content );
+		}
+	}
+	/**
 	 * Embedd the attached files.
 	 * @since 4.4.000 (2008-12-07)
 	 * @protected
@@ -4958,7 +4988,12 @@ class TCPDF {
 		}
 		reset($this->embeddedfiles);
 		foreach ($this->embeddedfiles as $filename => $filedata) {
+			$data = false;
+			if (isset($filedata['file']) && !empty($filedata['file'])) {
 			$data = $this->getCachedFileContents($filedata['file']);
+			} elseif ($filedata['content'] && !empty($filedata['content'])) {
+				$data = $filedata['content'];
+			}
 			if ($data !== FALSE) {
 				$rawsize = strlen($data);
 				if ($rawsize > 0) {
@@ -6969,6 +7004,7 @@ class TCPDF {
 		if (empty($file)) {
 			return false;
 		}
+
 		// check if we are passing an image as file or string
 		if ($file[0] === '@') {
 			// image from string
@@ -7016,6 +7052,7 @@ class TCPDF {
 				$this->Error('[Image] Unable to get the size of the image: '.$file);
 			}
 		}
+
 		// file hash
 		$filehash = md5($file);
 		// get original image width and height in pixels
@@ -7149,7 +7186,7 @@ class TCPDF {
 			// GD image handler function
 			$gdfunction = 'imagecreatefrom'.$type;
 			$info = false;
-			if ((method_exists('LittlePackage\lib\tcpdf\tecnick\tcpdf\includes\TCPDF_IMAGES', $mtd)) AND (!($resize AND (function_exists($gdfunction) OR extension_loaded('imagick'))))) {
+			if ((method_exists('LittlePackage\pdfInk\PDF\lib\tcpdf\tecnick\tcpdf\includes\TCPDF_IMAGES', $mtd)) AND (!($resize AND (function_exists($gdfunction) OR extension_loaded('imagick'))))) {
 				// TCPDF image functions
 				$info = TCPDF_IMAGES::$mtd($file);
 				if (($ismask === false) AND ($imgmask === false) AND (strpos($file, '__tcpdf_'.$this->file_id.'_imgmask_') === FALSE)
@@ -9645,6 +9682,16 @@ class TCPDF {
 	}
 
 	/**
+	 * Set additional XMP data to be added to the default XMP data for PDF/A extensions.
+	 * IMPORTANT: This data is added as-is without controls, so you have to validate your data before using this method!
+	 * @param string $xmp Custom XMP RDF data.
+	 * @since 6.9.0 (2025-02-14)
+	 * @public
+	 */
+	public function setExtraXMPPdfaextension($xmp) {
+		$this->custom_xmp_rdf_pdfaExtension = $xmp;
+	}
+	/**
 	 * Put XMP data object and return ID.
 	 * @return int The object ID.
 	 * @since 5.9.121 (2011-09-28)
@@ -9778,6 +9825,7 @@ class TCPDF {
 		$xmp .= "\t\t\t\t\t\t\t".'</rdf:Seq>'."\n";
 		$xmp .= "\t\t\t\t\t\t".'</pdfaSchema:property>'."\n";
 		$xmp .= "\t\t\t\t\t".'</rdf:li>'."\n";
+		$xmp .= $this->custom_xmp_rdf_pdfaExtension;
 		$xmp .= "\t\t\t\t".'</rdf:Bag>'."\n";
 		$xmp .= "\t\t\t".'</pdfaExtension:schemas>'."\n";
 		$xmp .= "\t\t".'</rdf:Description>'."\n";
@@ -9816,7 +9864,11 @@ class TCPDF {
 		}
 		// start catalog
 		$oid = $this->_newobj();
-		$out = '<< /Type /Catalog';
+		$out = '<< ';
+		if (!empty($this->efnames)) {
+			$out .= ' /AF [ '. implode(' ', $this->efnames) .' ]';
+		}
+		$out .= ' /Type /Catalog';
 		$out .= ' /Version /'.$this->PDFVersion;
 		//$out .= ' /Extensions <<>>';
 		$out .= ' /Pages 1 0 R';
@@ -15363,8 +15415,8 @@ class TCPDF {
 		// create new barcode object
 		$barcodeobj = new TCPDFBarcode($code, $type);
 		$arrcode = $barcodeobj->getBarcodeArray();
-		if (empty($arrcode) OR ($arrcode['maxw'] <= 0)) {
-			$this->Error('Error in 1D barcode string');
+		if (empty($arrcode) || ($arrcode['maxw'] <= 0)) {
+			$this->Error('Error in 1D barcode string. Hint: sometimes this means your barcode should be numbers, not letters.');
 		}
 		if ($arrcode['maxh'] <= 0) {
 			$arrcode['maxh'] = 1;
@@ -17441,6 +17493,9 @@ class TCPDF {
 				}
 			}
 			if ($key == $maxel) break;
+			if ($dom[$key]['tag'] AND $dom[$key]['opening'] AND !empty($dom[$key]['attribute']['id'])) {
+				$this->setDestination($dom[$key]['attribute']['id']);
+			}
 			if ($dom[$key]['tag'] AND isset($dom[$key]['attribute']['pagebreak'])) {
 				// check for pagebreak
 				if (($dom[$key]['attribute']['pagebreak'] == 'true') OR ($dom[$key]['attribute']['pagebreak'] == 'left') OR ($dom[$key]['attribute']['pagebreak'] == 'right')) {
@@ -19165,7 +19220,7 @@ class TCPDF {
 				$imglink = '';
 				if (isset($this->HREF['url']) AND !TCPDF_STATIC::empty_string($this->HREF['url'])) {
 					$imglink = $this->HREF['url'];
-					if ($imglink[0] == '#' AND is_numeric($imglink[1])) {
+					if ($imglink[0] == '#' AND isset($imglink[1]) AND is_numeric($imglink[1])) {
 						// convert url to internal link
 						$lnkdata = explode(',', $imglink);
 						if (isset($lnkdata[0])) {
@@ -20026,7 +20081,7 @@ class TCPDF {
 					}
 				}
 				if (!$in_table_head) { // we are not inside a thead section
-					$this->cell_padding = isset($table_el['old_cell_padding']) ? $table_el['old_cell_padding'] : null;
+					$this->cell_padding = isset($table_el['old_cell_padding']) ? $table_el['old_cell_padding'] : array('T' => 0, 'R' => 0, 'B' => 0, 'L' => 0);
 					// reset row height
 					$this->resetLastH();
 					if (($this->page == ($this->numpages - 1)) AND ($this->pageopen[$this->numpages])) {
@@ -23493,6 +23548,8 @@ class TCPDF {
 			$fill_color = TCPDF_COLORS::convertHTMLColorToDec($svgstyle['fill'], $this->spot_colors);
 			if ($svgstyle['fill-opacity'] != 1) {
 				$this->setAlpha($this->alpha['CA'], 'Normal', $svgstyle['fill-opacity'], false);
+			} elseif (preg_match('/rgba\(\d+%?,\s*\d+%?,\s*\d+%?,\s*(\d+(?:\.\d+)?)\)/i', $svgstyle['fill'], $rgba_matches)) {
+				$this->setAlpha($this->alpha['CA'], 'Normal', $rgba_matches[1], false);
 			}
 			$this->setFillColorArray($fill_color);
 			if ($svgstyle['fill-rule'] == 'evenodd') {

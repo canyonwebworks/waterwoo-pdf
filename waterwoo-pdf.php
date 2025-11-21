@@ -3,12 +3,12 @@
  * Plugin Name: PDF Ink Lite
  * Plugin URI: https://wordpress.org/plugins/waterwoo-pdf/
  * Description: Custom watermark your PDF files upon WooCommerce, Download Monitor, and Easy Digital Download customer download. Since 2014. FKA "WaterWoo"
- * Version: 4.0.4
+ * Version: 4.0.5
  * Author: Little Package
  * Author URI: https://pdfink.com/
  * Donate link: https://paypal.me/littlepackage
  * WC requires at least: 6.5
- * WC tested up to: 10.1
+ * WC tested up to: 10.3
  *
  * License: GPLv3 or later
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -49,7 +49,7 @@
 defined( 'ABSPATH' ) || exit;
 
 if ( ! defined( 'WWPDF_FREE_VERSION' ) ) {
-	define( 'WWPDF_FREE_VERSION', '4.0.4' );
+	define( 'WWPDF_FREE_VERSION', '4.0.5' );
 }
 
 if ( ! defined( 'WWPDF_FREE_MIN_PHP' ) ) {
@@ -217,19 +217,19 @@ function WWPDF_Free() {
 }
 
 function wwpdf_old_php_notice() {
-	echo '<div class="error"><p>' . sprintf( __( '<strong>PDF Ink Lite</strong> supports PHP %s or later. Please update PHP on your server for better overall results.', 'waterwoo-pdf' ), WWPDF_FREE_MIN_PHP ) . '</p></div>';
+	echo '<div class="error"><p>' . sprintf( __( 'PDF Ink Lite supports PHP %s or later. Please update PHP on your server for better overall results.', 'waterwoo-pdf' ), WWPDF_FREE_MIN_PHP ) . '</p></div>';
 }
 
 function wwpdf_old_wp_notice() {
-	echo '<div class="error"><p>' . sprintf( __( '<strong>PDF Ink Lite</strong> supports WordPress version %s or later. Please update WordPress to use this plugin.', 'waterwoo-pdf' ), WWPDF_FREE_MIN_WP ) . '</p></div>';
+	echo '<div class="error"><p>' . sprintf( __( 'PDF Ink Lite supports WordPress version %s or later. Please update WordPress to use this plugin.', 'waterwoo-pdf' ), WWPDF_FREE_MIN_WP ) . '</p></div>';
 }
 
 function wwpdf_no_woo_notice() {
-	echo '<div class="error"><p>' . sprintf( __( 'The <strong>PDF Ink Lite</strong> plugin requires WooCommerce be activated. You can <a href="%s" target="_blank" rel="noopener">download WooCommerce here</a>.', 'waterwoo-pdf' ), 'https://wordpress.org/plugins/woocommerce/' ) . '</p></div>';
+	echo '<div class="error"><p>' . sprintf( __( 'The PDF Ink Lite plugin requires WooCommerce be activated. You can <a href="%s" target="_blank" rel="noopener">download WooCommerce here</a>.', 'waterwoo-pdf' ), 'https://wordpress.org/plugins/woocommerce/' ) . '</p></div>';
 }
 
 function wwpdf_old_woo_notice() {
-	echo '<div class="error"><p>' . sprintf( __( 'Sorry, <strong>PDF Ink Lite</strong> supports WooCommerce version %s or newer, for security reasons.', 'waterwoo-pdf' ), WWPDF_FREE_MIN_WC ) . '</p></div>';
+	echo '<div class="error"><p>' . sprintf( __( 'Sorry, PDF Ink Lite supports WooCommerce version %s or newer, for security reasons.', 'waterwoo-pdf' ), WWPDF_FREE_MIN_WC ) . '</p></div>';
 }
 
 function pdfink_lite_need_wp_content_dir_access_notice() {
@@ -336,7 +336,7 @@ function pdfink_more_info_screen() {
 			<?php _e( 'Hi, I\'m Caroline.', 'waterwoo-pdf' ); ?> 🖖🏼
         </p>
         <p style="font-size: 1.75em;">
-            <?php _e( 'I\'ve kept the <strong>PDF Ink Lite</strong> plugin in active development since 2014 as an unpaid volunteer.', 'waterwoo-pdf' ); ?>
+            <?php _e( 'I\'ve kept the PDF Ink Lite plugin in active development since 2014 as an unpaid volunteer.', 'waterwoo-pdf' ); ?>
             <br>
 			<?php echo sprintf( __( 'If you enjoy the free version, think about <a href="%s" target="_blank" rel="noopener">upgrading to the full version</a> for even more great features!', 'waterwoo-pdf' ), 'https://pdfink.com/?source=wordpress' ); ?>
         </p>
@@ -413,9 +413,15 @@ function wwpdf_plugins_loaded() {
 		}
 	} );
 
-	load_plugin_textdomain( 'waterwoo-pdf', false, dirname( plugin_basename( __FILE__ ) ) . '/lang/' );
 
 	WWPDF_Free();
 
 }
 add_action( 'plugins_loaded', 'wwpdf_plugins_loaded', 1 );
+
+function wwpdf_init() {
+
+	load_plugin_textdomain( 'waterwoo-pdf', false, dirname( plugin_basename( __FILE__ ) ) . '/lang/' );
+
+}
+add_action( 'init', 'wwpdf_init', 1 );
