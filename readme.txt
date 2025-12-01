@@ -5,7 +5,7 @@ Tags: pdf password, pdf protection, watermark, woocommerce pdf, stamp
 Requires at least: 4.9
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 4.0.5
+Stable tag: 4.0.6
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -201,7 +201,10 @@ If you do not know how to edit your functions.php file, you can use the Code Sni
 
 == Changelog ==
 
-= 4.0.5 - 21 November 2024 =
+= 4.0.6 - 1 December 2025 =
+* Fix - automatic temp file deletion (when used with WooCommerce forced and EDD forced file delivery)
+
+= 4.0.5 - 21 November 2025 =
 * Fix - move load_plugin_textdomain() to 'init' hook
 * Tweak - provide debug log feedback for people getting unexpected white bars on PDF (answer: upgrade)
 * Tweak - update/add translations

@@ -17,6 +17,11 @@ final class WWPDF_Free_File_Handler {
 	protected $email = '';
 
 	/**
+	 * @var string
+	 */
+	protected $temp_folder = '';
+
+	/**
 	 * Constructor
 	 */
 	public function __construct() {
@@ -32,10 +37,6 @@ final class WWPDF_Free_File_Handler {
 			add_filter( 'edd_requested_file',                   [ $this, 'dispatch_edd' ], 15, 4 );
 		}
 
-		if ( apply_filters( 'wwpdf_do_cleanup', true ) ) {
-			$this->do_cleanup();
-		}
-
 	}
 
 	/**
@@ -49,7 +50,7 @@ final class WWPDF_Free_File_Handler {
 	 *
 	 * @return void|string $file_path
 	 */
-	public function dispatch_woo( $file_path, $email, $order, $product, $download ) {
+	public function dispatch_woo( string $file_path, string $email, $order, $product, $download ) {
 
 		if ( apply_filters( 'wwpdf_abort_watermarking', false, $file_path, $email, $order, $product, $download ) ) {
 			return $file_path;
@@ -92,7 +93,7 @@ final class WWPDF_Free_File_Handler {
 	 *
 	 * @return string
 	 */
-	public function dispatch_dlm( $file_path, $remote_file, $download ) {
+	public function dispatch_dlm( string $file_path, bool $remote_file, object $download ) {
 
 		// Sorry, the free version of PDF Ink (pdfink.com) doesn't handle remote PDF files
 		// Upgrade at www.pdfink.com to handle files not hosted on your server.
@@ -146,7 +147,7 @@ final class WWPDF_Free_File_Handler {
 	 *
 	 * @return string
 	 */
-	public function dispatch_edd( $file_path, $download_files, $file_key, $args ) {
+	public function dispatch_edd( string $file_path, $download_files, $file_key, $args ) {
 
 		if ( empty( $file_path ) ) {
 			edd_debug_log( '(PDF Ink Lite) File path empty inside `edd_requested_file` hook. PDF manipulation aborted.' );
@@ -185,7 +186,7 @@ final class WWPDF_Free_File_Handler {
 	 *
 	 * @return mixed|void
 	 */
-	protected function dispatch( $source, $file_path, $order_id, $product_id ) {
+	protected function dispatch( string $source, string $file_path, $order_id, $product_id ) {
 
 		// Check if it's a PDF
 		if ( 'edd' === $source && function_exists( 'edd_get_file_extension' ) ) {
@@ -243,7 +244,7 @@ final class WWPDF_Free_File_Handler {
 	 * @return void
 	 * @deprecated in PDF Watermark v4.0
 	 */
-	public function pdf_filepath( $file_path, $email, $order, $product, $download ) {
+	public function pdf_filepath( string $file_path, string $email, object $order, object $product, $download ) {
 		// Sorry guys
 	}
 
@@ -252,7 +253,7 @@ final class WWPDF_Free_File_Handler {
 	 *
 	 * @return string
 	 */
-	protected function get_requested_filename( $file_path ) {
+	protected function get_requested_filename( string $file_path ) {
 
 		$name = basename( $file_path );
 		if ( $strpos = strpos( $name, '?' ) ) {
@@ -269,7 +270,7 @@ final class WWPDF_Free_File_Handler {
 	 * @param int $product_id
 	 * @return boolean|string $content
 	 */
-	public function get_content( $source, $order_id, $product_id ) {
+	public function get_content( string $source, $order_id, $product_id ) {
 
 		$email = '';
 		$paid_date = current_time( 'timestamp' );
@@ -455,14 +456,15 @@ final class WWPDF_Free_File_Handler {
 		}
 
 		if ( ! empty( $order_id ) ) {
-			$watermarked_path = PDFINK_LITE_UPLOADS_PATH . $source . DIRECTORY_SEPARATOR . $order_id;
+			$temp_folder = PDFINK_LITE_UPLOADS_PATH . $source . DIRECTORY_SEPARATOR . $order_id;
 		} else {
-			$watermarked_path = PDFINK_LITE_UPLOADS_PATH . $source . DIRECTORY_SEPARATOR . date( 'Y' ) . DIRECTORY_SEPARATOR . date( 'm' ) . DIRECTORY_SEPARATOR . date( 'd' ) . $order_id;
+			$temp_folder = PDFINK_LITE_UPLOADS_PATH . $source . DIRECTORY_SEPARATOR . date( 'Y' ) . DIRECTORY_SEPARATOR . date( 'm' ) . DIRECTORY_SEPARATOR . date( 'd' ) . $order_id;
 		}
 
-		if ( ! wp_mkdir_p( $watermarked_path ) || ! is_writable( $watermarked_path ) ) {
-			throw new Exception( __( 'The PDF destination folder, ' . $watermarked_path .' is not writable.', 'waterwoo-pdf' ) );
+		if ( ! wp_mkdir_p( $temp_folder ) || ! is_writable( $temp_folder ) ) {
+			throw new Exception( __( 'The PDF destination folder, ' . $temp_folder .' is not writable.', 'waterwoo-pdf' ) );
 		}
+		$this->temp_folder = $temp_folder;
 
 		$_file_path = $parsed_file_path['file_path'];
 		if ( function_exists( 'wp_normalize_path' ) ) {
@@ -471,7 +473,7 @@ final class WWPDF_Free_File_Handler {
 
 		// Attempt to watermark using the open source TCPDI/TCPDF libraries
 		// There are other better libraries available which you can use easily if you upgrade to PDF Ink (www.pdfink.com)
-		$watermarker = new WWPDF_Watermark( $_file_path, $watermarked_path . DIRECTORY_SEPARATOR . $this->get_requested_filename( $_file_path ), $settings );
+		$watermarker = new WWPDF_Watermark( $_file_path, $temp_folder . DIRECTORY_SEPARATOR . $this->get_requested_filename( $_file_path ), $settings );
 		$watermarker->do_watermark();
 
 		$watermarked_file = str_replace( ABSPATH, '', $watermarker->newfile );
@@ -480,8 +482,12 @@ final class WWPDF_Free_File_Handler {
 			// Revert to original returned file
 			$watermarked_file = $watermarker->newfile;
 		}
-		// @todo cleanup using $this->watermarked file
-		$this->watermarked_file = $watermarked_file;
+
+		$this->watermarked_file = $watermarker->newfile;
+
+		if ( apply_filters( 'wwpdf_do_cleanup', true ) ) {
+			$this->do_cleanup();
+		}
 
 		// Send watermarked file back to WooCommerce
 		return $watermarked_file;
@@ -607,15 +613,62 @@ final class WWPDF_Free_File_Handler {
 
 	/**
 	 * Check if there is a stamped file and maybe delete it
+	 * This only happens if download type is set to FORCE.
 	 *
 	 * @return void
 	 */
 	public function cleanup_file() {
 
-		// This only happens if download type is set to FORCE
-		if ( isset( $this->watermarked_file ) && ! empty( $this->watermarked_file->newfile ) ) {
-			unlink( $this->watermarked_file->newfile );
-			$this->watermarked_file = '';
+		if ( isset( $this->watermarked_file ) && ! empty( $this->watermarked_file ) ) {
+			$file_path = wp_normalize_path( $this->watermarked_file );
+		} else {
+			wwpdf_debug_log( 'Could not establish which file to delete.', 'warning' );
+			return;
+		}
+
+		$temp_folder = wp_normalize_path( $this->temp_folder );
+
+		if ( ! is_file( $file_path ) ) {
+			wwpdf_debug_log( 'Could not delete watermarked PDF: does not exist or is not a regular file.', 'warning' );
+			return;
+		}
+
+		require_once ABSPATH . 'wp-admin/includes/file.php';
+
+		if ( ! function_exists( 'WP_Filesystem' ) ) {
+			wwpdf_debug_log( 'Unable to get WP_Filesystem on board to delete watermarked PDF.', 'warning' );
+			return;
+		}
+
+		$creds = request_filesystem_credentials( wp_nonce_url( site_url() ) );
+
+		// If credentials cannot be obtained (rare on uninstall), abort
+		if ( ! $creds ) {
+			wwpdf_debug_log( 'Credentials to manipulate WP Filesystem not obtained, so cannot delete watermarked PDF.', 'warning' );
+			return;
+		}
+
+		// Initialise the global $wp_filesystem object
+		if ( ! WP_Filesystem( $creds ) ) {
+			// Initialization failed (e.g., host disallows direct access).
+			// You could fall back to PHP's native functions, but for safety we stop.
+			return;
+		}
+
+		global $wp_filesystem;
+
+		if ( ! $wp_filesystem->delete( $file_path )  ) {
+			wwpdf_debug_log( 'Unable to delete watermarked PDF (filesystem error).', 'warning' );
+		}
+
+		// Attempt to delete the parent directory – if empty
+		$parent_dir = dirname( $file_path );
+		// Safety check to make sure directories match
+		if ( $parent_dir === $temp_folder && is_dir( $parent_dir ) ) {
+			// is_dir() + is_readable() + is_writable() checks are implicit in $wp_filesystem->rmdir()
+			$wp_filesystem->rmdir( $parent_dir, false ); // false = non‑recursive (only if empty)
+		} else {
+			wwpdf_debug_log( 'PDF Ink temp dir not removed, maybe because it is not empty.', 'notice' );
 		}
 
 	}
@@ -628,15 +681,17 @@ final class WWPDF_Free_File_Handler {
 	 */
 	private function do_cleanup() {
 
-		// We can only *try* to cleanup if we have a forced download.
-		if ( 'force' === get_option( 'woocommerce_file_download_method' ) ) {
+		// We can only *try* to clean up if we have a forced download, using PHP shutdown
+		if ( ( 'force' === get_option( 'woocommerce_file_download_method' ) && doing_filter( 'woocommerce_download_product_filepath' ) )
+			|| ( 'direct' === edd_get_file_download_method() && doing_filter( 'edd_requested_file' ) )
+		) {
 			add_action( 'shutdown', [ $this, 'cleanup_file' ] ); // this will not work every time because we cannot know download is complete before PHP shutdown
 		}
 
 		// Recommend setting up a cron job to remove watermarked files periodically,
 		// but adding a hook here just in case you have other plans. The upgraded version of this plugin
 		// includes automatic file cleanup, on a chosen schedule.
-		do_action( 'wwpdf_file_cleanup', $this->watermarked_file );
+		do_action( 'wwpdf_file_cleanup', $this->watermarked_file, $this->temp_folder );
 
 	}
 
