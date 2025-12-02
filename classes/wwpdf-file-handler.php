@@ -683,7 +683,7 @@ final class WWPDF_Free_File_Handler {
 
 		// We can only *try* to clean up if we have a forced download, using PHP shutdown
 		if ( ( 'force' === get_option( 'woocommerce_file_download_method' ) && doing_filter( 'woocommerce_download_product_filepath' ) )
-			|| ( 'direct' === edd_get_file_download_method() && doing_filter( 'edd_requested_file' ) )
+			|| ( function_exists( 'edd_get_file_download_method' ) && 'direct' === edd_get_file_download_method() && doing_filter( 'edd_requested_file' ) )
 		) {
 			add_action( 'shutdown', [ $this, 'cleanup_file' ] ); // this will not work every time because we cannot know download is complete before PHP shutdown
 		}

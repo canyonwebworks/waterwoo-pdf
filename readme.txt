@@ -5,7 +5,7 @@ Tags: pdf password, pdf protection, watermark, woocommerce pdf, stamp
 Requires at least: 4.9
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 4.0.6
+Stable tag: 4.0.7
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -200,6 +200,9 @@ If you do not know how to edit your functions.php file, you can use the Code Sni
 * If you have overwritten parts of this plugin or are using filter hooks, this could be a breaking update. In that case we recommend you take backups and work on a non-production server to navigate your upgrade
 
 == Changelog ==
+
+= 4.0.7 - 2 December 2025 =
+* Fix - check for existence of function 'edd_get_file_download_method' during auto temp file deletion
 
 = 4.0.6 - 1 December 2025 =
 * Fix - automatic temp file deletion (when used with WooCommerce forced and EDD forced file delivery)
