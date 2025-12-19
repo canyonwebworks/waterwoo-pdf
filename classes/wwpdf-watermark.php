@@ -3,19 +3,12 @@
 use LittlePackage\lib\tcpdi\pauln\tcpdi\TCPDI as TCPDI;
 
 defined( 'ABSPATH' ) || exit;
-
 final class WWPDF_Watermark {
-
 	private $pdf;
-
 	private $size = null;
-
 	protected $origfile = '';
-
 	public $newfile = '';
-
 	protected $settings = [];
-
 	public function __construct( $origfile, $newfile, $settings ) {
 
 		$this->origfile = $origfile;
@@ -71,7 +64,7 @@ final class WWPDF_Watermark {
 
 		// Get mark position
 		$left_margin = apply_filters_deprecated( 'wwpdf_left_margin', [ $this->settings['margin_lr'] ], '6.0', '', 'The PDF Ink `wwpdf_left_margin` filter hook has no replacement. Margins are now adjustable in the plugin settings.' );
-		$this->pdf->SetMargins( $left_margin, apply_filters( 'wwpdf_top_margin', 0 ) );
+		$this->pdf->SetMargins( $left_margin, apply_filters_deprecated( 'wwpdf_top_margin', [ 0 ], '6.0', '', 'The `wwpdf_top_margin` filter hook is deprecated in the free version of PDF Ink. For easy top margin control, please upgrade.' ) );
 
 		// Optional attribution
 		if ( isset( $this->settings['source'] ) && 'edd' === $this->settings['source'] ) {
@@ -100,9 +93,9 @@ final class WWPDF_Watermark {
 
 			if ( '' !== $this->settings['content'] ) {
 
-				do_action( 'wwpdf_before_write', $this->pdf, $i );
+				do_action_deprecated( 'wwpdf_before_write', [ $this->pdf, $i ], '6.0', '', 'The `wwpdf_before_write` filter hook is deprecated in the free version of PDF Ink.' );
 				$this->pdf->Write( 1, $this->settings['content'], apply_filters( 'wwpdf_write_URL', '' ), false, apply_filters( 'wwpdf_write_align', 'C' ) );
-				do_action( 'wwpdf_after_write', $this->pdf, $i );
+				do_action_deprecated( 'wwpdf_after_write', [ $this->pdf, $i ], '6.0', '', 'The `wwpdf_after_write` filter hook is deprecated in the free version of PDF Ink.' );
 
 				// Yep, after ten years of writing/maintaining/supporting a free plugin on the WP repository,
 				// and taking in fewer than $50 donations during that time, I've decided ask for attribution.
@@ -141,7 +134,7 @@ final class WWPDF_Watermark {
 		// ARCFOUR Encryption & password
 		$this->protect_pdf();
 
-		do_action( 'wwpdf_before_output', $this->pdf );
+		do_action_deprecated( 'wwpdf_before_output', [ $this->pdf ], '6.0', '', 'The `wwpdf_before_output` filter hook is deprecated in the free version of PDF Ink.' );
 
 		$this->pdf->Output( $this->newfile, apply_filters_deprecated( 'wwpdf_output_dest', [ 'F' ], '6.3', '', 'The `wwpdf_output_dest` filter hook is deprecated in the free version of PDF Ink (pdfink.com).' ) );
 

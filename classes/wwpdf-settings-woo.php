@@ -63,13 +63,12 @@ class WWPDF_Settings_Woo extends WC_Settings_Page {
 	 */
 	public function get_sections(): array {
 
-		$sections = [
+		return [
 			''              => __( 'PDF Options', 'waterwoo-pdf' ),
 			'housekeeping'  => __( 'Housekeeping', 'waterwoo-pdf' ),
 			'log_settings'  => __( 'Logging', 'waterwoo-pdf' ),
 			'more_info'     => __( 'More Info', 'waterwoo-pdf' ),
 		];
-		return apply_filters( 'woocommerce_get_sections_' . $this->id, $sections );
 
 	}
 
@@ -390,7 +389,7 @@ class WWPDF_Settings_Woo extends WC_Settings_Page {
 						'id'        => 'wwpdf_encrypt',
 						'type'      => 'select',
 						'title'     => __( 'Encryption Level', 'waterwoo-pdf' ),
-						'desc'      => '<a href="#TB_inline?&width=640&height=280&inlineId=pdfink-upgrade-tb" class="thickbox" style="text-decoration:none;"><span class="dashicons dashicons-admin-network pdfink-upgrade"></span></a> ' . __( 'RC4 encryption is automatically set because it is required for protections & passwording.', 'waterwoo-pdf' ) . __( 'If your server doesn’t support RC4 encryption, watermarking will fail.', 'waterwoo-pdf' ) . __( 'Encryption can slow down and possibly stall your downloads, especially if you are watermarking files with images or embedded fonts.', 'waterwoo-pdf' ) . __( 'The RC4 stream cipher is not bullet-proof.', 'waterwoo-pdf' ) . __( 'Some browsers or PDF viewers may ignore protection settings, and some diligent customers might find ways to remove watermarks and passwords.', 'waterwoo-pdf' ),
+						'desc'      => '<a href="#TB_inline?&width=640&height=280&inlineId=pdfink-upgrade-tb" class="thickbox" style="text-decoration:none;"><span class="dashicons dashicons-admin-network pdfink-upgrade"></span></a> ' . __( 'RC4 encryption is automatically set because it is required for protections & passwording.', 'waterwoo-pdf' ) . __( 'If your server doesn’t support RC4 encryption, watermarking will fail.', 'waterwoo-pdf' ) . __( 'Encryption can slow down and possibly stall your downloads, especially if you are watermarking files with images or embedded fonts.', 'waterwoo-pdf' ) . __( 'The RC4 stream cipher is not bullet-proof.', 'waterwoo-pdf' ),
 						'options'   => [
 							'0'     => 'RC4 40 bit',
 							'4'     => 'None',

@@ -4,9 +4,9 @@ namespace LittlePackage\lib\tcpdf\tecnick\tcpdf;
 
 //============================================================+
 // File name   : tcpdf.php
-// Version     : 6.10.0
+// Version     : 6.10.1
 // Begin       : 2002-08-03
-// Last Update : 2025-05-27
+// Last Update : 2025-11-21
 // Author      : Nicola Asuni - Tecnick.com LTD - www.tecnick.com - info@tecnick.com
 // License     : GNU-LGPL v3 (http://www.gnu.org/copyleft/lesser.html)
 // -------------------------------------------------------------------
@@ -107,7 +107,7 @@ namespace LittlePackage\lib\tcpdf\tecnick\tcpdf;
  * Tools to encode your unicode fonts are on fonts/utils directory.</p>
  * @package com.tecnick.tcpdf
  * @author Nicola Asuni
- * @version 6.10.0
+ * @version 6.10.1
  */
 
 // TCPDF configuration
@@ -140,7 +140,7 @@ use LittlePackage\lib\tcpdf\tecnick\tcpdf\includes\TCPDF_STATIC as TCPDF_STATIC;
  * TCPDF project (http://www.tcpdf.org) has been originally derived in 2002 from the Public Domain FPDF class by Olivier Plathey (http://www.fpdf.org), but now is almost entirely rewritten.<br>
  * @package com.tecnick.tcpdf
  * @brief PHP class for generating PDF documents without requiring external extensions.
- * @version 6.10.0
+ * @version 6.10.1
  * @author Nicola Asuni - info@tecnick.com
  * @IgnoreAnnotation("protected")
  * @IgnoreAnnotation("public")
@@ -2921,9 +2921,7 @@ class TCPDF {
 		$this->compress = false;
 		if (function_exists('gzcompress')) {
 			if ($compress) {
-				if ( !$this->pdfa_mode) {
-					$this->compress = true;
-				}
+				$this->compress = true;
 			}
 		}
 	}
@@ -5011,11 +5009,11 @@ class TCPDF {
 					$filter = '';
 					if ($this->compress) {
 						$data = gzcompress($data);
-						$filter = ' /Filter /FlateDecode';
+						$filter .= ' /Filter /FlateDecode';
 					}
 
 					if ($this->pdfa_version == 3) {
-						$filter = ' /Subtype /text#2Fxml';
+						$filter .= ' /Subtype /text#2Fxml';
 					}
 
 					$stream = $this->_getrawstream($data, $filedata['n']);
@@ -6935,8 +6933,8 @@ class TCPDF {
 			// fallback to avoid division by zero
 			$h = $h == 0 ? 1 : $h;
 			$ratio_wh = ($w / $h);
-			if (($y + $h) > $this->PageBreakTrigger) {
-				$h = $this->PageBreakTrigger - $y;
+			if (($y + $h) > $this->PageBreakTrigger + $this->bMargin) {
+				$h = $this->PageBreakTrigger + $this->bMargin - $y;
 				$w = ($h * $ratio_wh);
 			}
 			if ((!$this->rtl) AND (($x + $w) > ($this->w - $this->rMargin))) {
@@ -16930,7 +16928,7 @@ class TCPDF {
 							$dom[$key]['height'] = $dom[$key]['style']['height'];
 						}
 						// check for text alignment
-						if (isset($dom[$key]['style']['text-align'])) {
+						if (isset($dom[$key]['style']['text-align'][0])) {
 							$dom[$key]['align'] = strtoupper($dom[$key]['style']['text-align'][0]);
 						}
 						// check for CSS border properties
@@ -23280,8 +23278,10 @@ class TCPDF {
 			$error_message = sprintf('SVG Error: %s at line %d', xml_error_string(xml_get_error_code($parser)), xml_get_current_line_number($parser));
 			$this->Error($error_message);
 		}
-		// free this XML parser
-		xml_parser_free($parser);
+		// free this XML parser (does nothing in PHP >= 8.0)
+		if (function_exists('xml_parser_free') && PHP_VERSION_ID < 80000) {
+			xml_parser_free($parser);
+		}
 
 		// >= PHP 7.0.0 "explicitly unset the reference to parser to avoid memory leaks"
 		unset($parser);
@@ -23512,7 +23512,8 @@ class TCPDF {
 				$gradient['coords'][4] /= $w;
 			} elseif ($gradient['mode'] == 'percentage') {
 				foreach($gradient['coords'] as $key => $val) {
-					$gradient['coords'][$key] = (intval($val) / 100);
+					$val = floatval($val) / 100;
+					$gradient['coords'][$key] = $val;
 					if ($val < 0) {
 						$gradient['coords'][$key] = 0;
 					} elseif ($val > 1) {
@@ -24749,7 +24750,7 @@ class TCPDF {
 	 */
 	protected function endSVGElementHandler($parser, $name) {
 		$name = $this->removeTagNamespace($name);
-		if ($this->svgdefsmode AND !in_array($name, array('defs', 'clipPath', 'linearGradient', 'radialGradient', 'stop'))) {;
+		if ($this->svgdefsmode AND !in_array($name, array('defs', 'clipPath', 'linearGradient', 'radialGradient', 'stop'))) {
 			if (end($this->svgdefs) !== FALSE) {
 				$last_svgdefs_id = key($this->svgdefs);
 				if (isset($this->svgdefs[$last_svgdefs_id]['attribs']['child_elements'])) {

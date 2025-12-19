@@ -3,9 +3,9 @@ Contributors: littlepackage
 Donate link: https://paypal.me/littlepackage
 Tags: pdf password, pdf protection, watermark, woocommerce pdf, stamp
 Requires at least: 4.9
-Tested up to: 6.8
+Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 4.0.7
+Stable tag: 4.0.8
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -42,7 +42,7 @@ For better PDF coverage and many more options, [check out PDF Ink, the full vers
 * Clean, robust settings panels and a separate watermarking testing suite
 * Watermark all PDF files with same settings OR set individual watermarks/passwords per product or even per product variation
 * Begin watermark on selected page of PDF document (to avoid watermarking a cover page, for example), and/or select end page
-* Watermark every page, odd pages, even pages, or selected pages
+* Watermark every page, odd pages, even pages, or ranges of pages
 * Unlimited rotatable watermark locations on one page, anywhere on the page
 * Additional dynamic customer data input (business name, address, order number, product name, quantity of product purchased), and filter hooks for adding your own
 * Semi-opaque (transparent) watermarks - hide your watermarks completely if desired
@@ -52,7 +52,8 @@ For better PDF coverage and many more options, [check out PDF Ink, the full vers
 * Line-wrapping, forced breaks with &lt;p&gt; and &lt;br /&gt; tags
 * Upload and use your own font for stamping. Also, hooks to further customize font use
 * Higher level PDF protections with AES encryption and extended file protection settings
-* Keep original file metadata
+* Keep original and/or add file metadata
+* Edit or add PDF annotations, add embedded streams, and edit PDF outgoing (URI) links
 * Open ZIP files and mark PDF files inside the archive
 * Stamp EPUB files with customized text
 * Shortcode for creating PDF download links for any page (no need for e-commerce plugin)
@@ -192,7 +193,7 @@ If you do not know how to edit your functions.php file, you can use the Code Sni
 
 1. Settings page screenshot, showing where to turn on the plugin and choose files.
 2. Settings page screenshot, having to do with font choices and watermark content. Shortcodes are in use and will be converted dynamically to actual customer information.
-3. Settings page screenshot, showing password and protections settings. RC4 40-bit encryption is set automatically in PDF Ink Lite. For higher encryption, upgrade.
+3. Settings page screenshot, showing password and protections settings. RC4 40-bit encryption is set automatically in PDF Ink Lite if protections are selected. For higher encryption, upgrade.
 
 == Upgrade Notice ==
 
@@ -200,6 +201,12 @@ If you do not know how to edit your functions.php file, you can use the Code Sni
 * If you have overwritten parts of this plugin or are using filter hooks, this could be a breaking update. In that case we recommend you take backups and work on a non-production server to navigate your upgrade
 
 == Changelog ==
+
+= 4.0.8 - 19 December 2025 =
+* Update TCPDF to version 6.10.1
+* Testing with WP 6.9 and WC 10.4
+* Testing with PHP 8.5
+* Deprecation notices for several filter hooks
 
 = 4.0.7 - 2 December 2025 =
 * Fix - check for existence of function 'edd_get_file_download_method' during auto temp file deletion

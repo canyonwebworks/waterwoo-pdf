@@ -52,8 +52,6 @@ class TCPDF_Child extends TCPDF {
 		if (($quality < 1) || ($quality > 100)) {
 			$quality = 100;
 		}
-		$quality = apply_filters( 'wwpdf_jpeg_quality', $quality );
-
 		$this->jpeg_quality = intval($quality);
 	}
 

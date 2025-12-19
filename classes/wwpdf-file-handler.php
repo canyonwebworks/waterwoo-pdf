@@ -52,7 +52,7 @@ final class WWPDF_Free_File_Handler {
 	 */
 	public function dispatch_woo( string $file_path, string $email, $order, $product, $download ) {
 
-		if ( apply_filters( 'wwpdf_abort_watermarking', false, $file_path, $email, $order, $product, $download ) ) {
+		if ( apply_filters_deprecated( 'wwpdf_abort_watermarking', [ false, $file_path, $email, $order, $product, $download ], '6.0', '', 'The `wwpdf_abort_watermarking` filter hook will stop working in 2026. The full version of PDF Ink includes this hook.' ) ) {
 			return $file_path;
 		}
 
@@ -61,7 +61,7 @@ final class WWPDF_Free_File_Handler {
 		$global_on = get_option( 'wwpdf_global', 'no' );
 		$file_list = sanitize_textarea_field( get_option( 'wwpdf_files', '' ) );
 
-		$file_array = apply_filters( 'wwpdf_filter_file_list', array_filter( array_map( 'trim', explode( PHP_EOL, $file_list ) ) ), $email, $order );
+		$file_array = apply_filters_deprecated( 'wwpdf_filter_file_list', [ array_filter( array_map( 'trim', explode( PHP_EOL, $file_list ) ) ), $email, $order ], '6.0', '', 'The `wwpdf_filter_file_list` filter hook will stop working in 2026. The full version of PDF Ink includes this hook.' );
 		$file_listed = in_array( $requested_filename, $file_array );
 
 		$v4_method = get_option( 'wwpdf_files_v4', 'no' );
@@ -123,7 +123,7 @@ final class WWPDF_Free_File_Handler {
 
 		$requested_filename = $this->get_requested_filename( $file_path );
 		$order_id = $_GET['order_id'] ?? false;
-		$file_array = apply_filters( 'wwpdf_filter_file_list', array_filter( array_map( 'trim', explode( PHP_EOL, $file_list ) ) ), $_GET, $order_id );
+		$file_array = apply_filters_deprecated( 'wwpdf_filter_file_list', [ array_filter( array_map( 'trim', explode( PHP_EOL, $file_list ) ) ), $_GET, $order_id ], '6.0', '', 'The `wwpdf_filter_file_list` filter hook will stop working in 2026. The full version of PDF Ink includes this hook.' );
 		$file_listed = in_array( $requested_filename, $file_array );
 
 		if ( ( $global_on == true && $file_listed ) || ( $global_on == false && ! $file_listed ) ) {
@@ -164,7 +164,7 @@ final class WWPDF_Free_File_Handler {
 		}
 
 		$requested_filename = $this->get_requested_filename( $file_path );
-		$file_array = apply_filters( 'wwpdf_filter_file_list', array_filter( array_map( 'trim', explode( PHP_EOL, $file_list ) ) ), $args );
+		$file_array = apply_filters_deprecated( 'wwpdf_filter_file_list', [ array_filter( array_map( 'trim', explode( PHP_EOL, $file_list ) ) ), $args ], '6.0', '', 'The `wwpdf_filter_file_list` filter hook will stop working in 2026. The full version of PDF Ink includes this hook.' );
 		$file_listed = in_array( $requested_filename, $file_array );
 		$this->email = $args['email'] ?? '';
 
@@ -485,7 +485,7 @@ final class WWPDF_Free_File_Handler {
 
 		$this->watermarked_file = $watermarker->newfile;
 
-		if ( apply_filters( 'wwpdf_do_cleanup', true ) ) {
+		if ( apply_filters_deprecated( 'wwpdf_do_cleanup', [ true ], '6.0', '', 'The `wwpdf_do_cleanup` filter hook may stop working in 2026. The full version of PDF Ink includes this hook.' ) ) {
 			$this->do_cleanup();
 		}
 

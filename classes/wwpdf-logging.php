@@ -102,10 +102,9 @@ class WWPDF_Logging {
 	 * @filter wwpdf_log_types Gives users chance to add log types
 	 */
 	private static function log_types() {
-		$terms = [
+		return [
 			'error', 'warning', 'file_download', 'api_request',
 		];
-		return apply_filters( 'wwpdf_log_types', $terms );
 	}
 
 	/**

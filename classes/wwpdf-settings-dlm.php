@@ -1,7 +1,5 @@
 <?php defined( 'ABSPATH' ) || exit;
-
 class WWPDF_Settings_DLM {
-
 	public function __construct() {
 
 		add_filter( 'dlm_settings', [ $this, 'dlm_settings' ], 11, 1 );
@@ -348,7 +346,6 @@ function dlm_pdfink_intro() {
 	</div>
 <?php
 }
-
 function dlm_stamper_pages() { ?>
 
 	<div class="settings-row-muted">
@@ -371,7 +368,6 @@ function dlm_stamper_pages() { ?>
 
 	<?php
 }
-
 function dlm_stamper_start_pg() { ?>
 
 	<div class="settings-row-muted"><input id="setting-dlm_stamper_start_pg" class="regular-text" type="number" name="dlm_stamper_start_pg" value="1" disabled >
@@ -385,7 +381,6 @@ function dlm_stamper_start_pg() { ?>
 	<?php
 
 }
-
 function dlm_stamper_end_pg() { ?>
 
 	<div class="settings-row-muted">
@@ -400,7 +395,6 @@ function dlm_stamper_end_pg() { ?>
 <?php
 
 }
-
 function dlm_stamper_margin_lr() { ?>
 
 	<div class="settings-row-muted"><input id="setting-dlm_stamper_margin_lr" class="regular-text" type="number" name="dlm_stamper_margin_lr" value="0" disabled >
@@ -413,7 +407,6 @@ function dlm_stamper_margin_lr() { ?>
 	</div>
 	<?php
 }
-
 function dlm_stamper_opacity() { ?>
 
 	<div class="settings-row-muted">
@@ -426,7 +419,6 @@ function dlm_stamper_opacity() { ?>
 	</div>
 	<?php
 }
-
 function dlm_stamper_rotate() { ?>
 
 	<div class="settings-row-muted">
@@ -439,7 +431,6 @@ function dlm_stamper_rotate() { ?>
 	</div>
 	<?php
 }
-
 function dlm_stamper_failure() { ?>
 	<div class="settings-row-muted">
 
@@ -458,7 +449,6 @@ function dlm_stamper_failure() { ?>
 	</div>
 <?php
 }
-
 function dlm_stamper_encryption() {
 
 	$security_values = [];
@@ -500,7 +490,6 @@ function dlm_stamper_encryption() {
 <?php
 
 }
-
 function dlm_stamper_disable_fill_forms() { ?>
 
 	<div class="settings-row-muted">
@@ -526,7 +515,6 @@ function dlm_stamper_disable_fill_forms() { ?>
 <?php
 
 }
-
 function dlm_stamper_disable_extract() { ?>
 
 	<div class="settings-row-muted">
@@ -552,7 +540,6 @@ function dlm_stamper_disable_extract() { ?>
 <?php
 
 }
-
 function dlm_stamper_disable_ass() { ?>
 	<div class="settings-row-muted">
 		<div class="wpchill-toggle settings-row-muted">
@@ -577,7 +564,6 @@ function dlm_stamper_disable_ass() { ?>
 <?php
 
 }
-
 function dlm_stamper_disable_print_high() { ?>
 
 	<div class="settings-row-muted">
@@ -603,7 +589,6 @@ function dlm_stamper_disable_print_high() { ?>
 <?php
 
 }
-
 function dlm_stamper_owner_pwd() { ?>
 
 	<div class="settings-row-muted">
@@ -616,7 +601,6 @@ function dlm_stamper_owner_pwd() { ?>
 <?php
 
 }
-
 function dlm_stamper_protect_unlock() { ?>
 
 	<div class="settings-row-muted">
