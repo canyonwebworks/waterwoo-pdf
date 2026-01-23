@@ -1150,7 +1150,7 @@ msgstr ""
 "\"WaterWoo\""
 
 #. Author of the plugin/theme
-msgid "Little Package"
+msgid "Canyon Webworks"
 msgstr ""
 
 #. Author URI of the plugin/theme

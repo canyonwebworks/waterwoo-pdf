@@ -4,7 +4,7 @@
 // Version      : 1.2
 // Begin        : 2024-10-18
 // Last Update  : 2025-07-11
-// Author       : Little Package - https://github.com/littlepackage
+// Author       : Canyon Webworks - https://github.com/canyonwebworks
 // License      : GNU-LGPL v3 (https://www.gnu.org/licenses/lgpl-3.0.en.html)
 //
 // Based on     : tcpdi_parser.php

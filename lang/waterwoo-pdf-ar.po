@@ -1106,8 +1106,8 @@ msgstr ""
 "\"WaterWoo\""
 
 #. Author of the plugin/theme
-msgid "Little Package"
-msgstr "‫Little Package"
+msgid "Canyon Webworks"
+msgstr "‫Canyon Webworks"
 
 #. Author URI of the plugin/theme
 msgid "https://pdfink.com/"

@@ -1,11 +1,11 @@
 === PDF Ink Lite - Stamp PDFs with Customer Data ===
 Contributors: littlepackage
-Donate link: https://paypal.me/littlepackage
+Donate link: https://paypal.me/canyonwebworks
 Tags: pdf password, pdf protection, watermark, woocommerce pdf, stamp
 Requires at least: 4.9
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 4.0.8
+Stable tag: 4.0.9
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -20,7 +20,7 @@ Since the watermark is added when the download button is clicked (either on the 
 
 Upon purchase download link, this plugin uses the open source TCPDI and TCPDF libraries to parse and customize your PDF. This process isn't fool-proof, but works well in many cases. You may encounter problems if your PDF is malformed (bad PDF syntax), encrypted, web-optimized, linearized, or if your server cannot handle the memory load of PDF processing/encryption.
 
-_(FYI - This plugin used to be called WaterWoo. Little Package chose to rename it after maintaining it for over ten years.)_
+_(FYI - This plugin used to be called WaterWoo. I chose to rename it after maintaining it for over ten years.)_
 
 = Features: =
 
@@ -201,6 +201,11 @@ If you do not know how to edit your functions.php file, you can use the Code Sni
 * If you have overwritten parts of this plugin or are using filter hooks, this could be a breaking update. In that case we recommend you take backups and work on a non-production server to navigate your upgrade
 
 == Changelog ==
+
+= 4.0.9 - 22 Jan 2026 =
+* Bust WP PDF Ink settings cache when watermarking settings changed
+* Replace \r\n and \r with \n in EDD textareas while saving
+* Remove EDD settings on plugin uninstall using edd_delete_option()
 
 = 4.0.8 - 19 December 2025 =
 * Update TCPDF to version 6.10.1
