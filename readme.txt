@@ -103,7 +103,7 @@ You can find the PDF Ink settings page by clicking on the "Settings for XXX" lin
 = Something is wrong =
 
 &nbsp;
-Here are 10 basic troubleshooting steps to start with. Below those is a link to further recommendations.
+Here are some basic troubleshooting steps to start with. Below those is a link to further recommendations.
 &nbsp;
 
 1. Is WooCommerce or Download Monitor or Easy Digital Downloads installed, and do you have a purchasable PDF product in your shop to watermark?
@@ -112,9 +112,9 @@ Here are 10 basic troubleshooting steps to start with. Below those is a link to 
 4. Make sure your PDF product downloads work without PDF Ink Lite activated, to narrow the problem.
 5. Try watermarking a different PDF (one you didn't create) to see if that PDF works.
 6. Try using a different font (in settings).
-8. Using cutting-edge PHP? Try a lower PHP version.
-9. Increase your PHP time limit and memory limits if they are set low (but don't set too high, either). Server limitations can stop this plugin from functioning well.
-10. Read more below under ["Why does the watermark go off the page, create blank pages?"](https://wordpress.org/plugins/waterwoo-pdf/#why%20does%20the%20watermark%20go%20off%20the%20page%2C%20create%20blank%20pages%3F).
+7. Using cutting-edge PHP? Try a lower PHP version.
+8. Increase your PHP time limit and memory limits if they are set low (but don't set too high, either). Server limitations can stop this plugin from functioning well.
+9. Read more below under ["Why does the watermark go off the page, create blank pages?"](https://wordpress.org/plugins/waterwoo-pdf/#why%20does%20the%20watermark%20go%20off%20the%20page%2C%20create%20blank%20pages%3F).
 
 &nbsp;
 Please - definitely - get in touch with your issues via the WordPress.org support forum before leaving negative feedback about this free plugin.
