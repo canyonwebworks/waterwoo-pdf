@@ -1,5 +1,6 @@
 <?php
 
+use Automattic\WooCommerce\Internal\Utilities\FilesystemUtil;
 use WPChill\DownloadMonitor\Shop\Services\Services as Services;
 
 defined( 'ABSPATH' ) || exit;
@@ -60,8 +61,11 @@ final class WWPDF_Free_File_Handler {
 		$global_on = get_option( 'wwpdf_global', 'no' );
 		$file_list = sanitize_textarea_field( get_option( 'wwpdf_files', '' ) );
 
-		$file_array = apply_filters_deprecated( 'wwpdf_filter_file_list', [ array_filter( array_map( 'trim', explode( PHP_EOL, $file_list ) ) ), $email, $order ], '6.0', '', 'The `wwpdf_filter_file_list` filter hook will stop working in 2026. The full version of PDF Ink includes this hook.' );
-		$file_listed = in_array( $this->filename, $file_array );
+		$file_listed = false;
+		if ( ! empty( $file_list ) ) {
+			$file_array  = apply_filters_deprecated( 'wwpdf_filter_file_list', [ array_filter( array_map( 'trim', explode( PHP_EOL, $file_list ) ) ), $email, $order ], '6.0', '', 'The `wwpdf_filter_file_list` filter hook will stop working in 2026. The full version of PDF Ink includes this hook.' );
+			$file_listed = in_array( $this->filename, $file_array );
+		}
 
 		$v4_method = get_option( 'wwpdf_files_v4', 'no' );
 		if ( 'yes' === $v4_method ) {
@@ -258,13 +262,15 @@ final class WWPDF_Free_File_Handler {
 	 *
 	 * @param int $order_id
 	 * @param int $product_id
-	 * @return boolean|string $content
+	 * @return string $content
 	 */
 	public function get_content( string $source, $order_id, $product_id ) {
 
 		$email = '';
 		$paid_date = current_time( 'timestamp' );
 		$content   = '';
+		$first_name = '';
+		$last_name  = '';
 		if ( 'woo' === $source ) {
 			$content = sanitize_text_field( get_option( 'wwpdf_footer_input_premium', 'Licensed to [FIRSTNAME] [LASTNAME], [EMAIL]' ) );
 			if ( empty( $content ) ) {
@@ -436,7 +442,13 @@ final class WWPDF_Free_File_Handler {
 	public function maybe_apply_watermark( $source, $file_path, $settings, $order_id ) {
 
 		// Determine if file is local or remote, and get path
-		$parsed_file_path = $this->parse_file_path( $file_path );
+		if ( 'woo' === $source ) {
+			$parsed_file_path = WC_Download_Handler::parse_file_path( $file_path );
+		} else {
+			$parsed_file_path = $this->parse_file_path( $file_path );
+		}
+
+		error_log( '$parsed_file_path: ' . print_r( $parsed_file_path, true ) );
 
 		if ( $parsed_file_path['remote_file'] ) {
 			if ( 'edd' === $source ) {
@@ -465,14 +477,26 @@ final class WWPDF_Free_File_Handler {
 
 		// Attempt to watermark using the open source TCPDI/TCPDF libraries
 		// There are other better libraries available which you can use easily if you upgrade to PDF Ink (www.pdfink.com)
-		$watermarker = new WWPDF_Watermark( $_file_path, $this->temp_folder . DIRECTORY_SEPARATOR . $this->filename, $settings );
-		$watermarker->do_watermark();
-		unset( $watermarker );
+		$watermarked_file = $this->temp_folder . DIRECTORY_SEPARATOR . $this->filename;
+		try {
+			$watermarker = new WWPDF_Watermark( $_file_path, $watermarked_file, $settings );
+			$watermarker->do_watermark();
+		} catch ( Exception $e ) {
+			wwpdf_debug_log( '(PDF Ink Lite) Watermarking failed. More info: ' . $e->getMessage() );
+		}
 
+		if ( ! file_exists( $watermarked_file ) ) {
+			$watermarked_file = str_replace( ABSPATH, '', $this->temp_folder . DIRECTORY_SEPARATOR . $this->filename );
+		}
+
+		unset( $watermarker );
 		$this->do_cleanup();
 
+		// Prevent this function running on hook again
+		remove_filter( 'woocommerce_download_product_filepath', __FUNCTION__ );
+
 		// Send watermarked file back to WooCommerce
-		return $this->temp_folder . DIRECTORY_SEPARATOR . $this->filename;
+		return $watermarked_file;
 
 	}
 
@@ -503,16 +527,23 @@ final class WWPDF_Free_File_Handler {
 
 	/**
 	 * Parse file path and see if it's remote or local
-	 *
-	 * Borrowed liberally from WooCommerce
-	 *
-	 * HOWEVER, we WILL pass back non-ASCII file paths as they were provided to us,
-	 * leaving WooCommerce to be the "bad guy"
+	 * Used for EDD and DLM
 	 *
 	 * @param  string $file_path
 	 * @return array
+	 * @author WooCommerce
+	 * @author Canyon Webworks
 	 */
-	public function parse_file_path( string $file_path ): array {
+	private function parse_file_path( $file_path ) {
+
+		// Abort immediately if remote-type file detected; PDF Ink Lite does not handle these
+		if ( '//' === substr( $file_path, 0, 2 ) // Paths that begin with '//' are always remote URLs (EDD & DLM don't handle them natively anyway)
+			|| ( '[' === substr( $file_path, 0, 1 ) && ']' === substr( $file_path, - 1 ) ) // Shortcode (e.g. Dropbox, AWS, etc.)
+		) {
+			return [
+				'remote_file' => true,
+			];
+		}
 
 		$wp_uploads     = wp_upload_dir();
 		$wp_uploads_dir = $wp_uploads['basedir'];
@@ -534,54 +565,52 @@ final class WWPDF_Free_File_Handler {
 		$count = 0;
 		$file_path = str_replace( array_keys( $replacements ), array_values( $replacements ), $file_path, $count );
 
-		// Paths that begin with '//' are always remote URLs
-		if ( '//' === substr( $file_path, 0, 2 )
-			// Un-parsed shortcode (e.g. Dropbox, AWS, etc. maybe where remote file-handling plugin is disabled)
-			|| ( '[' === substr( $file_path, 0, 1 ) && ']' === substr( $file_path, - 1 ) )
-		) {
-			$file_path = ( is_ssl() ? 'https:' : 'http:' ) . $file_path;
-			return [
-				'remote_file' => true,
-				'file_path'   => $file_path,
-			];
-		}
-
-		$encoded = false;
 		if ( extension_loaded( 'mbstring' ) && ! mb_check_encoding( $file_path, 'ASCII' ) ) {
-			wwpdf_debug_log( 'File path contains non-ASCII characters! PDF Ink Lite will briefly encode them for parsing.' );
-			$file_path = rawurlencode( $file_path ); // Encode URL for non ASCII-file paths to protect chars
-			$encoded = true;
+			wwpdf_debug_log( 'Heads up! File path/name contains non-ASCII characters. This can cause trouble in wp_parse_url().' );
 		}
 
 		$parsed_file_path = wp_parse_url( $file_path );
-		$remote_file = null === $count || 0 === $count;
+		$remote_file = true;
+		$is_relative_path = false;
+		$is_url = false;
 
-		if ( $encoded ) {
-			$parsed_file_path['path'] = rawurldecode( $parsed_file_path['path'] );
+		// For compatibility with Bedrock, etc
+		if ( '' !== ABSPATH && 0 === strpos( WP_CONTENT_DIR, ABSPATH ) ) {
+			$wp_content_dirname =  '/' . substr( WP_CONTENT_DIR, strlen( ABSPATH ) );
+		} else {
+		    $content_url_path = wp_parse_url( content_url(), PHP_URL_PATH );
+			$wp_content_dirname = is_string( $content_url_path ) ? $content_url_path : '/wp-content';
 		}
 
-		// Compatibility with Bedrock, etc.
-		$wp_content_dirname = ( 0 === strpos( WP_CONTENT_DIR, ABSPATH ) )
-			? '/' . substr( WP_CONTENT_DIR, strlen( ABSPATH ) )
-			: '/wp-content';
-
+		// See if path needs an abspath prepended to work
 		if ( file_exists( ABSPATH . $file_path ) ) {
 			$remote_file = false;
 			$file_path   = ABSPATH . $file_path;
+			$is_relative_path = true;
+
 		} elseif ( 0 === strpos( $file_path, $wp_content_dirname ) ) {
 			$remote_file = false;
+			$is_relative_path = true;
 			$file_path   = realpath( WP_CONTENT_DIR . substr( $file_path, strlen( $wp_content_dirname ) ) );
-		} elseif ( ( ! isset( $parsed_file_path['scheme'] ) || ! in_array( $parsed_file_path['scheme'], [ 'http', 'https', 'ftp' ], true ) )
+
+		} else if ( ( ! isset( $parsed_file_path['scheme'] )
+			|| ! in_array( $parsed_file_path['scheme'], [ 'http', 'https', 'ftp' ], true ) )
 			&& isset( $parsed_file_path['path'] )
-		) { // We have an absolute path
+		) {
 			$remote_file = false;
 			$file_path   = $parsed_file_path['path'];
+			// (optionally: check existence here and leave remote if missing)
+		}
 
+		if ( 0 < $count ) {
+			$is_url = true;
 		}
 
 		return [
-			'remote_file' => $remote_file,
-			'file_path'   => $file_path
+			'remote_file'       => $remote_file,
+			'file_path'         => $file_path,
+			'is_url'            => $is_url,
+			'is_relative_path'  => $is_relative_path,
 		];
 
 	}
