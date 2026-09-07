@@ -91,7 +91,7 @@ Please use the most recent version of all WordPress software - it's what we supp
 = I can't donate and I cannot upgrade. How can I still support you? =
 
 &nbsp;
-Oh, thanks for thinking of the countless volunteers who develop plugins for you to enjoy!
+Thanks for thinking of the countless volunteers who develop plugins for you to enjoy!
 
 In the PDF Ink Lite "Housekeeping" settings, you can check the "Attribution" box. This will add a super tiny, invisible watermark to page 2 of your PDF files, linking back to PDF Ink. The attribution mark is almost impossible to spot -- try it!
 
@@ -108,10 +108,10 @@ Here are some basic troubleshooting steps to start with. Below those is a link t
 
 1. Is WooCommerce or Download Monitor or Easy Digital Downloads installed, and do you have a purchasable PDF product in your shop to watermark?
 2. Have you checked the PDF Ink Lite settings checkbox to "Enable watermarking?"
-3. Have you entered your PDF file names correctly in the second field if you've entered any at all? This field is case-sensitive.
-4. Make sure your PDF product downloads work without PDF Ink Lite activated, to narrow the problem.
-5. Try watermarking a different PDF (one you didn't create) to narrow the problem.
-6. Try using a different font (in settings).
+3. Make sure your PDF product downloads work without PDF Ink Lite activated, to narrow the problem.
+4. Try watermarking a different PDF (one you didn't create) to narrow the problem.
+5. Try using a different font (in settings).
+6. Turn on the PDF Ink Lite debugging in the settings, and review the logs after trying again.
 7. Increase your PHP time limit and memory limits if they are set low (but don't set too high, either). Server limitations can stop this plugin from functioning well.
 8. Try a different PHP version.
 9. Read more below under ["Why does the watermark go off the page, create blank pages?"](https://wordpress.org/plugins/waterwoo-pdf/#why%20does%20the%20watermark%20go%20off%20the%20page%2C%20create%20blank%20pages%3F).
