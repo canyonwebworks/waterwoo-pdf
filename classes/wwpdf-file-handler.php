@@ -198,18 +198,23 @@ final class WWPDF_Free_File_Handler {
 	 */
 	protected function dispatch( string $source, string $file_path, $order_id, $product_id ) {
 
-		// Check if it's a PDF
-		if ( 'edd' === $source && function_exists( 'edd_get_file_extension' ) ) {
-			if ( 'pdf' !== strtolower( edd_get_file_extension( $file_path ) ) ) {
-				edd_debug_log( '(PDF Ink Lite) ' . $file_path . ' does not seem to be a PDF file.' );
-				return $file_path;
+		// Remove query and/or fragment from file_path
+		$stripped_path = preg_replace( '/[?#].*$/', '', $file_path );
+		if ( $stripped_path !== $file_path ) {
+			wwpdf_debug_log( 'Query string (?) or fragment (#) removed from file path.' );
+		}
+		$file_path = $stripped_path;
+
+		// Check for and abort if not PDF (by extension)
+		$file_extension = $this->get_file_extension( $file_path, $source );
+		if ( 'pdf' !== $file_extension ) {
+			$message = 'File does not seem to be a PDF file.';
+			if ( 'edd' === $source ) {
+				edd_debug_log( '(PDF Ink Lite) ' . $message );
+			} else {
+				wwpdf_debug_log( $message );
 			}
-		} else {
-			$file_extension = preg_replace( '/\?.*/', '', substr( strrchr( $file_path, '.' ), 1 ) );
-			if ( 'pdf' !== strtolower( $file_extension ) ) {
-				wwpdf_debug_log( $file_path . ' does not seem to be a PDF file.' );
-				return $file_path;
-			}
+			return $file_path;
 		}
 
 		try {
@@ -241,19 +246,46 @@ final class WWPDF_Free_File_Handler {
 	}
 
 	/**
-	 * @param string $file_path
+	 * Find filename based on path
+	 * Queries and fragment already removed in dispatch()
 	 *
+	 * @param string $file_path
 	 * @return string
 	 */
 	protected function get_filename( string $file_path ) {
 
-		$filename = preg_replace( '/[?].*$/', '', wp_basename( $file_path ) );
-		if ( empty( $filename ) ) {
-			wwpdf_debug_log( 'File name came up empty in method get_filename() so it was renamed `untitled.pdf`.' );
+		$filename = wp_basename( $file_path );
+		if ( empty( $filename ) || '.' === $filename || '..' === $filename ) {
+			wwpdf_debug_log( 'File name came up empty in method get_filename(). Renamed `untitled.pdf`.' );
 			$filename = 'untitled.pdf';
 		}
 		wwpdf_debug_log( 'Filename is now: ' . $filename );
 		return $filename;
+
+	}
+
+	/**
+	 * Get the file extension, using native Woo/EDD/DLM
+	 * extension-finding methods where possible
+	 *
+	 * @param string $file_path
+	 * @param string $source
+	 *
+	 * @return string
+	 */
+	private function get_file_extension( string $file_path, $source ) {
+
+		// Use native extension-finding methods where possible
+		if ( 'edd' === $source && function_exists( 'edd_get_file_extension' ) ) {
+			$file_extension = edd_get_file_extension( $file_path );
+		} elseif ( 'dlm' === $source && class_exists( 'DLM_File_Manager' ) ) {
+			$fm = new DLM_File_Manager;
+			$info = $fm->mb_pathinfo( $file_path );
+			$file_extension = isset( $info['extension'] ) ? $info['extension'] : '';
+		} else { // WooCommerce or fallback
+			$file_extension = pathinfo( $file_path, PATHINFO_EXTENSION );
+		}
+		return strtolower( (string) $file_extension );
 
 	}
 
@@ -448,8 +480,6 @@ final class WWPDF_Free_File_Handler {
 			$parsed_file_path = $this->parse_file_path( $file_path );
 		}
 
-		error_log( '$parsed_file_path: ' . print_r( $parsed_file_path, true ) );
-
 		if ( $parsed_file_path['remote_file'] ) {
 			if ( 'edd' === $source ) {
 				edd_debug_log( '(PDF Ink Lite) The free version of PDF Ink (pdfink.com) doesn\'t handle remotely-hosted PDF files.' );
@@ -465,6 +495,7 @@ final class WWPDF_Free_File_Handler {
 		}
 
 		if ( ! wp_mkdir_p( $this->temp_folder ) || ! is_writable( $this->temp_folder ) ) {
+			wwpdf_debug_log( "The PDF destination folder, $this->temp_folder is not writable." );
 			throw new Exception( __( "The PDF destination folder, $this->temp_folder is not writable.", 'waterwoo-pdf' ) );
 		}
 
@@ -481,15 +512,15 @@ final class WWPDF_Free_File_Handler {
 		try {
 			$watermarker = new WWPDF_Watermark( $_file_path, $watermarked_file, $settings );
 			$watermarker->do_watermark();
+			if ( ! file_exists( $watermarked_file ) ) {
+				throw new Error( 'Watermarked file not found at ' . $watermarked_file );
+			}
+			unset( $watermarker );
+
 		} catch ( Exception $e ) {
 			wwpdf_debug_log( '(PDF Ink Lite) Watermarking failed. More info: ' . $e->getMessage() );
 		}
 
-		if ( ! file_exists( $watermarked_file ) ) {
-			$watermarked_file = str_replace( ABSPATH, '', $this->temp_folder . DIRECTORY_SEPARATOR . $this->filename );
-		}
-
-		unset( $watermarker );
 		$this->do_cleanup();
 
 		// Prevent this function running on hook again
@@ -570,9 +601,7 @@ final class WWPDF_Free_File_Handler {
 		}
 
 		$parsed_file_path = wp_parse_url( $file_path );
-		$remote_file = true;
-		$is_relative_path = false;
-		$is_url = false;
+		$remote_file      = null === $count || 0 === $count; // Remote file only if there were no replacements.
 
 		// For compatibility with Bedrock, etc
 		if ( '' !== ABSPATH && 0 === strpos( WP_CONTENT_DIR, ABSPATH ) ) {
@@ -586,11 +615,9 @@ final class WWPDF_Free_File_Handler {
 		if ( file_exists( ABSPATH . $file_path ) ) {
 			$remote_file = false;
 			$file_path   = ABSPATH . $file_path;
-			$is_relative_path = true;
 
 		} elseif ( 0 === strpos( $file_path, $wp_content_dirname ) ) {
 			$remote_file = false;
-			$is_relative_path = true;
 			$file_path   = realpath( WP_CONTENT_DIR . substr( $file_path, strlen( $wp_content_dirname ) ) );
 
 		} else if ( ( ! isset( $parsed_file_path['scheme'] )
@@ -602,15 +629,9 @@ final class WWPDF_Free_File_Handler {
 			// (optionally: check existence here and leave remote if missing)
 		}
 
-		if ( 0 < $count ) {
-			$is_url = true;
-		}
-
 		return [
 			'remote_file'       => $remote_file,
 			'file_path'         => $file_path,
-			'is_url'            => $is_url,
-			'is_relative_path'  => $is_relative_path,
 		];
 
 	}
@@ -618,6 +639,7 @@ final class WWPDF_Free_File_Handler {
 	/**
 	 * Check if there is a stamped file and maybe delete it
 	 * This only happens if download type is set to FORCE.
+	 *
 	 *
 	 * @return void
 	 */
