@@ -128,7 +128,7 @@ Please - definitely - get in touch with your issues via the WordPress.org suppor
 &nbsp;
 Try selecting a different font like “Deja Vu” in the plugin settings panel.
 
-One reason watermarks might not show up is because the watermark contains special characters but you're using a font which doesn’t support those characters. If none of the included fonts are subsetted for your language characters, you will need to programmatically add fonts yourself or look into purchasing the full version of this plugin, which has many more built-in fonts and supports font uploads.
+One reason watermarks might not show up is because the watermark contains special characters but you're using a font which doesn’t support those characters. If none of the included fonts are subsetted for your language characters, you will need to programmatically add fonts yourself or look into purchasing the full version of this plugin, which has more built-in fonts and supports font uploads.
 
 = How do I test my watermark? =
 
@@ -147,7 +147,7 @@ You can use a negative integer value for your Y-tuner and measure up from the bo
 &nbsp;
 They are generated with a unique name and stored in the same folder as your original WordPress/Woo product media upload (usually wp-content/uploads/year/month/file). The unique name includes the order number and a time stamp. If your end user complains of not being able to access their custom PDF for some reason (most often after their max number of downloads is exceeded), you can find it in that folder, right alongside your original.
 
-If you are using Woo FORCED downloads, the plugin attempts to delete the watermarked files after being delivered. This isn't 100% reliable since it works on PHP shutdown. If you don't like attempted deletion, you can change it with the 'wwpdf_do_cleanup' filter hook (set it to FALSE). The paid version of this plugin has improved file handling/removal.
+If you are using Woo FORCED downloads, the plugin attempts to delete the watermarked files after being delivered. This isn't 100% reliable since it works on PHP shutdown. If you don't like attempted deletion, you can change it with the 'wwpdf_do_cleanup' filter hook (set it to FALSE). The paid version of this plugin allows you to choose how/if marked files are removed.
 
 = Is there a fallback in case watermarking fails? =
 
@@ -170,6 +170,9 @@ If you do not know how to edit your functions.php file, you can use the Code Sni
 * If you have overwritten parts of this plugin or are using filter hooks, this could be a breaking update. In that case we recommend you take backups and work on a non-production server to navigate your upgrade
 
 == Changelog ==
+
+= 4.1.3 - 7 September 2026 =
+* Nuanced file handling for WooCommerce v. Easy Digital Downloads v. Download Monitor
 
 = 4.1.2 - 22 August 2026 =
 * Confirming compatibility with WP 7.1
