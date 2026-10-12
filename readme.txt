@@ -182,7 +182,7 @@ Add the code to your child theme’s functions.php file. If you’re not comfort
 
 == Changelog ==
 
-= 4.1.6 - 10 October 2026 =
+= 4.1.6 - 12 October 2026 =
 * Fix - Restore EOF handling in getRawObject()
 
 = 4.1.5 - 7 October 2026 =
