@@ -769,12 +769,8 @@ class tcpdi_parser {
 			}
 		} // end decoding data
 		$xref['max_object'] = max( $xref['max_object'], $obj_num );
-		// Add recursion limit
-		$max_prev_depth = 10;
-		$depth = 0;
-		while ( isset( $prevxref ) && $depth < $max_prev_depth ) {
+		if ( isset( $prevxref ) ) {
 			$xref = $this->getXrefData( $prevxref, $xref );
-			$depth++;
 		}
 
 		return $xref;
@@ -824,7 +820,7 @@ class tcpdi_parser {
 		$offset += is_string( $data[$offset] ?? null ) ? strspn( $data, "\x00\x09\x0a\x0c\x0d\x20", $offset ) : 0;
 
 		if ( ! isset( $data[ $offset ] ) ) {
-			return [ [ PDF_TYPE_NULL, 'null' ], $offset ];
+			return [];
 		}
 		// get first char
 		$char = $data[ $offset ];
