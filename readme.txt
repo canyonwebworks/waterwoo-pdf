@@ -185,6 +185,7 @@ Add the code to your child theme’s functions.php file. If you’re not comfort
 = 4.1.7 - 10 November 2026 =
 * Fix - PDF Ink settings fields went missing in DLM >= 5.3.0
 * Tweak - Handle logging requests using AJAX
+* Update i18n
 
 = 4.1.6 - 12 October 2026 =
 * Fix - Restore EOF handling in getRawObject()
