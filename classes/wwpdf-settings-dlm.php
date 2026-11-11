@@ -628,7 +628,7 @@ function dlm_pdfink_intro() {
 			<p style="font-size:1.4em">
 				<?php echo sprintf(
 				/* translators: 1: Link to PDF Ink website, 2: Link to site describing SetaPDF-Stamper as PDF Ink add-on, 3: Link to demo site. 4: WP admin link listing more PDF Ink features */
-					__( 'Need guaranteed watermarking for complex PDFs in Download Monitor? That requires the <a href="%s" target="_blank" rel="noopener">PDF Ink upgrade</a> plus the <a href="%s" target="_blank" rel="noopener">SetaPDF-Stamper add-on</a>. You can <a href="%s" target="_blank" rel="noopener">demo it for free</a>. The greyed-out options below are <a href="%s">premium features</a> waiting in the paid version!', 'waterwoo-pdf' ), 'https://pdfink.com/?source=free_plugin&utm_campaign=dlm', 'https://pdfink.com/documentation/libraries/#recommendation?source=free_plugin&utm_campaign=dlm', 'https://pdfink.com/demo/?source=free_plugin&utm_campaign=dlm', admin_url( 'admin.php?page=wc-settings&tab=pdf-ink-lite&section=more_info' ) ); ?>
+					__( 'Need guaranteed watermarking for complex PDFs in Download Monitor? Upgrade to <a href="%s" target="_blank" rel="noopener">the full version of PDF Ink</a> with the <a href="%s" target="_blank" rel="noopener">SetaPDF-Stamper add-on</a>. You can <a href="%s" target="_blank" rel="noopener">demo it for free online</a>. The greyed-out options below are <a href="%s">premium features</a> waiting in the paid version!', 'waterwoo-pdf' ), 'https://pdfink.com/?source=free_plugin&utm_campaign=dlm', 'https://pdfink.com/documentation/libraries/#recommendation?source=free_plugin&utm_campaign=dlm', 'https://pdfink.com/demo/?source=free_plugin&utm_campaign=dlm', admin_url( 'admin.php?page=wc-settings&tab=pdf-ink-lite&section=more_info' ) ); ?>
 			</p>
 		</div>
 	</div>
